@@ -1,0 +1,146 @@
+<?php
+
+/**
+ * Options with Postmatic defaults and helpers added.
+ * @since 2.0.0
+ */
+class Prompt_Options extends scbOptions {
+	/** @var array */
+	protected $overridden_options;
+
+	/**
+	 * Prompt_Options constructor.
+	 * @since 2.0.0
+	 * @param string $key
+	 * @param string $file
+	 * @param array $defaults
+	 */
+	public function __construct( $key = 'prompt_options', $file = __FILE__, $defaults = array() ) {
+
+		$invite_subject = sprintf( __( 'You\'re invited to subscribe to %s', 'Postmatic' ), get_option( 'blogname' ) );
+
+		$invite_intro = __(
+			'This is an invitation to subscribe to email updates from this website. We hope it is welcome, but we promise we won\'t contact you again unless you respond.',
+			'Postmatic'
+		);
+
+		$subscribed_introduction = '<h2>' . __( 'Thanks for signing up!', 'Postmatic' ) . '</h2>' .
+			'<p>' . __( 'We\'re glad you\'ve decided to join and hope you enjoy our posts.', 'Postmatic' ) . '</p>';
+
+		$standard_defaults = array(
+			'auto_subscribe_authors' => true,
+			'prompt_key' => '',
+			'site_subscription_post_types' => array( 'post' ),
+			'skip_notices' => array(),
+			'service_notices' => array(),
+			'whats_new_notices' => array(),
+			'skip_widget_intro' => false,
+			'skip_akismet_intro' => false,
+			'skip_zero_spam_intro' => false,
+			'skip_local_mail_intro' => false,
+			'skip_moderation_user_intro' => false,
+			'skip_download_intro' => true,
+			'redirect_to_options_page' => true,
+			'send_login_info' => false,
+			'email_header_type' => Prompt_Enum_Email_Header_Types::TEXT,
+			'email_header_image' => 0,
+			'email_header_text' => get_option( 'blogname' ),
+			'email_footer_type' => Prompt_Enum_Email_Footer_Types::WIDGETS,
+			'email_footer_text' => '',
+			'email_footer_credit' => true,
+			'plan' => '',
+			'email_transport' => Prompt_Enum_Email_Transports::LOCAL,
+			'messages' => array( 'welcome' => __( 'Welcome!', 'Postmatic' ) ),
+			'invite_subject' => $invite_subject,
+			'invite_introduction' => $invite_intro,
+			'last_version' => 0,
+			'enable_collection' => false,
+			'site_icon' => 0,
+			'no_post_featured_image_default' => false,
+			'no_post_email_default' => false,
+			'enabled_message_types' => array(),
+			'excerpt_default' => false,
+			'comment_opt_in_default' => false,
+			'comment_opt_in_text' => __( 'Join the conversation via an occasional email', 'Postmatic' ),
+			'comment_flood_control_trigger_count' => 4,
+			'comment_snob_notifications' => false,
+			'upgrade_required' => false,
+			'enable_optins' => false,
+			'enable_skimlinks' => false,
+			'skimlinks_publisher_id' => '',
+			'enable_webhooks' => false,
+			'webhooks_urls' => array(),
+			'emails_per_chunk' => 25,
+			'enable_digests' => false,
+			'digest_plans' => array(),
+			'site_styles' => array(),
+			'enable_invites' => false,
+			'enable_mailchimp_import' => false,
+			'enable_jetpack_import' => false,
+			'enable_mailpoet_import' => false,
+			'enable_post_delivery' => true,
+			'enable_comment_delivery' => true,
+			'subscribed_introduction' => $subscribed_introduction,
+			'connection_status' => '',
+			'scr_import_done' => false,
+			'enable_notes' => false,
+			'enable_analytics' => true,
+			'account_email' => '',
+		);
+
+		$defaults = array_merge( $standard_defaults, $defaults );
+		$defaults = apply_filters( 'prompt/default_options', $defaults );
+		$defaults = array_merge( $defaults, Prompt_Optins::options_fields() );
+
+		$this->prevent_options_errors( $key );
+
+		parent::__construct( $key, $file, $defaults );
+
+		/**
+		 * Filter overridden options.
+		 *
+		 * @param array $overridden_options
+		 * @param array $current_options
+		 */
+		$filtered_options = apply_filters( 'prompt/override_options', array(), $this->get() );
+
+		$this->overridden_options = wp_array_slice_assoc( $filtered_options, array_keys( $this->get() ) );
+		if ( !empty( $this->overridden_options ) ) {
+			$this->set( $this->overridden_options );
+		}
+	}
+
+	/**
+	 * Options that have been overridden by filtered values.
+	 * @since 2.0.0
+	 * @return array
+	 */
+	public function get_overridden_options() {
+		return $this->overridden_options;
+	}
+
+	/**
+	 * Shorthand to check the current email transport.
+	 *
+	 * @since 2.0.0
+	 * @return bool
+	 */
+	public function is_api_transport() {
+		return ( Prompt_Enum_Email_Transports::API == $this->get( 'email_transport' ) );
+	}
+
+	/**
+	 * Detect and prevent options default errors.
+	 *
+	 * It seems that defaults may not work on Windows, and cause errors.
+	 *
+	 * @since 2.0.0
+	 * @param string $key
+	 */
+	protected function prevent_options_errors( $key ) {
+		if ( ! is_array( get_option( $key, array() ) ) ) {
+			update_option( $key, array() );
+		}
+	}
+
+}

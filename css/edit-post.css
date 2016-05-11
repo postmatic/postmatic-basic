@@ -1,0 +1,31 @@
+#prompt_custom_html_metabox h4 {
+	color: #AA0000;
+}
+
+#prompt_custom_html_metabox h4 small {
+	display: block;
+	color: black;
+	font-weight: normal;
+	padding-top: 2px;
+}
+
+#prompt_custom_html_metabox p {
+	font-weight: bold;
+}
+
+.prompt-misc-pub-content {
+	margin: 5px 0;
+}
+
+.prompt-misc-pub-content a {
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.prompt-misc-pub-content a span.ok {
+	color: #27ae60;
+}
+
+.prompt-misc-pub-content a span.check {
+	color: #AA0000;
+}

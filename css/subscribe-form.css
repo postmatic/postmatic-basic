@@ -1,0 +1,122 @@
+/* line 1, ../sass/subscribe-form.scss */
+form.prompt-subscribe label.prompt-topic {
+  display: none;
+}
+.loading-indicator {
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 100%;
+  -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
+  animation: sk-scaleout 1.0s infinite ease-in-out;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s linear, visibility 2s ease;
+  position: absolute;
+  top: 0;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.loading-indicator.active {
+visibility: visible;
+opacity: 1;
+}
+
+
+@-webkit-keyframes sk-scaleout {
+  0% { -webkit-transform: scale(0) }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% { 
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  } 100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+.prompt-subscribe {
+  position: relative;
+}
+
+.prompt-subscribe input {margin-bottom: 5px;}
+
+.om-custom-html-form .prompt-subscribe input {
+    margin: 5px !important;
+    width: 30% !important;
+}
+
+.message, .message p {
+  margin: 0;
+  padding: 0;
+}
+
+.prompt-subscribe .inputs, .prompt-subscribe .subscribe {
+visibility: hidden;
+opacity: 0;
+transition: visibility 0.2s ease, opacity 0.2s linear;
+}
+
+.prompt-subscribe .inputs.active, .prompt-subscribe .subscribe.active {
+visibility: visible;
+opacity: 1;
+top: 0;
+}
+
+.prompt-subscribe .message {
+visibility: hidden;
+opacity: 0;
+transition: opacity 1s linear, visibility 1s ease;
+position: absolute;
+top: 0;
+}
+
+.prompt-subscribe .message.active {
+visibility: visible;
+opacity: 1;
+}
+/*tooltip for the future*/
+#prompt-comment-subscribe {
+  position: relative;
+  display: inline;
+}
+#prompt-comment-subscribe em {
+  position: absolute;
+  width:140px;
+  color: #FFFFFF;
+  background: #000000;
+  height: 28px;
+  line-height: 28px;
+  text-align: center;
+  visibility: hidden;
+  border-radius: 4px;
+}
+#prompt-comment-subscribe em:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 100%;
+  margin-top: -8px;
+  width: 0; height: 0;
+  border-right: 8px solid #000000;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+}
+span:hover#prompt-comment-subscribe em  {
+  visibility: visible;
+  opacity: 0.6;
+  left: 100%;
+  top: 50%;
+  margin-top: -14px;
+  margin-left: 15px;
+  z-index: 999;
+}

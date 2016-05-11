@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model xlink:href="/usr/share/php5/PEAR/data/phing/etc/phing-grammar.rng"
+        type="application/xml"
+        schematypens="http://relaxng.org/ns/structure/1.0" ?>
+
+<project name="postmatic" default="dist">
+
+    <exec command="grep 'Version:' postmatic.php | sed -E 's/^.*Version: (.*)$/\1/'" outputProperty="version" />
+
+    <tstamp/>
+
+    <property name="tag" value="${version}-${DSTAMP}-${TSTAMP}"/>
+    <property name="dist_dir" value="./build"/>
+    <property name="build_dir" value="${dist_dir}/${tag}"/>
+    <property name="zip_file" value="${phing.project.name}-${version}.zip"/>
+    <property name="dropbox_dir" value="${env.HOME}/Dropbox/Prompt"/>
+    <property name="svn_dir" value="/tmp/svn-postmatic"/>
+
+    <target name="prepare">
+
+        <mkdir dir="${build_dir}" />
+
+    </target>
+
+    <fileset dir="." id="distribution_files">
+        <include name="postmatic.php"/>
+        <include name="readme.txt"/>
+        <include name="core/**"/>
+        <include name="admin/**"/>
+        <include name="interfaces/**"/>
+        <include name="enums/**"/>
+        <include name="css/**"/>
+        <include name="js/**"/>
+        <include name="media/**"/>
+        <include name="templates/**"/>
+        <include name="lang/**"/>
+    </fileset>
+
+    <fileset dir="." id="dependency_files">
+        <include name="vendor/vernal-creative/**"/>
+        <include name="vendor/scribu/**"/>
+        <include name="vendor/mailchimp/**"/>
+        <include name="vendor/calderawp/**"/>
+        <include name="vendor/xamin/**"/>
+        <include name="vendor/yahnis-elsts/**"/>
+        <include name="vendor/freemius/**"/>
+    </fileset>
+
+    <target name="build" depends="prepare">
+        <append destFile="${build_dir}/version" text="${tag}" />
+
+        <copy todir="${build_dir}">
+            <fileset refid="distribution_files" />
+        </copy>
+
+        <jsmin targetDir="${build_dir}/js" suffix=".min">
+            <fileset dir="${build_dir}/js">
+                <include name="**/*.js" />
+            </fileset>
+        </jsmin>
+
+        <exec command="./vendor/bin/makepot wp-plugin ${build_dir} ${build_dir}/lang/Postmatic.pot" passthru="true" />
+
+        <copy todir="${build_dir}">
+            <fileset refid="dependency_files" />
+        </copy>
+
+    </target>
+
+    <target name="dist" depends="build">
+
+        <zip destfile="${dist_dir}/${zip_file}" prefix="${phing.project.name}/">
+            <fileset dir="${build_dir}">
+                <include name="**" />
+                <exclude name="." />
+            </fileset>
+        </zip>
+
+        <echo msg="Completed build ${tag}." />
+    </target>
+
+    <target name="test" depends="build">
+
+        <exec command="export PLUGIN_DIR=${build_dir}; ./vendor/bin/phpunit" passthru="true" checkreturn="true" />
+
+    </target>
+
+   <target name="deploy-wp-assets" depends="build">
+        <delete dir="${svn_dir}/assets" />
+
+        <mkdir dir="${svn_dir}/assets" />
+
+        <exec command="svn checkout http://plugins.svn.wordpress.org/postmatic/assets ${svn_dir}/assets" />
+
+        <delete>
+            <fileset dir="${svn_dir}/assets">
+                <exclude name="*.svn*"/>
+            </fileset>
+        </delete>
+
+        <copy todir="${svn_dir}/assets">
+            <fileset dir="wp-org-assets"/>
+        </copy>
+
+        <exec command="svn stat ${svn_dir}/assets | grep '^\?' | awk '{print $2}' | xargs svn add" />
+        <exec command="svn stat ${svn_dir}/assets | grep '^\!' | awk '{print $2}' | xargs svn rm" />
+
+        <exec command="svn commit ${svn_dir}/assets -m 'deploy from build of ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
+    </target>
+
+    <target name="deploy-wp" depends="deploy-wp-assets">
+        <delete dir="${svn_dir}/trunk" />
+
+        <mkdir dir="${svn_dir}/trunk" />
+
+        <exec command="svn checkout http://plugins.svn.wordpress.org/postmatic/trunk ${svn_dir}/trunk" />
+
+        <delete>
+            <fileset dir="${svn_dir}/trunk">
+                <exclude name="*.svn*"/>
+            </fileset>
+        </delete>
+
+        <copy todir="${svn_dir}/trunk">
+            <fileset dir="${build_dir}"/>
+        </copy>
+
+        <exec command="svn stat ${svn_dir}/trunk | grep '^\?' | awk '{print $2}' | xargs svn add" />
+        <exec command="svn stat ${svn_dir}/trunk | grep '^\!' | awk '{print $2}' | xargs svn rm" />
+
+        <exec command="svn commit ${svn_dir}/trunk -m 'deploy from build of ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
+
+        <exec command="svn copy http://plugins.svn.wordpress.org/postmatic/trunk http://plugins.svn.wordpress.org/postmatic/tags/${version} -m 'Tagging ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
+    </target>
+
+     <target name="clean">
+        <delete dir="./build"/>
+    </target>
+</project>

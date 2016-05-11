@@ -1,0 +1,25 @@
+{
+	"name": "prompt/prompt-core",
+	"description": "The free Postmatic core feature WordPress plugin.",
+	"type": "wordpress-plugin",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/vernal-creative/html-to-markdown"
+		}
+	],
+	"require": {
+		"scribu/scb-framework": "dev-master",
+		"vernal-creative/html-to-markdown": "dev-postmatic",
+		"mailchimp/mailchimp": "dev-master",
+		"calderawp/caldera-modals" : "dev-master",
+		"xamin/handlebars.php": "dev-php-52",
+		"freemius/wordpress-sdk": "1.1.8"
+	},
+	"require-dev": {
+		"phing/phing": "2.8.*",
+		"phpunit/phpunit": "4.2.*",
+		"tedivm/jshrink": "1.0.*",
+		"rosio/wordpress-i18n-tools": "dev-master"
+	}
+}
