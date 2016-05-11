@@ -361,7 +361,7 @@ Class PromptCommentCommandTest extends Prompt_MockMailerTestCase {
 		$commenter_id = $this->factory->user->create();
 		$comment_text = 'TEST COMMENT';
 
-		self::factory()->comment->create(
+		$this->factory->comment->create(
 			array(
 				'user_id' => $commenter_id,
 				'comment_content' => $comment_text,

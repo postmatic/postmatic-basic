@@ -35,7 +35,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testFormContentLoggedOut() {
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 
 		$this->assertFalse( is_user_logged_in(), 'Assumed a logged out user.' );
 
@@ -51,7 +51,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	function testFormContentDeliveryOff() {
 		Prompt_Core::$options->set( 'enable_comment_delivery', false );
 
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 
 		$this->assertFalse( is_user_logged_in(), 'Assumed a logged out user.' );
 
@@ -67,8 +67,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testFormContentLoggedIn() {
-		$user_id = self::factory()->user->create();
-		$post_id = self::factory()->post->create();
+		$user_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create();
 
 		wp_set_current_user( $user_id );
 
@@ -84,8 +84,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testFormContentSubscribed() {
-		$post_id = self::factory()->post->create();
-		$user_id = self::factory()->user->create();
+		$post_id = $this->factory->post->create();
+		$user_id = $this->factory->user->create();
 		wp_set_current_user( $user_id );
 
 		$prompt_post = new Prompt_Post( $post_id );
@@ -101,8 +101,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testFormContentUnsubscribed() {
-		$post_id = self::factory()->post->create();
-		$user_id = self::factory()->user->create();
+		$post_id = $this->factory->post->create();
+		$user_id = $this->factory->user->create();
 		wp_set_current_user( $user_id );
 
 		$content = $this->getCommentFormContent( $post_id );
@@ -115,8 +115,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeNewUser() {
-		$author_id = self::factory()->user->create();
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
 			'comment_author' => 'testy',
 			'comment_author_email' => 'tester@prompt.vern.al',
@@ -125,7 +125,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$comment_id = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -140,9 +140,9 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeExistingUserLoggedOut() {
-		$author_id = self::factory()->user->create();
-		$subscriber = self::factory()->user->create_and_get();
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create();
+		$subscriber = $this->factory->user->create_and_get();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
 			'comment_author' => $subscriber->display_name,
 			'comment_author_email' => $subscriber->user_email,
@@ -151,7 +151,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$comment_id = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -181,8 +181,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeNewModeratedUser() {
-		$author_id = self::factory()->user->create();
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
 			'comment_author' => 'testy',
 			'comment_author_email' => 'tester@prompt.vern.al',
@@ -192,7 +192,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$comment = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -208,8 +208,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotSubscribeSpamCommenter() {
-		$author_id = self::factory()->user->create();
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
 			'comment_author' => 'spammy',
 			'comment_author_email' => 'spammer@example.com',
@@ -218,7 +218,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$comment_id = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -230,8 +230,8 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotSubscribeInvalidAuthorEmail() {
-		$author_id = self::factory()->user->create();
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
 			'comment_author' => 'Faker',
 			'comment_author_email' => 'foo',
@@ -240,7 +240,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$comment_id = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -252,9 +252,9 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeCurrentUser() {
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 
-		$user_id = self::factory()->user->create();
+		$user_id = $this->factory->user->create();
 		wp_set_current_user( $user_id );
 
 		$this->mail_data->comment = array(
@@ -262,7 +262,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 			'comment_post_ID' => $post_id,
 		);
 
-		$comment_id = self::factory()->comment->create_and_get( $this->mail_data->comment );
+		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 
@@ -295,10 +295,10 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotUnsubscribeCurrentUser() {
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 		$prompt_post = new Prompt_Post( $post_id );
 
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		wp_set_current_user( $user->ID );
 		$prompt_post->subscribe( $user->ID );
 
@@ -308,7 +308,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 			'comment_post_ID' => $post_id,
 		);
 
-		$comment_id = self::factory()->comment->create_and_get( $comment );
+		$comment_id = $this->factory->comment->create_and_get( $comment );
 
 		Prompt_Comment_Form_Handling::handle_form( $comment_id, '1' );
 
@@ -316,9 +316,9 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotUnsubscribeEmailAddress() {
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 
 		wp_set_current_user( 0 );
 
@@ -328,7 +328,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 			'comment_post_ID' => $post_id,
 		);
 
-		$comment_id = self::factory()->comment->create_and_get( $comment );
+		$comment_id = $this->factory->comment->create_and_get( $comment );
 
 		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
 

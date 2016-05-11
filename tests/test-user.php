@@ -255,12 +255,12 @@ class UserTest extends WP_UnitTestCase {
 	
 	function testDeleteAllSubscriptionsReturn() {
 		
-		$prompt_user = new Prompt_User( self::factory()->user->create_and_get() );
+		$prompt_user = new Prompt_User( $this->factory->user->create_and_get() );
 		
 		$site = new Prompt_Site();
 		$site->subscribe( $prompt_user->id() );
 		
-		$author = new Prompt_User( self::factory()->user->create_and_get() );
+		$author = new Prompt_User( $this->factory->user->create_and_get() );
 		$author->subscribe( $prompt_user->id() );
 		
 		$unsub_lists = $prompt_user->delete_all_subscriptions();

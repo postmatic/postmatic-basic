@@ -28,12 +28,12 @@ Class PromptPostRequestCommandTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSendPost() {
-		$author_id = self::factory()->user->create( array( 'role' => 'author' ) );
-		$post_id = self::factory()->post->create( array( 'post_content' => 'XXCONTENTXX', 'post_author' => $author_id ) );
+		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
+		$post_id = $this->factory->post->create( array( 'post_content' => 'XXCONTENTXX', 'post_author' => $author_id ) );
 		update_post_meta( $post_id, 'prompt_excerpt_only', 1 );
 
 		$this->mail_data->post = get_post( $post_id );
-		$recipient_id = self::factory()->user->create();
+		$recipient_id = $this->factory->user->create();
 		$this->mail_data->recipient = get_userdata( $recipient_id );
 
 		$message = new stdClass();

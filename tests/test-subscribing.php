@@ -78,10 +78,10 @@ class SubscriptionHandlingTest extends WP_UnitTestCase {
 
 		$this->assertEquals( 'site/' . get_current_blog_id(), Prompt_Subscribing::get_subscribable_slug( new Prompt_Site() ) );
 
-		$prompt_user = new Prompt_User( self::factory()->user->create() );
+		$prompt_user = new Prompt_User( $this->factory->user->create() );
 		$this->assertEquals( 'user/' . $prompt_user->id(), Prompt_Subscribing::get_subscribable_slug( $prompt_user ) );
 		
-		$prompt_post = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
 		$this->assertEquals( 'post/' . $prompt_post->id(), Prompt_Subscribing::get_subscribable_slug( $prompt_post ) );
 	}
 }

@@ -313,7 +313,7 @@ class PromptAjaxTest extends WP_Ajax_UnitTestCase {
 	}
 
 	public function testSubscribeWidgetListContent() {
-		$user_id = self::factory()->user->create();
+		$user_id = $this->factory->user->create();
 		$_GET['widget_id'] = '-1';
 		$_GET['list_type'] = 'Prompt_User';
 		$_GET['list_id'] = $user_id;

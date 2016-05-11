@@ -9,7 +9,7 @@ class PostTest extends Prompt_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
-		$this->_wp_post = self::factory()->post->create_and_get();
+		$this->_wp_post = $this->factory->post->create_and_get();
 		$this->_prompt_post = new Prompt_Post( $this->_wp_post->ID );
 	}
 
@@ -36,8 +36,8 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testSubscribe() {
-		$user1_id = self::factory()->user->create();
-		$user2_id = self::factory()->user->create();
+		$user1_id = $this->factory->user->create();
+		$user2_id = $this->factory->user->create();
 
 		$ids = get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );
 
@@ -55,8 +55,8 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testUnsubscribe() {
-		$user1_id = self::factory()->user->create();
-		$user2_id = self::factory()->user->create();
+		$user1_id = $this->factory->user->create();
+		$user2_id = $this->factory->user->create();
 
 		$ids = array( $user1_id, $user2_id );
 		update_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, $ids );
@@ -129,11 +129,11 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testSubscribedObjectIds() {
-		$user_ids = self::factory()->user->create_many( 4 );
+		$user_ids = $this->factory->user->create_many( 4 );
 
-		$prompt_post1 = new Prompt_Post( self::factory()->post->create() );
-		$prompt_post2 = new Prompt_Post( self::factory()->post->create() );
-		$prompt_post3 = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post1 = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post2 = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post3 = new Prompt_Post( $this->factory->post->create() );
 
 		$prompt_post1->subscribe( $user_ids[0] );
 		$prompt_post1->subscribe( $user_ids[1] );
@@ -162,11 +162,11 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testAllSubscriberIds() {
-		$user_ids = self::factory()->user->create_many( 4 );
+		$user_ids = $this->factory->user->create_many( 4 );
 
-		$prompt_post1 = new Prompt_Post( self::factory()->post->create() );
-		$prompt_post2 = new Prompt_Post( self::factory()->post->create() );
-		$prompt_post3 = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post1 = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post2 = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post3 = new Prompt_Post( $this->factory->post->create() );
 
 		$prompt_post1->subscribe( $user_ids[0] );
 		$prompt_post1->subscribe( $user_ids[1] );
@@ -181,11 +181,11 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testRecipientIds() {
-		$subscriber_ids = self::factory()->user->create_many( 3 );
+		$subscriber_ids = $this->factory->user->create_many( 3 );
 
-		$author_id = self::factory()->user->create();
+		$author_id = $this->factory->user->create();
 
-		$post_id = self::factory()->post->create( array( 'post_author' => $author_id, 'post_status' => 'draft' ) );
+		$post_id = $this->factory->post->create( array( 'post_author' => $author_id, 'post_status' => 'draft' ) );
 
 		$site = new Prompt_Site();
 		$author = new Prompt_User( $author_id );
@@ -211,9 +211,9 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testRepublishRecipientIds() {
-		$subscriber_ids = self::factory()->user->create_many( 2 );
+		$subscriber_ids = $this->factory->user->create_many( 2 );
 
-		$post = self::factory()->post->create_and_get();
+		$post = $this->factory->post->create_and_get();
 
 		$site = new Prompt_Site();
 
@@ -263,11 +263,11 @@ class PostTest extends Prompt_UnitTestCase {
 
 		remove_action( 'transition_post_status', array( 'Prompt_Outbound_Handling', 'action_transition_post_status' ), 10, 3 );
 
-		$user_id = self::factory()->user->create();
+		$user_id = $this->factory->user->create();
 
 		$site = new Prompt_Site();
 
-		$prompt_post = new Prompt_Post( self::factory()->post->create( array( 'post_status' => 'draft' ) ) );
+		$prompt_post = new Prompt_Post( $this->factory->post->create( array( 'post_status' => 'draft' ) ) );
 
 		$site->subscribe( $user_id );
 
@@ -287,7 +287,7 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testBatchStorage() {
-		$prompt_post = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
 
 		$prompt_post->add_outbound_message_batch_ids( 1 );
 		$prompt_post->add_outbound_message_batch_ids( 1 );
@@ -303,7 +303,7 @@ class PostTest extends Prompt_UnitTestCase {
 
 	
 	function testCustomHTML() {
-		$prompt_post = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
 		
 		$this->assertEmpty( 
 			$prompt_post->get_custom_html(),
@@ -327,8 +327,8 @@ class PostTest extends Prompt_UnitTestCase {
 	
 	// Mulling over the necessity of this method
 	function donttestUniqueSubscribers() {
-		$author_ids = self::factory()->user->create_many( 2 );
-		$subscriber_ids = self::factory()->user->create_many( 4 );
+		$author_ids = $this->factory->user->create_many( 2 );
+		$subscriber_ids = $this->factory->user->create_many( 4 );
 
 		Prompt_Subscription::ensure_subscribed( 'user', $subscriber_ids[0], $author_ids[0] );
 		Prompt_Subscription::ensure_subscribed( 'user', $subscriber_ids[1], $author_ids[0] );
@@ -341,7 +341,7 @@ class PostTest extends Prompt_UnitTestCase {
 		$this->assertContains( $subscriber_ids[1], $author_subscribers );
 		$this->assertContains( $subscriber_ids[2], $author_subscribers );
 
-		$post_ids = self::factory()->post->create_many( 2 );
+		$post_ids = $this->factory->post->create_many( 2 );
 		Prompt_Subscription::ensure_subscribed( 'post', $subscriber_ids[0], $post_ids[0] );
 		Prompt_Subscription::ensure_subscribed( 'post', $subscriber_ids[1], $post_ids[0] );
 		Prompt_Subscription::ensure_subscribed( 'post', $subscriber_ids[1], $post_ids[1] );

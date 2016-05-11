@@ -3,8 +3,8 @@
 class CommentEmailTest extends Prompt_UnitTestCase {
 
 	function testDefault() {
-		$post_id = self::factory()->post->create();
-		$comment = self::factory()->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
 
 		$batch = new Prompt_Comment_Email_Batch( $comment );
 
@@ -24,8 +24,8 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 	}
 
 	function testAnonymous() {
-		$post_id = self::factory()->post->create();
-		$comment = self::factory()->comment->create_and_get( array(
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 			'comment_author' => '',
 		) );
@@ -41,9 +41,9 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 	}
 
 	function testDefaultRecipient() {
-		$post_id = self::factory()->post->create();
-		$comment = self::factory()->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
-		$recipient = self::factory()->user->create_and_get();
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+		$recipient = $this->factory->user->create_and_get();
 		$prompt_post = new Prompt_Post( $post_id );
 		$prompt_post->subscribe( $recipient->ID );
 
@@ -66,16 +66,16 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 	}
 	
 	function testPersonalizedSubject() {
-		$post_id = self::factory()->post->create();
-		$parent_author = self::factory()->user->create_and_get();
-		$parent_comment = self::factory()->comment->create_and_get( array( 
+		$post_id = $this->factory->post->create();
+		$parent_author = $this->factory->user->create_and_get();
+		$parent_comment = $this->factory->comment->create_and_get( array( 
 			'comment_post_ID' => $post_id,
 			'comment_author_email' => $parent_author->user_email,
 		) );
 		$prompt_post = new Prompt_Post( $post_id );
 		$prompt_post->subscribe( $parent_author->ID );
 		
-		$child_comment = self::factory()->comment->create_and_get( array( 
+		$child_comment = $this->factory->comment->create_and_get( array( 
 			'comment_post_ID' => $post_id,
 			'comment_parent' => $parent_comment->comment_ID,
 		) );
@@ -92,16 +92,16 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 
 	function testReplyUnrenderedContent() {
 		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API );
-		$post_id = self::factory()->post->create();
-		$parent_comment = self::factory()->comment->create_and_get( array(
+		$post_id = $this->factory->post->create();
+		$parent_comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 		) );
-		$comment = self::factory()->comment->create_and_get( array(
+		$comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 			'comment_parent' => $parent_comment->comment_ID,
 			'comment_content' => 'XXCONTENTXX',
 		) );
-		$recipient = self::factory()->user->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 		$prompt_post = new Prompt_Post( $post_id );
 		$prompt_post->subscribe( $recipient->ID );
 
@@ -178,9 +178,9 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 	}
 
 	function testLock() {
-		$post_id = self::factory()->post->create();
-		$comment = self::factory()->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
-		$recipient = self::factory()->user->create_and_get();
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+		$recipient = $this->factory->user->create_and_get();
 		$prompt_post = new Prompt_Post( $post_id );
 		$prompt_post->subscribe( $recipient->ID );
 

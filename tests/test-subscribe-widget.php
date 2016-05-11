@@ -44,7 +44,7 @@ class SubscribeWidgetTest extends WP_UnitTestCase {
 	}
 
 	function testListWidgetContent() {
-		$this->instance['list'] = new Prompt_Post( self::factory()->post->create() );
+		$this->instance['list'] = new Prompt_Post( $this->factory->post->create() );
 		ob_start();
 		$this->widget->widget( $this->args, $this->instance );
 		$this->verifyWidgetOutput( ob_get_clean() );

@@ -21,9 +21,9 @@ class HtmlMetaboxTest extends WP_UnitTestCase {
 	}
 
 	function makeLoggedInAuthorPost( $status = 'draft' ) {
-		$author_id = self::factory()->user->create( array( 'role' => 'author' ) );
+		$author_id = $this->factory->user->create( array( 'role' => 'author' ) );
 		wp_set_current_user( $author_id );
-		$post = self::factory()->post->create_and_get( array( 'post_status' => $status, 'post_author' => $author_id ) );
+		$post = $this->factory->post->create_and_get( array( 'post_status' => $status, 'post_author' => $author_id ) );
 		return $post;
 	}
 
@@ -34,7 +34,7 @@ class HtmlMetaboxTest extends WP_UnitTestCase {
 	
 	function testPrintPublishBoxMessageOkay() {
 
-		$post = self::factory()->post->create_and_get();
+		$post = $this->factory->post->create_and_get();
 
 		ob_start();
 		Prompt_Admin_HTML_Metabox::print_publish_box_message( $post );
@@ -46,7 +46,7 @@ class HtmlMetaboxTest extends WP_UnitTestCase {
 		
 	function testPrintPublishBoxCustomizedMessageOkay() {
 
-		$post = self::factory()->post->create_and_get( array( 'post_content' => 'a [random] shortcode' ) );
+		$post = $this->factory->post->create_and_get( array( 'post_content' => 'a [random] shortcode' ) );
 		
 		$prompt_post = new Prompt_Post( $post );
 		
@@ -62,7 +62,7 @@ class HtmlMetaboxTest extends WP_UnitTestCase {
 	
 	function testPrintPublishBoxMessageCheck() {
 
-		$post = self::factory()->post->create_and_get( array( 'post_content' => 'a [random] shortcode' ) );
+		$post = $this->factory->post->create_and_get( array( 'post_content' => 'a [random] shortcode' ) );
 
 		ob_start();
 		Prompt_Admin_HTML_Metabox::print_publish_box_message( $post );
