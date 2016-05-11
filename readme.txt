@@ -1,7 +1,7 @@
 === Postmatic Basic - Subscribe to Comments & Posts. And reply. ===
 Contributors: vernal
 Tags: email, notification, subscribe, subscription, email, subscribe to comments, commenting, reply, email, optins, popups, optin forms, subscribe form, subscriptions, newsletter, newsletters, email newsletter, email subscription, post notification, email subscription, mailchimp, mailgun, email commenting, reply to email, email replies, engagement, invitations
-Requires at least: 3.9
+Requires at least: 4.2
 Tested up to: 4.5
 Stable tag: trunk
 License: GPLv2 or later

@@ -8,7 +8,7 @@
   Author URI: http://gopostmatic.com/
   Text Domain: Postmatic
   Domain Path: /lang
-  Minimum WordPress Version Required: 3.9
+  Minimum WordPress Version Required: 4.2
  */
 
 /*
