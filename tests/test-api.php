@@ -37,7 +37,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 	function testSubscribeUser() {
 
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUserSubscriberEmail' ) );
@@ -52,7 +52,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 		$lists = array( 'site', 'site_comments' );
 
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUserSubscriberEmail' ) );
@@ -80,7 +80,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeExisting() {
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 
 		$site = new Prompt_Site();
 		$site->subscribe( $user->ID );
@@ -102,7 +102,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testUnsubscribe() {
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
 
 		$site = new Prompt_Site();
@@ -117,13 +117,13 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 	function testUnsubscribeFromList() {
 		
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
 		
 		$site = new Prompt_Site();
 		$site->subscribe( $user->ID );
 
-		$prompt_author = new Prompt_User( self::factory()->user->create_and_get() );
+		$prompt_author = new Prompt_User( $this->factory->user->create_and_get() );
 		$prompt_author->subscribe( $user->ID );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUserSubscriberEmail' ) );
@@ -143,7 +143,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testAlreadyUnsubscribed() {
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 
 		$this->mailer_expects = $this->never();
 

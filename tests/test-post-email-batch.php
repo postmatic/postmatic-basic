@@ -4,7 +4,7 @@ class PostEmailTest extends WP_UnitTestCase {
 
 	function testDefaults() {
 
-		$post = self::factory()->post->create_and_get();
+		$post = $this->factory->post->create_and_get();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -50,8 +50,8 @@ class PostEmailTest extends WP_UnitTestCase {
 
 	function testDefaultRecipient() {
 
-		$post = self::factory()->post->create_and_get();
-		$recipient = self::factory()->user->create_and_get();
+		$post = $this->factory->post->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -70,7 +70,7 @@ class PostEmailTest extends WP_UnitTestCase {
 	 */
 	function testNonexistentRecipient() {
 
-		$post = self::factory()->post->create_and_get();
+		$post = $this->factory->post->create_and_get();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -83,9 +83,9 @@ class PostEmailTest extends WP_UnitTestCase {
 
 	function testAuthorSubscriberFromName() {
 
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
-		$post = self::factory()->post->create_and_get( array( 'post_author' => $author->ID ) );
-		$recipient = self::factory()->user->create_and_get();
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
+		$post = $this->factory->post->create_and_get( array( 'post_author' => $author->ID ) );
+		$recipient = $this->factory->user->create_and_get();
 
 		$prompt_author = new Prompt_User( $author );
 		$prompt_author->subscribe( $recipient->ID );
@@ -110,8 +110,8 @@ class PostEmailTest extends WP_UnitTestCase {
 	}
 
 	function testRecipientValues() {
-		$post = self::factory()->post->create_and_get();
-		$recipient = self::factory()->user->create_and_get();
+		$post = $this->factory->post->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 		$prompt_site = new Prompt_Site();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
@@ -129,9 +129,9 @@ class PostEmailTest extends WP_UnitTestCase {
 	}
 
 	function testClosedPost() {
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array(
+		$post = $this->factory->post->create_and_get( array(
 			'post_status' => 'draft',
 			'post_content' => 'XXCONTENTXX',
 			'post_excerpt' => 'XXEXCERPTXX',
@@ -139,7 +139,7 @@ class PostEmailTest extends WP_UnitTestCase {
 			'comment_status' => 'closed',
 		) );
 
-		$recipient = self::factory()->user->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -182,9 +182,9 @@ class PostEmailTest extends WP_UnitTestCase {
 	}
 
 	function testExcerptPostEmail() {
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array(
+		$post = $this->factory->post->create_and_get( array(
 			'post_status' => 'draft',
 			'post_content' => 'XXCONTENTXX',
 			'post_excerpt' => 'XXEXCERPTXX',
@@ -192,7 +192,7 @@ class PostEmailTest extends WP_UnitTestCase {
 			'comment_status' => 'closed',
 		) );
 
-		$recipient = self::factory()->user->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 
 		$_POST['post_ID'] = $post->ID;
 		$_POST['prompt_excerpt_only'] = 1;
@@ -217,9 +217,9 @@ class PostEmailTest extends WP_UnitTestCase {
 
 
 	function testOverrideExcerptPostEmail() {
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array(
+		$post = $this->factory->post->create_and_get( array(
 			'post_status' => 'draft',
 			'post_content' => 'XXCONTENTXX',
 			'post_excerpt' => 'XXEXCERPTXX',
@@ -229,7 +229,7 @@ class PostEmailTest extends WP_UnitTestCase {
 
 		add_post_meta( $post->ID, 'prompt_excerpt_only', 1 );
 
-		$recipient = self::factory()->user->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -249,9 +249,9 @@ class PostEmailTest extends WP_UnitTestCase {
 	}
 
 	function testUnrenderedContent() {
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array(
+		$post = $this->factory->post->create_and_get( array(
 			'post_content' => 'XXCONTENTXX',
 			'post_author' => $author->ID,
 		) );
@@ -275,9 +275,9 @@ class PostEmailTest extends WP_UnitTestCase {
 
 		add_filter( 'prompt/post_email_batch/extra_footnote_content', array( $mock_filter, 'filter' ) );
 
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array( 'post_author' => $author->ID, ) );
+		$post = $this->factory->post->create_and_get( array( 'post_author' => $author->ID, ) );
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -295,9 +295,9 @@ class PostEmailTest extends WP_UnitTestCase {
 		remove_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ) );
 		remove_action( 'wp_insert_comment', array( 'Prompt_Outbound_Handling', 'action_wp_insert_comment' ) );
 
-		$post = self::factory()->post->create_and_get();
-		$recipient = self::factory()->user->create_and_get();
-		$comment = self::factory()->comment->create_and_get( array( 'comment_post_ID' => $post->ID ) );
+		$post = $this->factory->post->create_and_get();
+		$recipient = $this->factory->user->create_and_get();
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post->ID ) );
 
 		$context = new Prompt_Post_Rendering_Context( $post->ID );
 
@@ -326,9 +326,9 @@ class PostEmailTest extends WP_UnitTestCase {
 	function testIncludeAuthorFilter() {
 		add_filter( 'prompt/new_post_email/include_author', '__return_true' );
 
-		$author = self::factory()->user->create_and_get( array( 'role' => 'author' ) );
+		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
-		$post = self::factory()->post->create_and_get( array(
+		$post = $this->factory->post->create_and_get( array(
 			'post_content' => 'XXCONTENTXX',
 			'post_author' => $author->ID,
 		) );

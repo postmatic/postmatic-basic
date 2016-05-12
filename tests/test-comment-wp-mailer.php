@@ -11,8 +11,8 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->post = self::factory()->post->create_and_get();
-		$this->user = self::factory()->user->create_and_get();
+		$this->post = $this->factory->post->create_and_get();
+		$this->user = $this->factory->user->create_and_get();
 		$this->data = new stdClass();
 
 		// Disable automatic scheduling
@@ -68,8 +68,8 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	}
 
 	function testCommentNotification() {
-		$this->data->post_subscriber = self::factory()->user->create_and_get();
-		$this->data->site_comments_subscriber = self::factory()->user->create_and_get();
+		$this->data->post_subscriber = $this->factory->user->create_and_get();
+		$this->data->site_comments_subscriber = $this->factory->user->create_and_get();
 
 		$subscriber_ids = array(
 			$this->data->post_subscriber->ID,
@@ -81,7 +81,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			->method( 'send' )
 			->will( $this->returnCallback( array( $this, 'verifyLocalMailing' ) ) );
 
-		$this->data->comment = self::factory()->comment->create_and_get( array(
+		$this->data->comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $this->post->ID,
 		) );
 
@@ -149,10 +149,10 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	}
 
 	function testAnonymousCommentNotification() {
-		$this->data->subscriber = self::factory()->user->create_and_get();
-		$post_id = self::factory()->post->create();
+		$this->data->subscriber = $this->factory->user->create_and_get();
+		$post_id = $this->factory->post->create();
 
-		$this->data->comment = self::factory()->comment->create_and_get( array(
+		$this->data->comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 			'comment_author' => '',
 			'comment_author_email' => '',
@@ -179,9 +179,9 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	}
 
 	function testCommentReplyNotification() {
-		$this->data->parent_author = self::factory()->user->create_and_get();
-		$child_author = self::factory()->user->create_and_get();
-		$post_id = self::factory()->post->create();
+		$this->data->parent_author = $this->factory->user->create_and_get();
+		$child_author = $this->factory->user->create_and_get();
+		$post_id = $this->factory->post->create();
 
 		$parent_comment = array(
 			'user_id' => $this->data->parent_author->ID,
@@ -247,11 +247,11 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		$chunk_size = 3;
 		Prompt_Core::$options->set( 'emails_per_chunk', $chunk_size );
 
-		$subscriber_ids = self::factory()->user->create_many( $chunk_size + 1 );
+		$subscriber_ids = $this->factory->user->create_many( $chunk_size + 1 );
 
-		$post_id = self::factory()->post->create();
+		$post_id = $this->factory->post->create();
 
-		$this->data->comment = self::factory()->comment->create_and_get( array(
+		$this->data->comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 		) );
 

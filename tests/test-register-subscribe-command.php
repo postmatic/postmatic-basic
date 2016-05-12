@@ -147,7 +147,7 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 		$comment_id = $this->addTempUserComment( $address, $post_id, $user_data );
 
 		// This can happen if a user responds to other registration emails first
-		$user_id = self::factory()->user->create( array( 'user_email' => $address ) );
+		$user_id = $this->factory->user->create( array( 'user_email' => $address ) );
 
 		$this->mailer_expects = $this->never();
 

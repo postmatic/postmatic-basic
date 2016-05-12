@@ -1,5 +1,6 @@
 <?php
 
+/** @group rest */
 class RestApiTest extends WP_UnitTestCase {
 
 	/** @var Prompt_Rest_Api */

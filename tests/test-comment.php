@@ -9,7 +9,7 @@ class CommentTest extends Prompt_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
-		$this->_wp_comment = self::factory()->comment->create_and_get();
+		$this->_wp_comment = $this->factory->comment->create_and_get();
 		$this->_prompt_comment = new Prompt_Comment( $this->_wp_comment->comment_ID );
 	}
 
@@ -91,15 +91,15 @@ class CommentTest extends Prompt_UnitTestCase {
 			'Expected no author user.'
 		);
 		
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 		
-		$id_comment = self::factory()->comment->create_and_get( array( 'user_id' => $user->ID ) );
+		$id_comment = $this->factory->comment->create_and_get( array( 'user_id' => $user->ID ) );
 		
 		$id_prompt_comment = new Prompt_Comment( $id_comment );
 		
 		$this->assertEquals( $user, $id_prompt_comment->get_author_user() );
 		
-		$email_comment = self::factory()->comment->create_and_get( array( 'comment_author_email' => $user->user_email ) );
+		$email_comment = $this->factory->comment->create_and_get( array( 'comment_author_email' => $user->user_email ) );
 		
 		$email_prompt_comment = new Prompt_Comment( $email_comment );
 		
@@ -110,9 +110,9 @@ class CommentTest extends Prompt_UnitTestCase {
 		
 		$this->assertEquals( $this->_wp_comment->comment_author, $this->_prompt_comment->get_author_name() );
 
-		$user = self::factory()->user->create_and_get();
+		$user = $this->factory->user->create_and_get();
 
-		$id_comment = self::factory()->comment->create_and_get( array( 'user_id' => $user->ID ) );
+		$id_comment = $this->factory->comment->create_and_get( array( 'user_id' => $user->ID ) );
 		
 		$id_prompt_comment = new Prompt_Comment( $id_comment );
 
@@ -124,12 +124,12 @@ class CommentTest extends Prompt_UnitTestCase {
 		$this->assertFalse( $this->_prompt_comment->author_can_subscribe(), 'Expected not to find subscriber data.' );
 		
 		$email_comment = new Prompt_Comment( 
-			self::factory()->comment->create( array( 'comment_author_email' => 'test@example.com' ) )
+			$this->factory->comment->create( array( 'comment_author_email' => 'test@example.com' ) )
 		);
 
 		$this->assertTrue( $email_comment->author_can_subscribe(), 'Expected to find subscriber data.' );
 
-		$user_comment = new Prompt_Comment( self::factory()->comment->create( array( 'user_id' => '5' ) ) );
+		$user_comment = new Prompt_Comment( $this->factory->comment->create( array( 'user_id' => '5' ) ) );
 
 		$this->assertTrue( $user_comment->author_can_subscribe(), 'Expected to find subscriber data.' );
 	}

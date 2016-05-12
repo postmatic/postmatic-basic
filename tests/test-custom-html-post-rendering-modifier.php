@@ -4,7 +4,7 @@ class CustomHTMLPostRenderingModifierTest extends WP_UnitTestCase {
 
 	function testCustomContent() {
 
-		$prompt_post = new Prompt_Post( self::factory()->post->create() );
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
 		
 		query_posts( array( 'p' => $prompt_post->id() ) );
 		

@@ -19,7 +19,7 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 	public function __construct(
 		Prompt_Comment_Email_Batch $batch,
 		Prompt_Interface_Http_Client $client = null,
-		callable $local_mailer = null,
+		$local_mailer = null,
 		$chunk = 0
 	) {
 		parent::__construct( $batch, $client, $local_mailer, $chunk );

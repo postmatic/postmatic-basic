@@ -10,6 +10,9 @@ class NoticeHandlingTest extends Prompt_MockMailerTestCase {
 
 	function testUpgradeNotice() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
+		if ( is_multisite() ) {
+			grant_super_admin( $admin_id );
+		}
 		wp_set_current_user( $admin_id );
 		Prompt_Core::$options->set( 'upgrade_required', true );
 
