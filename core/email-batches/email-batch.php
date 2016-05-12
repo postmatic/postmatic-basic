@@ -180,7 +180,12 @@ class Prompt_Email_Batch {
 
 		if ( Prompt_Core::$options->get( 'email_transport' ) == Prompt_Enum_Email_Transports::LOCAL ) {
 			// Get the site domain and get rid of www.
-			$domain = strtolower( $_SERVER['SERVER_NAME'] );
+			if ( isset( $_SERVER['SERVER_NAME'] ) ) {
+				$domain = $_SERVER['SERVER_NAME'];
+			} else {
+				preg_match( '#//([^/]*)/?#', home_url(), $matches );
+				$domain = $matches[1];
+			}
 			if ( substr( $domain, 0, 4 ) == 'www.' ) {
 				$domain = substr( $domain, 4 );
 			}
