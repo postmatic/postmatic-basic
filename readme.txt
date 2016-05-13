@@ -1,4 +1,4 @@
-=== Postmatic Basic - Subscribe to Comments & Posts. And reply. ===
+=== Postmatic Basic - Subscribe to Comments & Posts. And simply reply. ===
 Contributors: vernal
 Tags: email, notification, subscribe, subscription, email, subscribe to comments, commenting, reply, email, optins, popups, optin forms, subscribe form, subscriptions, newsletter, newsletters, email newsletter, email subscription, post notification, email subscription, mailchimp, mailgun, email commenting, reply to email, email replies, engagement, invitations
 Requires at least: 4.3
@@ -73,6 +73,13 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+
+= 2.0.1 =
+We have moved development to a public [Github repo](https://github.com/postmatic/postmatic-basic). This is our first atttempt at an awesome changelog which blends user-friendly info with developer-friendly code.
+
+- [Fixed a php error in admin caused by a legacy feed parser](https://github.com/postmatic/postmatic-basic/commit/05141972fe6475b2a087f0134bcde30ba2d45e15)
+- [Improved error logging](https://github.com/postmatic/postmatic-basic/commit/37fc0592955a49c38ad69f8491168b721635a63c)
+- [New banner assets](https://github.com/postmatic/postmatic-basic/commit/1615304221f87aae7391253d8b0b721ae4d3e111)
 
 = 2.0.0 =
 A complete rewrite of Postmatic Basic. We've put a ton of work into our technology and hope you enjoy it.

@@ -77,39 +77,7 @@ class Prompt_Admin_Support_Options_Tab extends Prompt_Admin_Options_Tab {
 			)
 		);
 
-		$content .= html( 'h3 id="news-header"', __( 'The Latest Postmatic News:', 'Postmatic' ) );
-		
-		$content .= $this->news_content();
-
 		return $this->form_wrap( $content, array( 'value' => __( 'Advanced: Send Diagnostic Info to Support', 'Postmatic') ) );
-	}
-
-	/**
-	 * Assemble news widget content
-	 * @return string content
-	 */
-	protected function news_content() {
-		$feed = fetch_feed( Prompt_Enum_Urls::NEWS_FEED );
-
-		if ( is_wp_error( $feed ) )
-			return __( 'No news available at the moment.', 'Postmatic' );
-
-		$item_count = $feed->get_item_quantity( 4 );
-
-		/** @var SimplePie_Item[] $items */
-		$items = $feed->get_items( 0, $item_count );
-
-		$news_items = '';
-		foreach ( $items as $item ) {
-			$news_items .= html(
-				'li',
-				html( 'small', $item->get_date( 'j F Y ' ) ),
-				html( 'a', array( 'href' => $item->get_permalink() ), $item->get_title() ),
-				html( 'div', $item->get_description() )
-			);
-		}
-
-		return html( 'ul class="prompt-news"', $news_items );
 	}
 
 }

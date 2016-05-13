@@ -1239,3 +1239,19 @@ div#core-options-promo h2 span {
   background-size: 100%;
 }
 
+#intercom-launcher {
+  bottom: 22px;
+  right: 100px;
+  width: 56px;
+  height: 56px;
+}
+#intercom-launcher div.intercom-launcher-button {
+  width: 56px;
+  height: 56px; 
+  border: none;
+}
+
+#intercom-container .intercom-launcher-button, #intercom-container .intercom-launcher-preview {
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+}
+
