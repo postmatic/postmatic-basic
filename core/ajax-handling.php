@@ -29,6 +29,7 @@ class Prompt_Ajax_Handling {
 
 		$email = isset( $_POST['subscribe_email'] ) ? sanitize_email( $_POST['subscribe_email'] ) : null;
 		$name = isset( $_POST['subscribe_name'] ) ? sanitize_text_field( $_POST['subscribe_name'] ) : null;
+		$mode = isset( $_POST['mode'] ) ? sanitize_text_field( $_POST['mode'] ) : 'subscribe';
 
 		$found_by_email = false;
 
@@ -54,12 +55,12 @@ class Prompt_Ajax_Handling {
 			wp_die();
 		}
 
-		if ( $target_list->is_subscribed( $subscriber->ID ) and $found_by_email ) {
+		if ( $target_list->is_subscribed( $subscriber->ID ) and 'subscribe' == $mode ) {
 			printf( __( 'You are already subscribed to %s.', 'Postmatic' ), $target_list->subscription_object_label() );
 			wp_die();
 		}
 
-		if ( $target_list->is_subscribed( $subscriber->ID ) ) {
+		if ( $target_list->is_subscribed( $subscriber->ID ) and 'unsubscribe' == $mode ) {
 			echo self::unsubscribe( $target_list, $subscriber, $found_by_email );
 			wp_die();
 		}
