@@ -88,7 +88,15 @@ class Prompt_Subscription_Agreement_Email_Batch extends Prompt_Email_Batch {
 		$notice_html = $this->resend_notice_html();
 		$notice_text = $this->resend_notice_text();
 		$email_address = $user_data['user_email'];
-
+		
+		if ( !is_email( $email_address ) ) {
+			return Prompt_Logging::add_error(
+				'invalid_agreement_email',
+				__( 'Failed to add an agreement recipient with an invalid email address.', 'Postmatic' ),
+				compact( $user_data )
+			);
+		}
+		
 		if ( !$resend_command ) {
 			$command = new Prompt_Register_Subscribe_Command();
 			$notice_html = '';
