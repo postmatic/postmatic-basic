@@ -1,7 +1,7 @@
 <?php
 
 /** @group rest */
-class RestApiTest extends WP_Test_REST_TestCase {
+class RestApiTest extends WP_UnitTestCase {
 
 	/** @var Prompt_Rest_Api */
 	protected $rest_api;
