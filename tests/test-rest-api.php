@@ -1,16 +1,23 @@
 <?php
 
 /** @group rest */
-class RestApiTest extends WP_UnitTestCase {
+class RestApiTest extends WP_Test_REST_TestCase {
 
 	/** @var Prompt_Rest_Api */
 	protected $rest_api;
+	/** @var WP_REST_Server */
+	protected $server;
 
 	public function setUp() {
 		// Override the normal server with our spying server.
-		$GLOBALS['wp_rest_server'] = new Spy_REST_Server();
+		$this->server = $GLOBALS['wp_rest_server'] = new WP_REST_Server();
 		$this->rest_api = Prompt_Rest_Api::get_instance( array( 'reset' => true ) );
-		parent::setup();
+		parent::setUp();
+	}
+	
+	public function tearDown() {
+		parent::tearDown(); 
+		$GLOBALS['wp_rest_server'] = null;
 	}
 
 	function test_instantiation() {
@@ -19,7 +26,7 @@ class RestApiTest extends WP_UnitTestCase {
 
 	function test_registered_routes() {
 
-		$routes = $GLOBALS['wp_rest_server']->get_routes();
+		$routes = $this->server->get_routes();
 
 		$this->assertArrayHasKey(
 			'/postmatic/v1/invocations',
@@ -134,4 +141,50 @@ class RestApiTest extends WP_UnitTestCase {
 		$this->assertFalse( $validity, 'Expected metadata NOT to be valid.' );
 	}
 
+	function test_unauthorized_invocation_post() {
+		
+		$metadata = array(
+			'prompt/test',
+			array( 'foo', 'bar' ),
+		);
+		
+		$request = new WP_REST_Request( 'POST', '/postmatic/v1/invocations' );
+		$request->set_param( 'metadata', json_encode( $metadata ) );
+
+		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+
+		$response = $this->server->dispatch( $request );
+
+		$this->assertEquals( 401, $response->get_status() );
+	}
+
+	function test_invocation_post() {
+		
+		$signature = new Prompt_Request_Signature( Prompt_Core::$options->get( 'prompt_key' ) );
+		
+		$metadata = array(
+			'prompt/test',
+			array( 'foo' ),
+		);
+
+		$hook_mock = $this->getMock( 'AdHoc', array( 'test' ) );
+		$hook_mock->expects( $this->once() )
+			->method( 'test' )
+			->with( 'foo' );
+		
+		add_action( 'prompt/test', array( $hook_mock, 'test' ) );
+		
+		$request = new WP_REST_Request( 'POST', '/postmatic/v1/invocations' );
+		$request->set_param( 'metadata', json_encode( $metadata ) );
+		$request->set_param( 'timestamp', $signature->get_timestamp() );
+		$request->set_param( 'token', $signature->get_token() );
+		$request->set_param( 'signature', $signature->get_signature() );
+
+		$response = $this->server->dispatch( $request );
+
+		$this->assertEquals( 204, $response->get_status() );
+		
+		remove_action( 'prompt/test', array( $hook_mock, 'test' ) );
+	}
+	
 }
