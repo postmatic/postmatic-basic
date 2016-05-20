@@ -15,7 +15,7 @@ Postmatic Basic sends beautiful replyable emails for post and native comment sub
 
 The days of one-way notifications are over. It’s time to let them hit reply.
 
-Postmatic lets your readers subscribe by email when they leave a comment. Subsequent comments and replies will land in their inbox, just like with _Mailpoet_, _Jetpack_ or _Subscribe to Comments_.**Except now with Postmatic, they can comment back and keep the conversation going just by hitting reply**. They never have to leave their inbox.
+Postmatic lets your readers subscribe by email when they leave a comment. Subsequent comments and replies will land in their inbox, just like with _Mailpoet_, _Jetpack_ or _Subscribe to Comments_. **Except now with Postmatic, they can comment back and keep the conversation going just by hitting reply**. They never have to leave their inbox.
 
 Online or offline, everyone stays in the loop—regardless of desktop or mobile.
 
@@ -73,6 +73,10 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+
+= 2.0.2 =
+
+- [Fixed a bug which was leading logged-in users to unsubscribe when they thought they were subscribing](https://github.com/postmatic/postmatic-basic/commit/a1c70efdf4cce95221772b6b90a3013ca62a90d3) 
 
 = 2.0.1 =
 We have moved development to a public [Github repo](https://github.com/postmatic/postmatic-basic). This is our first atttempt at an awesome changelog which blends user-friendly info with developer-friendly code.

@@ -65,10 +65,26 @@ class PromptAjaxTest extends WP_Ajax_UnitTestCase {
 
 			$_POST['subscribe_nonce'] = wp_create_nonce( Prompt_Ajax_Handling::AJAX_NONCE );
 			$_POST['subscribe_topic'] = '';
-			$_POST['object_type'] = get_class( $object );
-			$_POST['object_id'] = $object->id();
-			$_POST['subscribe_submit'] = 'subscribe';
+			$_POST['object_type'] = $object ? get_class( $object ) : '';
+			$_POST['object_id'] = $object ? $object->id() : '';
+			$_POST['mode'] = 'subscribe';
 
+			try {
+				$this->_last_response = '';
+				$this->_handleAjax( Prompt_Subscribing::SUBSCRIBE_ACTION );
+			} catch ( WPAjaxDieContinueException $e ) {
+				unset( $e );
+			}
+
+			$this->assertNotEmpty( $this->_last_response );
+			$this->assertNotContains( 'Notice:', $this->_last_response );
+			$this->assertNotContains( 'Error:', $this->_last_response );
+			$this->assertTrue(
+				$object->is_subscribed( $subscriber->ID ),
+				'Expected successful subscription by ' . get_class( $object )
+			);
+
+			// A second submission should have the same result
 			try {
 				$this->_last_response = '';
 				$this->_handleAjax( Prompt_Subscribing::SUBSCRIBE_ACTION );
@@ -86,7 +102,7 @@ class PromptAjaxTest extends WP_Ajax_UnitTestCase {
 
 			$this->_mailer_will = $this->returnCallback( array( $this, 'verify_unsubscribe_email' ) );
 
-			$_POST['subscribe_submit'] = 'unsubscribe';
+			$_POST['mode'] = 'unsubscribe';
 
 			try {
 				$this->_last_response = '';
@@ -310,6 +326,32 @@ class PromptAjaxTest extends WP_Ajax_UnitTestCase {
 		$this->assertNotContains( 'Notice:', $this->_last_response );
 		$this->assertNotContains( 'Error:', $this->_last_response );
 		$this->assertContains( '<form', $this->_last_response, 'Expected a form in the widget content.' );
+	}
+
+	public function testUnsubscribeWidgetContent() {
+		$user_id = $this->factory->user->create();
+
+		wp_set_current_user( $user_id );
+
+		$site = new Prompt_Site();
+		$site->subscribe( $user_id );
+
+		$_GET['widget_id'] = '-1';
+		$_GET['list_type'] = 'Prompt_Site';
+		$_GET['list_id'] = $site->id();
+
+		try {
+			$this->_handleAjax( 'prompt_subscribe_widget_content' );
+		} catch ( WPAjaxDieContinueException $e ) {
+			unset( $e );
+		}
+
+		$this->assertNotEmpty( $this->_last_response );
+		$this->assertNotContains( 'Notice:', $this->_last_response );
+		$this->assertNotContains( 'Error:', $this->_last_response );
+		$this->assertContains( 'value="unsubscribe"', $this->_last_response, 'Expected an unsubscribe mode value.' );
+
+		wp_set_current_user( 0 );
 	}
 
 	public function testSubscribeWidgetListContent() {
