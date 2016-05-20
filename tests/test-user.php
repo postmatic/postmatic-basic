@@ -245,7 +245,7 @@ class UserTest extends WP_UnitTestCase {
 		$origin = $this->_prompt_user->get_subscriber_origin();
 
 		$this->assertNotNull( $origin, 'Expected a subscriber origin.' );
-		$this->assertGreaterThanOrEqual( time(), $origin->get_timestamp(), 'Expected current timestamp.' );
+		$this->assertLessThanOrEqual( time(), $origin->get_timestamp(), 'Expected current timestamp.' );
 		$this->assertEquals( 'Existing User', $origin->get_source_label(), 'Expected original source label.' );
 		$this->assertEquals( scbUtil::get_current_url(), $origin->get_source_url(), 'Expected original source url.' );
 		$this->assertEquals( 'checkbox', $origin->get_agreement(), 'Expected original agreement.' );
