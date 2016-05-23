@@ -37,12 +37,6 @@
 .prompt-news small {
   display: block; }
 
-#prompt-tabs {
-  overflow: hidden;
-  min-width: 400px;
-  font-family: "open-sans", sans-serif;
-  background: inherit;
-}
 
 
 #adminmenuback {
@@ -316,13 +310,6 @@ div#manage-account a {
   border-radius: 5px;
   text-decoration: none; }
 
-.ui-tabs .ui-tabs-nav li a {
-  font-size: 85% !important;
-}
-
-.ui-tabs .ui-tabs-nav li a:focus {
-  box-shadow: none !important;
-}
 
 
 /*popup styling*/
@@ -644,77 +631,6 @@ input#digest_name {
 
 /*2.0 framework*/
 
-#wpcontent {
-  padding-left: 0px;
-}
-
-#wpwrap {
-  background: #fff url(https://s3-us-west-2.amazonaws.com/postmatic/assets/admin-ui/bg.png) 160px 0 repeat-y;
-}
-
-body.sticky-menu.folded #wpwrap {
-  background: #fff url(https://s3-us-west-2.amazonaws.com/postmatic/assets/admin-ui/bg.png) 35px 0 repeat-y; 
-}
-
-
-body.auto-fold.sticky-menu.folded #wpwrap {
-    background-position: 35px 0;
-}
-
-
-
-.wrap {
-  padding-left: 0;
-  margin-left: 0;
-}
-
-#prompt-tabs .ui-tabs-nav {
-  background: transparent !important;
-}
-
-
-#prompt-tabs .ui-tabs-nav a {
-
-}
-
-/*The active tab*/
-#prompt-tabs .ui-tabs-nav .ui-state-active a {
-  font-weight: bold !important;
-}
-
-.ui-state-focus {border: none !important;}
-
-/*Passive tabs*/
-.ui-tabs-nav > .ui-state-default a {
-  border-bottom:1px solid #484a3c !important;
-  background: #37392e !important; 
-  font-size: 12px !important;
-  color: #fff !important;
-  font-weight: normal !important;
-  text-decoration: none !important;
-  padding: 12px 7px !important;
-
-}
-
-/*Hovered tab*/
-.ui-tabs-nav > .ui-state-hover a {
-  color: #fff !important;
-}
-  
-
-.ui-tabs-nav {
-  border: none !important;
-  
-}
-
-.ui-tabs-vertical { width: auto !important; }
-.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em 0 !important; float: left; width: 143px !important; }
-.ui-tabs-vertical .ui-tabs-nav li { clear: left !important; width: 100% !important; margin: 0 !important; }
-.ui-tabs-vertical .ui-tabs-nav li a { display:block !important; }
-.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0 !important; padding-right: .1em !important; border-right-width: 1px !important; }
-.ui-tabs-vertical .ui-tabs-panel, .error { padding: 1em; margin-left: 145px !important;}
-.ui-tabs .ui-widget-content {border: none !important; border-color: #fff !important;}
-.ui-tabs-nav > .ui-state-default a {border: none !important; text-shadow: none !important;}
 
 .intro-text {
   text-align: center;
@@ -736,33 +652,11 @@ body.auto-fold.sticky-menu.folded #wpwrap {
   font-weight:normal;
 }
 
-#wpfooter, .update-nag {
-  margin-left: 305px;
-}
-
-.folded #wpfooter, .update-nag {
-  margin-left: 180px !important;
-}
-
-ul#adminmenu a.wp-has-current-submenu:after, ul#adminmenu > li.current > a.current:after {
-  display: none;
-}
-
 .updated {
   margin-left: 190px !important;
 }
 
-li.ui-state-active:after {
-    right: 0;
-    border: solid 8px transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-    border-right-color: #fff;
-    margin-top: -30px;
-}
+
 
 .chooser, .local-transport fieldset.chooser:nth-child(5) {
     float: left;
@@ -867,10 +761,7 @@ fieldset.chooser p {
   font-size: 85%;
 }
 
-.ui-tabs-nav {
-  position: fixed !important;
-  top: 140px !important;
-}
+
 
 .uploader input.button {
   display: block;
@@ -907,9 +798,7 @@ body.auto-fold.folded.sticky-menu #wpwrap {
 }
 
 
-.ui-tabs-nav {
-  top: 30px !important;
-}
+
 
 .chooser {
   width: auto;
