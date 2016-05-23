@@ -58,7 +58,6 @@ h2#prompt-settings-header {
   height: 65px;
   margin-bottom: 10px;
   margin-top: 30px; 
-  margin-left: 145px;
   text-align: center;
 }
 
@@ -650,6 +649,17 @@ input#digest_name {
 #prompt-tabs small {
   color: gray;
   font-weight:normal;
+}
+
+ul.ui-tabs-nav {
+  text-align: center;
+  margin: 35px 0;
+}
+
+ul.ui-tabs-nav li {
+  width: auto;
+  display: inline;
+  margin: 0 10px;
 }
 
 .updated {
