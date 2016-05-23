@@ -71,4 +71,30 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 		);
 	}
 
+	function testAddInvalidRecipient() {
+
+		$site_mock = $this->getMock( 'Prompt_Site' );
+		$site_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
+
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_mock ) );
+
+		$user_data = array(
+			'display_name' => 'TEST DUDE',
+			'user_email' => 'test@example.com.',
+		);
+
+		$mock_command = $this->getMock( 'Prompt_Register_Subscribe_Command' );
+		$mock_command->expects( $this->never() )->method( 'get_keys' );
+
+		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		
+		$result = $batch->add_agreement_recipient( $user_data, $mock_command );
+		
+		$this->assertInstanceOf( 'WP_Error', $result );
+
+		$values = $batch->get_individual_message_values();
+
+		$this->assertCount( 0, $values );
+	}
+
 }
