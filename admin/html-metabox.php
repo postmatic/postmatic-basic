@@ -218,6 +218,10 @@ class Prompt_Admin_HTML_Metabox extends scbPostMetabox {
 	 * @return mixed|null|void
 	 */
 	protected function get_rendered_content( WP_Post $post ) {
+		
+		if ( empty( $post->post_content ) ) {
+			return;
+		}
 
 		$context = new Prompt_Post_Rendering_Context( $post );
 
