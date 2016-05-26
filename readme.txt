@@ -73,6 +73,11 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.3 =
+
+- [Fixed an issue in which Postmatic caused errors on the edit>post screen of WPML users](https://github.com/postmatic/postmatic-basic/issues/5)
+- Fixed errors with Freemius related to logged in users of the subscriber role
+- [Simplified the admin UI to get rid of jqueryui tab conflicts](https://github.com/postmatic/postmatic-basic/pull/7)
 
 = 2.0.2 =
 
