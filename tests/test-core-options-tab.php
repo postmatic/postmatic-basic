@@ -4,9 +4,6 @@ class CoreOptionsTabTest extends WP_UnitTestCase {
 
 	function testRender() {
 
-		Prompt_Core::$options->set( 'enable_invites', true );
-		Prompt_Core::$options->set( 'enable_webhooks', true );
-
 		$tab = new Prompt_Admin_Core_Options_Tab( Prompt_Core::$options );
 
 
