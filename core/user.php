@@ -349,7 +349,7 @@ class Prompt_User extends Prompt_Meta_Subscribable_Object {
 	 * @param array $options
 	 */
 	protected function subscribe_to_checked_lists( $class, array $options ) {
-		$subscribed_ids = $class::subscribed_object_ids( $this->id );
+		$subscribed_ids = call_user_func( array( $class, 'subscribed_object_ids' ), $this->id );
 		$name = strtolower( $class ) . '_subscribed';
 		$checked_ids = isset( $options[$name] ) ? $options[$name] : array();
 
@@ -370,7 +370,7 @@ class Prompt_User extends Prompt_Meta_Subscribable_Object {
 	 * @param array $options
 	 */
 	protected function unsubscribe_from_unchecked_lists( $class, array $options ) {
-		$subscribed_ids = $class::subscribed_object_ids( $this->id );
+		$subscribed_ids = call_user_func( array( $class, 'subscribed_object_ids' ), $this->id );
 		$name = strtolower( $class ) . '_subscribed';
 		$retain_ids = isset( $options[$name] ) ? $options[$name] : array();
 		if ( ! empty( $subscribed_ids ) ) {
