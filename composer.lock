@@ -4,12 +4,12 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e815e132ad7676b05ae078b0f280b95f",
-    "content-hash": "8e0b975fa69fd94a018fc00f9eb3d97d",
+    "hash": "d92b94c8daec6eeb1638c6464bfc086f",
+    "content-hash": "8b36afc2ee26591d0c51819ac4ebf51d",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CalderaWP/caldera-modals.git",
@@ -1285,7 +1285,6 @@
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
         "mailchimp/mailchimp": 20,
-        "calderawp/caldera-modals": 20,
         "xamin/handlebars.php": 20,
         "rosio/wordpress-i18n-tools": 20
     },
