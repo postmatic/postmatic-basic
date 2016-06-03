@@ -9,9 +9,30 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 			->will( $this->returnCallback( array( $this, 'verifyCallback' ) ) );
 
 		$this->site = new Prompt_Site();
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( $this->site );
+		
+		$this->message = array(
+			'subject' => 'Test Invite',
+			'message_type' => Prompt_Enum_Message_Types::INVITATION,
+		);
+		
+		$this->user_data = array( array( 'user_email' => "invitee@example.com", 'display_name' => "Invitee" ) );
+		
+		$batch_mock = $this->getMock(
+			'Prompt_Subscription_Agreement_Email_Batch',
+			array(),
+			array( $this->site, $this->message )
+		);
+		$batch_mock->expects( $this->any() )
+			->method( 'get_lists' )
+			->willReturn( array( $this->site ) );
+		$batch_mock->expects( $this->any() )
+			->method( 'get_users_data' )
+			->willReturn( $this->user_data );
+		$batch_mock->expects( $this->any() )
+			->method( 'get_message_data' )
+			->willReturn( $this->message );
 
-		$mailer = new Prompt_Subscription_Agreement_Wp_Mailer( $batch, $client_mock );
+		$mailer = new Prompt_Subscription_Agreement_Wp_Mailer( $batch_mock, $client_mock );
 
 		$mailer->schedule();
 	}
@@ -19,14 +40,24 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 	function verifyCallback( $data ) {
 		$this->assertArrayHasKey( 'metadata', $data );
 		$this->assertEquals( 'prompt/subscription_mailing/send_cached_invites', $data['metadata'][0] );
+		
+		$batch_key = str_replace( 'prompt_ac_', '', $data['metadata'][1][0] );
 		$cached_data = get_option( $data['metadata'][1][0] );
 		$this->assertNotEmpty( $cached_data, 'Expected data cached with the given key.' );
 
 		$this->assertCount( 1, $cached_data[0], 'Expected one list.' );
 		$this->assertInstanceOf( 'Prompt_Site', $cached_data[0][0] );
 		$this->assertEquals( $this->site->id(), $cached_data[0][0]->id() );
-		$this->assertEmpty( $cached_data[1] );
-		$this->assertEmpty( $cached_data[2] );
-		$this->assertEquals( 0, $cached_data[3] );
+		$this->assertEquals( $this->user_data, $cached_data[1] );
+		$this->assertEquals( $this->message, $cached_data[2] );
+		$this->assertGreaterThan( -1, $cached_data[3] );
+
+		$delivery = get_option( 'prompt_agreement_delivery' );
+		$this->assertLessThan( 
+			$cached_data[3], 
+			$delivery[$batch_key], 
+			'Expected the recorded delivered chunk to be less the cached chunk.' 
+		);
 	}
+
 }

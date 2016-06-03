@@ -17,6 +17,7 @@ class Prompt_Factory {
 	 * @since 2.0.0
 	 * @param Prompt_Email_Batch $batch
 	 * @param string $transport Optional transport to use
+	 * @param int|null $chunk Optional chunk number for local mailer
 	 * @return Prompt_Mailer
 	 */
 	public static function make_mailer( $batch, $transport = null, $chunk = null ) {
@@ -85,11 +86,11 @@ class Prompt_Factory {
 		}
 
 		if ( is_a( $batch, 'Prompt_Comment_Email_Batch' ) ) {
-			return new Prompt_Comment_Wp_Mailer( $batch );
+			return new Prompt_Comment_Wp_Mailer( $batch, null, null, $chunk );
 		}
 
 		if ( is_a( $batch, 'Prompt_Subscription_Agreement_Email_Batch' ) ) {
-			return new Prompt_Subscription_Agreement_Wp_Mailer( $batch );
+			return new Prompt_Subscription_Agreement_Wp_Mailer( $batch, null, null, $chunk );
 		}
 
 		return new Prompt_Wp_Mailer( $batch, null, null, $chunk );
