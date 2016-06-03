@@ -2,7 +2,7 @@
 /*
   Plugin Name: Postmatic Basic
   Description:
-  Version: 2.0.4
+  Version: 2.0.5
   License: GPL2+
   Author: Postmatic
   Author URI: http://gopostmatic.com/
