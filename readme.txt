@@ -73,6 +73,12 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.4 =
+
+- [We have fixed the possibility of the invitations system going haywire on certain hosts while on the free plan](https://github.com/postmatic/postmatic-basic/commit/00662ab477e67c7ea48886303854cb5dbdf958c1)
+- [Updates to the popup modal library](https://github.com/postmatic/postmatic-basic/commit/005e134f993edb8ed5f5725fbbb8cd4982d75c32)
+- [Improved PHP 5.2 compatibility](https://github.com/postmatic/postmatic-basic/commit/69fedc90f93e9c61dedc92b591e554a6fbf063c2)
+
 = 2.0.3 =
 
 - [Fixed an issue in which Postmatic caused errors on the edit>post screen of WPML users](https://github.com/postmatic/postmatic-basic/issues/5)

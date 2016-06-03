@@ -72,7 +72,9 @@ class Prompt_Web_Api_Handling {
 		header( 'Content-Length: 0' );
 		header( 'Connection: close' );
 		ob_end_flush();
-		ob_flush();
+		if ( ob_get_level() > 0 ) {
+			ob_flush();
+		}
 		flush();
 	}
 

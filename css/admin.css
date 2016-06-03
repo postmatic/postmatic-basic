@@ -1004,7 +1004,7 @@ a.button.download:hover, a.button.install:hover {
 }
 
 div#core-options-promo {
-    margin: -37px 0;
+    margin: -37px 0 25px 0;
     padding: 10% 8%;
     border-top: 1px solid #E7E7E7;
     border-bottom: 1px solid #E7E7E7;
@@ -1147,18 +1147,18 @@ div#core-options-promo h2 span {
 }
 
 #intercom-launcher {
-  bottom: 22px;
-  right: 100px;
-  width: 56px;
-  height: 56px;
+  bottom: 22px !important;
+  right: 100px !important;
+  width: 56px !important;
+  height: 56px !important;
 }
 #intercom-launcher div.intercom-launcher-button {
-  width: 56px;
-  height: 56px; 
-  border: none;
+  width: 56px !important;
+  height: 56px !important; 
+  border: none !important;
 }
 
 #intercom-container .intercom-launcher-button, #intercom-container .intercom-launcher-preview {
-  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26);
+  box-shadow: 0 2px 5px 0 rgba(0,0,0,.26) !important;
 }
 

@@ -12,7 +12,7 @@
 		"scribu/scb-framework": "dev-master",
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"mailchimp/mailchimp": "dev-master",
-		"calderawp/caldera-modals" : "dev-master",
+		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
 		"freemius/wordpress-sdk": "1.1.8"
 	},
