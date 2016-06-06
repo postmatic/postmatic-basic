@@ -167,7 +167,12 @@ class Prompt_Comment_Form_Handling {
 				)
 			),
 			'&nbsp;',
-			html( 'span', Prompt_Core::$options->get( 'comment_opt_in_text' ) )
+			html( 'span class="tooltip"',
+				Prompt_Core::$options->get( 'comment_opt_in_text' ),
+				html( 'em',
+					__( 'Tooltip content.', 'Postmatic' )
+				)
+			)
 		);
 
 	}
