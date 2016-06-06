@@ -99,6 +99,13 @@ class Prompt_Comment_Form_Handling {
 	 */
 	public static function enqueue_assets( $post_id ) {
 
+		wp_enqueue_style(
+			'prompt-comment-form',
+			path_join( Prompt_Core::$url_path, 'css/comment-form.css' ),
+			array(),
+			Prompt_Core::version()
+		);
+
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-comment-form',
 			'path' => 'js/comment-form.js',

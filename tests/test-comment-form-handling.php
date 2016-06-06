@@ -34,6 +34,17 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		parent::tearDown();
 	}
 
+	function testAssetEnqueueing() {
+
+		$post_id = $this->factory->post->create();
+
+		$content = $this->getCommentFormContent( $post_id );
+
+		$this->assertTrue( wp_script_is( 'prompt-comment-form' ), 'Expected comment form script to be enqueued.' );
+		$this->assertTrue( wp_style_is( 'prompt-comment-form' ), 'Expected comment form style to be enqueued.' );
+		
+	}
+	
 	function testFormContentLoggedOut() {
 		$post_id = $this->factory->post->create();
 
