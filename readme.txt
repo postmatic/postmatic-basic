@@ -73,6 +73,11 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.5 =
+
+- NEW: A tooltip on the comment form subscription checkbox gives users info about what the subscription means.
+- [Added tests for better debugging of malformed inbound messages](https://github.com/postmatic/postmatic-basic/commit/1bbb721351384a2512faec50cf9ca450c2569b33)
+
 = 2.0.4 =
 
 - [We have fixed the possibility of the invitations system going haywire on certain hosts while on the free plan](https://github.com/postmatic/postmatic-basic/commit/00662ab477e67c7ea48886303854cb5dbdf958c1)

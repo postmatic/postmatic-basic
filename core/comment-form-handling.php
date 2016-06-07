@@ -99,6 +99,13 @@ class Prompt_Comment_Form_Handling {
 	 */
 	public static function enqueue_assets( $post_id ) {
 
+		wp_enqueue_style(
+			'prompt-comment-form',
+			path_join( Prompt_Core::$url_path, 'css/comment-form.css' ),
+			array(),
+			Prompt_Core::version()
+		);
+
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-comment-form',
 			'path' => 'js/comment-form.js',
@@ -167,7 +174,12 @@ class Prompt_Comment_Form_Handling {
 				)
 			),
 			'&nbsp;',
-			html( 'span', Prompt_Core::$options->get( 'comment_opt_in_text' ) )
+			html( 'span class="postmatic-tooltip"',
+				Prompt_Core::$options->get( 'comment_opt_in_text' ),
+				html( 'em',
+					__( 'Get only replies to your comment, the best of the rest, as well as a daily recap of all comments on this post. No more than a few emails daily, which you can reply to/unsubscribe from directly from your inbox.', 'Postmatic' )
+				)
+			)
 		);
 
 	}

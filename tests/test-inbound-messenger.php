@@ -113,6 +113,46 @@ EOD;
 		$this->assertFalse( $prompt_post->is_subscribed( $this->commenter->ID ), 'Expected commenter to be unsubscribed.' );
 	}
 
+	function verifyRegisterSubscribedEmail() {
+		$values = $this->mailer_payload->get_individual_message_values();
+		$this->assertEquals( $this->mail_data->address, $values[0]['to_address'] );
+		$template = $this->mailer_payload->get_batch_message_template();
+		$this->assertContains( ' subscribed', $template['subject'] );
+	}
+
+	function testFunkyRegisterFormat() {
+
+		$prompt_site = new Prompt_Site();
+		$this->mail_data->address = 'test@example.com';
+		
+		$command = new Prompt_Register_Subscribe_Command();
+		$command->save_subscription_data( 
+			array( $prompt_site ), 
+			$this->mail_data->address, 
+			array( 'display_name' => 'Test Subscriber' ) 
+		);
+
+		// This test data came from a message (99107) that seemed to cause an error, but works here
+		$update = new stdClass();
+		$update->id = 'testid';
+		$update->type = 'inbound-email';
+		$update->status = 'accepted';
+		$update->data = new stdClass();
+		$update->data->from = 'prvs=38229u8321=Tester.TEST@example.com';
+		$update->data->subject = 'Re: Test - Important: Confirm your subscription [SEC=UNCLASSIFIED]';
+		$update->data->message = "agree";
+		$update->data->metadata = new stdClass();
+		$update->data->metadata->ids = array_merge( array( 2 ), $command->get_keys() );
+
+		$this->mailer_will = $this->returnCallback( array( $this, 'verifyRegisterSubscribedEmail' ) );
+
+		$this->messenger->process_update( $update );
+
+		$new_user = get_user_by( 'email', 'test@example.com' );
+		$this->assertNotEmpty( $new_user, 'Expected a new subscriber user to be created.' );
+		$this->assertTrue( $prompt_site->is_subscribed( $new_user->ID ), 'Expected new user to be subscribed.' );
+	}
+
 	function verifyUnsubscribedEmail() {
 		$values = $this->mailer_payload->get_individual_message_values();
 		$this->assertEquals( $this->commenter->user_email, $values[0]['to_address'] );
