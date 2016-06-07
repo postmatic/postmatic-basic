@@ -177,7 +177,7 @@ class Prompt_Comment_Form_Handling {
 			html( 'span class="postmatic-tooltip"',
 				Prompt_Core::$options->get( 'comment_opt_in_text' ),
 				html( 'em',
-					__( 'Get replies to your comment, the best of the rest, as well as a daily recap of all comments on this post. No more than a few emails daily, which you can reply to/unsubscribe from directly from your inbox.', 'Postmatic' )
+					__( 'Get only replies to your comment, the best of the rest, as well as a daily recap of all comments on this post. No more than a few emails daily, which you can reply to/unsubscribe from directly from your inbox.', 'Postmatic' )
 				)
 			)
 		);
