@@ -4,10 +4,10 @@
   text-align: left;
   -webkit-transform: translateZ(0); /* webkit flicker fix */
   -webkit-font-smoothing: antialiased; /* webkit text rendering fix */
-  background: url(https://gopostmatic-wpengine.netdna-ssl.com/wp-content/uploads/2016/05/logo-5.png) no-repeat right;
+  background: url(../media/icons/p.png) no-repeat center right;
   min-height: 25px;
   background-size: 10px;
-  padding-right: 20px;
+  padding-right: 15px;
 }
 
 #prompt-comment-subscribe .postmatic-tooltip em {
@@ -16,7 +16,7 @@
   color: #fff;
   display: block;
   font-style: normal;
-  left: 85%;
+  left: 88%;
   margin-bottom: 15px;
   opacity: 0;
   padding: 5px 10px;
@@ -53,7 +53,6 @@
     text-decoration: underline;
 }
 
-/* This bridges the gap so you can mouse into the tooltip without it disappearing */
 #prompt-comment-subscribe .postmatic-tooltip em:before {
   bottom: -20px;
   content: " ";
@@ -64,7 +63,6 @@
   width: 100%;
 }  
 
-/* CSS Triangles - see Trevor's post */
 #prompt-comment-subscribe .postmatic-tooltip em:after {
   border-left: solid transparent 10px;
   border-right: solid transparent 10px;
@@ -86,4 +84,13 @@
       -ms-transform: translateY(0px);
        -o-transform: translateY(0px);
           transform: translateY(0px);
+}
+
+@media screen and (max-width: 500px) {
+    #prompt-comment-subscribe .postmatic-tooltip em {
+        left: 0;
+    }
+    #prompt-comment-subscribe .postmatic-tooltip em:after {
+      left: 90%;
+    }
 }

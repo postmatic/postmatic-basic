@@ -177,7 +177,7 @@ class Prompt_Comment_Form_Handling {
 			html( 'span class="postmatic-tooltip"',
 				Prompt_Core::$options->get( 'comment_opt_in_text' ),
 				html( 'em',
-					__( 'Receive direct replies, the occasional relevant comment, and periodic conversation recaps. No more than a few emails daily. Promise. <a href="http://gopostmatic.com/comments" target="_blank">Learn more &raquo;<a/>', 'Postmatic' )
+					__( 'Receive direct replies, the occasional relevant comment, and periodic conversation recaps. No more than a few emails daily, which you can reply to from your inbox.', 'Postmatic' )
 				)
 			)
 		);
