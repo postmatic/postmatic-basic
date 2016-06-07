@@ -16,7 +16,7 @@
 #prompt-comment-subscribe .postmatic-tooltip em {
   background: #34495e;
   bottom: 100%;
-  color: #fff;
+  color: #fff !important;
   display: block;
   font-style: normal;
   left: 88%;
@@ -52,7 +52,7 @@
     color: #fff;
     display: block;
     text-align: left;
-=    letter-spacing: normal;
+    letter-spacing: normal;
     text-decoration: underline;
 }
 
