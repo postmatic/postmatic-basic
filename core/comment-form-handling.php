@@ -171,7 +171,7 @@ class Prompt_Comment_Form_Handling {
 		
 		if ( ! Prompt_Core::$options->is_api_transport() ) {
 			$tooltip_text = __(
-				"Get notified of new comments on this post. If discussion generates more than a few emails daily, you will be unsubscribed and given the option to jump back in when you're ready.",
+				"Get notified of new comments on this post. If discussion generates more than a few emails daily your subscription will be paused autmatically.",
 				'Postmatic'
 			);
 		}
