@@ -15,7 +15,7 @@ class Prompt_Options extends scbOptions {
 	 * @param string $file
 	 * @param array $defaults
 	 */
-	public function __construct( $key = 'prompt_options', $file = __FILE__, $defaults = array() ) {
+	public function __construct( $key = 'prompt_options', $file = null, $defaults = array() ) {
 
 		$invite_subject = sprintf( __( 'You\'re invited to subscribe to %s', 'Postmatic' ), get_option( 'blogname' ) );
 

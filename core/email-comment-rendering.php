@@ -40,6 +40,14 @@ class Prompt_Email_Comment_Rendering {
 			html( 'div class="author-name"',
 				get_comment_author_link( $comment->comment_ID )
 			),
+			html( 'div class="comment-date"',
+				html( 'a',
+					array( 'href' => get_comment_link( $comment ) ),
+					get_comment_date( '', $comment ),
+					' ',
+					mysql2date( get_option( 'time_format' ), $comment->comment_date )
+				)
+			),
 			html( 'div class="comment-body"',
 				apply_filters( 'comment_text', get_comment_text( $comment->comment_ID ), $comment ),
 				$comment_actions
