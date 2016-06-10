@@ -6,6 +6,10 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/vernal-creative/html-to-markdown"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/postmatic/wordpress-sdk"
 		}
 	],
 	"require": {
@@ -14,7 +18,7 @@
 		"mailchimp/mailchimp": "dev-master",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "1.1.8"
+		"freemius/wordpress-sdk": "dev-postmatic"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",
