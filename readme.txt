@@ -73,6 +73,12 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.6 =
+
+- [Fixed issues with that new tooltip on mobile as well as hover issues](https://github.com/postmatic/postmatic-basic/issues/12)
+- Fixed a horrible typo in the tooltip
+- Fixed a freemius bug which was affecting logged in users.
+
 = 2.0.5 =
 
 - NEW: A tooltip on the comment form subscription checkbox gives users info about what the subscription means.
