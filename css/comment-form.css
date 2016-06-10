@@ -93,6 +93,7 @@
 @media screen and (max-width: 500px) {
     #prompt-comment-subscribe .postmatic-tooltip em {
         left: 0;
+       width: 300px;
     }
     #prompt-comment-subscribe .postmatic-tooltip em:after {
       left: 90%;
