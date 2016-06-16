@@ -16,6 +16,11 @@ class Prompt_Email_Comment_Rendering {
 	 * @var int
 	 */
 	protected static $flood_comment;
+	/**
+	 * @since 2.0.6
+	 * @var array
+	 */
+	protected static $comment_classes = array();
 
 	/**
 	 * Render HTML for a single comment in a thread.
@@ -109,6 +114,17 @@ class Prompt_Email_Comment_Rendering {
 	}
 
 	/**
+	 * Provide a base class to apply to a set of comments.
+	 * 
+	 * @since 2.0.6
+	 * @param array $comments
+	 * @param string $class
+	 */
+	public static function classify_comments( array $comments, $class ) {
+		self::$comment_classes[$class] = wp_list_pluck( $comments, 'comment_ID' );
+	}
+	
+	/**
 	 * @since 1.0.0
 	 * @param string $text
 	 * @param int $depth
@@ -151,8 +167,10 @@ class Prompt_Email_Comment_Rendering {
 
 		$classes = array();
 		
-		if ( 'parent' == $comment->comment_type ) {
-			$classes[] = 'context-parent';
+		foreach ( self::$comment_classes as $class => $ids ) {
+			if ( in_array( $comment->comment_ID, $ids ) ) {
+				$classes[] = $class;
+			}
 		}
 		
 		if ( ! self::$flood_comment ) {
