@@ -1,10 +1,30 @@
 <?php
 
+/**
+ * Comment walker callback for email rendering
+ * @since 1.0.0
+ */
 class Prompt_Email_Comment_Rendering {
 
+	/**
+	 * @since 1.0.0
+	 * @var int
+	 */
 	protected static $post_id;
+	/**
+	 * @since 1.0.0
+	 * @var int
+	 */
 	protected static $flood_comment;
 
+	/**
+	 * Render HTML for a single comment in a thread.
+	 *
+	 * @since 1.0.0
+	 * @param object|WP_Comment $comment
+	 * @param array $args
+	 * @param int $depth
+	 */
 	public static function render( $comment, $args, $depth ) {
 
 		self::set_context( $comment );
@@ -55,6 +75,13 @@ class Prompt_Email_Comment_Rendering {
 		);
 	}
 
+	/**
+	 * Render text for a single comment in a thread.
+	 * @since 1.0.0
+	 * @param object|WP_Comment $comment
+	 * @param array $args
+	 * @param int $depth
+	 */
 	public static function render_text( $comment, $args, $depth ) {
 
 		self::set_context( $comment );
@@ -81,6 +108,12 @@ class Prompt_Email_Comment_Rendering {
 		}
 	}
 
+	/**
+	 * @since 1.0.0
+	 * @param string $text
+	 * @param int $depth
+	 * @return string
+	 */
 	protected static function indent( $text, $depth ) {
 		$lines = $text ? preg_split( '/$\R?^/m', $text ) : array( '' );
 		$indented_text = '';
@@ -90,6 +123,10 @@ class Prompt_Email_Comment_Rendering {
 		return $indented_text;
 	}
 
+	/**
+	 * @since 1.0.0
+	 * @param object|WP_Comment $comment
+	 */
 	protected static function set_context( $comment ) {
 
 		if ( self::$post_id == $comment->comment_post_ID )
@@ -104,6 +141,12 @@ class Prompt_Email_Comment_Rendering {
 
 	}
 
+	/**
+	 * Get appropriate classes for the comment container element
+	 * @since 1.0.0
+	 * @param object|WP_Comment $comment
+	 * @return string
+	 */
 	protected static function base_classes( $comment ) {
 
 		$classes = array();
