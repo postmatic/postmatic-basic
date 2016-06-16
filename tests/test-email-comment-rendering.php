@@ -3,9 +3,9 @@
 class EmailCommentRenderingTest extends \WP_UnitTestCase {
 		
 	public function test_parent_class_rendering() {
-		$post_id = $this->factory()->post->create();
-		$parent_comment = $this->factory()->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
-		$child_comment = $this->factory()->comment->create_and_get( array(
+		$post_id = $this->factory->post->create();
+		$parent_comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+		$child_comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $post_id,
 			'comment_parent' => $parent_comment->comment_ID,
 		) );
