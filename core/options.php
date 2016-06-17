@@ -86,6 +86,7 @@ class Prompt_Options extends scbOptions {
 			'enable_notes' => false,
 			'enable_analytics' => true,
 			'account_email' => '',
+			'enable_monetization' => false,
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );

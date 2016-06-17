@@ -105,10 +105,12 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 			'input',
 			array( 'name' => 'action', 'type' => 'hidden', 'value' => 'save_prompt_tab_options' )
 		);
-		$button_args = array_merge(
-			array( 'action' => $this->action() . '_submit' ),
-			$button_args
-		);
+		if ( is_array( $button_args ) ) {
+			$button_args = array_merge(
+				array( 'action' => $this->action() . '_submit' ),
+				$button_args
+			);
+		}
 		return parent::form_wrap( $content, $button_args );
 	}
 

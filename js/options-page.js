@@ -139,7 +139,8 @@ var prompt_options_page_env;
 			'buy-sell-ads',
 			'webhooks',
 			'notes',
-			'analytics'
+			'analytics',
+			'monetization'
 		];
 		var template_module_checkbox_selectors = [
 			'input[name="enable_invites"]',

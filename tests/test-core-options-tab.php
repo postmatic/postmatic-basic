@@ -21,6 +21,7 @@ class CoreOptionsTabTest extends WP_UnitTestCase {
 		$this->assertContains( 'enable_jetpack_import', $content );
 		$this->assertContains( 'enable_skimlinks', $content );
 		$this->assertContains( 'enable_webhooks', $content );
+		$this->assertContains( 'enable_monetization', $content );
 
 		$this->assertFalse(
 			Prompt_Core::$options->get( 'enable_invites' ),

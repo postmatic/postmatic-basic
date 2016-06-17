@@ -144,6 +144,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'enable_skimlinks',
 			'enable_notes',
 			'enable_analytics',
+			'enable_monetization',
 		);
 
 		$valid_data = $this->validate_checkbox_fields( $new_data, $old_data, $checkbox_fields );
@@ -512,6 +513,13 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'name' => 'enable_analytics',
 			'value' => 1,
 		);
+		
+		$monetization_label_attributes = array();
+		$monetization_attributes = array(
+			'type' => 'checkbox',
+			'name' => 'enable_monetization',
+			'value' => 1,
+		);
 
 		if ( !$this->is_premium_active() ) {
 
@@ -573,6 +581,17 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'small', __( 'A whole lot more than open rates.', 'Postmatic' ) )
 				),
 				__( 'Help us Kickstart community intelligence', 'Postmatic' )
+			),
+			html(
+				'label',
+				$monetization_label_attributes,
+				$this->input( $monetization_attributes, $this->options->get() ),
+				html(
+					'strong',
+					__( 'More Monetization Options', 'Postmatic' ),
+					' ',
+					html( 'small', __( 'Find out how you can make Postmatic pay.', 'Postmatic' ) )
+				)
 			)
 		);
 	}
