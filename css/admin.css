@@ -1156,3 +1156,16 @@ div#core-options-promo h2 span {
   box-shadow: 0 2px 5px 0 rgba(0,0,0,.26) !important;
 }
 
+a.thickbox.video {
+    float: right;
+    margin-top: 10px;
+    background: url(../media/play.png) no-repeat;
+    display: block;
+    width: 20px;
+    height: 20px;
+    background-size: 100%;
+    margin-right: 10px;
+}
+a.thickbox.video span {
+  display: none;
+}
