@@ -161,6 +161,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 */
 	public function page_head() {
 
+		add_thickbox();
+		
 		wp_enqueue_media();
 
 		wp_enqueue_style(
