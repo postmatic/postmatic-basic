@@ -18,7 +18,7 @@
 
 	<p>
 		<a href="https://www.youtube.com/embed/j4mGzLmjOpc?autoplay=1&TB_iframe=true" class="thickbox button button-large">
-			<span><?php _e( 'Show me the video', 'Postmatic' ); ?></span>
+			<span><?php _e( '&#9658; Show me how', 'Postmatic' ); ?></span>
 		</a>
 	</p>
 
