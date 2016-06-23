@@ -57,8 +57,9 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				html(
 					'p',
 					__( 'Build relationships, engage your community, and grow your platform using Postmatic.', 'Postmatic' )
-				)
-			)
+				),
+				$this->video_link( 'yjbVIBiSyYE' )
+			),
 		);
 
 		$parts[] = $this->feature_chooser_html();
@@ -195,9 +196,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	}
 
 	/**
-	 *
 	 * @since 2.0.0
-	 *
 	 * @return string
 	 */
 	protected function feature_chooser_html() {
@@ -210,6 +209,25 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		);
 
 		return implode( '', $choosers );
+	}
+
+	/**
+	 * @since 2.0.6
+	 * @param string $video_id
+	 * @return string
+	 */
+	protected function video_link( $video_id ) {
+		return html(
+			'a',
+			array(
+				'class' => 'thickbox video',
+				'href' => "https://www.youtube.com/embed/$video_id?autoplay=1&TB_iframe=true",
+			),
+			html(
+				'span',
+				__( 'Watch the Video', 'Postmatic' )
+			)
+		);
 	}
 
 	/**
@@ -235,6 +253,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		return html(
 			'fieldset class="chooser"',
 			html( 'legend', __( 'Grow Your Audience', 'Postmatic' ) ),
+			$this->video_link( 'MsPOztVrgZ4' ),
 			html( 'label',
 				$invite_label_attributes,
 				$this->input( $invite_attributes, $this->options->get() ),
@@ -246,6 +265,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'small', __( 'Turn past commenters into subscribers.', 'Postmatic' ) )
 				)
 			),
+			$this->video_link( 'naDqSh-gvmo' ),
 			$this->input(
 				array(
 					'type' => 'checkbox',
@@ -313,6 +333,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 */
 	protected function content_chooser_html() {
 		$inputs = array(
+			$this->video_link( 'wys_ycyNIUg' ),
 			$this->input(
 				array(
 					'type' => 'checkbox',
@@ -349,7 +370,9 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			$digest_attributes['extra'] = array( 'disabled' => 'disabled' );
 
 		}
-
+		
+		$inputs[] = $this->video_link( 'J-k5IZcKsNk' );
+		
 		$inputs[] = html(
 			'label',
 			$digest_label_attributes,
@@ -446,6 +469,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		return html(
 			'fieldset class="chooser"',
 			html( 'legend', __( 'Engage Your Readers', 'Postmatic' ) ),
+			$this->video_link( '8y2pzTmliu4' ),
 			$this->input(
 				array(
 					'type' => 'checkbox',

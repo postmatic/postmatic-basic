@@ -16,4 +16,10 @@
 		<a href="<?php echo $new_site_url; ?>" target="_blank" class="button button-primary button-large"><?php _e( 'Get a free API key', 'Postmatic' ); ?></a>
 	</p>
 
+	<p>
+		<a href="https://www.youtube.com/embed/D_8HW3-hEpQ?autoplay=1&TB_iframe=true" class="thickbox button button-large">
+			<span><?php _e( '&#9658; Show me how', 'Postmatic' ); ?></span>
+		</a>
+	</p>
+
 </div>

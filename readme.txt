@@ -73,6 +73,11 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.7 =
+
+- NEW: we added a number of video tutorials to the plugin interface
+- Fixed an issue with Freemius when logging in as an editor
+
 = 2.0.6 =
 
 - [Fixed issues with that new tooltip on mobile as well as hover issues](https://github.com/postmatic/postmatic-basic/issues/12)
