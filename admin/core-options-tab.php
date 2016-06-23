@@ -54,11 +54,11 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			html(
 				'div class="intro-text"',
 				html( 'h2', __( 'Get Started with Postmatic', 'Postmatic' ) ),
-				$this->video_link( 'yjbVIBiSyYE' ),
 				html(
 					'p',
 					__( 'Build relationships, engage your community, and grow your platform using Postmatic.', 'Postmatic' )
-				)
+				),
+				$this->video_link( 'yjbVIBiSyYE' )
 			),
 		);
 
@@ -221,11 +221,11 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'a',
 			array(
 				'class' => 'thickbox video',
-				'href' => "https://www.youtube.com/embed/$video_id?autoplay=1&list=PLQJjFslWa2xIar_kmARW_1uLV2y6HLh5e&TB_iframe=true",
+				'href' => "https://www.youtube.com/embed/$video_id?list=PLQJjFslWa2xIar_kmARW_1uLV2y6HLh5e&TB_iframe=true",
 			),
 			html(
 				'span',
-				__( 'play', 'Postmatic' )
+				__( 'Watch the Video', 'Postmatic' )
 			)
 		);
 	}

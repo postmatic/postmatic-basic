@@ -690,15 +690,19 @@ ul.ui-tabs-nav li.ui-state-active a,ul.ui-tabs-nav li a:hover {
 }
 
 .chooser, .local-transport fieldset.chooser:nth-child(5) {
-    float: left;
     margin: 1%;
     width: 30%;
+    float: left;
     background:#FCFCFC;
     padding-bottom: 2%;
     border: 1px solid #EAEAEA;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+}
+
+fieldset.chooser:nth-child(5) label {
+  float: none !important;
 }
 
 .chooser legend {
@@ -1014,7 +1018,7 @@ div#core-options-promo p {
     font-size: 120%;
 }
 
-.btn-postmatic {
+.btn-postmatic, div.intro-text a.thickbox.video {
   background: #E85C41;
   color: #fff;
   font-family: serif;
@@ -1168,4 +1172,18 @@ a.thickbox.video {
 }
 a.thickbox.video span {
   display: none;
+}
+
+div.intro-text a.thickbox.video {
+  float: none;
+  margin-bottom: 45px;
+  width: 130px;
+   background: #72A5CA url(../media/play.png) 8px no-repeat;
+  font-size: 15px;
+  font-family: sans-serif;
+  background-size: 25px;
+}
+
+div.intro-text a.thickbox.video span {
+  display: block;
 }
