@@ -221,7 +221,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'a',
 			array(
 				'class' => 'thickbox video',
-				'href' => "https://www.youtube.com/embed/$video_id?list=PLQJjFslWa2xIar_kmARW_1uLV2y6HLh5e&TB_iframe=true",
+				'href' => "https://www.youtube.com/embed/$video_id?autoplay=1&TB_iframe=true",
 			),
 			html(
 				'span',
