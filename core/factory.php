@@ -17,16 +17,16 @@ class Prompt_Factory {
 	 * @since 2.0.0
 	 * @param Prompt_Email_Batch $batch
 	 * @param string $transport Optional transport to use
-	 * @param int|null $chunk Optional chunk number for local mailer
+	 * @param int $chunk Optional chunk number for local mailer, default 0
 	 * @return Prompt_Mailer
 	 */
-	public static function make_mailer( $batch, $transport = null, $chunk = null ) {
+	public static function make_mailer( $batch, $transport = null, $chunk = 0 ) {
 
 		$mailer = self::is_transport_api( $transport ) ?
 			self::make_api_mailer( $batch ) :
 			self::make_local_mailer( $batch, $chunk );
 
-		$mailer = apply_filters( 'prompt/make_mailer', $mailer, $batch, $transport );
+		$mailer = apply_filters( 'prompt/make_mailer', $mailer, $batch, $transport, $chunk );
 
 		return $mailer;
 	}
