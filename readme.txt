@@ -27,7 +27,7 @@ Postmatic can also deliver your WordPress posts to readers as a beautiful mobile
 And they can comment just by hitting reply. No accounts. No forms.  
 No browsers. Easy.
 
-[Visit gopostmatic.com to learn more](http://gopostmatic.com)
+[Visit gopostmatic.com to learn more](http://gopostmatic.com/basic)
 
 = Key Features =
 
@@ -45,7 +45,7 @@ No browsers. Easy.
 
 = This is really free? Do you sell my data or run advertising? =
 
-Yes to free. [No to bad stuff](http://gopostmatic.com/privacy). We're not in the data brokering or advertising game. Instead we're in the business of making [Postmatic](http://gopostmatic.com/premium) _so good_ and _so affordable_ that you'll happily upgrade.You can help fund our development while sending your engagement through the roof by subscribing to the full version of Postmatic.
+Yes to free. [No to bad stuff](http://gopostmatic.com/privacy). We're not in the data brokering or advertising game. Instead we're in the business of making [Postmatic](http://gopostmatic.com/features) _so good_ and _so affordable_ that you'll happily upgrade.You can help fund our development while sending your engagement through the roof by subscribing to the full version of Postmatic.
 
 = Is this a 3rd party commenting system? =
 Not at all. Postmatic uses native WordPress commenting. All we do is wire up some magic to turn emails into comments, then push them to your site via the WordPress api. We even have a companion plugin, [Epoch](http://wordpress.org/plugins/epoch) which will serve as a replacement for Disqus if you need to move back to native commenting.
@@ -73,6 +73,11 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.8 =
+
+- Updated German translation
+- Misc bug fixes
+
 = 2.0.7 =
 
 - NEW: we added a number of video tutorials to the plugin interface
