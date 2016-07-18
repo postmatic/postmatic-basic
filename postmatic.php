@@ -2,7 +2,7 @@
 /*
   Plugin Name: Postmatic Basic
   Description:
-  Version: 2.0.9
+  Version: 2.0.
   License: GPL2+
   Author: Postmatic
   Author URI: http://gopostmatic.com/
@@ -46,3 +46,12 @@ Prompt_Autoload::register( 'Prompt_Admin_', dirname( __FILE__ ) . '/admin' );
 Prompt_Autoload::register( 'Prompt_Enum_', dirname( __FILE__ ) . '/enums' );
 
 Prompt_Core::load();
+
+if ( !class_exists( 'Prompt_Root' ) ) {
+	/**
+	 * Manage things that must be done from the root plugin file.
+	 * @since 2.0.0
+	 */
+	class Prompt_Root {
+	}
+}

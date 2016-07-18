@@ -69,10 +69,6 @@ class Prompt_Core {
 	 */
 	public static function action_plugins_loaded() {
 
-		if ( !class_exists( 'Postmatic\Premium\Core' ) and !self::unit_testing() ) {
-			Prompt_Root::load_freemius();
-		}
-
 		self::$options = new Prompt_Options();
 
 		// Until we have a key we won't do much
