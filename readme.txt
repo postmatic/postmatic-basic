@@ -73,6 +73,10 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.9 =
+
+- Temporarily removed Freemius to bypass optin bugs
+
 = 2.0.8 =
 
 - Updated German translation
