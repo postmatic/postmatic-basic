@@ -42,7 +42,7 @@ msgid "General"
 msgstr "Général"
 
 #: admin/core-options-tab.php:12
-msgid "Postmatic Api Key"
+msgid "Postmatic API Key"
 msgstr "Clé API de Postmatic"
 
 #: admin/core-options-tab.php:25
@@ -1382,7 +1382,7 @@ msgstr "Migrer les abonnements aux commentaires"
 
 #: admin/subscribe-reloaded-import-options-tab.php:25
 msgid ""
-"This utilitly will migrate comment subscriptions from Subscribe to Comments, "
+"This utility will migrate comment subscriptions from Subscribe to Comments, "
 "Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments."
 msgstr ""
 "Cet utilitaire va permettre la migration des abonnements aux commentaires de "
@@ -1427,12 +1427,10 @@ msgstr ""
 #, php-format
 msgid "We have migrated one subscription.<br />"
 msgid_plural ""
-"We have migrated %1$s subscriptions.<br /> You can disable Subscribe to "
-"Comments Reloaded at this time.<br />"
+"We have migrated %1$s subscriptions.<br />"
 msgstr[0] "Nous avons migré un abonnement.<br />"
 msgstr[1] ""
-"Nous avons migré %1$s abonnements. <br />Vous pouvez maintenant désactiver "
-"Subscribe to Comments Reloaded.<br />"
+"Nous avons migré %1$s abonnements. <br />"
 
 #: admin/subscribe-reloaded-import-options-tab.php:86
 #, php-format
@@ -1500,7 +1498,7 @@ msgstr "Répertoire Widget"
 
 #: admin/support-options-tab.php:57
 msgid ""
-"We've hand curated dozen of widgets. Get the most out of your email template."
+"We've hand curated dozens of widgets. Get the most out of your email template."
 msgstr ""
 "Nous avons repertorié à la main une douzaine de widgets. Tirez le meilleur "
 "de votre modèle d&rsquo;e-mail ."

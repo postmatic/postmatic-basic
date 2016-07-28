@@ -136,7 +136,7 @@ msgstr ""
 "Plattform mit Postmatic."
 
 #: admin/core-options-tab.php:68
-msgid "Postmatic Api Key"
+msgid "Postmatic API Key"
 msgstr "Postmatic API Schlüssel"
 
 #: admin/core-options-tab.php:82
@@ -295,7 +295,7 @@ msgid "Enable Skimlinks"
 msgstr "Skimlinks aktivieren"
 
 #: admin/core-options-tab.php:562
-msgid "Use Skimlinks in your all your emailed content."
+msgid "Use Skimlinks in all your emailed content."
 msgstr "Verwende Skimlinks in all deinen Mail-Inhalten."
 
 #: admin/core-options-tab.php:571
@@ -1521,7 +1521,7 @@ msgstr "Migrieren von Kommentar-Anmeldungen"
 
 #: admin/subscribe-reloaded-import-options-tab.php:33
 msgid ""
-"This utilitly will migrate comment subscriptions from Subscribe to Comments, "
+"This utility will migrate comment subscriptions from Subscribe to Comments, "
 "Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments."
 msgstr ""
 "Dieses Tool migriert Kommentar-Einschreibungen von \"Subscribe to Comments"
@@ -1563,12 +1563,9 @@ msgstr ""
 #: admin/subscribe-reloaded-import-options-tab.php:87
 msgid "We have migrated one subscription.<br />"
 msgid_plural ""
-"We have migrated %1$s subscriptions.<br /> You can disable Subscribe to "
-"Comments Reloaded at this time.<br />"
+"We have migrated %1$s subscriptions.<br />"
 msgstr[0] "Wir haben ein Abonnement migriert.<br />"
-msgstr[1] ""
-"Wir haben %1$s Abonnements migriert.<br /> Subscribe to Comments Reloaded "
-"kann deaktiviert werden.<br />"
+msgstr[1] "Wir haben %1$s Abonnements migriert.<br />"
 
 #: admin/subscribe-reloaded-import-options-tab.php:95
 msgid ""
@@ -1625,7 +1622,7 @@ msgstr "Widget-Verzeichnis"
 
 #: admin/support-options-tab.php:60
 msgid ""
-"We've hand curated dozen of widgets. Get the most out of your email template."
+"We've hand curated dozens of widgets. Get the most out of your email template."
 msgstr ""
 "Wir haben bereits ein Dutzend Widgets an Postmatic angepasst. Hole das "
 "meiste aus deiner Mailvorlage heraus."

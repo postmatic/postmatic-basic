@@ -66,7 +66,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$table_entries = array(
 			array(
-				'title' => __( 'Postmatic Api Key', 'Postmatic' ),
+				'title' => __( 'Postmatic API Key', 'Postmatic' ),
 				'type' => 'text',
 				'name' => 'prompt_key',
 				'extra' => array( 'class' => 'regular-text last-submit' ),
@@ -571,7 +571,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 					__( 'Enable Webhooks', 'Postmatic' ),
 					' ',
 					$webhooks_upgrade_link,
-					html( 'small', __( 'Use webhooks with servics like Zapier to keep your lists in sync.', 'Postmatic' ) )
+					html( 'small', __( 'Use webhooks with services like Zapier to keep your lists in sync.', 'Postmatic' ) )
 				)
 			),
 			html(
@@ -583,7 +583,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 					__( 'Enable Skimlinks', 'Postmatic' ),
 					' ',
 					$upgrade_link,
-					html( 'small', __( 'Use Skimlinks in your all your emailed content.', 'Postmatic' ) )
+					html( 'small', __( 'Use Skimlinks in all your emailed content.', 'Postmatic' ) )
 				)
 			),
 			html(

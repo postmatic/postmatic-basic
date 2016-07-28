@@ -54,7 +54,7 @@ class Prompt_Request_Signature {
 		if ( abs( time() - $this->timestamp ) > 6 * HOUR_IN_SECONDS ) {
 			return new WP_Error(
 				Prompt_Enum_Error_Codes::SIGNATURE,
-				__( 'Request signature has an invalid timestamp.', 'Postmatic' ),
+				'Request signature has an invalid timestamp.',
 				array( 'signature' => $signature, 'timestamp' => $this->timestamp, 'token' => $this->token )
 			);
 		}
@@ -62,7 +62,7 @@ class Prompt_Request_Signature {
 		if ( strlen( $signature ) != 64 or $signature != $this->get_signature() ) {
 			return new WP_Error(
 				Prompt_Enum_Error_Codes::SIGNATURE,
-				__( 'Request signature is invalid.', 'Postmatic' ),
+				'Request signature is invalid.',
 				array( 'signature' => $signature, 'timestamp' => $this->timestamp, 'token' => $this->token )
 			);
 		}

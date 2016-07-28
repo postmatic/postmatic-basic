@@ -31,7 +31,7 @@ class Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab extends Prompt_Admin_Im
 			html( 'h2', __( 'Migrate Comment Subscriptions', 'Postmatic' ) ),
 			html( 'p',
 				__(
-					'This utilitly will migrate comment subscriptions from Subscribe to Comments, Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments.',
+					'This utility will migrate comment subscriptions from Subscribe to Comments, Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments.',
 					'Postmatic'
 				)
 			),
@@ -86,10 +86,12 @@ class Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab extends Prompt_Admin_Im
 
 		$results_format = _n(
 			'We have migrated one subscription.<br />',
-			'We have migrated %1$s subscriptions.<br /> You can disable Subscribe to Comments Reloaded at this time.<br />',
+			'We have migrated %1$s subscriptions.<br />',
 			$import->get_imported_count(),
 			'Postmatic'
 		);
+
+		$results_format .= __( 'You can disable Subscribe to Comments Reloaded at this time.<br />', 'Postmatic' );
 
 		if ( $import->get_already_subscribed_count() > 0 ) {
 			$results_format .= ' ' . _n(

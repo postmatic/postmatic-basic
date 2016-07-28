@@ -132,9 +132,8 @@ msgstr ""
 "Bouw relaties op, betrek je community en laat je platform groeien met "
 "Postmatic."
 
-# Shouldn't  Api be API ?
 #: admin/core-options-tab.php:69
-msgid "Postmatic Api Key"
+msgid "Postmatic API Key"
 msgstr "Postmatic API-sleutel"
 
 #: admin/core-options-tab.php:83
@@ -282,9 +281,8 @@ msgstr "Analyseer en maak te gelde"
 msgid "Enable Webhooks"
 msgstr "Schakel Webhooks in"
 
-# error in English text (should be 'services')
 #: admin/core-options-tab.php:574
-msgid "Use webhooks with servics like Zapier to keep your lists in sync."
+msgid "Use webhooks with services like Zapier to keep your lists in sync."
 msgstr ""
 "Gebruik webhooks met services als Zapier om je lijsten te synchroniseren."
 
@@ -292,9 +290,8 @@ msgstr ""
 msgid "Enable Skimlinks"
 msgstr "Schakel Skimlinks in"
 
-# English text is not right: one "your" too much
 #: admin/core-options-tab.php:586
-msgid "Use Skimlinks in your all your emailed content."
+msgid "Use Skimlinks in all your emailed content."
 msgstr "Gebruik Skimlinks in alle inhoud die per e-mail wordt verstuurd."
 
 #: admin/core-options-tab.php:595
@@ -306,6 +303,7 @@ msgid "A whole lot more than open rates."
 msgstr "Heel wat meer dan het open-percentage."
 
 # I'm not sure how to interprete 'community intelligence'
+# A: it refers to letting trusted users make decisions about comment quality
 #: admin/core-options-tab.php:599
 #, fuzzy
 msgid "Help us Kickstart community intelligence"
@@ -395,6 +393,7 @@ msgid "Colors set to defaults."
 msgstr "Kleuren naar standaard."
 
 # is this correct: not send toan invalid address? or should this be 'valid'?
+# A: it's correct, the email was not sent because the address was invalid.
 #: admin/email-options-tab.php:57
 msgid "Test email was <strong>not sent</strong> to an invalid address."
 msgstr ""
@@ -597,7 +596,9 @@ msgid "Jetpack Import"
 msgstr "Jetpack import"
 
 # what's the difference between safe and secure?
+# safe: won't damage your data, secure: not vulnerable to abuse
 # not sure what you mean by "continue on doing what you do best'.
+# A: it's not really correct, intended as "focus on what's important to you"
 #: admin/jetpack-import-options-tab.php:32
 msgid ""
 "Migrating your users from Jetpack to Postmatic takes only seconds. We’ve "
@@ -1083,6 +1084,7 @@ msgid "Popup over the page <small>(click to enable)</small>"
 msgstr "Popup over de pagina <small>(klik om in te schakelen)</small>"
 
 # I don't know what an animated modal window is.
+# A: a popup that moves
 #: admin/optins-options-tab.php:83
 #, fuzzy
 msgid ""
@@ -1123,6 +1125,7 @@ msgid "Headline"
 msgstr "Titel"
 
 # shouldn't there be a . after headline in the original text?
+# A: no, it's rendered as a heading
 #: admin/optins-options-tab.php:143 admin/optins-options-tab.php:262
 msgid ""
 "Text to display below headline<small>Allowed HTML: a, strong, em, ul, ol, "
@@ -1427,6 +1430,7 @@ msgid "Send Posts to Subscribers"
 msgstr "Verstuur berichten aan abonnees"
 
 # there's a blank space after the break, I think it should not be there.
+# A: i'm going to leave it since it doesn't hurt anything
 #: admin/post-options-tab.php:41
 msgid ""
 "Posts are sent as soon as you hit publish.<br /> Comments can be sent with a "
@@ -1522,10 +1526,9 @@ msgstr "SCR Importer"
 msgid "Migrate Comment Subscriptions"
 msgstr "Migreer abonnementen op reacties"
 
-# typo in source: 'utilitly'
 #: admin/subscribe-reloaded-import-options-tab.php:33
 msgid ""
-"This utilitly will migrate comment subscriptions from Subscribe to Comments, "
+"This utility will migrate comment subscriptions from Subscribe to Comments, "
 "Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments."
 msgstr ""
 "Deze optie migreert abonnementen op reacties van de plugins Subscribe To "
@@ -1533,6 +1536,7 @@ msgstr ""
 "Comments."
 
 # Am I right that 'legacy plugin" means the plugin that is the source for the imported subscribers?
+# A: yes
 #: admin/subscribe-reloaded-import-options-tab.php:39
 msgid ""
 "Subscribers are imported silently and without notice sent. When the import "
@@ -1565,16 +1569,12 @@ msgstr ""
 "Als je wilt importeren van Subscribe To Comments Reloaded, activeer dan s.v."
 "p. deze plugin."
 
-# the second sentence is missing for the singular option?
 #: admin/subscribe-reloaded-import-options-tab.php:87
 msgid "We have migrated one subscription.<br />"
 msgid_plural ""
-"We have migrated %1$s subscriptions.<br /> You can disable Subscribe to "
-"Comments Reloaded at this time.<br />"
+"We have migrated %1$s subscriptions.<br />"
 msgstr[0] "We hebben één abonnee gemigreerd.<br />"
-msgstr[1] ""
-"We hebben %1$s abonnees gemigreerd. Je kunt nu Subscribe to Comments "
-"Reloaded uitschakelen.<br />"
+msgstr[1] "We hebben %1$s abonnees gemigreerd.<br />"
 
 #: admin/subscribe-reloaded-import-options-tab.php:95
 msgid ""
@@ -1626,15 +1626,15 @@ msgstr "Vind antwoorden"
 msgid "Widget Directory"
 msgstr "Widgetdirectory"
 
-# shouldn't this be dozens instead of dozen? Or a dozen?
 #: admin/support-options-tab.php:60
 msgid ""
-"We've hand curated dozen of widgets. Get the most out of your email template."
+"We've hand curated dozens of widgets. Get the most out of your email template."
 msgstr ""
 "We hebben met zorg een tiental widgets geselecteerd. Haal het beste uit je e-"
 "mailtemplate."
 
 # is this a name? Can't find anything on your site.
+# A: it's just link text to our widgets directory
 #: admin/support-options-tab.php:64
 msgid "Research Widgets"
 msgstr "Onderzoek widgets"
@@ -1785,22 +1785,6 @@ msgstr "Uitschrijving van een onbekende lijst mislukt."
 #: core/commands/confirmation-command.php:108
 msgid "Invalid confirmation keys"
 msgstr "Ongeldige bevestigingssleutels"
-
-#: core/commands/forward-command.php:127
-msgid "Invalid forward keys"
-msgstr "Ongeldige forwardsleutels"
-
-# not sure about translation / context
-#: core/commands/forward-command.php:132
-#, fuzzy
-msgid "Invalid subscribable class"
-msgstr "Ongeldige inschrijvings class"
-
-# Not sure about this
-#: core/commands/post-request-command.php:88
-#, fuzzy
-msgid "Invalid post request keys"
-msgstr "Ongeldige post request sleutel"
 
 #: core/commands/register-subscribe-command.php:92
 msgid "Couldn't find the original registration information for a new user."
@@ -1957,6 +1941,7 @@ msgid "by %s"
 msgstr "door %s"
 
 # is a post recipient the same as a subscriber?
+# A: yes, in most cases. Sometimes post authors or others are added without subscribing.
 #: core/email-batches/post-email-batch.php:175
 msgid "Did not add an invalid post recipient"
 msgstr "Geen ongeldige berichtenontvanger toegevoegd"
@@ -2046,6 +2031,7 @@ msgid "Reply"
 msgstr "Antwoord"
 
 # twice %%?
+# yes, PHP changes it to a single %.
 #: core/freemius.php:91
 msgid ""
 "Help us improve Postmatic by sharing usage statistics with us? It will help "
@@ -2066,6 +2052,7 @@ msgid "Inbound messages arrived in an unrecognized format."
 msgstr "Inkomende berichten zijn in een niet-herkend formaat."
 
 # Can't figure out what the context is, so translation might not be adequate.
+# A: just an error message an administrator might see
 #: core/inbound-messenger.php:65
 #, fuzzy
 msgid "Failed to acknowledge unrecognized updates response."
@@ -2276,12 +2263,6 @@ msgstr "bericht"
 msgid "Request signature has an invalid timestamp."
 msgstr "Gevraagde ondertekening heeft een ongeldige tijdsaanduiding."
 
-# Not sure what a request signature is
-#: core/request-signature.php:65
-#, fuzzy
-msgid "Request signature is invalid."
-msgstr "request signature is ongeldig."
-
 #: core/site-comments.php:47
 msgid "all comments on %s"
 msgstr "alle reacties op %s"
@@ -2480,6 +2461,7 @@ msgstr ""
 "<span>Heb je &hearts; voor Postmatic?</span> Steun dan verdere ontwikkeling!"
 
 # no idea what 'long tail' means in this context.
+# A: obscure reference to http://www.longtail.com/about.html
 #: templates/analytics-promo.php:13
 #, fuzzy
 msgid ""
@@ -2505,7 +2487,6 @@ msgstr ""
 "we niet alleen. <a href=\"http://gopostmatic.com/kickstarter\" target="
 "\"_blank\">Doe jij mee?</a>"
 
-# Not sure about the context
 #: templates/analytics-promo.php:26
 msgid "For helping out you could get..."
 msgstr "Voor hulp kun je ..."
@@ -2520,7 +2501,6 @@ msgstr ""
 msgid "Beta access to Postmatic Analytics"
 msgstr "Beta toegang tot Postmatic Analytics"
 
-# I need some more explanation to translate this
 #: templates/analytics-promo.php:30
 #, fuzzy
 msgid "A custom commenting & community overhaul"
@@ -2539,6 +2519,7 @@ msgid "We're just going to say thanks ahead of time."
 msgstr "Bij voorbaat onze dank."
 
 # Should I use Euros instead of dollars? :-)
+# A: if it makes more sense to you?
 #: templates/analytics-promo.php:34
 msgid "But really. Please do join us. Even if it's just a few dollars."
 msgstr "Echt. Doe mee. Ook al zijn het maar een paar dollars. "
@@ -2956,7 +2937,6 @@ msgstr ""
 msgid "Analytics for your WordPress community"
 msgstr "Analytics voor je Wordpress-community"
 
-# no idea what 'long tail' means in this context.
 #: templates/notes-promo.php:27
 #, fuzzy
 msgid ""
