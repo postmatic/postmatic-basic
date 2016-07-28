@@ -1,8 +1,10 @@
 <?php
 
-require_once( path_join( Prompt_Core::$dir_path, 'vendor/xamin/handlebars.php/src/Handlebars/Autoloader.php' ) );
+if ( !class_exists( 'Handlebars_Autoloader' ) ) {
+	require_once( path_join( Prompt_Core::$dir_path, 'vendor/xamin/handlebars.php/src/Handlebars/Autoloader.php' ) );
+	Handlebars_Autoloader::register();
+}
 
-Handlebars_Autoloader::register();
 
 /**
  * Decorate the handlebars library.
