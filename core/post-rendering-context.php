@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Manage rendering a post for email.
+ * @since 1.0
+ */
 class Prompt_Post_Rendering_Context {
 
 	/** @var bool */
@@ -17,6 +21,12 @@ class Prompt_Post_Rendering_Context {
 	/** @var  Prompt_User */
 	protected $author;
 
+	/**
+	 * Prompt_Post_Rendering_Context constructor.
+	 * @since 1.0
+	 * @param int|WP_Post $post_object_or_id
+	 * @param null|array $modifiers
+	 */
 	public function __construct( $post_object_or_id, $modifiers = null ) {
 		$this->post = get_post( $post_object_or_id );
 		$this->prompt_post = new Prompt_Post( $this->post );
@@ -27,6 +37,7 @@ class Prompt_Post_Rendering_Context {
 	/**
 	 * Set up the global environment needed to render a post email.
 	 * @var WP_Post $post
+	 * @since 1.0
 	 */
 	public function setup() {
 
@@ -59,6 +70,7 @@ class Prompt_Post_Rendering_Context {
 
 	/**
 	 * Reset the global environment after rendering post emails.
+	 * @since 1.0
 	 */
 	public function reset() {
 
@@ -84,11 +96,13 @@ class Prompt_Post_Rendering_Context {
 
 		$text = $prompt_post->get_custom_text();
 
-		if ( $text )
+		if ( $text ) {
 			return $text;
+		}
 
-		if ( Prompt_Admin_Delivery_Metabox::excerpt_only( $prompt_post->id() ) )
+		if ( Prompt_Admin_Delivery_Metabox::excerpt_only( $prompt_post->id() ) ) {
 			return Prompt_Html_To_Markdown::convert( get_the_excerpt() );
+		}
 
 		$html = apply_filters( 'the_content', get_the_content() );
 
@@ -99,6 +113,7 @@ class Prompt_Post_Rendering_Context {
 
 	/**
 	 * Get the array with the featured image url, width, and height (or false).
+	 * @since 1.0
 	 */
 	public function get_the_featured_image_src() {
 
@@ -141,6 +156,7 @@ class Prompt_Post_Rendering_Context {
 	}
 
 	/**
+	 * @since 1.0
 	 * @return string Menu HTML.
 	 */
 	public function alternate_versions_menu() {
@@ -171,6 +187,7 @@ class Prompt_Post_Rendering_Context {
 	}
 
 	/**
+	 * @since 1.0
 	 * @return bool whether the post has content that would be stripped by strip_fancy_content()
 	 */
 	public function has_fancy_content() {
@@ -189,6 +206,9 @@ class Prompt_Post_Rendering_Context {
 		return ( $sans_shortcodes != $this->post->post_content );
 	}
 
+	/**
+	 * @since 1.0
+	 */
 	protected function ensure_setup() {
 
 		if ( ! $this->is_setup ) {
@@ -208,11 +228,14 @@ class Prompt_Post_Rendering_Context {
 	 */
 	protected function add_modifiers() {
 
-		if ( $this->modifiers ) {
+		if ( ! is_null( $this->modifiers ) ) {
 			return;
 		}
 
-		$this->modifiers = array( new Prompt_Custom_HTML_Post_Rendering_Modifier() );
+		$this->modifiers = array(
+			new Prompt_Custom_HTML_Post_Rendering_Modifier(),
+			new Prompt_Handlebars_Escape_Post_Rendering_Modifier()
+		);
 
 		if ( Prompt_Enum_Email_Transports::LOCAL == Prompt_Core::$options->get( 'email_transport' ) ) {
 			$this->modifiers[] = new Prompt_Local_Post_Rendering_Modifier();

@@ -16,6 +16,8 @@ class Prompt_Handlebars_Escape_Post_Rendering_Modifier extends Prompt_Post_Rende
 	public function __construct( $handlebars = null ) {
 		$this->handlebars = $handlebars ? $handlebars : new Prompt_Handlebars();
 		$this->add_filter( 'the_content', array( $this, 'escape_handlebars_expressions' ), 1, 1 );
+		$this->add_filter( 'the_excerpt', array( $this, 'escape_handlebars_expressions' ), 1, 1 );
+		$this->add_filter( 'the_title', array( $this, 'escape_handlebars_expressions' ), 1, 1 );
 	}
 
 	/**
