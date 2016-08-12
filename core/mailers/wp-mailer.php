@@ -67,7 +67,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		$return_values = array();
 
 
-		add_action( 'wp_mail_failed', array( $this, 'log_mail_error' ) );
+		add_action( 'wp_mail_failed', array( $this, 'add_mail_error' ) );
 
 		for( $i = 0; $i < count( $source_values ); $i += 1 ) {
 
@@ -78,7 +78,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 			$return_values[$local_email['to_address']] = $this->send_prepared( $local_email );
 		}
 		
-		remove_action( 'wp_mail_failed', array( $this, 'log_mail_error' ) );
+		remove_action( 'wp_mail_failed', array( $this, 'add_mail_error' ) );
 
 		$this->log_errors();
 
