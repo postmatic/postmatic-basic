@@ -51,7 +51,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		$this->subscribed_post_title_link = html( 'a',
 			array( 'href' => get_permalink( $this->prompt_post->id() ) ),
-			get_the_title( $this->prompt_post->id() )
+			Prompt_Formatting::escape_handlebars_expressions( get_the_title( $this->prompt_post->id() ) )
 		);
 
 		$is_api_delivery = ( Prompt_Enum_Email_Transports::API == Prompt_Core::$options->get( 'email_transport' ) );
@@ -64,7 +64,9 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			$this->prompt_parent_comment = new Prompt_Comment( $comment->comment_parent );
 			$parent_comment = $this->prompt_parent_comment->get_wp_comment();
 			$parent_author = $this->prompt_parent_comment->get_author_user();
-			$parent_author_name = $this->prompt_parent_comment->get_author_name();
+			$parent_author_name = Prompt_Formatting::escape_handlebars_expressions(
+				$this->prompt_parent_comment->get_author_name()
+			);
 
 			$template_file = $is_api_delivery ? 'comment-reply-email.php' : $template_file;
 		}
@@ -74,13 +76,17 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		$post_author = get_userdata( $prompt_post->get_wp_post()->post_author );
 		$post_author_name = $post_author ? $post_author->display_name : __( 'Anonymous', 'Postmatic' );
+		$post_author_name = Prompt_Formatting::escape_handlebars_expressions( $post_author_name );
 
 		$this->set_previous_comments();
 
 		$template_data = array(
 			'comment_author' => $this->prompt_comment->get_author_user(),
-			'comment' => $this->prompt_comment->get_wp_comment(),
 			'commenter_name' => $this->prompt_comment->get_author_name(),
+			'comment_post_ID' => $comment->comment_post_ID,
+			'comment_author_url' => $comment->comment_author_url,
+			'comment_text' => Prompt_Formatting::escape_handlebars_expressions( wpautop( $comment->comment_content ) ),
+			'avatar' => $is_api_delivery ? get_avatar( $comment ) : '',
 			'subscribed_post' => $prompt_post,
 			'subscribed_post_author_name' => $post_author_name,
 			'subscribed_post_title_link' => $this->subscribed_post_title_link,
@@ -97,10 +103,14 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		 *
 		 * @param array $template_data {
 		 * @type WP_User $comment_author
-		 * @type WP_User $subscriber
-		 * @type object $comment
+		 * @type string $commenter_name
+		 * @type int $comment_post_ID
+		 * @type string $commenter_author_url
+		 * @type string $commenter_text
+		 * @type string $avatar
 		 * @type Prompt_post $subscribed_post
 		 * @type string $subscribed_post_author_name
+		 * @type string $subscribed_post_title_link
 		 * @type array $previous_comments
 		 * @type WP_User $parent_author
 		 * @type string $parent_author_name

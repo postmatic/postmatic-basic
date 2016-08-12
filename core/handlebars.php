@@ -33,12 +33,4 @@ class Prompt_Handlebars extends Handlebars_Engine {
 		return $this->loadString( $string )->render( $context );
 	}
 
-	/**
-	 * @since 2.0.10
-	 * @param string $string
-	 * @return string
-	 */
-	public function escape_expressions( $string ) {
-		return preg_replace( '/(\{{2,3}[^\}]*\}{2,3})/', '\\\$1', $string );
-	}
 }

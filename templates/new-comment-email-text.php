@@ -4,11 +4,12 @@
  * comment notification email template
  * variables in scope:
  * @var {WP_User}           $comment_author
- * @var string $commenter_name
- * @var object $comment
- * @var Prompt_Post $subscribed_post
- * @var array $previous_comments
- * @var bool $is_api_delivery
+ * @var string              $commenter_name
+ * @var string              $comment_post_ID
+ * @var string              $comment_text
+ * @var Prompt_Post         $subscribed_post
+ * @var array               $previous_comments
+ * @var bool                $is_api_delivery
  */
 ?>
 <h2>
@@ -16,13 +17,13 @@
 	printf(
 		__( '%s added a comment on %s', 'Postmatic' ),
 		$commenter_name,
-		get_the_title( $comment->comment_post_ID )
+		get_the_title( $comment_post_ID )
 	);
 	?>
 </h2>
 
 <div>
-	<?php echo $comment->comment_content; ?>
+	<?php echo $comment_text; ?>
 </div>
 
 <?php if ( count( $previous_comments ) > 1 ) : ?>
@@ -36,7 +37,7 @@
 				'You\'re invited to respond by replying to this email. If you do, it may be published immediately or held for moderation, depending on the comment policy of %s.',
 				'Postmatic'
 			),
-			get_the_title( $comment->comment_post_ID )
+			get_the_title( $comment_post_ID )
 		);
 		?>
 	</p>
@@ -68,7 +69,7 @@
 			'Please note: Your reply will be published publicly and immediately on %s.',
 			'Postmatic'
 		),
-		get_the_title( $comment->comment_post_ID )
+		get_the_title( $comment_post_ID )
 	);
 	?>
 </p>

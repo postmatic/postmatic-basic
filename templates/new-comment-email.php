@@ -4,8 +4,12 @@
  * variables in scope:
  * @var {WP_User}           $comment_author
  * @var string              $commenter_name
- * @var object              $comment
+ * @var string              $comment_post_ID
+ * @var string              $comment_author_url
+ * @var string              $comment_text
+ * @var string              $avatar
  * @var Prompt_Post         $subscribed_post
+ * @var string              $subscribed_post_title_link
  * @var array               $previous_comments
  * @var bool                $is_api_delivery
  */
@@ -19,23 +23,23 @@ $previous_index = count( $previous_comments );
 		printf(
 			__( '%1$s added a comment in reply to %2$s.', 'Postmatic' ),
 			'<span style="text-tranform: capitalize;" class="capitalize">' . $commenter_name . '</span>',
-			'<a href="' . get_permalink( $comment->comment_post_ID ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
+			'<a href="' . get_permalink( $comment_post_ID ) . '">' . get_the_title( $comment_post_ID ) . '</a>'
 		);
 		?>
 	</p>
 	
 	<div class="primary-comment comment">
 		<div class="comment-header">
-			<?php echo $is_api_delivery ? get_avatar( $comment ) : ''; ?>
+			<?php echo $avatar; ?>
 			<div class="author-name">
-				<?php if ( $is_api_delivery and $comment->comment_author_url ) : ?>
-					<a href="<?php echo esc_url( $comment->comment_author_url ); ?>">
+				<?php if ( $is_api_delivery and $comment_author_url ) : ?>
+					<a href="<?php echo esc_url( $comment_author_url ); ?>">
 						<?php echo $commenter_name; ?>
 					</a>
 				<?php endif; ?>
 			</div>
 			<div class="comment-body">
-				<?php echo wpautop( $comment->comment_content ); ?>
+				<?php echo $comment_text; ?>
 			</div>
 		</div>
 	</div>
@@ -56,7 +60,7 @@ $previous_index = count( $previous_comments );
 							'You\'re invited to respond by replying to this email. If you do, it may be published immediately or held for moderation, depending on the comment policy of %s.',
 							'Postmatic'
 						),
-						'<a href="' . get_permalink( $comment->comment_post_ID ) . '">' . get_the_title( $comment->comment_post_ID ) . '</a>'
+						$subscribed_post_title_link
 					);
 					?>
 				</small>
@@ -92,8 +96,8 @@ $previous_index = count( $previous_comments );
 						'<br /><strong>Please note</strong>: Your reply will be published on %s.',
 						'Postmatic'
 					),
-					'<a href="' . get_permalink( $comment->comment_post_ID ) . '">' .
-					get_the_title( $comment->comment_post_ID ) . '</a>'
+					'<a href="' . get_permalink( $comment_post_ID ) . '">' .
+					get_the_title( $comment_post_ID ) . '</a>'
 				);
 				?>
 			</small>
