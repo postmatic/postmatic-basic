@@ -124,17 +124,17 @@ class Prompt_Forward_Command implements Prompt_Interface_Command {
 	protected function validate() {
 
 		if ( !is_array( $this->keys ) or count( $this->keys ) < 4 ) {
-			trigger_error( __( 'Invalid forward keys', 'Postmatic' ), E_USER_WARNING );
+			trigger_error( 'Invalid forward keys', E_USER_WARNING );
 			return false;
 		}
 
 		if ( !empty( $this->keys[0] ) and !class_exists( $this->keys[0] ) ) {
-			trigger_error( __( 'Invalid subscribable class', 'Postmatic' ), E_USER_WARNING );
+			trigger_error( 'Invalid subscribable class', E_USER_WARNING );
 			return false;
 		}
 
 		if ( empty( $this->message ) ) {
-			trigger_error( __( 'Invalid message', 'Postmatic' ), E_USER_WARNING );
+			trigger_error( 'Invalid message', E_USER_WARNING );
 			return false;
 		}
 

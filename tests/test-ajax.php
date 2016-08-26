@@ -202,6 +202,41 @@ class PromptAjaxTest extends WP_Ajax_UnitTestCase {
 
 	}
 
+	public function testLoggedInSubscribedUser() {
+
+		$user = $this->factory->user->create_and_get();
+
+		$prompt_site = new Prompt_Site();
+
+		$prompt_site->subscribe( $user->ID );
+
+		wp_set_current_user( $user->ID );
+
+		$_POST['subscribe_nonce'] = wp_create_nonce( Prompt_Ajax_Handling::AJAX_NONCE );
+		$_POST['subscribe_topic'] = '';
+		$_POST['subscribe_submit'] = 'subscribe';
+
+		$this->_mailer_expects = $this->never();
+
+		try {
+			$this->_handleAjax( Prompt_Subscribing::SUBSCRIBE_ACTION );
+		} catch ( WPAjaxDieContinueException $e ) {
+			unset( $e );
+		}
+
+		$this->assertNotContains( 'Notice:', $this->_last_response );
+		$this->assertNotContains( 'Error:', $this->_last_response );
+		$this->assertContains( 'already', $this->_last_response );
+		$this->assertContains(
+			$prompt_site->subscription_object_label(),
+			$this->_last_response,
+			'Expected the new posts list label in the widget response.'
+		);
+
+		$this->assertTrue( $prompt_site->is_subscribed( $user->ID ), 'Expected the user to still be subscribed.' );
+
+	}
+
 	public function testLoggedOutSubscribedUser() {
 
 		$user = $this->factory->user->create_and_get();

@@ -3,8 +3,8 @@
  * comment notification email template
  * variables in scope:
  * @var WP_User $comment_author
- * @var object $comment
  * @var string $commenter_name
+ * @var string $comment_text
  * @var Prompt_Post $subscribed_post
  * @var string $subscribed_post_author_name
  * @var array $previous_comments
@@ -15,7 +15,7 @@
 ?>
 {{subscriber_comment_intro_text}}
 
-<?php echo $comment->comment_content; ?>
+<?php echo $comment_text; ?>
 
 <p>
 <?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
@@ -38,7 +38,7 @@ printf(
 </p>
 
 <div>
-<?php echo $subscribed_post->get_excerpt(); ?>
+<?php echo Prompt_Formatting::escape_handlebars_expressions( $subscribed_post->get_excerpt() ); ?>
 </div>
 
 <p>
@@ -72,6 +72,6 @@ printf(
 		'Postmatic'
 	),
 	Prompt_Unsubscribe_Matcher::target()
-)
+);
 ?>
 </p>

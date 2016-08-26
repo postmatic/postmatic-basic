@@ -3,8 +3,10 @@
  * comment notification email template
  * variables in scope:
  * @var WP_User     $comment_author
- * @var object      $comment
+ * @var string      $comment_author_url
  * @var string      $commenter_name
+ * @var string      $comment_text
+ * @var string      $avatar
  * @var Prompt_Post $subscribed_post
  * @var string      $subscribed_post_author_name
  * @var string      $subscribed_post_title_link
@@ -24,10 +26,10 @@
 	<div class="new-reply">
 		<div class="primary-comment comment">
 			<div class="comment-header">
-				<?php echo get_avatar( $comment ); ?>
+				<?php echo $avatar; ?>
 				<div class="author-name">
-					<?php if ( $comment->comment_author_url ) : ?>
-						<a href="<?php echo esc_url( $comment->comment_author_url ); ?>">
+					<?php if ( $comment_author_url ) : ?>
+						<a href="<?php echo esc_url( $comment_author_url ); ?>">
 							<?php echo $commenter_name; ?>
 						</a>
 					<?php else : ?>
@@ -35,7 +37,7 @@
 					<?php endif; ?>
 				</div>
 				<div class="comment-body">
-					<?php echo wpautop( $comment->comment_content ); ?>
+					<?php echo $comment_text; ?>
 				</div>
 			</div>
 		</div>
@@ -71,7 +73,7 @@
 			?>
 		</p>
 		<?php echo get_the_post_thumbnail( $subscribed_post->id(), 'medium' ); ?>
-		<p class="excerpt"><?php echo $subscribed_post->get_excerpt(); ?></p>
+		<p class="excerpt"><?php echo Prompt_Formatting::escape_handlebars_expressions( $subscribed_post->get_excerpt() ); ?></p>
 	</div>
 
 	<h3 class="summary">

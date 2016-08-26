@@ -33,7 +33,7 @@ class Prompt_Post_Email_Batch extends Prompt_Email_Batch {
 		$prompt_author = $context->get_author();
 		$prompt_post = $context->get_post();
 
-		$subject = html_entity_decode( $prompt_post->get_wp_post()->post_title, ENT_QUOTES );
+		$subject = html_entity_decode( get_the_title(), ENT_QUOTES );
 
 		list( $footnote_html, $footnote_text ) = $this->footnote_content();
 

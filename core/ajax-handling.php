@@ -44,14 +44,8 @@ class Prompt_Ajax_Handling {
 			wp_die();
 		}
 
-		$default_lists = array();
 		if ( !$target_list ) {
-			$default_lists = self::default_lists_for( $subscriber );
-			$target_list = ( count( $default_lists ) == 1 ? $default_lists[0] : null );
-		}
-
-		if ( !$target_list ) {
-			echo self::subscribe( $default_lists, $subscriber );
+			echo self::subscribe_to_signup_lists( $subscriber );
 			wp_die();
 		}
 
@@ -409,22 +403,27 @@ class Prompt_Ajax_Handling {
 	 * @since 2.0.0
 	 *
 	 * @param WP_User $subscriber
-	 * @return Prompt_Interface_Subscribable[]
+	 * @return string
 	 */
-	protected static function default_lists_for( $subscriber ) {
+	protected static function subscribe_to_signup_lists( $subscriber ) {
+
 		$lists = Prompt_Subscribing::get_signup_lists();
 
-		if ( count( $lists ) == 1 ) {
-			return $lists;
-		}
-
-		$not_subscribed_lists = array();
+		$subscribed_labels = array();
 		foreach ( $lists as $list ) {
-			if ( ! $list->is_subscribed( $subscriber->ID ) ) {
-				$not_subscribed_lists[] = $list;
+			if ( $list->is_subscribed( $subscriber->ID ) ) {
+				$subscribed_labels[] = $list->subscription_object_label();
 			}
 		}
 
-		return apply_filters( 'prompt/ajax_handling/default_lists_for', $not_subscribed_lists, $subscriber );
+		if ( $subscribed_labels ) {
+			return sprintf(
+				__( 'You are already subscribed to %s.', 'Postmatic' ),
+				implode( ' &amp; ', $subscribed_labels )
+			);
+		}
+
+		return self::subscribe( $lists, $subscriber );
 	}
+
 }

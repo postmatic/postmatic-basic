@@ -34,6 +34,8 @@ var prompt_options_page_env;
 			}
 		} );
 
+		$( 'form' ).submit( disable_next_submit );
+
 		init_download_prompt();
 		init_core_tab();
 		init_import_tab();
@@ -41,6 +43,13 @@ var prompt_options_page_env;
 		init_mailchimp_import();
 
 	} );
+
+	function disable_next_submit() {
+		$(this).submit( function() {
+			return false;
+		} );
+		return true;
+	}
 
 	function checking_connection() {
 		var poll_count = 0;

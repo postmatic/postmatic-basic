@@ -2,7 +2,7 @@
 Contributors: vernal
 Tags: email, notification, subscribe, subscription, email, subscribe to comments, commenting, reply, email, optins, popups, optin forms, subscribe form, subscriptions, newsletter, newsletters, email newsletter, email subscription, post notification, email subscription, mailchimp, mailgun, email commenting, reply to email, email replies, engagement, invitations
 Requires at least: 4.3
-Tested up to: 4.5
+Tested up to: 4.6
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -73,6 +73,11 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.10 =
+
+- Bug fixes
+- Better support for handlebars tags in post content
+
 = 2.0.9 =
 
 - Temporarily removed Freemius to bypass optin bugs

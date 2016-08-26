@@ -57,7 +57,7 @@ class Prompt_Admin_Support_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$content .= html( 'div id="postmatic-widget-directory" class="widget"',
 			html( 'h3', __( 'Widget Directory', 'Postmatic' ) ),
-			html( 'p', __( 'We\'ve hand curated dozen of widgets. Get the most out of your email template.', 'Postmatic' ) ),
+			html( 'p', __( 'We\'ve hand curated dozens of widgets. Get the most out of your email template.', 'Postmatic' ) ),
 			html( 'p',
 				html( 'a',
 					array( 'href' => Prompt_Enum_Urls::WIDGET_DIRECTORY ),

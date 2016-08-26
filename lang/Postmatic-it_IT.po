@@ -40,7 +40,7 @@ msgid "General"
 msgstr "Generale"
 
 #: admin/core-options-tab.php:12
-msgid "Postmatic Api Key"
+msgid "Postmatic API Key"
 msgstr "Chiave API di Postmatic"
 
 #: admin/core-options-tab.php:25
@@ -1264,7 +1264,7 @@ msgstr ""
 
 #: admin/subscribe-reloaded-import-options-tab.php:24
 msgid ""
-"This utilitly will migrate comment subscriptions from Subscribe to Comments, "
+"This utility will migrate comment subscriptions from Subscribe to Comments, "
 "Subscribe to Comments Reloaded, and Subscribe to Double-Opt-In Comments."
 msgstr ""
 
@@ -1295,8 +1295,7 @@ msgstr ""
 #: admin/subscribe-reloaded-import-options-tab.php:77
 msgid "We have migrated one subscription.<br />"
 msgid_plural ""
-"We have migrated %1$s subscriptions.<br /> You can disable Subscribe to "
-"Comments Reloaded at this time.<br />"
+"We have migrated %1$s subscriptions.<br />"
 msgstr[0] ""
 msgstr[1] ""
 
@@ -1359,7 +1358,7 @@ msgstr "Raccolta di Widget"
 
 #: admin/support-options-tab.php:57
 msgid ""
-"We've hand curated dozen of widgets. Get the most out of your email template."
+"We've hand curated dozens of widgets. Get the most out of your email template."
 msgstr "Abbiamo dozzine di widget. Trai il massimo dall'email modello."
 
 #: admin/support-options-tab.php:61

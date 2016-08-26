@@ -9,7 +9,7 @@ class PostRenderingContextTest extends WP_UnitTestCase {
 
 		$post = $this->factory->post->create_and_get( array( 'post_content' => $html ) );
 
-		$context = new Prompt_Post_Rendering_Context( $post, array() );
+		$context = new Prompt_Post_Rendering_Context( $post, null );
 
 		$this->assertEmpty( get_post(), 'Expected no current post.' );
 
@@ -58,6 +58,28 @@ class PostRenderingContextTest extends WP_UnitTestCase {
 
 		$context->setup();
 		$context->reset();
+	}
+
+	function testDefaultModifiers() {
+
+		$filterMock = $this->getMock( 'MockFilter', array( 'verify_modifiers' ) );
+		$filterMock->expects( $this->once() )
+			->method( 'verify_modifiers' )
+			->will( $this->returnCallback( array( $this, 'verifyDefaultModifiers' ) ) );
+
+		add_filter( 'prompt/post_rendering_context/modifiers', array( $filterMock, 'verify_modifiers' ) );
+
+		$post = $this->factory->post->create_and_get();
+
+		$context = new Prompt_Post_Rendering_Context( $post );
+		$context->setup();
+		$context->reset();
+
+	}
+
+	function verifyDefaultModifiers( $modifiers ) {
+		$this->assertCount( 3, $modifiers, 'Expected three default modifiers.' );
+		return $modifiers;
 	}
 
 	function testGetAuthor() {
