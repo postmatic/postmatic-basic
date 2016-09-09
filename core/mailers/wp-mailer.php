@@ -105,7 +105,10 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		if ( empty( $this->error_data ) ) {
 			return;
 		}
-		
+
+		$notice = new Prompt_Admin_Local_Mail_Notice();
+		$notice->undismiss();
+
 		Prompt_Logging::add_error(
 			'prompt_wp_mail',
 			__( 'Failed sending an email locally. Did you know Postmatic can deliver email for you?', 'Prompt_Core' ),
