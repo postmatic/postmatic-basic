@@ -189,6 +189,19 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 
 		$batch2 = new Prompt_Comment_Email_Batch( $comment );
 
-		$this->assertEmpty( $batch2->get_individual_message_values(), 'Expected no recipients in second batch.' );
+		$this->assertEmpty( $batch2->get_individual_message_values(), 'Expected no recipients in post-lock batch.' );
+
+		$batch1->clear_for_retry();
+		$batch3 = new Prompt_Comment_Email_Batch( $comment );
+		$this->assertCount( 1, $batch3->get_individual_message_values(), 'Expected one recipient post-cleared batch.' );
+
+		$batch1->lock_for_sending();
+		$batch4 = new Prompt_Comment_Email_Batch( $comment );
+		$this->assertEmpty( $batch4->get_individual_message_values(), 'Expected no recipients in post-lock batch.' );
+
+		$batch1->clear_failures( array( $recipient->user_email ) );
+		$batch5 = new Prompt_Comment_Email_Batch( $comment );
+		$this->assertCount( 1, $batch5->get_individual_message_values(), 'Expected one recipient post-failure-cleared batch.' );
 	}
+
 }

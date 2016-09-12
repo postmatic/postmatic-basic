@@ -63,7 +63,28 @@ class Prompt_Post_Wp_Mailer extends Prompt_Wp_Mailer {
 			$this->schedule_next_chunk();
 		}
 
+		if ( ! $this->rescheduled ) {
+			$this->clear_failures( $result );
+		}
+
 		return $result;
+	}
+
+	/**
+	 * @since 2.0.11
+	 * @param array $result send() result array
+	 */
+	protected function clear_failures( $result ) {
+
+		$not_function = create_function( '$a', 'return !$a;' );
+
+		$failed_addresses = array_keys( array_filter( $result, $not_function ) );
+
+		if ( empty( $failed_addresses ) ) {
+			return;
+		}
+
+		$this->batch->clear_failures( $failed_addresses );
 	}
 
 	/**

@@ -512,4 +512,19 @@ class Prompt_Email_Batch {
 		return apply_filters( 'prompt/email_batch/footer_html', '', $message_type );
 	}
 
+	/**
+	 * Find the ID for a to_address.
+	 * @since 2.0.11
+	 * @param string $to_address
+	 * @return int|null
+	 */
+	protected function to_address_to_id( $to_address ) {
+		foreach ( $this->individual_message_values as $values ) {
+			if ( $values['to_address'] == $to_address ) {
+				return $values['id'];
+			}
+		}
+		return null;
+	}
+
 }

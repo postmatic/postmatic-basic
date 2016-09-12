@@ -192,6 +192,25 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	}
 
 	/**
+	 * Record a temporary failure fot current recipients so they will still be sent a notice for this post on retry.
+	 *
+	 * @since 2.0.11
+	 *
+	 * @param array $addresses
+	 * @return $this;
+	 */
+	public function clear_failures( $addresses ) {
+
+		$ids = array_map( array( $this, 'to_address_to_id' ), $addresses );
+
+		$sent_ids = array_diff( $this->prompt_comment->get_sent_subscriber_ids(), $ids );
+
+		$this->prompt_comment->set_sent_subscriber_ids( $sent_ids );
+
+		return $this;
+	}
+
+	/**
 	 * Remove the IDs of users from the sent list so delivery can be retried.
 	 *
 	 * @since 2.0.0

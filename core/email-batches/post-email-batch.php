@@ -147,6 +147,23 @@ class Prompt_Post_Email_Batch extends Prompt_Email_Batch {
 	/**
 	 * Record a temporary failure fot current recipients so they will still be sent a notice for this post on retry.
 	 *
+	 * @since 2.0.11
+	 *
+	 * @param array $addresses
+	 * @return $this;
+	 */
+	public function clear_failures( $addresses ) {
+
+		$ids = array_map( array( $this, 'to_address_to_id' ), $addresses );
+
+		$this->context->get_post()->remove_sent_recipient_ids( $ids );
+
+		return $this;
+	}
+
+	/**
+	 * Record a temporary failure fot current recipients so they will still be sent a notice for this post on retry.
+	 *
 	 * @since 2.0.0
 	 *
 	 * @return $this;
