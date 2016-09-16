@@ -293,4 +293,34 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		return true;
 	}
 
+
+	function testClearFailures() {
+
+		$recipient = $this->factory->user->create_and_get();
+
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $this->factory->post->create() ) );
+
+		$mock_flood_controller = $this->getMockFloodController( $comment, array( $recipient->ID ) );
+
+		$batch_mock = $this->getMock(
+			'Prompt_Comment_Email_Batch',
+			array( 'get_individual_message_values', 'clear_failures' ),
+			array( $comment, $mock_flood_controller )
+		);
+
+		$individual_values = array( array( 'id' => $recipient->ID, 'to_address' => $recipient->user_email ) );
+
+		$batch_mock->expects( $this->any() )
+			->method( 'get_individual_message_values' )
+			->willReturn( $individual_values );
+
+		$batch_mock->expects( $this->once() )
+			->method( 'clear_failures' )
+			->with( array( $recipient->user_email ) );
+
+		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+
+		$mailer = new Prompt_Comment_Wp_Mailer( $batch_mock, $api_mock, '__return_false' );
+		$mailer->send();
+	}
 }

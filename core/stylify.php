@@ -102,7 +102,7 @@ class Prompt_Stylify {
 
 		$stylify_url = 'https://stylify.herokuapp.com/query?url=' . urlencode( $sample_url );
 
-		$get = wp_remote_get( $stylify_url, array( 'timeout' => 30 ) );
+		$get = wp_remote_get( $stylify_url, array( 'timeout' => 30, 'headers' => array( 'referer' => '' ) ) );
 
 		if ( is_wp_error( $get ) ) {
 			return $get;

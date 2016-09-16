@@ -149,6 +149,7 @@ class Prompt_Core {
 		add_action( 'prompt/inbound_handling/pull_updates', array( 'Prompt_Inbound_Handling', 'pull_updates' ) );
 		add_action( 'prompt/inbound_handling/acknowledge_updates', array( 'Prompt_Inbound_Handling', 'acknowledge_updates' ) );
 		add_action( 'prompt/configuration_handling/pull_configuration', array( 'Prompt_Configuration_Handling', 'pull_configuration' ) );
+		add_action( 'prompt/cron_handling/clear_all', array( 'Prompt_Cron_Handling', 'clear_all' ) );
 
 		add_action( 'wp_ajax_prompt_subscribe', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe' ) );
 		add_action( 'wp_ajax_nopriv_prompt_subscribe', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe' ) );

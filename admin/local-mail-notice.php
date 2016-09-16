@@ -4,6 +4,8 @@ class Prompt_Admin_Local_Mail_Notice extends Prompt_Admin_Conditional_Notice {
 
 	/** @var string override the option key */
 	protected $skip_option_key = 'skip_local_mail_intro';
+	/** @var bool */
+	protected $detected_failure = false;
 
 	/**
 	 * Render a message if local mailing doesn't appear to work.
@@ -24,13 +26,17 @@ class Prompt_Admin_Local_Mail_Notice extends Prompt_Admin_Conditional_Notice {
 			return '';
 		}
 
+		add_action( 'wp_mail_failed', array( $this, 'detect_failure' ) );
+
 		$mail_result = wp_mail(
-			'null@email.gopostmatic.com',
+			'Local Test <null@email.gopostmatic.com>',
 			'Check wp_mail() on ' . get_option( 'blogname' ),
 			'This is just a test that no one will read.'
 		);
 
-		if ( $mail_result ) {
+		remove_action( 'wp_mail_failed', array( $this, 'detect_failure' ) );
+
+		if ( ! $this->detected_failure and $mail_result ) {
 			$this->dismiss();
 			return '';
 		}
@@ -43,4 +49,11 @@ class Prompt_Admin_Local_Mail_Notice extends Prompt_Admin_Conditional_Notice {
 		);
 	}
 
+	/**
+	 * @since 2.0.11
+	 * @param WP_Error $error
+	 */
+	protected function detect_failure( $error ) {
+		$this->detected_failure = true;
+	}
 }

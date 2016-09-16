@@ -31,6 +31,15 @@ class Prompt_Admin_Conditional_Notice {
 	}
 
 	/**
+	 * Show a dismissed notice again.
+	 *
+	 * @since 1.2.3
+	 */
+	public function undismiss() {
+		Prompt_Core::$options->set( $this->skip_option_key, false );
+	}
+
+	/**
 	 * Whether the notice has been dismissed.
 	 *
 	 * @since 1.2.3

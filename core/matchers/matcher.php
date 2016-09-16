@@ -41,7 +41,7 @@ abstract class Prompt_Matcher {
 	 */
 	protected function stripped_text() {
 		$stripped = preg_replace( '/^[\s\pZ\pC]+/u', '', $this->text );
-		$stripped = preg_replace( '/[\*\_]/', '', $stripped );
+		$stripped = preg_replace( '/[\*\_\?]/', '', $stripped );
 		return $stripped;
 	}
 }

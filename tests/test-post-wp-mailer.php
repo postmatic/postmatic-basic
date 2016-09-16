@@ -1,5 +1,5 @@
 <?php
-
+/** @group debug */
 class PostWpMailerTest extends WP_UnitTestCase {
 
 	protected $data;
@@ -185,4 +185,29 @@ class PostWpMailerTest extends WP_UnitTestCase {
 		return true;
 	}
 
+	function testClearFailures() {
+
+		$recipient = $this->factory->user->create_and_get();
+
+		$post = $this->factory->post->create_and_get();
+
+		$context = new Prompt_Post_Rendering_Context( $post );
+
+		$batch_mock = $this->getMock( 'Prompt_Post_Email_Batch', array( 'get_individual_message_values', 'clear_failures' ), array( $context ) );
+
+		$individual_values = array( array( 'id' => $recipient->ID, 'to_address' => $recipient->user_email ) );
+
+		$batch_mock->expects( $this->any() )
+			->method( 'get_individual_message_values' )
+			->willReturn( $individual_values );
+
+		$batch_mock->expects( $this->once() )
+			->method( 'clear_failures' )
+			->with( array( $recipient->user_email ) );
+
+		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+
+		$mailer = new Prompt_Post_Wp_Mailer( $batch_mock, $api_mock, '__return_false' );
+		$mailer->send();
+	}
 }
