@@ -32,6 +32,7 @@ class UnsubscribeMatcherTest extends WP_UnitTestCase {
 			array( 'unsubcribe >' ),
 			array( 'unsunscribe' ),
 			array( 'Unsubscrbe' ),
+			array( 'unsubsribe' ),
 		);
 	}
 
