@@ -86,6 +86,7 @@ class Prompt_Options extends scbOptions {
 			'enable_notes' => false,
 			'enable_analytics' => true,
 			'account_email' => '',
+			'suppress_error_submissions' => false,
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );
