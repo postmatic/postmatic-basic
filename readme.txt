@@ -73,6 +73,10 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.12 =
+
+- We're always finding new and fun command misspellings to recognize
+
 = 2.0.11 =
 
 - A fix for the color palette detection script. Give it a try if it wasn't working for you.
