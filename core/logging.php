@@ -142,6 +142,11 @@ class Prompt_Logging {
 	 * @since 2.0.0
 	 */
 	public static function submit() {
+
+		if ( Prompt_Core::$options->get( 'suppress_error_submissions' ) ) {
+			return false;
+		}
+
 		$user = wp_get_current_user();
 
 		$last_submit_time = self::get_last_submission_time();

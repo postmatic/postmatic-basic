@@ -27,7 +27,7 @@ class Prompt_Unsubscribe_Matcher extends Prompt_Matcher {
 	public function matches() {
 
 		$unsubscribe_pattern = sprintf(
-			'/^(%s|un..[bn]scri?be?|sunsubscribe|unsusbscribe|un..scribe|unsusribe?|unsubcribe)/i',
+			'/^(%s|un..[bn]sc?ri?be?|sunsubscribe|unsusbscribe|un..scribe|unsusribe?|unsubcribe)/i',
 			self::target()
 		);
 
