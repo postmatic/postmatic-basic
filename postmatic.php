@@ -45,13 +45,17 @@ Prompt_Autoload::register( 'Prompt_Interface_', dirname( __FILE__ ) . '/interfac
 Prompt_Autoload::register( 'Prompt_Admin_', dirname( __FILE__ ) . '/admin' );
 Prompt_Autoload::register( 'Prompt_Enum_', dirname( __FILE__ ) . '/enums' );
 
-Prompt_Core::load();
-
 if ( !class_exists( 'Prompt_Root' ) ) {
 	/**
 	 * Manage things that must be done from the root plugin file.
 	 * @since 2.0.0
 	 */
 	class Prompt_Root {
+		public static function load_freemius() {
+			Prompt_Freemius::load();
+		}
 	}
 }
+
+Prompt_Core::load();
+

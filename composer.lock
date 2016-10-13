@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1ef7a724e451709b7653ce386ee81b8",
-    "content-hash": "945597fcc7af61614b1b18a2be4451b1",
+    "hash": "24d51bf14480e168a240d90d095b15e9",
+    "content-hash": "7339580c866a80f932417a972e79fc7b",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -42,16 +42,16 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "1.1.9",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "97bd4dd73a3a46853a7cb417de752fd3a396248a"
+                "reference": "647ed777b502fd38af28a2612acf15b0936c9756"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/97bd4dd73a3a46853a7cb417de752fd3a396248a",
-                "reference": "97bd4dd73a3a46853a7cb417de752fd3a396248a",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/647ed777b502fd38af28a2612acf15b0936c9756",
+                "reference": "647ed777b502fd38af28a2612acf15b0936c9756",
                 "shasum": ""
             },
             "require": {
@@ -70,7 +70,7 @@
                 "sdk",
                 "wordpress"
             ],
-            "time": "2016-06-10 22:03:56"
+            "time": "2016-09-22 17:51:37"
         },
         {
             "name": "mailchimp/mailchimp",

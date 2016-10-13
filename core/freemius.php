@@ -33,18 +33,19 @@ class Prompt_Freemius {
 		require_once Prompt_Core::$dir_path . '/vendor/freemius/wordpress-sdk/start.php';
 
 		self::$freemius = fs_dynamic_init( array(
-			'id' => '164',
-			'slug' => 'postmatic',
-			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
-			'is_premium' => false,
-			'has_addons' => false,
-			'has_paid_plans' => false,
-			'menu' => array(
-				'slug' => 'postmatic',
-				'contact' => false,
-				'account' => false,
-				'support' => false,
-				'parent' => array(
+			'id'                => '469',
+			'slug'              => 'postmatic',
+			'type'              => 'plugin',
+			'public_key'        => 'pk_5b65ad1560934c7adb8956d9e91d6',
+			'is_live'           => false,
+			'is_premium'        => false,
+			'has_addons'        => false,
+			'has_paid_plans'    => false,
+			'menu'              => array(
+				'slug'       => 'postmatic',
+				'account'    => false,
+				'support'    => false,
+				'parent'     => array(
 					'slug' => 'options-general.php',
 				),
 			),
