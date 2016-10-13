@@ -40,6 +40,7 @@ class Prompt_Options extends scbOptions {
 			'skip_local_mail_intro' => false,
 			'skip_moderation_user_intro' => false,
 			'skip_download_intro' => true,
+			'skip_labs_notice' => false,
 			'redirect_to_options_page' => true,
 			'send_login_info' => false,
 			'email_header_type' => Prompt_Enum_Email_Header_Types::TEXT,

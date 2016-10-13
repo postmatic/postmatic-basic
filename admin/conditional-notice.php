@@ -99,7 +99,7 @@ class Prompt_Admin_Conditional_Notice {
 	protected function render_dismiss_link() {
 		return html( 'a',
 			array( 'href' => esc_url( $this->dismiss_url() ), 'class' => 'button' ),
-			__( 'Dismiss' )
+			__( 'Dismiss', 'Postmatic' )
 		);
 	}
 
