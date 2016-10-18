@@ -27,20 +27,18 @@
   details.
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if ( class_exists( 'Prompt_Core' ) ) {
 	// Allow others to use Prompt as a dependency
 	return;
 }
 
-require_once dirname( __FILE__ ) . '/vendor/scribu/scb-framework/load.php';
-require_once dirname( __FILE__ ) . '/core/autoload.php';
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/commands', '_Command' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/mailers', '_Mailer' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/email-batches', '_Email_Batch' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/matchers', '_Matcher' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/post-rendering-modifiers', '_Post_Rendering_Modifier' );
 Prompt_Autoload::register( 'Prompt_Interface_', dirname( __FILE__ ) . '/interfaces' );
 Prompt_Autoload::register( 'Prompt_Admin_', dirname( __FILE__ ) . '/admin' );
 Prompt_Autoload::register( 'Prompt_Enum_', dirname( __FILE__ ) . '/enums' );

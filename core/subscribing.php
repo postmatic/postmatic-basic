@@ -59,7 +59,7 @@ class Prompt_Subscribing {
 			$id = intval( array_pop( $parts ) );
 		}
 
-		$class = 'Prompt_' . ucwords( $parts[0] );
+		$class = 'Prompt_' . ucwords( $parts[0], '_' );
 
 		if ( class_exists( $class ) ) {
 			return new $class( $id );
@@ -71,7 +71,7 @@ class Prompt_Subscribing {
 			$slug
 		);
 	}
-	
+
 	/**
 	 * Get a text identifier (slug) for a list that can be used later to remake it.
 	 *
