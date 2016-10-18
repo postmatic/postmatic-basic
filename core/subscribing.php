@@ -59,7 +59,8 @@ class Prompt_Subscribing {
 			$id = intval( array_pop( $parts ) );
 		}
 
-		$class = 'Prompt_' . ucwords( $parts[0], '_' );
+		// ucwords does not accept a delimiter in PHP 5.3
+		$class = 'Prompt_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $parts[0] ) ) );
 
 		if ( class_exists( $class ) ) {
 			return new $class( $id );

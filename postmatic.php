@@ -39,10 +39,6 @@ if ( class_exists( 'Prompt_Core' ) ) {
 
 require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
-Prompt_Autoload::register( 'Prompt_Interface_', dirname( __FILE__ ) . '/interfaces' );
-Prompt_Autoload::register( 'Prompt_Admin_', dirname( __FILE__ ) . '/admin' );
-Prompt_Autoload::register( 'Prompt_Enum_', dirname( __FILE__ ) . '/enums' );
-
 Prompt_Core::load();
 
 if ( !class_exists( 'Prompt_Root' ) ) {
