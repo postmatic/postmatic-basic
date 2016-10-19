@@ -7,66 +7,6 @@ class OutboundHandlingTest extends Prompt_MockMailerTestCase {
 		parent::setUp();
 	}
 
-	function testPostPublish() {
-
-		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
-		$subscriber_id = $this->factory->user->create();
-
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
-
-		$post->post_status = 'publish';
-		wp_update_post( $post );
-
-		$this->assertInstanceOf( 'Prompt_Post_Email_Batch', $this->mailer_payload );
-	}
-
-	function testPostPublishDeliveryOff() {
-		Prompt_Core::$options->set( 'enable_post_delivery', false );
-
-		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
-		$subscriber_id = $this->factory->user->create();
-
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
-
-		$this->mailer_expects = $this->never();
-
-		$post->post_status = 'publish';
-		wp_update_post( $post );
-
-		Prompt_Core::$options->reset();
-	}
-
-	function testCommentPublish() {
-
-		$post_id = $this->factory->post->create();
-		$prompt_post = new Prompt_Post( $post_id );
-		$prompt_post->subscribe( $this->factory->user->create() );
-
-		$comment_id = $this->factory->comment->create( array(
-			'comment_post_ID' => $post_id,
-		) );
-
-		$this->assertInstanceOf( 'Prompt_Comment_Email_Batch', $this->mailer_payload );
-	}
-
-	function testCommentPublishDeliveryOff() {
-		Prompt_Core::$options->set( 'enable_comment_delivery', false );
-
-		$post_id = $this->factory->post->create();
-		$prompt_post = new Prompt_Post( $post_id );
-		$prompt_post->subscribe( $this->factory->user->create() );
-
-		$this->mailer_expects = $this->never();
-
-		$this->factory->comment->create( array(
-			'comment_post_ID' => $post_id,
-		) );
-
-		Prompt_Core::$options->reset();
-	}
-
 	function testCommentApprove() {
 
 		$post_id = $this->factory->post->create();
@@ -83,42 +23,6 @@ class OutboundHandlingTest extends Prompt_MockMailerTestCase {
 		wp_update_comment( (array) $comment );
 
 		$this->assertInstanceOf( 'Prompt_Comment_Email_Batch', $this->mailer_payload );
-	}
-
-	function testPostNotificationMetaboxOverride() {
-
-		$post = $this->factory->post->create_and_get( array( 'post_status' => 'draft' ) );
-		$subscriber_id = $this->factory->user->create();
-
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
-
-		$_POST['post_ID'] = $post->ID;
-		$_POST['prompt_no_email'] = true;
-
-		$post->post_status = 'publish';
-		wp_update_post( $post );
-
-		$this->assertNull( $this->mailer_payload, 'Expected no mailer to be created.' );
-	}
-
-	/**
-	 * http://docs.gopostmatic.com/article/148-will-trashed-posts-be-mailed-when-i-restore-them
-	 */
-	function testPostNotificationTrashOverride() {
-
-		$post = $this->factory->post->create_and_get( array( 'post_status' => 'trash' ) );
-		$subscriber_id = $this->factory->user->create();
-
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
-
-		$_POST['post_ID'] = $post->ID;
-
-		$post->post_status = 'publish';
-		wp_update_post( $post );
-
-		$this->assertNull( $this->mailer_payload, 'Expected no mailer to be created.' );
 	}
 
 	function testNativeCommentNotification() {

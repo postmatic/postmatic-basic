@@ -33,16 +33,7 @@ class Prompt_Core {
 	 * @var Prompt_Admin_Options_Page
 	 */
 	static protected $settings_page = null;
-	/**
-	 * @since 2.0.0
-	 * @var Prompt_Admin_Delivery_Metabox
-	 */
-	static protected $delivery_metabox = null;
-	/**
-	 * @since 2.0.0
-	 * @var Prompt_Admin_HTML_Metabox
-	 */
-	static protected $html_metabox = null;
+
 	/**
 	 * @since 2.0.0
 	 * @var Prompt_Admin_Activate_Notice
@@ -84,8 +75,6 @@ class Prompt_Core {
 
 		if ( is_admin() ) {
 			self::settings_page();
-			self::delivery_metabox();
-			self::html_metabox();
 			self::$activate_notice = new Prompt_Admin_Activate_Notice( $key, self::$settings_page );
 			self::$labs_notice = new Prompt_Admin_Labs_Notice( $key, self::$settings_page, self::$options );
 			self::$labs_notice->process_dismissal();
@@ -130,8 +119,6 @@ class Prompt_Core {
 
 		add_action( 'admin_init', array( __CLASS__, 'detect_version_change' ) );
 
-		add_action( 'widgets_init', array( 'Prompt_Widget_Handling', 'register' ), 100 ); // Let theme load first
-
 		add_action( 'template_redirect', array( 'Prompt_View_Handling', 'template_redirect' ) );
 		add_filter( 'query_vars', array( 'Prompt_View_Handling', 'add_query_vars' ) );
 
@@ -143,13 +130,11 @@ class Prompt_Core {
 		add_action( 'wp_ajax_nopriv_prompt/scheduled-callback', array( 'Prompt_Web_Api_Handling', 'receive_callback' ) );
 		add_action( 'wp_ajax_nopriv_prompt/ping', array( 'Prompt_Web_Api_Handling', 'receive_ping' ) );
 
-		add_action( 'transition_post_status', array( 'Prompt_Outbound_Handling', 'action_transition_post_status' ), 10, 3 );
 		add_action( 'wp_insert_comment', array( 'Prompt_Outbound_Handling', 'action_wp_insert_comment' ), 10, 2 );
 		add_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ), 10, 3 );
 		add_filter( 'comment_notification_recipients', array( 'Prompt_Outbound_Handling', 'filter_comment_notification_recipients' ) );
 
 		add_action( 'prompt/mailing/send', array( 'Prompt_Mailing', 'send' ) );
-		add_action( 'prompt/post_mailing/send_notifications', array( 'Prompt_Post_Mailing', 'send_notifications' ) );
 		add_action( 'prompt/comment_mailing/send_notifications', array( 'Prompt_Comment_Mailing', 'send_notifications' ) );
 		add_action( 'prompt/subscription_mailing/send_agreements', array( 'Prompt_Subscription_Mailing', 'send_agreements' ), 10, 4 );
 		add_action( 'prompt/subscription_mailing/send_cached_invites', array( 'Prompt_Subscription_Mailing', 'send_cached_invites' ) );
@@ -158,16 +143,8 @@ class Prompt_Core {
 		add_action( 'prompt/configuration_handling/pull_configuration', array( 'Prompt_Configuration_Handling', 'pull_configuration' ) );
 		add_action( 'prompt/cron_handling/clear_all', array( 'Prompt_Cron_Handling', 'clear_all' ) );
 
-		add_action( 'wp_ajax_prompt_subscribe', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe' ) );
-		add_action( 'wp_ajax_nopriv_prompt_subscribe', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe' ) );
-		add_action( 'wp_ajax_prompt_subscribe_widget_content', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe_widget_content' ) );
-		add_action( 'wp_ajax_nopriv_prompt_subscribe_widget_content', array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_subscribe_widget_content' ) );
-
 		add_action( 'wp_ajax_prompt_comment_unsubscribe',             array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_comment_unsubscribe' ) );
 		add_action( 'wp_ajax_nopriv_prompt_comment_unsubscribe',      array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_comment_unsubscribe' ) );
-		add_action( 'wp_ajax_prompt_post_delivery_status',            array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_post_delivery_status' ) );
-		add_action( 'wp_ajax_prompt_post_delivery_preview',           array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_post_delivery_preview' ) );
-		add_action( 'wp_ajax_prompt_mailchimp_get_lists',             array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_mailchimp_get_lists' ) );
 		add_action( 'wp_ajax_prompt_is_connected',                    array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_is_connected' ) );
 		add_action( 'wp_ajax_prompt_dismiss_notice',                  array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_dismiss_notice' ) );
 
@@ -188,20 +165,11 @@ class Prompt_Core {
 		add_filter( 'manage_users_columns', array( 'Prompt_Admin_Users_Handling', 'manage_users_columns' ) );
 		add_filter( 'manage_users_custom_column', array( 'Prompt_Admin_Users_Handling', 'subscriptions_column' ), 10, 3 );
 
-		add_action( 'admin_post_prompt_subscribers_export_csv', array( 'Prompt_Admin_Subscribers_Export', 'export_subscribers_csv' ) );
-
 		add_action( 'admin_init', array( 'Prompt_Admin_Notice_Handling', 'dismiss' ) );
 		add_action( 'admin_notices', array( 'Prompt_Admin_Notice_Handling', 'display' ) );
 
 		add_action( 'init', array( 'Prompt_Optins', 'maybe_load' ) );
 		add_action( 'wp_ajax_prompt_optins_content', array( 'Prompt_Optins', 'ajax_handler' ) );
-
-		add_action( 'post_submitbox_misc_actions', array( 'Prompt_Admin_HTML_Metabox', 'print_publish_box_message' ) );
-
-		add_shortcode( 'postmatic_subscribe_widget', array( 'Prompt_Subscribe_Widget_Shortcode', 'render' ) );
-
-		add_image_size( 'prompt-post-featured', 1420, 542, true );
-		add_image_size( 'prompt-post-thumbnail', 710, 439, true );
 
 		/**
 		 * Fires after Postmatic has added its main hooks.
@@ -303,44 +271,6 @@ class Prompt_Core {
 			);
 
 		return self::$settings_page;
-	}
-
-	/**
-	 * @return Prompt_Admin_Delivery_Metabox
-	 */
-	public static function delivery_metabox() {
-		if ( !self::$options->get( 'enable_post_delivery' ) ) {
-			return null;
-		}
-
-		if ( !self::$delivery_metabox ) {
-			self::$delivery_metabox = new Prompt_Admin_Delivery_Metabox(
-				'prompt_delivery',
-				__( 'Postmatic Delivery', 'Postmatic' ),
-				array(
-					'post_type' => self::$options->get( 'site_subscription_post_types' ),
-					'context' => 'side',
-					'priority' => 'high',
-				)
-			);
-		}
-
-		return self::$delivery_metabox;
-	}
-
-	/**
-	 * @return Prompt_Admin_HTML_Metabox
-	 */
-	public static function html_metabox() {
-		if ( !self::$options->get( 'enable_post_delivery' ) ) {
-			return null;
-		}
-
-		if ( !self::$html_metabox ) {
-			self::$html_metabox = Prompt_Admin_HTML_Metabox::make();
-		}
-
-		return self::$html_metabox;
 	}
 
 	/**
