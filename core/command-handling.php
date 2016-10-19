@@ -16,9 +16,9 @@ class Prompt_Command_Handling {
 		4 => 'Postmatic\Premium\Commands\Comment_Moderation',
 		5 => 'Prompt_Comment_Flood_Command',
 		6 => 'Prompt_Confirmation_Command',
-		7 => 'Prompt_Forward_Command',
+		7 => 'Postmatic\Premium\Commands\Forward',
 		8 => 'Prompt_Post_Reply_Command',
-		9 => 'Prompt_Post_Request_Command',
+		9 => 'Postmatic\Premium\Commands\Post_Request',
 	);
 
 	/**
