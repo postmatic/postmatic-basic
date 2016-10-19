@@ -161,7 +161,6 @@ class Prompt_Core {
 		add_action( 'comment_form_after', array( 'Prompt_Comment_Form_Handling', 'after_form' ) );
 		add_filter( 'epoch_iframe_scripts', array( 'Prompt_Comment_Form_Handling', 'enqueue_epoch_assets' ) );
 
-		add_action( 'admin_enqueue_scripts', array( 'Prompt_Admin_Users_Handling', 'enqueue_scripts' ) );
 		add_filter( 'manage_users_columns', array( 'Prompt_Admin_Users_Handling', 'manage_users_columns' ) );
 		add_filter( 'manage_users_custom_column', array( 'Prompt_Admin_Users_Handling', 'subscriptions_column' ), 10, 3 );
 

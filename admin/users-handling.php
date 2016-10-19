@@ -4,28 +4,6 @@ class Prompt_Admin_Users_Handling {
 
 	protected static $subscriptions_column_name = 'prompt_subscriptions';
 
-	public static function enqueue_scripts( $page ) {
-
-		if ( 'users.php' != $page )
-			return;
-
-		$script = new Prompt_Script( array(
-			'handle' => 'prompt-admin-users',
-			'path' => 'js/admin-users.js',
-			'dependencies' => array( 'jquery' ),
-		) );
-
-		$script->enqueue();
-
-		$script->localize(
-			'prompt_admin_users_env',
-			array(
-				'export_url' => admin_url( 'admin-post.php?action=prompt_subscribers_export_csv' ),
-				'export_label' => __( 'Export Postmatic Subscribers', 'Postmatic' ),
-			)
-		);
-	}
-
 	/**
 	 * Add columns to the users table.
 	 *
