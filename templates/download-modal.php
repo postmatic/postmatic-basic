@@ -39,8 +39,8 @@
 			<?php _e( 'Big changes are coming to Postmatic Basic.', 'Postmatic' ); ?>
 			<?php _e( 'Beginning December 1st, 2016 Postmatic Basic will no longer delivery new posts by email. All of the <em>comment</em> subscriptions (and replies) will continue to be the same, but if you want to continue sending new <em>posts</em> via email you\'ll need to switch to using <strong>Postmatic Labs</strong></a>. (it\'s free) ', 'Postmatic' ); ?><br/>
 			<h2>Why the change?</h2>
-			<?php _e( 'We\'re. going to focus on making Postmatic Basic even simpler, with a single focus on commenting. Since you have already built your flow around sending posts via Postmatic Basic, we want to honor that. We\'ll move that functionality into Labs, where it will continue to be maintained indefinitely.', 'Postmatic' ); ?>			
-			<h3>Other cool stuff in Postmatic Labs:</h3>
+			<?php _e( 'We\'re going to focus on making Postmatic Basic even simpler, with a single focus on commenting. Since you have already built your flow around sending posts via Postmatic Basic, we want to honor that. We\'ll move that functionality into Labs, where it will continue to be maintained indefinitely.', 'Postmatic' ); ?>			
+			<h4>Other cool stuff in Postmatic Labs:</h4>
 
 			<dl class="labslist">
 				<dt>Webhook Notifications</dt>

@@ -179,7 +179,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		) );
 		$script->enqueue();
 
-		$download_title = Prompt_Core::is_api_transport() ? __( 'Upgrade', 'Postmatic' ) : __( 'A free offer from Postmatic - Download Postmatic Labs and help us test new features', 'Postmatic' );
+		$download_title = Prompt_Core::is_api_transport() ? __( 'Upgrade', 'Postmatic' ) : __( 'Important information about upcoming changes to Postmatic Basic', 'Postmatic' );
 
 		$script->localize( 'prompt_options_page_env', array(
 			'download_title' => $download_title,
