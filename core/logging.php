@@ -179,7 +179,7 @@ class Prompt_Logging {
 
 	/**
 	 * @since 1.0.0
-	 * @param $obj
+	 * @param mixed $obj
 	 * @return array
 	 */
 	protected static function object_to_array( $obj ) {
@@ -201,12 +201,24 @@ class Prompt_Logging {
 		$methods = $meta->getMethods( ReflectionMethod::IS_PUBLIC );
 		foreach ( $methods as $method ) {
 			$property_name = substr( $method->name, 4 );
-			if ( $meta->hasProperty( $property_name) and 'get_' == substr( $method->name, 0, 4 ) ) {
+			if ( self::is_getter( $property_name, $meta, $method ) ) {
 				$new[$property_name] = $method->invoke( $obj );
 			}
 		}
 		return $new;
 	}
 
+	/**
+	 * @since 2.0.13
+	 * @param string $property_name
+	 * @param ReflectionClass $class
+	 * @param ReflectionMethod $method
+	 * @return bool
+	 */
+	protected static function is_getter( $property_name, ReflectionClass $class, ReflectionMethod $method ) {
+		return $class->hasProperty( $property_name ) and
+			'get_' != substr( $method->name, 0, 4 ) and
+			$method->getNumberOfParameters() == 0;
+	}
 
 }

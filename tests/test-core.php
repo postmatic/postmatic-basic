@@ -43,4 +43,8 @@ class CoreTest extends WP_UnitTestCase {
 			'Expected a what\'s new notice.'
 		);
 	}
+
+	function testLabsNotice() {
+		$this->assertInstanceOf( 'Prompt_Admin_Labs_Notice', Prompt_Core::labs_notice() );
+	}
 }

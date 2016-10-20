@@ -48,6 +48,11 @@ class Prompt_Core {
 	 * @var Prompt_Admin_Activate_Notice
 	 */
 	static protected $activate_notice = null;
+	/**
+	 * @since 2.0.13
+	 * @var Prompt_Admin_Labs_Notice
+	 */
+	static protected $labs_notice = null;
 
 	/**
 	 * @since 2.0.0
@@ -81,6 +86,8 @@ class Prompt_Core {
 			self::settings_page();
 			self::delivery_metabox();
 			self::html_metabox();
+			self::labs_notice();
+			self::$labs_notice->process_dismissal();
 			self::$activate_notice = new Prompt_Admin_Activate_Notice( $key, self::$settings_page );
 		}
 
@@ -334,6 +341,17 @@ class Prompt_Core {
 		}
 
 		return self::$html_metabox;
+	}
+
+	public static function labs_notice() {
+		if ( !self::$labs_notice ) {
+			self::$labs_notice = new Prompt_Admin_Labs_Notice(
+				self::settings_page(),
+				self::$options
+			);
+		}
+
+		return self::$labs_notice;
 	}
 
 	/**
