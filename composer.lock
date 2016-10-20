@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "f6c4c515b784a8482fa89736c1719bbb",
-    "content-hash": "7339580c866a80f932417a972e79fc7b",
+    "hash": "ffd1282dc7624bbaf36452ed64eb7772",
+    "content-hash": "7495fe50112dce715c10bbb081780e7a",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -71,52 +71,6 @@
                 "wordpress"
             ],
             "time": "2016-09-22 17:51:37"
-        },
-        {
-            "name": "mailchimp/mailchimp",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://bitbucket.org/mailchimp/mailchimp-api-php.git",
-                "reference": "03ae0dba64d1a902fb4d76004ef12c8391ededc8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://bitbucket.org/mailchimp/mailchimp-api-php/get/03ae0dba64d1a902fb4d76004ef12c8391ededc8.zip",
-                "reference": "03ae0dba64d1a902fb4d76004ef12c8391ededc8",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2.0"
-            },
-            "require-dev": {
-                "apigen/apigen": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Mailchimp": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "MailChimp Devs",
-                    "email": "api@mailchimp.com",
-                    "homepage": "http://mailchimp.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "API client library for the MailChimp bulk email as a service platform",
-            "homepage": "https://bitbucket.org/mailchimp/mailchimp-api-php",
-            "keywords": [
-                "api",
-                "email"
-            ],
-            "time": "2015-03-23 21:00:25"
         },
         {
             "name": "scribu/scb-framework",
@@ -1288,7 +1242,6 @@
     "stability-flags": {
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
-        "mailchimp/mailchimp": 20,
         "xamin/handlebars.php": 20,
         "rosio/wordpress-i18n-tools": 20
     },

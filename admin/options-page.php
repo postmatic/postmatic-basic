@@ -653,19 +653,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Post_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Optins_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Jetpack_Import_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Mailpoet_Import_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_MailChimp_Import_Options_Tab( $this->options, $this->_overridden_options ),
 		);
 
-		$subscribe_reloaded_import_tab = new Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab(
-			$this->options,
-			$this->_overridden_options
-		);
-
-		if ( $subscribe_reloaded_import_tab->is_available() ) {
-			$tabs[] = $subscribe_reloaded_import_tab;
-		}
 
 		$tabs[] = new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options );
 		$tabs[] = new Prompt_Admin_Notes_Promo_Tab( $this->options, $this->_overridden_options );
