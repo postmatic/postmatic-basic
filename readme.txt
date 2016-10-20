@@ -73,6 +73,12 @@ Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
 
 == Changelog ==
+= 2.0.13 =
+
+- IMPORTANT - Big changes are coming to Postmatic Basic on December 1st. This release adds a button to your dashboard to tell you about the upgrade and explain what you need to do.
+- Fixed - Better handling of failures during the url validation process.
+
+== Changelog ==
 = 2.0.12 =
 
 - We're always finding new and fun command misspellings to recognize
