@@ -15,6 +15,7 @@ class Prompt_Admin_Download_Modal_Notice extends Prompt_Admin_Conditional_Notice
 	public function maybe_display() {
 		if ( ! class_exists( 'Postmatic\Premium\Core' ) ) {
 			echo $this->render();
+			Prompt_Core::labs_notice()->dismiss();
 		}
 	}
 
