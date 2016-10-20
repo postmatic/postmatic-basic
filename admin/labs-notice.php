@@ -15,10 +15,17 @@ class Prompt_Admin_Labs_Notice extends Prompt_Admin_Conditional_Notice {
 	/** @var  Prompt_Options  */
 	protected $options;
 
-	public function __construct( $key, Prompt_Admin_Options_Page $options_page, Prompt_Options $options = null ) {
-		$this->key = $key;
+	/**
+	 * Prompt_Admin_Labs_Notice constructor.
+	 *
+	 * @since 2.0.13
+	 * @param Prompt_Admin_Options_Page $options_page
+	 * @param Prompt_Options $options
+	 */
+	public function __construct( Prompt_Admin_Options_Page $options_page, Prompt_Options $options ) {
 		$this->options_page = $options_page;
 		$this->options = $options;
+		$this->key = $this->options->get( 'prompt_key' );
 		add_action( 'admin_notices', array( $this, 'maybe_display' ) );
 	}
 
@@ -27,7 +34,11 @@ class Prompt_Admin_Labs_Notice extends Prompt_Admin_Conditional_Notice {
 	 */
 	public function maybe_display() {
 
-		if ( ! $this->key or ! current_user_can( 'manage_options' ) ) {
+		if ( ! $this->key or ! $this->options->get( 'enable_post_delivery' ) ) {
+			return;
+		}
+
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 

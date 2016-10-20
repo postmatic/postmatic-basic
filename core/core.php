@@ -346,7 +346,6 @@ class Prompt_Core {
 	public static function labs_notice() {
 		if ( !self::$labs_notice ) {
 			self::$labs_notice = new Prompt_Admin_Labs_Notice(
-				self::$options->get_key(),
 				self::settings_page(),
 				self::$options
 			);
