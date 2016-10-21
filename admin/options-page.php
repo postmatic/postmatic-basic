@@ -668,7 +668,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$this->notices = array(
 			new Prompt_Admin_Local_Mail_Notice(),
 			new Prompt_Admin_Widget_Notice(),
-			new Prompt_Admin_Moderation_User_Notice(),
 			new Prompt_Admin_Akismet_Notice(),
 			new Prompt_Admin_Zero_Spam_Notice(),
 			new Prompt_Admin_Download_Modal_Notice(),
