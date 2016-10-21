@@ -32,7 +32,7 @@ if ( class_exists( 'Prompt_Core' ) ) {
 	return;
 }
 
-require_once dirname( __FILE__ ) . '/core/autoload.php';
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 Prompt_Core::load();
 
