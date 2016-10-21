@@ -92,7 +92,6 @@ class Prompt_Options extends scbOptions {
 
 		$defaults = array_merge( $standard_defaults, $defaults );
 		$defaults = apply_filters( 'prompt/default_options', $defaults );
-		$defaults = array_merge( $defaults, Prompt_Optins::options_fields() );
 
 		$this->prevent_options_errors( $key );
 

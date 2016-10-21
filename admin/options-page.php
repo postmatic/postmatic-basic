@@ -652,7 +652,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Post_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Optins_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Jetpack_Import_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Mailpoet_Import_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_MailChimp_Import_Options_Tab( $this->options, $this->_overridden_options ),

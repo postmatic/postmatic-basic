@@ -193,9 +193,6 @@ class Prompt_Core {
 		add_action( 'admin_init', array( 'Prompt_Admin_Notice_Handling', 'dismiss' ) );
 		add_action( 'admin_notices', array( 'Prompt_Admin_Notice_Handling', 'display' ) );
 
-		add_action( 'init', array( 'Prompt_Optins', 'maybe_load' ) );
-		add_action( 'wp_ajax_prompt_optins_content', array( 'Prompt_Optins', 'ajax_handler' ) );
-
 		add_action( 'post_submitbox_misc_actions', array( 'Prompt_Admin_HTML_Metabox', 'print_publish_box_message' ) );
 
 		add_shortcode( 'postmatic_subscribe_widget', array( 'Prompt_Subscribe_Widget_Shortcode', 'render' ) );
