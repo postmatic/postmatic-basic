@@ -1,7 +1,5 @@
 <?php
 
-require_once( path_join( Prompt_Core::$dir_path, 'vendor/vernal-creative/html-to-markdown/HTML_To_Markdown.php' ) );
-
 class Prompt_Html_To_Markdown {
 
 	/**

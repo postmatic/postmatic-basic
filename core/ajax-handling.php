@@ -166,10 +166,6 @@ class Prompt_Ajax_Handling {
 			wp_send_json_error( array( 'error' => __( 'An API Key is required', 'Postmatic' ) ) );
 		}
 
-		if ( !class_exists( 'Mailchimp' ) ) {
-			require_once dirname( dirname( __FILE__ ) ) . '/vendor/mailchimp/mailchimp/src/Mailchimp.php';
-		}
-
 		$api_key = sanitize_text_field( $_POST['api_key'] );
 
 		$mailchimp = new Mailchimp( $api_key );

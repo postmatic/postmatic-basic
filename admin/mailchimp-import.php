@@ -63,10 +63,6 @@ class Prompt_Admin_MailChimp_Import {
 
 		$this->subscribers = array();
 
-		// pull in the lib
-		if ( !class_exists( 'Mailchimp' ) )
-			require_once dirname( dirname( __FILE__ ) ) . '/vendor/mailchimp/mailchimp/src/Mailchimp.php';
-
 		// load subscribers from list
 		$mailchimp = new Mailchimp( $this->api_key );
 		$start = 0;
