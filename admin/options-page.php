@@ -651,7 +651,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$tabs = array(
 			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Post_Options_Tab( $this->options, $this->_overridden_options ),
 		);
 
 
