@@ -39,11 +39,6 @@ class Prompt_Core {
 	 * @var Prompt_Admin_Activate_Notice
 	 */
 	static protected $activate_notice = null;
-	/**
-	 * @since 2.0.13
-	 * @var Prompt_Admin_Labs_Notice
-	 */
-	static protected $labs_notice = null;
 
 	/**
 	 * @since 2.0.0
@@ -76,8 +71,6 @@ class Prompt_Core {
 		if ( is_admin() ) {
 			self::settings_page();
 			self::$activate_notice = new Prompt_Admin_Activate_Notice( $key, self::$settings_page );
-			self::$labs_notice = new Prompt_Admin_Labs_Notice( $key, self::$settings_page, self::$options );
-			self::$labs_notice->process_dismissal();
 		}
 
 		/**
