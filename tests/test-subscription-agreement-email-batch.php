@@ -4,7 +4,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testDefaults() {
 
-		$lists = array( new Prompt_Site() );
+		$lists = array( new Prompt_Site_Comments() );
 
 		$content = 'XXCONTENTXX';
 		$message = '<strong>' . $content . '</strong>';
@@ -38,10 +38,10 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testAddRecipient() {
 
-		$site_mock = $this->getMock( 'Prompt_Site' );
-		$site_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
+		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_mock ) );
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
 
 		$user_data = array(
 			'display_name' => 'TEST DUDE',
@@ -73,10 +73,10 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testAddInvalidRecipient() {
 
-		$site_mock = $this->getMock( 'Prompt_Site' );
-		$site_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
+		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_mock ) );
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
 
 		$user_data = array(
 			'display_name' => 'TEST DUDE',

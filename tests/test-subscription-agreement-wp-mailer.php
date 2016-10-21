@@ -8,7 +8,7 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 			->method( 'post_instant_callback' )
 			->will( $this->returnCallback( array( $this, 'verifyCallback' ) ) );
 
-		$this->site = new Prompt_Site();
+		$this->site_comments = new Prompt_Site_Comments();
 		
 		$this->message = array(
 			'subject' => 'Test Invite',
@@ -20,11 +20,11 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 		$batch_mock = $this->getMock(
 			'Prompt_Subscription_Agreement_Email_Batch',
 			array(),
-			array( $this->site, $this->message )
+			array( $this->site_comments, $this->message )
 		);
 		$batch_mock->expects( $this->any() )
 			->method( 'get_lists' )
-			->willReturn( array( $this->site ) );
+			->willReturn( array( $this->site_comments ) );
 		$batch_mock->expects( $this->any() )
 			->method( 'get_users_data' )
 			->willReturn( $this->user_data );
@@ -46,8 +46,8 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 		$this->assertNotEmpty( $cached_data, 'Expected data cached with the given key.' );
 
 		$this->assertCount( 1, $cached_data[0], 'Expected one list.' );
-		$this->assertInstanceOf( 'Prompt_Site', $cached_data[0][0] );
-		$this->assertEquals( $this->site->id(), $cached_data[0][0]->id() );
+		$this->assertInstanceOf( 'Prompt_Site_Comments', $cached_data[0][0] );
+		$this->assertEquals( $this->site_comments->id(), $cached_data[0][0]->id() );
 		$this->assertEquals( $this->user_data, $cached_data[1] );
 		$this->assertEquals( $this->message, $cached_data[2] );
 		$this->assertGreaterThan( -1, $cached_data[3] );

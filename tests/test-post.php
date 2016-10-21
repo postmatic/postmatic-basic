@@ -187,22 +187,22 @@ class PostTest extends Prompt_UnitTestCase {
 
 		$post_id = $this->factory->post->create( array( 'post_author' => $author_id, 'post_status' => 'draft' ) );
 
-		$site = new Prompt_Site();
+		$site_comments = new Prompt_Site_Comments();
 		$author = new Prompt_User( $author_id );
 		$post = new Prompt_Post( $post_id );
 
-		$site->subscribe( $subscriber_ids[0] );
+		$site_comments->subscribe( $subscriber_ids[0] );
 		$author->subscribe( $subscriber_ids[1] );
 		$post->subscribe( $subscriber_ids[2] );
 
 		$recipient_ids = $post->recipient_ids();
 
-		$this->assertCount( 2, $recipient_ids, 'Expected two post recipients.' );
-		$this->assertContains( $subscriber_ids[0], $recipient_ids, 'Expected site subscriber to be a recipient.' );
+		$this->assertCount( 1, $recipient_ids, 'Expected one post recipient.' );
+		$this->assertNotContains( $subscriber_ids[0], $recipient_ids, 'Expected site comments subscriber NOT to be a recipient.' );
 		$this->assertContains( $subscriber_ids[1], $recipient_ids, 'Expected author subscriber to be a recipient.' );
 		$this->assertNotContains( $subscriber_ids[2], $recipient_ids, 'Expected post subscriber NOT to be a recipient.' );
 
-		$site->unsubscribe( $subscriber_ids[0] );
+		$site_comments->unsubscribe( $subscriber_ids[0] );
 
 		$recipient_ids = $post->recipient_ids();
 
@@ -213,11 +213,13 @@ class PostTest extends Prompt_UnitTestCase {
 	function testRepublishRecipientIds() {
 		$subscriber_ids = $this->factory->user->create_many( 2 );
 
-		$post = $this->factory->post->create_and_get();
+		$author_id = $this->factory->user->create();
 
-		$site = new Prompt_Site();
+		$post = $this->factory->post->create_and_get( array( 'post_author' => $author_id ) );
 
-		$site->subscribe( $subscriber_ids[0] );
+		$author = new Prompt_User( $author_id );
+
+		$author->subscribe( $subscriber_ids[0] );
 
 		// Set publish time recipients
 		$prompt_post = new Prompt_Post( $post );
@@ -225,7 +227,7 @@ class PostTest extends Prompt_UnitTestCase {
 
 		$this->assertCount( 1, $recipient_ids, 'Expected one post recipient.' );
 
-		$site->subscribe( $subscriber_ids[1] );
+		$author->subscribe( $subscriber_ids[1] );
 
 		// Still should have only recipients at publish time
 		$this->assertCount( 1, $recipient_ids, 'Expected one post recipient.' );
@@ -261,19 +263,21 @@ class PostTest extends Prompt_UnitTestCase {
 
 	function testSiteUnsubscribeAfterSave() {
 
-		remove_action( 'transition_post_status', array( 'Prompt_Outbound_Handling', 'action_transition_post_status' ), 10, 3 );
+		remove_action( 'transition_post_status', array( 'Prompt_Outbound_Handling', 'action_transition_post_status' ), 10 );
+
+		$author_id = $this->factory->user->create();
 
 		$user_id = $this->factory->user->create();
 
-		$site = new Prompt_Site();
+		$author = new Prompt_User( $author_id );
 
-		$prompt_post = new Prompt_Post( $this->factory->post->create( array( 'post_status' => 'draft' ) ) );
+		$prompt_post = new Prompt_Post( $this->factory->post->create( array( 'post_status' => 'draft', 'post_author' => $author_id ) ) );
 
-		$site->subscribe( $user_id );
+		$author->subscribe( $user_id );
 
 		$this->assertContains( $user_id, $prompt_post->recipient_ids(), 'Expected to find site subscriber.' );
 
-		$site->unsubscribe( $user_id );
+		$author->unsubscribe( $user_id );
 
 		$post = $prompt_post->get_wp_post();
 

@@ -11,7 +11,6 @@ class Prompt_New_Post_Comment_Command extends Prompt_Comment_Command {
 	/**
 	 * Unsubscribe from the post author or site.
 	 * @param boolean $notify
-	 * @return array
 	 */
 	protected function unsubscribe( $notify = true ) {
 
@@ -23,15 +22,6 @@ class Prompt_New_Post_Comment_Command extends Prompt_Comment_Command {
 			return;
 		}
 
-		// The user was not subscribed to the post author, so unsubscribe them from the site.
-
-		$prompt_site = new Prompt_Site();
-
-		$prompt_site->unsubscribe( $this->user_id );
-
-		if ( $notify ) {
-			Prompt_Subscription_Mailing::send_unsubscription_notification( $this->user_id, $prompt_site );
-		}
 	}
 
 	/**

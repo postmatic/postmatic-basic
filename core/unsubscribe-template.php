@@ -13,7 +13,6 @@ class Prompt_Unsubscribe_Template extends Prompt_Template {
 		$status = $this->execute( $args );
 
 		$data = array(
-			'site' => new Prompt_Site(),
 			'subscriber' => $this->subscriber,
 			'status' => $status,
 			'suppress_delivery' => true,

@@ -2,16 +2,16 @@
 
 class SubscriptionHandlingTest extends WP_UnitTestCase {
 
-	function testCreateSubscribableSite() {
-		$site = Prompt_Subscribing::make_subscribable();
+	function testCreateSubscribableSiteComments() {
+		$site_comments = Prompt_Subscribing::make_subscribable( 'site_comments' );
 
-		$this->assertInstanceOf( 'Prompt_Site', $site );
+		$this->assertInstanceOf( 'Prompt_Site_Comments', $site_comments );
 	}
 
-	function testCreateSubscribableSiteFromSlug() {
-		$site = Prompt_Subscribing::make_subscribable( 'site/' . get_current_blog_id() );
+	function testCreateSubscribableSiteCommentsFromSlug() {
+		$site_comments = Prompt_Subscribing::make_subscribable( 'site_comments/' . get_current_blog_id() );
 
-		$this->assertInstanceOf( 'Prompt_Site', $site );
+		$this->assertInstanceOf( 'Prompt_Site_Comments', $site_comments );
 	}
 
 	function testCreateSubscribablePost() {
@@ -54,7 +54,7 @@ class SubscriptionHandlingTest extends WP_UnitTestCase {
 		$classes = Prompt_Subscribing::get_subscribable_classes();
 
 		$this->assertCount( 3, $classes );
-		$this->assertContains( 'Prompt_Site', $classes );
+		$this->assertContains( 'Prompt_Site_Comments', $classes );
 		$this->assertContains( 'Prompt_Post', $classes );
 		$this->assertContains( 'Prompt_User', $classes );
 	}
@@ -76,7 +76,10 @@ class SubscriptionHandlingTest extends WP_UnitTestCase {
 
 	function testGetSubscribableSlug() {
 
-		$this->assertEquals( 'site/' . get_current_blog_id(), Prompt_Subscribing::get_subscribable_slug( new Prompt_Site() ) );
+		$this->assertEquals(
+			'site_comments/' . get_current_blog_id(),
+			Prompt_Subscribing::get_subscribable_slug( new Prompt_Site_Comments() )
+		);
 
 		$prompt_user = new Prompt_User( $this->factory->user->create() );
 		$this->assertEquals( 'user/' . $prompt_user->id(), Prompt_Subscribing::get_subscribable_slug( $prompt_user ) );

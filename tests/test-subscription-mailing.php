@@ -5,7 +5,7 @@
 class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 	function testAgreement() {
-		$this->mail_data->lists = array( new Prompt_Site );
+		$this->mail_data->lists = array( new Prompt_Site_Comments() );
 		$this->mail_data->email = 'test@example.com';
 		$user_data = array();
 
@@ -34,7 +34,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function setupAgreementData() {
-		$this->mail_data->lists = array( new Prompt_Site(), new Prompt_Site_Comments() );
+		$this->mail_data->lists = array( new Prompt_Post( $this->factory->post->create() ), new Prompt_Site_Comments() );
 		$this->mail_data->users = array(
 			array( 'user_email' => 'test1@example.com' ),
 			array( 'user_email' => 'test2@example.com' ),
@@ -124,7 +124,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API );
 		Prompt_Core::$options->set( 'subscribed_introduction', 'XXWELCOMEXX' );
 
-		$object = new Prompt_Site;
+		$object = new Prompt_Site_Comments();
 		$this->mail_data->object = $object;
 
 		$subscriber = $this->factory->user->create_and_get();
@@ -163,7 +163,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 	function testWelcomeInvalidEmail() {
 
-		$object = new Prompt_Site;
+		$object = new Prompt_Site_Comments();
 		$subscriber = $this->factory->user->create_and_get( array( 'user_email' => '23kjk3' ) );
 
 		$this->mailer_expects = $this->never();

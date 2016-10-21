@@ -158,40 +158,6 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 		$command->execute();
 	}
 
-	function testExecuteInstant() {
-		$this->mail_data->address = 'instant@example.com';
-		$this->mail_data->subscriber = null;
-		add_action( 'prompt/register_subscribe_command/created_user', array( $this, 'verifyCreatedUser' ) );
-
-		$user_data = array(
-			'first_name' => 'Test',
-			'last_name' => 'User',
-			'display_name' => 'Test User',
-		);
-
-		$message = new stdClass();
-		$message->message = 'instant';
-
-		$site = new Prompt_Site();
-		$lists = array( $site, new Prompt_Site_Comments() );
-		$comment_id = $this->addTempUserComment( $this->mail_data->address, $lists, $user_data );
-
-		$this->mailer_will = $this->returnCallback( array( $this, 'verifySubscribedEmail' ) );
-
-		$command = new Prompt_Register_Subscribe_Command();
-		$command->set_keys( array( $comment_id ) );
-		$command->set_message( $message );
-		$command->execute();
-
-		$user = $this->mail_data->subscriber;
-
-		$this->assertNotEmpty( $user, 'Expected to find new user by the created user action.' );
-
-		$this->assertTrue( $site->is_subscribed( $user->ID ), 'Expected new user to be subscribed to site.' );
-
-		remove_action( 'prompt/register_subscribe_command/created_user', array( $this, 'verifyCreatedUser' ) );
-	}
-
 	function testDoubleRegistration() {
 		$post1_id = $this->factory->post->create();
 		$post2_id = $this->factory->post->create();
