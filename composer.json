@@ -8,13 +8,16 @@
 			"url": "https://github.com/vernal-creative/html-to-markdown"
 		}
 	],
+	"autoload": {
+		"classmap": ["admin/", "core/", "interfaces/", "enums/" ]
+	},
 	"require": {
 		"scribu/scb-framework": "dev-master",
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"mailchimp/mailchimp": "dev-master",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "1.1.9"
+		"freemius/wordpress-sdk": "1.2.1"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",
