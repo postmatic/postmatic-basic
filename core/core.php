@@ -167,9 +167,6 @@ class Prompt_Core {
 		add_action( 'admin_init', array( 'Prompt_Admin_Notice_Handling', 'dismiss' ) );
 		add_action( 'admin_notices', array( 'Prompt_Admin_Notice_Handling', 'display' ) );
 
-		add_action( 'init', array( 'Prompt_Optins', 'maybe_load' ) );
-		add_action( 'wp_ajax_prompt_optins_content', array( 'Prompt_Optins', 'ajax_handler' ) );
-
 		/**
 		 * Fires after Postmatic has added its main hooks.
 		 *
