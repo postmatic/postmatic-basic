@@ -1,5 +1,5 @@
 {
-	"name": "prompt/prompt-core",
+	"name": "postmatic/postmatic-basic",
 	"description": "The free Postmatic core feature WordPress plugin.",
 	"type": "wordpress-plugin",
 	"repositories": [
