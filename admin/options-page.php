@@ -222,32 +222,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$key_alert = $this->key_alert();
 		echo $key_alert;
 
-		if ( $key_alert or !$this->key ) {
-
-			self::display_key_prompt();
-
-			echo html( 'div class="initialize-key"',
-				html( 'h2', __( 'Already have a key?', 'Postmatic' ) ),
-				$this->form_table( array(
-					array(
-						'title' => __( 'Postmatic Key', 'Postmatic' ),
-						'type' => 'text',
-						'name' => 'prompt_key',
-						'desc' => sprintf(
-							__(
-								'Once you have your key, enter it here to blast off!.',
-								'Postmatic'
-							),
-							Prompt_Enum_Urls::TERMS_OF_SERVICE
-						)
-					),
-				) )
-			);
-
-			return;
-		}
-
 		$connection_alert = $this->connection_alert();
+
 		if ( $connection_alert ) {
 			echo $connection_alert;
 			return;
@@ -313,6 +289,10 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 * @since 1.0.0
 	 */
 	protected function connection_alert() {
+
+		if ( ! $this->key ) {
+			return '';
+		}
 
 		$skip_statuses = array( Prompt_Enum_Connection_Status::CONNECTED, Prompt_Enum_Connection_Status::ISOLATED );
 
@@ -428,19 +408,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			'div id="prompt-sidebar"',
 			'&nbsp;'
 		);
-	}
-
-	/**
-	 * @since 1.0.0
-	 */
-	protected function display_key_prompt() {
-
-		$new_site_url = Prompt_Enum_Urls::MANAGE . '/sites/link?ajax_url=' . urlencode( admin_url( 'admin-ajax.php' ) );
-
-		$template = new Prompt_Template( 'get-a-key.php' );
-		$content = $template->render( compact( 'new_site_url' ) );
-
-		echo $content;
 	}
 
 	/**

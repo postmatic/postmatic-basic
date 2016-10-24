@@ -36,12 +36,6 @@ class Prompt_Core {
 
 	/**
 	 * @since 2.0.0
-	 * @var Prompt_Admin_Activate_Notice
-	 */
-	static protected $activate_notice = null;
-
-	/**
-	 * @since 2.0.0
 	 */
 	public static function load() {
 		self::$dir_path = dirname( dirname( __FILE__ ) );
@@ -70,7 +64,6 @@ class Prompt_Core {
 
 		if ( is_admin() ) {
 			self::settings_page();
-			self::$activate_notice = new Prompt_Admin_Activate_Notice( $key, self::$settings_page );
 		}
 
 		/**

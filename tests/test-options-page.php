@@ -60,19 +60,19 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	function testNoKeyContent() {
 		Prompt_Core::$options->set( 'prompt_key', '' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array() );
 
 		ob_start();
 		$page->page_content();
 		$content = ob_get_clean();
 
-		$this->assertContains( 'id="prompt_key"', $content );
-		$this->assertNotContains( 'id="prompt-tabs"', $content );
+		$this->assertNotContains( 'id="prompt_key"', $content );
+		$this->assertContains( 'id="prompt-tabs"', $content );
 
 		Prompt_Core::$options->reset();
 	}
 
-	function testPageContent() {
+	function testPageContentWithKey() {
 		$key = 'test';
 		Prompt_Core::$options->set( 'prompt_key', $key );
 		$mock_page = $this->getNoAlertPageMock( $key );
