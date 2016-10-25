@@ -418,4 +418,30 @@ class PostEmailTest extends WP_UnitTestCase {
 		$batch->clear_for_retry();
 	}
 
+	function testRecordFailures() {
+		$post = $this->factory->post->create_and_get();
+
+		$failed_recipient = $this->factory->user->create_and_get();
+		$ok_recipient = $this->factory->user->create_and_get();
+
+		$post_mock = $this->getMock( 'Prompt_Post', array( 'add_failed_recipient_ids' ), array( $post ) );
+		$post_mock->expects( $this->once() )
+			->method( 'add_failed_recipient_ids' )
+			->with( array( $failed_recipient->ID ) );
+
+		$context_mock = $this->getMock( 'Prompt_Post_Rendering_Context', array( 'get_post' ), array( $post->ID ) );
+		$context_mock->expects( $this->any() )
+			->method( 'get_post' )
+			->willReturn( $post_mock );
+
+		$batch = new Prompt_Post_Email_Batch( $context_mock );
+
+		$batch->set_individual_message_values( array(
+			array( 'id' => $failed_recipient->ID, 'to_address' => $failed_recipient->user_email ),
+			array( 'id' => $ok_recipient->ID, 'to_address' => $ok_recipient->user_email ),
+		) );
+
+		$batch->record_failures( array( $failed_recipient->user_email ) );
+	}
+
 }
