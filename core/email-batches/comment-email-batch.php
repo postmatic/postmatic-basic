@@ -135,7 +135,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'html_content' => $html_template->render( $template_data ),
 			'message_type' => Prompt_Enum_Message_Types::COMMENT,
 			'subject' => '{{{subject}}}',
-			'reply_to' => '{{{reply_to}}}',
+			'reply_to' => Prompt_Core::$options->is_api_transport() ? '{{{reply_to}}}' : 'commenting@gopostmatic.com',
 			'footnote_html' => sprintf(
 				$footnote_format,
 				$this->prompt_post->subscription_object_label(),
@@ -236,11 +236,6 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		$unsubscribe_link = new Prompt_Unsubscribe_Link( $recipient );
 
-		$command = new Prompt_Comment_Command();
-		$command->set_post_id( $this->prompt_post->id() );
-		$command->set_user_id( $recipient->ID );
-		$command->set_parent_comment_id( $this->prompt_comment->id() );
-
 		$values = array(
 			'id' => $recipient->ID,
 			'to_name' => $recipient->display_name,
@@ -249,13 +244,22 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'unsubscribe_url' => $unsubscribe_link->url(),
 			'subscriber_comment_intro_html' => $this->subscriber_comment_intro_html( $recipient ),
 			'subscriber_comment_intro_text' => $this->subscriber_comment_intro_text( $recipient ),
-			'reply_to' => $this->trackable_address( Prompt_Command_Handling::get_command_metadata( $command ) ),
 		);
 
-		$values = array_merge(
-			$values,
-			Prompt_Command_Handling::get_comment_reply_macros( $this->previous_comments, $recipient->ID )
-		);
+		if ( Prompt_Core::is_api_transport() ) {
+
+			$command = new Prompt_Comment_Command();
+			$command->set_post_id( $this->prompt_post->id() );
+			$command->set_user_id( $recipient->ID );
+			$command->set_parent_comment_id( $this->prompt_comment->id() );
+
+			$values['reply_to'] = $this->trackable_address( Prompt_Command_Handling::get_command_metadata( $command ) );
+
+			$values = array_merge(
+				$values,
+				Prompt_Command_Handling::get_comment_reply_macros( $this->previous_comments, $recipient->ID )
+			);
+		}
 
 		return $this->add_individual_message_values( $values );
 	}

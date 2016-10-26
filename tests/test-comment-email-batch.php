@@ -55,7 +55,7 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 		$values = $values[0];
 		$this->assertEquals( $recipient->user_email, $values['to_address'], 'Expected recipient to address.' );
 		$this->assertEquals( $recipient->display_name, $values['to_name'], 'Expected recipient to name.' );
-		$this->assertNotEmpty( $values['reply_to'], 'Expected command metadata.' );
+		$this->assertArrayNotHasKey( 'reply_to', $values, 'Expected NO command metadata.' );
 		$this->assertArrayHasKey( 'unsubscribe_url', $values );
 		$this->assertContains( $comment->comment_author, $values['subject'], 'Expected subject to contain author name.' );
 		$this->assertContains(
@@ -88,6 +88,34 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 		$values = $values[0];
 		$this->assertContains( $child_comment->comment_author, $values['subject'] );
 		$this->assertContains( 'replied to your comment', $values['subject'] );
+	}
+
+	function testReplyNoKey() {
+		Prompt_Core::$options->set( 'prompt_key', '' );
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array(
+			'comment_post_ID' => $post_id,
+		) );
+
+		$recipient = $this->factory->user->create_and_get();
+		$prompt_post = new Prompt_Post( $post_id );
+		$prompt_post->subscribe( $recipient->ID );
+
+		$batch = new Prompt_Comment_Email_Batch( $comment );
+
+		$template = $batch->get_batch_message_template();
+
+		$this->assertEquals(
+			'commenting@gopostmatic.com',
+			$template['reply_to'],
+			'Expected the default no-key reply address.'
+		);
+
+		$values = $batch->get_individual_message_values();
+
+		$this->assertCount( 1, $values, 'Expected one recipient' );
+
+		$this->assertArrayNotHasKey( 'reply_to', $values, 'Expected no individual reply_to address.' );
 	}
 
 	function testReplyUnrenderedContent() {
