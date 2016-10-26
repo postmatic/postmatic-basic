@@ -56,11 +56,7 @@ class Prompt_Core {
 
 		self::$options = new Prompt_Options();
 
-		// Until we have a key we won't do much
-		$key = self::$options->get( 'prompt_key' );
-		if ( $key ) {
-			self::add_hooks();
-		}
+		self::add_hooks();
 
 		if ( is_admin() ) {
 			self::settings_page();

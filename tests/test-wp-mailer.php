@@ -16,8 +16,6 @@ class WpMailerTest extends WP_UnitTestCase {
 			'from_address' => 'from@email.org',
 			'subject' => 'Test Subject',
 			'html_content' => 'Test Message',
-			'reply_name' => 'Reply Name',
-			'reply_address' => 'reply@email.org',
 			'message_type' => Prompt_Enum_Message_Types::POST,
 		);
 		$batch_values = array(
@@ -69,54 +67,6 @@ class WpMailerTest extends WP_UnitTestCase {
 		$batch->set_individual_message_values( array() );
 	}
 
-	function test_metadata_email() {
-		$batch_template = array(
-			'subject' => 'tracked email',
-			'text_content' => 'test message {{{reply_to}}}',
-			'message_type' => Prompt_Enum_Message_Types::ADMIN,
-		);
-		$batch_values = array(
-			array(
-				'to_address' => 'test@example.com',
-				'reply_to' => array( 'trackable-address' => array( 'key' => 'value' ) ),
-			)
-		);
-
-		$batch = new Prompt_Email_Batch( $batch_template, $batch_values );
-
-		$this->data->to_address = $batch_values[0]['to_address'];
-		$this->data->reply_to_header = 'Reply-To: ' . Prompt_Email_Batch::name_address( 
-			$this->prepare_reply_to_address,
-			$this->prepare_reply_to_name
-		);
-		
-		$mailer_mock = $this->get_wp_mail_mock_callable( array( $this, 'verify_metadata_mail' ) );
-
-		$wp_mailer = new Prompt_Wp_Mailer( $batch, $this->get_prepare_api_mock(), $mailer_mock );
-
-		$this->assertCount( 1, $wp_mailer->send(), 'Metadata email was not sent.' );
-	}
-	
-	function verify_metadata_mail( $to, $subject, $message, $headers = array() ) {
-		$this->assertContains(
-			'postmatic-ref-1',
-			$message,
-			'Expected to find the postmatic ref ID.'
-		);
-
-		$this->assertContains(
-			$this->prepare_reply_to_address,
-			$message,
-			'Expected the reply_to address in the content.'
-		);
-		
-		$this->assertContainsStringThatStartsWith( 
-			'Reply-To: ',
-			$headers,
-			'Expected a reply-to header.'
-		);
-	}
-
 	function test_missing_address_error() {
 		$batch = new Prompt_Email_Batch(
 			array(
@@ -141,34 +91,6 @@ class WpMailerTest extends WP_UnitTestCase {
 		$this->assertInstanceOf( 'WP_Error', $result, 'Expected an error result.' );
 	}
 
-	function test_prepare_error() {
-		$batch = new Prompt_Email_Batch(
-			array(
-				'subject' => 'test',
-				'html_content' => 'test message',
-				'message_type' => Prompt_Enum_Message_Types::ADMIN,
-			),
-			array(
-				array(
-					'to_address' => 'test@example.com',
-					'reply_to' => array( 'trackable-address' => array( 1 ) ),
-				)
-			)
-		);
-
-		$prepare_mock = $this->getMock( 'Prompt_Api_Client' );
-		$prepare_mock->expects( $this->once() )
-			->method( 'post_outbound_messages' )
-			->with( $this->objectHasAttribute( 'outboundMessages' ) )
-			->will( $this->returnValue( new WP_Error( 'test', 'test error' ) ) );
-
-		$wp_mailer = new Prompt_Wp_Mailer( $batch, $prepare_mock );
-
-		$result = $wp_mailer->send();
-
-		$this->assertInstanceOf( 'WP_Error', $result, 'Expected an error result.' );
-	}
-
 	/**
 	 * @return Prompt_Api_Client
 	 */
@@ -183,10 +105,7 @@ class WpMailerTest extends WP_UnitTestCase {
 	 */
 	private function get_prepare_api_mock() {
 		$prepare_mock = $this->getMock( 'Prompt_Api_Client' );
-		$prepare_mock->expects( $this->once() )
-			->method( 'post_outbound_messages' )
-			->with( $this->objectHasAttribute( 'outboundMessages' ) )
-			->will( $this->returnCallback( array( $this, 'mock_prepare_response' ) ) );
+		$prepare_mock->expects( $this->never() )->method( 'post_outbound_messages' );
 		return $prepare_mock;
 	}
 

@@ -43,4 +43,5 @@ class CoreTest extends WP_UnitTestCase {
 			'Expected a what\'s new notice.'
 		);
 	}
+
 }

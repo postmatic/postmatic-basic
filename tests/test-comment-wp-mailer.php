@@ -47,9 +47,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 	function getMockApiClient() {
 		$this->api_mock = $this->getMock( 'Prompt_Api_Client' );
-		$this->api_mock->expects( $this->once() )
-			->method( 'post_outbound_messages' )
-			->will( $this->returnCallback( array( $this, 'verifyTrackingRequest' ) ) );
+		$this->api_mock->expects( $this->never() )->method( 'post_outbound_messages' );
 		return $this->api_mock;
 	}
 
@@ -95,24 +93,6 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		$mailer->send();
 	}
 
-	function verifyTrackingRequest( $data ) {
-		$this->assertGreaterThan( 0, count( $data->outboundMessages ), 'Expected multiple notification emails.' );
-		$this->assertEquals(
-			Prompt_Enum_Message_Types::COMMENT,
-			$data->outboundMessages[0]['type'],
-			'Expected comment message type.'
-		);
-
-		foreach ( $data->outboundMessages as $index => $message ) {
-			$data->outboundMessages[$index]['id'] = $index;
-			$data->outboundMessages[$index]['reply_to'] = "reply$index@example.com";
-		}
-		return array(
-			'response' => array( 'code' => 200, 'message' => 'OK' ),
-			'body' => json_encode( $data )
-		);
-	}
-
 	function verifyLocalMailing( $to, $subject, $message, $headers ) {
 
 		$expected_to_addresses = array(
@@ -127,7 +107,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 		$this->assertContains( $to, $expected_to_addresses );
 		$this->assertContains( $this->data->comment->comment_author, $message );
-		
+
 		$reply_to_filter = create_function( '$a', 'return (strpos( $a, "Reply-To:" ) === 0);' );
 		$this->assertNotEmpty( array_filter( $headers, $reply_to_filter ), 'Expected a reply-to header.' );
 		
@@ -236,9 +216,9 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 		
 		$this->assertContains(
-			'Reply-To: reply0@example.com',
+			'Reply-To: commenting@gopostmatic.com',
 			$headers,
-			'Expected a trackable reply address.'
+			'Expected the default reply address.'
 		);
 	}
 
