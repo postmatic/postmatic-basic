@@ -240,7 +240,7 @@ class DeliveryMetaboxTest extends WP_UnitTestCase {
 
 		$status = Prompt_Admin_Delivery_Metabox::status( $prompt_post->id() );
 
-		$this->assertContains( 'sent to 1 subscriber', $status['description'] );
+		$this->assertContains( 'sent successfully to 1 subscriber', $status['description'] );
 		$this->assertContains( 'failed for 1 subscriber', $status['description'] );
 	}
 }
