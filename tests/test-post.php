@@ -249,6 +249,31 @@ class PostTest extends Prompt_UnitTestCase {
 		$this->assertCount( 2, $recipient_ids, 'Expected two post recipients after republishing.' );
 	}
 
+	function testFailedIds() {
+
+		$post_id = $this->factory->post->create();
+
+		$post = new Prompt_Post( $post_id );
+
+		$this->assertEmpty( $post->failed_recipient_ids(), 'Expected no failed IDs to start with.' );
+
+		$failed_ids = array( 2, 4 );
+
+		$this->assertEquals( $post, $post->add_failed_recipient_ids( $failed_ids ) );
+
+		$this->assertEqualSets( $failed_ids, $post->failed_recipient_ids(), 'Expected added failed IDs' );
+
+		$failed_ids[] = 6;
+
+		$this->assertEquals( $post, $post->add_failed_recipient_ids( $failed_ids ) );
+
+		$this->assertEqualSets( $failed_ids, $post->failed_recipient_ids(), 'Expected added failed IDs' );
+
+		$this->assertEquals( $post, $post->remove_failed_recipient_ids( $failed_ids ) );
+
+		$this->assertEmpty( $post->failed_recipient_ids(), 'Expected no failed IDs after removal.' );
+	}
+
 	function testNullSubscribeFailure() {
 		$this->setExpectedException( 'PHPUnit_Framework_Error' );
 		$this->_prompt_post->subscribe( null );

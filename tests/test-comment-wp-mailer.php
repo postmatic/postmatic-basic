@@ -294,7 +294,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	}
 
 
-	function testClearFailures() {
+	function testRecordFailures() {
 
 		$recipient = $this->factory->user->create_and_get();
 
@@ -304,7 +304,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 		$batch_mock = $this->getMock(
 			'Prompt_Comment_Email_Batch',
-			array( 'get_individual_message_values', 'clear_failures' ),
+			array( 'get_individual_message_values', 'record_failures' ),
 			array( $comment, $mock_flood_controller )
 		);
 
@@ -315,7 +315,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			->willReturn( $individual_values );
 
 		$batch_mock->expects( $this->once() )
-			->method( 'clear_failures' )
+			->method( 'record_failures' )
 			->with( array( $recipient->user_email ) );
 
 		$api_mock = $this->getMock( 'Prompt_Api_Client' );
@@ -323,4 +323,5 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		$mailer = new Prompt_Comment_Wp_Mailer( $batch_mock, $api_mock, '__return_false' );
 		$mailer->send();
 	}
+
 }

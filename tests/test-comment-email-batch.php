@@ -204,4 +204,27 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 		$this->assertCount( 1, $batch5->get_individual_message_values(), 'Expected one recipient post-failure-cleared batch.' );
 	}
 
+
+	function testRecordFailures() {
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+
+		$failed_recipient = $this->factory->user->create_and_get();
+		$ok_recipient = $this->factory->user->create_and_get();
+
+		$comment_mock = $this->getMock( 'Prompt_Comment', array( 'add_failed_subscriber_ids' ), array( $comment ) );
+		$comment_mock->expects( $this->once() )
+			->method( 'add_failed_subscriber_ids' )
+			->with( array( $failed_recipient->ID ) );
+
+		$batch = new Prompt_Comment_Email_Batch( $comment_mock );
+
+		$batch->set_individual_message_values( array(
+			array( 'id' => $failed_recipient->ID, 'to_address' => $failed_recipient->user_email ),
+			array( 'id' => $ok_recipient->ID, 'to_address' => $ok_recipient->user_email ),
+		) );
+
+		$batch->record_failures( array( $failed_recipient->user_email ) );
+	}
+
 }

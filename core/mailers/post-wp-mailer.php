@@ -64,17 +64,17 @@ class Prompt_Post_Wp_Mailer extends Prompt_Wp_Mailer {
 		}
 
 		if ( ! $this->rescheduled ) {
-			$this->clear_failures( $result );
+			$this->record_failures( $result );
 		}
 
 		return $result;
 	}
 
 	/**
-	 * @since 2.0.11
+	 * @since 2.0.14
 	 * @param array $result send() result array
 	 */
-	protected function clear_failures( $result ) {
+	protected function record_failures( $result ) {
 
 		$not_function = create_function( '$a', 'return !$a;' );
 
@@ -84,7 +84,7 @@ class Prompt_Post_Wp_Mailer extends Prompt_Wp_Mailer {
 			return;
 		}
 
-		$this->batch->clear_failures( $failed_addresses );
+		$this->batch->record_failures( $failed_addresses );
 	}
 
 	/**

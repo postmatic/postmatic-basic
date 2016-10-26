@@ -14,6 +14,8 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 	/** @var string */
 	protected static $sent_meta_key = 'prompt_sent_ids';
 	/** @var string */
+	protected static $failed_meta_key = 'prompt_failed_ids';
+	/** @var string */
 	protected static $recipient_ids_meta_key = 'prompt_recipient_ids';
 	/** @var string */
 	protected static $flood_control_meta_key = '_flood_control_comment_id';
@@ -274,6 +276,21 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 		return $recipient_ids;
 	}
 
+	/**
+	 * Get an array of items from a meta field.
+	 *
+	 * @since 2.0.14
+	 * @param string $key
+	 * @return array
+	 */
+	protected function get_array_meta( $key ) {
+		$items = get_post_meta( $this->id, $key, true );
+
+		if ( !$items )
+			$items = array();
+
+		return $items;
+	}
 
 	/**
 	 * Get the IDs of users who have been sent an email notification for this post.
@@ -281,12 +298,7 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 	 * @return array
 	 */
 	public function sent_recipient_ids() {
-		$sent_ids = get_post_meta( $this->id, self::$sent_meta_key, true );
-
-		if ( !$sent_ids )
-			$sent_ids = array();
-
-		return $sent_ids;
+		return $this->get_array_meta( self::$sent_meta_key );
 	}
 
 	/**
@@ -314,6 +326,42 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 	}
 
 	/**
+	 * Get the IDs of users for whom the email notification for this post failed.
+	 *
+	 * @since 2.0.14
+	 * @return array
+	 */
+	public function failed_recipient_ids() {
+		return $this->get_array_meta( self::$failed_meta_key );
+	}
+
+	/**
+	 * Add the IDs of users for whom the email notification for this post failed.
+	 *
+	 * @since 2.0.14
+	 * @param array $ids
+	 * @return $this
+	 */
+	public function add_failed_recipient_ids( $ids ) {
+		$failed_ids = array_unique( array_merge( $this->failed_recipient_ids(), $ids ) );
+		update_post_meta( $this->id, self::$failed_meta_key, $failed_ids );
+		return $this;
+	}
+
+	/**
+	 * Remove the IDs of users for whom an email notification mailing failed.
+	 *
+	 * @since 2.0.14
+	 * @param array $ids
+	 * @return $this
+	 */
+	public function remove_failed_recipient_ids( $ids ) {
+		$failed_ids = array_diff( $this->failed_recipient_ids(), $ids );
+		update_post_meta( $this->id, self::$failed_meta_key, $failed_ids );
+		return $this;
+	}
+
+	/**
 	 * Get the IDs of users who have been NOT yet been sent an email notification for this post.
 	 *
 	 * @return array
@@ -328,12 +376,7 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 	 * @return array
 	 */
 	public function outbound_message_batch_ids() {
-		$sent_ids = get_post_meta( $this->id, self::$outbound_message_batch_ids_meta_key, true );
-
-		if ( !$sent_ids )
-			$sent_ids = array();
-
-		return $sent_ids;
+		return $this->get_array_meta( self::$outbound_message_batch_ids_meta_key );
 	}
 
 	/**
