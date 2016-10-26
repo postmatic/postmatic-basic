@@ -161,6 +161,32 @@ class DeliveryMetaboxTest extends WP_UnitTestCase {
 		);
 	}
 
+	function testRetryMailing() {
+		$post = $this->factory->post->create_and_get();
+
+		$_POST['post_ID'] = $post->ID;
+		$_POST['action'] = 'editpost';
+		$_POST['prompt_retry_failed_recipients'] = true;
+
+		$prompt_post = new Prompt_Post( $post );
+		$prompt_post->add_sent_recipient_ids( array( 1, 2 ) );
+		$prompt_post->add_failed_recipient_ids( array( 2 ) );
+
+		$metabox = Prompt_Core::delivery_metabox();
+		$metabox->_save_post( $post->ID, $post );
+
+		$this->assertEquals(
+			array( 1 ),
+			$prompt_post->sent_recipient_ids(),
+			'Expected failed IDs to be removed from the sent list.'
+		);
+
+		$this->assertEmpty(
+			$prompt_post->failed_recipient_ids(),
+			'Expected failed IDs to be removed from the failed list.'
+		);
+	}
+
 	function testLocalMailDisplay() {
 		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::LOCAL );
 

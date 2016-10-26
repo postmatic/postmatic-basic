@@ -10,6 +10,8 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 	static protected $preview_email_name = 'prompt_preview_email';
 	/** @var string  */
 	static protected $excerpt_only_name = 'prompt_excerpt_only';
+	/** @var string  */
+	static protected $retry_failed_recipients_name = 'prompt_retry_failed_recipients';
 
 	/** @var WP_Post */
 	protected $post;
@@ -104,7 +106,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 
 		$recipient_count = count( $prompt_post->recipient_ids() );
 		$failed_count = count( $prompt_post->failed_recipient_ids() );
-		$sent_count = count( $prompt_post->sent_recipient_ids() ) - $failed_count;
+		$sent_count = count( array_diff( $prompt_post->sent_recipient_ids(), $prompt_post->failed_recipient_ids() ) );
 
 		if ( $failed_count > 0 ) {
 
@@ -242,8 +244,16 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		);
 
 		// Make changes to featured image suppression sticky
-		if ( $post_data[self::$no_featured_image_name] != Prompt_Core::$options->get( 'no_post_featured_image_default' ) )
+		if ( $post_data[self::$no_featured_image_name] != Prompt_Core::$options->get( 'no_post_featured_image_default' ) ) {
 			Prompt_Core::$options->set( 'no_post_featured_image_default', $post_data[self::$no_featured_image_name] );
+		}
+
+		if ( isset( $_POST[self::$retry_failed_recipients_name] ) ) {
+			$prompt_post = new Prompt_Post( $post_id );
+			$prompt_post->remove_sent_recipient_ids( $prompt_post->failed_recipient_ids() );
+			$prompt_post->remove_failed_recipient_ids( $prompt_post->failed_recipient_ids() );
+			Prompt_Post_Mailing::send_notifications( $post_id );
+		}
 
 		return $post_data;
 	}
@@ -325,7 +335,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 	 */
 	protected static function failed_count_description( $sent_count, $failed_count ) {
 
-		$description = html( 'p class="error"',
+		$description = html( 'p class="wp-ui-text-notification"',
 			sprintf(
 				__( 'This post was sent to %d subscribers and WordPress mailing failed for %s subscribers.', 'Postmatic' ),
 				$sent_count,
@@ -337,6 +347,18 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 			__(
 			'There could be many reasons for this, but many web hosts enforce limits on WordPress mailing. Postmatic premium service includes robust email delivery.',
 			'Postmatic'
+			)
+		);
+
+		$description .= html( 'p',
+			html(
+				'input',
+				array(
+					'name' => self::$retry_failed_recipients_name,
+					'type' => 'submit',
+					'class' => 'button',
+					'value' => __( 'Retry WordPress mailing', 'Postmatic' )
+				)
 			)
 		);
 
