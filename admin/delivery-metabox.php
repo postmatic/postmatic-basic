@@ -357,7 +357,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 					'name' => self::$retry_failed_recipients_name,
 					'type' => 'submit',
 					'class' => 'button',
-					'value' => __( 'Retry WordPress mailing', 'Postmatic' )
+					'value' => __( 'Retry failed WordPress emails', 'Postmatic' )
 				)
 			)
 		);
