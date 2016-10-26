@@ -337,16 +337,19 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 
 		$description = html( 'p class="wp-ui-text-notification"',
 			sprintf(
-				__( 'This post was sent to %d subscribers but WordPress mailing failed for %s of those subscribers.', 'Postmatic' ),
+				__( 'This post was sent successfully to %d subscribers but WordPress mailing failed for %s subscribers.', 'Postmatic' ),
 				$sent_count,
 				$failed_count
 			)
 		);
 
 		$description .= html( 'p',
-			__(
-			'There could be many reasons for this, but many web hosts enforce limits on how much email you can send at once. If this continues to be a problem consider upgrading to a <a href="http://gopostmatic.com/vs" target="_blank">paid Postmatic account</a> and let our servers send your email with guaranteed delivery.',
-			'Postmatic'
+			sprintf(
+				__(
+					'There could be many reasons for this, but many web hosts enforce limits on how much email you can send at once. If this continues to be a problem consider upgrading to a <a href="%s" target="_blank">paid Postmatic account</a> and let our servers send your email with guaranteed delivery.',
+					'Postmatic'
+				),
+				'https://gopostmatic.com/vs'
 			)
 		);
 
