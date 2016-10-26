@@ -189,4 +189,32 @@ class DeliveryMetaboxTest extends WP_UnitTestCase {
 
 		Prompt_Core::$options->reset();
 	}
+
+	function testZeroStatus() {
+		$post_id = $this->factory->post->create();
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $post_id );
+
+		$this->assertContains( 'No emails', $status['description'] );
+	}
+
+	function testSentStatus() {
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post->add_sent_recipient_ids( array ( 1, 2 ) );
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $prompt_post->id() );
+
+		$this->assertContains( 'sent to 2 subscribers', $status['description'] );
+	}
+
+	function testFailedStatus() {
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post->add_sent_recipient_ids( array ( 1, 2 ) );
+		$prompt_post->add_failed_recipient_ids( array ( 2 ) );
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $prompt_post->id() );
+
+		$this->assertContains( 'sent to 1 subscriber', $status['description'] );
+		$this->assertContains( 'failed for 1 subscriber', $status['description'] );
+	}
 }
