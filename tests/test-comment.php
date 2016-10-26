@@ -133,5 +133,28 @@ class CommentTest extends Prompt_UnitTestCase {
 
 		$this->assertTrue( $user_comment->author_can_subscribe(), 'Expected to find subscriber data.' );
 	}
+
+
+	function testFailedIds() {
+
+		$this->assertEmpty( $this->_prompt_comment->get_failed_subscriber_ids(), 'Expected no failed IDs to start with.' );
+
+		$failed_ids = array( 2, 4 );
+
+		$this->assertEquals( $this->_prompt_comment, $this->_prompt_comment->add_failed_subscriber_ids( $failed_ids ) );
+
+		$this->assertEqualSets( $failed_ids, $this->_prompt_comment->get_failed_subscriber_ids(), 'Expected added failed IDs' );
+
+		$failed_ids[] = 6;
+
+		$this->assertEquals( $this->_prompt_comment, $this->_prompt_comment->add_failed_subscriber_ids( $failed_ids ) );
+
+		$this->assertEqualSets( $failed_ids, $this->_prompt_comment->get_failed_subscriber_ids(), 'Expected added failed IDs' );
+
+		$this->assertEquals( $this->_prompt_comment, $this->_prompt_comment->remove_failed_subscriber_ids( $failed_ids ) );
+
+		$this->assertEmpty( $this->_prompt_comment->get_failed_subscriber_ids(), 'Expected no failed IDs after removal.' );
+	}
+
 }
 
