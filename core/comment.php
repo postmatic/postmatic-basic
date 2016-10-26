@@ -14,6 +14,8 @@ class Prompt_Comment {
 	/** @var string */
 	protected static $sent_meta_key = 'prompt_sent_ids';
 	/** @var string */
+	protected static $failed_meta_key = 'prompt_failed_ids';
+	/** @var string */
 	protected static $outbound_message_batch_ids_meta_key = 'prompt_outbound_message_batch_ids';
 	/** @var string */
 	protected static $subscription_requested_meta_key = 'prompt_comment_subscribe';
@@ -100,6 +102,43 @@ class Prompt_Comment {
 	public function set_sent_subscriber_ids( array $ids ) {
 		update_comment_meta( $this->id, self::$sent_meta_key, $ids );
 		return $this;
+	}
+
+	/**
+	 * @since 2.0.14
+	 * @return array
+	 */
+	public function get_failed_subscriber_ids() {
+		$ids = get_comment_meta( $this->id, self::$failed_meta_key, true );
+		return $ids ? $ids : array();
+	}
+
+	/**
+	 * @since 2.0.14
+	 * @param array $ids
+	 * @return $this
+	 */
+	public function set_failed_subscriber_ids( array $ids ) {
+		update_comment_meta( $this->id, self::$failed_meta_key, $ids );
+		return $this;
+	}
+
+	/**
+	 * @since 2.0.14
+	 * @param array $ids
+	 * @return $this
+	 */
+	public function add_failed_subscriber_ids( array $ids ) {
+		return $this->set_failed_subscriber_ids( array_unique( array_merge( $this->get_failed_subscriber_ids(), $ids ) ) );
+	}
+
+	/**
+	 * @since 2.0.14
+	 * @param array $ids
+	 * @return $this
+	 */
+	public function remove_failed_subscriber_ids( array $ids ) {
+		return $this->set_failed_subscriber_ids( array_diff( $this->get_failed_subscriber_ids(), $ids ) );
 	}
 
 	/**

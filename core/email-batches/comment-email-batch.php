@@ -40,7 +40,9 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 */
 	public function __construct( $comment, Prompt_Comment_Flood_Controller $flood_controller = null ) {
 
-		$this->prompt_comment = new Prompt_Comment( $comment );
+		$this->prompt_comment = $comment instanceof Prompt_Comment ? $comment : new Prompt_Comment( $comment );
+
+		$comment = $this->prompt_comment->get_wp_comment();
 		
 		$this->prompt_post = $prompt_post = new Prompt_Post( $comment->comment_post_ID );
 
@@ -192,7 +194,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	}
 
 	/**
-	 * Record a temporary failure fot current recipients so they will still be sent a notice for this post on retry.
+	 * Remove recorded sent IDs for a list of addresses.
 	 *
 	 * @since 2.0.11
 	 *
@@ -209,6 +211,24 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		return $this;
 	}
+
+	/**
+	 * Record user IDs for a list of addresses that failed to send.
+	 *
+	 * @since 2.0.11
+	 *
+	 * @param array $addresses
+	 * @return $this;
+	 */
+	public function record_failures( $addresses ) {
+
+		$ids = array_map( array( $this, 'to_address_to_id' ), $addresses );
+
+		$this->prompt_comment->add_failed_subscriber_ids( $ids );
+
+		return $this;
+	}
+
 
 	/**
 	 * Remove the IDs of users from the sent list so delivery can be retried.

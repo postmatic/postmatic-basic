@@ -145,7 +145,7 @@ class Prompt_Post_Email_Batch extends Prompt_Email_Batch {
 	}
 
 	/**
-	 * Record a temporary failure fot current recipients so they will still be sent a notice for this post on retry.
+	 * Remove recorded sent IDs for a list of addresses.
 	 *
 	 * @since 2.0.11
 	 *
@@ -157,6 +157,23 @@ class Prompt_Post_Email_Batch extends Prompt_Email_Batch {
 		$ids = array_map( array( $this, 'to_address_to_id' ), $addresses );
 
 		$this->context->get_post()->remove_sent_recipient_ids( $ids );
+
+		return $this;
+	}
+
+	/**
+	 * Record user IDs for a list of addresses that failed to send.
+	 *
+	 * @since 2.0.14
+	 *
+	 * @param array $addresses
+	 * @return $this;
+	 */
+	public function record_failures( $addresses ) {
+
+		$ids = array_map( array( $this, 'to_address_to_id' ), $addresses );
+
+		$this->context->get_post()->add_failed_recipient_ids( $ids );
 
 		return $this;
 	}

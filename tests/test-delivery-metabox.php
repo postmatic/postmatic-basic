@@ -161,6 +161,32 @@ class DeliveryMetaboxTest extends WP_UnitTestCase {
 		);
 	}
 
+	function testRetryMailing() {
+		$post = $this->factory->post->create_and_get();
+
+		$_POST['post_ID'] = $post->ID;
+		$_POST['action'] = 'editpost';
+		$_POST['prompt_retry_failed_recipients'] = true;
+
+		$prompt_post = new Prompt_Post( $post );
+		$prompt_post->add_sent_recipient_ids( array( 1, 2 ) );
+		$prompt_post->add_failed_recipient_ids( array( 2 ) );
+
+		$metabox = Prompt_Core::delivery_metabox();
+		$metabox->_save_post( $post->ID, $post );
+
+		$this->assertEquals(
+			array( 1 ),
+			$prompt_post->sent_recipient_ids(),
+			'Expected failed IDs to be removed from the sent list.'
+		);
+
+		$this->assertEmpty(
+			$prompt_post->failed_recipient_ids(),
+			'Expected failed IDs to be removed from the failed list.'
+		);
+	}
+
 	function testLocalMailDisplay() {
 		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::LOCAL );
 
@@ -188,5 +214,33 @@ class DeliveryMetaboxTest extends WP_UnitTestCase {
 		$this->assertNull( Prompt_Core::html_metabox(), 'Expected no HTML metabox with post delivery disabled.' );
 
 		Prompt_Core::$options->reset();
+	}
+
+	function testZeroStatus() {
+		$post_id = $this->factory->post->create();
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $post_id );
+
+		$this->assertContains( 'No emails', $status['description'] );
+	}
+
+	function testSentStatus() {
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post->add_sent_recipient_ids( array ( 1, 2 ) );
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $prompt_post->id() );
+
+		$this->assertContains( 'sent to 2 subscribers', $status['description'] );
+	}
+
+	function testFailedStatus() {
+		$prompt_post = new Prompt_Post( $this->factory->post->create() );
+		$prompt_post->add_sent_recipient_ids( array ( 1, 2 ) );
+		$prompt_post->add_failed_recipient_ids( array ( 2 ) );
+
+		$status = Prompt_Admin_Delivery_Metabox::status( $prompt_post->id() );
+
+		$this->assertContains( 'sent successfully to 1 subscriber', $status['description'] );
+		$this->assertContains( 'failed for 1 subscriber', $status['description'] );
 	}
 }

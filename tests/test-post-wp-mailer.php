@@ -185,7 +185,7 @@ class PostWpMailerTest extends WP_UnitTestCase {
 		return true;
 	}
 
-	function testClearFailures() {
+	function testRecordFailures() {
 
 		$recipient = $this->factory->user->create_and_get();
 
@@ -193,7 +193,7 @@ class PostWpMailerTest extends WP_UnitTestCase {
 
 		$context = new Prompt_Post_Rendering_Context( $post );
 
-		$batch_mock = $this->getMock( 'Prompt_Post_Email_Batch', array( 'get_individual_message_values', 'clear_failures' ), array( $context ) );
+		$batch_mock = $this->getMock( 'Prompt_Post_Email_Batch', array( 'get_individual_message_values', 'record_failures' ), array( $context ) );
 
 		$individual_values = array( array( 'id' => $recipient->ID, 'to_address' => $recipient->user_email ) );
 
@@ -202,7 +202,7 @@ class PostWpMailerTest extends WP_UnitTestCase {
 			->willReturn( $individual_values );
 
 		$batch_mock->expects( $this->once() )
-			->method( 'clear_failures' )
+			->method( 'record_failures' )
 			->with( array( $recipient->user_email ) );
 
 		$api_mock = $this->getMock( 'Prompt_Api_Client' );

@@ -10,6 +10,8 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 	static protected $preview_email_name = 'prompt_preview_email';
 	/** @var string  */
 	static protected $excerpt_only_name = 'prompt_excerpt_only';
+	/** @var string  */
+	static protected $retry_failed_recipients_name = 'prompt_retry_failed_recipients';
 
 	/** @var WP_Post */
 	protected $post;
@@ -95,6 +97,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 	 *   @type string $description
 	 *   @type int $recipient_count
 	 *   @type int $sent_count
+	 *   @type int $failed_count
 	 * }
 	 */
 	public static function status( $post_id ) {
@@ -102,9 +105,14 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		$prompt_post = new Prompt_Post( $post_id );
 
 		$recipient_count = count( $prompt_post->recipient_ids() );
-		$sent_count = count( $prompt_post->sent_recipient_ids() );
+		$failed_count = count( $prompt_post->failed_recipient_ids() );
+		$sent_count = count( array_diff( $prompt_post->sent_recipient_ids(), $prompt_post->failed_recipient_ids() ) );
 
-		if ( $sent_count == 0 and 'publish' != $prompt_post->get_wp_post()->post_status ) {
+		if ( $failed_count > 0 ) {
+
+			$description = self::failed_count_description( $sent_count, $failed_count );
+
+		} elseif ( $sent_count == 0 and 'publish' != $prompt_post->get_wp_post()->post_status ) {
 
 			$description = self::recipient_count_description( $recipient_count );
 
@@ -117,6 +125,11 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		return compact( 'description', 'sent_count', 'recipient_count' );
 	}
 
+	/**
+	 * Enqueue post editor javascript.
+	 *
+	 * @since 2.0.14
+	 */
 	public function admin_enqueue_scripts() {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-post-editor',
@@ -127,6 +140,12 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		$script->enqueue();
 	}
 
+	/**
+	 * Get empty status HTML with a spinner.
+	 *
+	 * @since 2.0.0
+	 * @return string
+	 */
 	public function render_status() {
 
 		return html( 'p',
@@ -136,12 +155,24 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 
 	}
 
+	/**
+	 * Emit metabox HTML.
+	 *
+	 * @since 2.0.0
+	 * @param object $post
+	 */
 	public function display( $post ) {
 		$this->set_post( $post );
 		echo $this->render_form();
 		echo $this->render_status();
 	}
 
+	/**
+	 * Get form HTML for the metabox.
+	 *
+	 * @since 2.0.0
+	 * @return string
+	 */
 	public function render_form() {
 		$form_html = '';
 
@@ -199,6 +230,12 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		return $form_html;
 	}
 
+	/**
+	 * @since 2.0.0
+	 * @param array $post_data
+	 * @param int $post_id
+	 * @return array
+	 */
 	protected function before_save( $post_data, $post_id ) {
 		$post_data =  array(
 			self::$no_email_name => isset( $_POST[self::$no_email_name] ),
@@ -207,12 +244,24 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		);
 
 		// Make changes to featured image suppression sticky
-		if ( $post_data[self::$no_featured_image_name] != Prompt_Core::$options->get( 'no_post_featured_image_default' ) )
+		if ( $post_data[self::$no_featured_image_name] != Prompt_Core::$options->get( 'no_post_featured_image_default' ) ) {
 			Prompt_Core::$options->set( 'no_post_featured_image_default', $post_data[self::$no_featured_image_name] );
+		}
+
+		if ( isset( $_POST[self::$retry_failed_recipients_name] ) ) {
+			$prompt_post = new Prompt_Post( $post_id );
+			$prompt_post->remove_sent_recipient_ids( $prompt_post->failed_recipient_ids() );
+			$prompt_post->remove_failed_recipient_ids( $prompt_post->failed_recipient_ids() );
+			Prompt_Post_Mailing::send_notifications( $post_id );
+		}
 
 		return $post_data;
 	}
 
+	/**
+	 * @since 2.0.0
+	 * @param WP_Post $post
+	 */
 	protected function set_post( $post ) {
 		$this->post = $post;
 		$prompt_post = new Prompt_Post( $post );
@@ -237,7 +286,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 			);
 
 			$description .= ' ' . html( 'a',
-				array( 'href' => Prompt_Enum_Urls::PREMIUM, 'class' => 'upgrade_postmatic' ),
+				array( 'href' => self::upgrade_url(), 'class' => 'upgrade_postmatic' ),
 				__( 'Have a list larger than a few hundred? Let us deliver your mail for you.', 'Postmatic' )
 			);
 
@@ -269,7 +318,7 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 		if ( Prompt_Enum_Email_Transports::LOCAL == Prompt_Core::$options->get( 'email_transport' ) ) {
 
 			$description .= ' ' . html( 'a',
-				array( 'href' => Prompt_Enum_Urls::PREMIUM, 'class' => 'button button-primary' ),
+				array( 'href' => self::upgrade_url(), 'class' => 'button button-primary' ),
 				__( 'Upgrade to Postmatic Premium', 'Postmatic' )
 			);
 
@@ -277,5 +326,55 @@ class Prompt_Admin_Delivery_Metabox extends scbPostMetabox {
 
 		return $description;
 
+	}
+
+	/**
+	 * @param int $sent_count
+	 * @param int $failed_count
+	 * @return string
+	 */
+	protected static function failed_count_description( $sent_count, $failed_count ) {
+
+		$description = html( 'p class="wp-ui-text-notification"',
+			sprintf(
+				__( 'This post was sent successfully to %d subscribers but WordPress mailing failed for %s subscribers.', 'Postmatic' ),
+				$sent_count,
+				$failed_count
+			)
+		);
+
+		$description .= html( 'p',
+			sprintf(
+				__(
+					'There could be many reasons for this, but many web hosts enforce limits on how much email you can send at once. If this continues to be a problem consider upgrading to a <a href="%s" target="_blank">paid Postmatic account</a> and let our servers send your email with guaranteed delivery.',
+					'Postmatic'
+				),
+				'https://gopostmatic.com/vs'
+			)
+		);
+
+		$description .= html( 'p',
+			html(
+				'input',
+				array(
+					'name' => self::$retry_failed_recipients_name,
+					'type' => 'submit',
+					'class' => 'button',
+					'value' => __( 'Retry failed WordPress emails', 'Postmatic' )
+				)
+			)
+		);
+
+		$description .= ' ' . html( 'a',
+			array( 'href' => self::upgrade_url(), 'class' => 'button button-primary' ),
+			__( 'Upgrade to Postmatic Premium', 'Postmatic' )
+		);
+
+		return $description;
+
+	}
+
+	protected static function upgrade_url() {
+		return Prompt_Enum_Urls::MANAGE . '/login';
 	}
 }
