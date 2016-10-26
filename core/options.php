@@ -30,6 +30,7 @@ class Prompt_Options extends scbOptions {
 		$standard_defaults = array(
 			'auto_subscribe_authors' => true,
 			'prompt_key' => '',
+			'internal_key' => '',
 			'site_subscription_post_types' => array( 'post' ),
 			'skip_notices' => array(),
 			'service_notices' => array(),
@@ -108,6 +109,10 @@ class Prompt_Options extends scbOptions {
 		$this->overridden_options = wp_array_slice_assoc( $filtered_options, array_keys( $this->get() ) );
 		if ( !empty( $this->overridden_options ) ) {
 			$this->set( $this->overridden_options );
+		}
+
+		if ( ! $this->get( 'internal_key' ) ) {
+			$this->set( 'internal_key', wp_generate_password( 32 ) );
 		}
 	}
 
