@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Prompt Signer
+ *
+ * @since 2.1.0
+ */
 class Prompt_Signer {
 
 	/** @var string token parameter */
