@@ -26,15 +26,15 @@ class Prompt_Unsubscribe_Template extends Prompt_Template {
 
 	protected function execute( $args ) {
 
-		$link = new Prompt_Unsubscribe_Link( $args );
+		$signer = new Prompt_Signer( new Prompt_Hasher( Prompt_Core::$options->get( 'prompt_key' ) ) );
 
-		if ( !$link->is_valid() )
+		if ( !$signer->is_valid( $args ) )
 			return __(
 				'We tried to unsubscribe you, but there was some required information missing from this request.',
 				'Postmatic'
 			);
 
-		$this->subscriber = $link->user();
+		$this->subscriber = get_user_by( 'email', $args['email'] );
 
 		$prompt_user = new Prompt_User( $this->subscriber );
 

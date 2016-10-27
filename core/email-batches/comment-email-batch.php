@@ -234,14 +234,15 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 */
 	protected function add_recipient( WP_User $recipient ) {
 
-		$unsubscribe_link = new Prompt_Unsubscribe_Link( $recipient );
+		$signer = new Prompt_Signer( new Prompt_Hasher( Prompt_Core::$options->get( 'prompt_key') ) );
+		$unsubscribe_data = array( 'email' => $recipient->user_email );
 
 		$values = array(
 			'id' => $recipient->ID,
 			'to_name' => $recipient->display_name,
 			'to_address' => $recipient->user_email,
 			'subject' => $this->subscriber_subject( $recipient ),
-			'unsubscribe_url' => $unsubscribe_link->url(),
+			'unsubscribe_url' => $signer->sign_url( Prompt_View_Handling::view_url( 'unsubscribe' ), $unsubscribe_data ),
 			'subscriber_comment_intro_html' => $this->subscriber_comment_intro_html( $recipient ),
 			'subscriber_comment_intro_text' => $this->subscriber_comment_intro_text( $recipient ),
 		);
