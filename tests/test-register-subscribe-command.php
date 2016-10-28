@@ -59,7 +59,10 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 		$command = new Prompt_Register_Subscribe_Command();
 		$command->set_keys( array( $comment_id ) );
 		$command->set_message( $message );
-		$command->execute();
+		$prompt_post = $command->execute();
+
+		$this->assertInstanceOf( 'Prompt_Post', $prompt_post, 'Expected the post as the opted in list.' );
+		$this->assertEquals( $post_id, $prompt_post->id(), 'Expected the post as the opted in list.' );
 
 		$user = $this->mail_data->subscriber;
 
@@ -71,8 +74,6 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 		$prompt_user = new Prompt_User( $user );
 
 		$origin = $prompt_user->get_subscriber_origin();
-
-		$prompt_post = new Prompt_Post( $post_id );
 
 		$this->assertGreaterThan( time() - 1000, $origin->get_timestamp(), 'Expected a recent timestamp in origin data.' );
 		$this->assertEquals(
@@ -121,7 +122,9 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 		$command->set_keys( array( $comment_id ) );
 		$command->set_message( $message );
 
-		$command->execute();
+		$list = $command->execute();
+
+		$this->assertNull( $list, 'Expected no returned opted in list.' );
 
 		$user = get_user_by( 'email', $this->mail_data->address );
 

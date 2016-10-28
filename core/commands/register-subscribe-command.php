@@ -76,11 +76,14 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 
 	/**
 	 * @since 1.0.0
+	 * @since 2.1.0 make notification optional and return opted in list
+	 * @param bool $notify Whether to send a confirmation, default true
+	 * @return Prompt_Interface_Subscribable|null opted in list or null if none
 	 */
-	public function execute() {
+	public function execute( $notify = true ) {
 
 		if ( !$this->validate() ) {
-			return;
+			return null;
 		}
 
 		$comment_id = $this->keys[0];
@@ -92,7 +95,7 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 				__( 'Couldn\'t find the original registration information for a new user.', 'Postmatic' ),
 				array( 'keys' => $this->keys, 'message' => $this->message )
 			);
-			return;
+			return null;
 		}
 
 		$lists = $this->resolve_lists( $comment );
@@ -108,17 +111,17 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 		if ( !$subscriber and !$opted_in_list ) {
 
 			if ( self::stop_resending( $comment ) ) {
-				return;
+				return null;
 			}
 
 			Prompt_Subscription_Mailing::send_agreement( $lists, $email, $user_data, $resend_command = $this );
 
-			return;
+			return null;
 		}
 
 		if ( !$opted_in_list ) {
 			// The user has already been created, probably via a different reply. Just ignore this nonsense reply.
-			return;
+			return null;
 		}
 
 		$subscriber_id = $subscriber ? $subscriber->ID : Prompt_User_Handling::create_from_email( $email );
@@ -134,7 +137,7 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 					'error' => $subscriber_id
 				)
 			);
-			return;
+			return null;
 		}
 
 		if ( !$subscriber and $user_data ) {
@@ -159,11 +162,14 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 		if ( !$opted_in_list->is_subscribed( $subscriber_id ) ) {
 
 			$opted_in_list->subscribe( $subscriber_id );
-			Prompt_Subscription_Mailing::send_subscription_notification( $subscriber_id, $opted_in_list );
 
+			if ( $notify ) {
+				Prompt_Subscription_Mailing::send_subscription_notification( $subscriber_id, $opted_in_list );
+			}
 		}
 
 		// TODO: remove our pre registration comment?
+		return $opted_in_list;
 	}
 
 	/**
