@@ -24,6 +24,6 @@ class Prompt_Hasher {
 	 * @return string
 	 */
 	public function hash( $value ) {
-		return substr( hash_hmac( 'sha256', $value, $this->key ), 0, 16 );
+		return hash_hmac( 'sha256', $value, $this->key );
 	}
 }

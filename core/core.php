@@ -101,8 +101,8 @@ class Prompt_Core {
 
 		add_action( 'admin_init', array( __CLASS__, 'detect_version_change' ) );
 
-		add_action( 'template_redirect', array( 'Prompt_View_Handling', 'template_redirect' ) );
-		add_filter( 'query_vars', array( 'Prompt_View_Handling', 'add_query_vars' ) );
+		add_action( 'template_redirect', array( 'Prompt_Routing', 'template_redirect' ) );
+		add_filter( 'query_vars', array( 'Prompt_Routing', 'add_query_vars' ) );
 
 		add_action( 'rest_api_init', array( 'Prompt_Rest_Api', 'init' ) );
 
