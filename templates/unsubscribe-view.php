@@ -19,7 +19,7 @@
 	<?php elseif ( ! $list ) : ?>
 		<p>
 			<?php
-			sprintf(
+			printf(
 				__( 'Got it. %s has been unsubscribed from all future mailings.', 'Postmatic' ),
 				$user->get_wp_user()->user_email
 			);
@@ -28,7 +28,7 @@
 	<?php else : ?>
 		<p>
 			<?php
-			sprintf(
+			printf(
 				/* translators: %1$s is email, %2$s list URL, %3$s list label */
 				__( 'Got it. %1$s has been unsubscribed from <a href="%2$s">%3$s</a>.', 'Postmatic' ),
 				$user->get_wp_user()->user_email,

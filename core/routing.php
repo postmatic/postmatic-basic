@@ -7,6 +7,7 @@
  */
 class Prompt_Routing {
 
+	/** @var string  */
 	protected static $route_query_var = 'postmatic_route';
 
 	/**
@@ -54,7 +55,7 @@ class Prompt_Routing {
 	 * @return string
 	 */
 	public static function unsubscribe_url( $user_id, $list_slug = '' ) {
-		$args = array( 'u' => $user_id );
+		$args = array( self::$route_query_var => 'unsubscribe', 'u' => $user_id );
 
 		if ( $list_slug ) {
 			$args['l'] = $list_slug;

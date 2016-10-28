@@ -32,6 +32,7 @@ class RoutingTest extends WP_UnitTestCase {
 
 	function test_unsubscribe_url_without_list() {
 		$url = Prompt_Routing::unsubscribe_url( 1 );
+		$this->assertContains( 'postmatic_route=unsubscribe', $url, 'Expected route query argument.' );
 		$this->assertContains( 'u=1', $url, 'Expected user query argument.' );
 		$this->assertNotContains( 'l=', $url, 'Expected NO list query argument.' );
 		$this->assertContains( 't=', $url, 'Expected token query argument.' );
@@ -40,6 +41,7 @@ class RoutingTest extends WP_UnitTestCase {
 
 	function test_unsubscribe_url_with_list() {
 		$url = Prompt_Routing::unsubscribe_url( 1, 'foo/1' );
+		$this->assertContains( 'postmatic_route=unsubscribe', $url, 'Expected route query argument.' );
 		$this->assertContains( 'u=1', $url, 'Expected user query argument.' );
 		$this->assertContains( 'l=foo%2F1', $url, 'Expected list query argument.' );
 		$this->assertContains( 't=', $url, 'Expected token query argument.' );

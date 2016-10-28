@@ -124,11 +124,13 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		$html_template = new Prompt_Template( $template_file );
 		$text_template = new Prompt_Text_Template( str_replace( '.php', '-text.php', $template_file ) );
 
-		/* translators: %1$s is a subscription list title, %2$s the unsubscribe command */
+		/* translators: %s is a subscription list title */
 		$footnote_format = __(
-			'You received this email because you\'re subscribed to %1$s. To no longer receive other comments or replies in this discussion reply with the word \'%2$s\'.',
+			'You received this email because you\'re subscribed to %s.',
 			'Postmatic'
 		);
+		$unsubscribe_href = $is_api_delivery ? $this->unsubscribe_mailto() : '{{{unsubscribe_url}}}';
+
 		$message_template = array(
 			'from_name' => $this->prompt_comment->get_author_name(),
 			'text_content' => $text_template->render( $template_data ),
@@ -137,15 +139,15 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'subject' => '{{{subject}}}',
 			'reply_to' => Prompt_Core::$options->is_api_transport() ? '{{{reply_to}}}' : 'commenting@gopostmatic.com',
 			'footnote_html' => sprintf(
-				$footnote_format,
+				$footnote_format . ' %s',
 				$this->prompt_post->subscription_object_label(),
-				"<a href=\"{$this->unsubscribe_mailto()}\">" . Prompt_Unsubscribe_Matcher::target() . "</a>"
+				"<a href=\"{$unsubscribe_href}\">" . Prompt_Unsubscribe_Matcher::target() . "</a>"
 			),
 			/* translators: %1$s is a subscription list title, %2$s is the unsubscribe command word */
 			'footnote_text' => sprintf(
-				$footnote_format,
+				$footnote_format . ' %s',
 				$this->prompt_post->subscription_object_label( Prompt_Enum_Content_Types::TEXT ),
-				Prompt_Unsubscribe_Matcher::target()
+				Prompt_Unsubscribe_Matcher::target() . ": $unsubscribe_href"
 			),
 		);
 
