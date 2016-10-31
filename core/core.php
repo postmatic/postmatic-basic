@@ -111,6 +111,7 @@ class Prompt_Core {
 		add_action( 'wp_ajax_nopriv_prompt/instant-callback', array( 'Prompt_Web_Api_Handling', 'receive_callback' ) );
 		add_action( 'wp_ajax_nopriv_prompt/scheduled-callback', array( 'Prompt_Web_Api_Handling', 'receive_callback' ) );
 		add_action( 'wp_ajax_nopriv_prompt/ping', array( 'Prompt_Web_Api_Handling', 'receive_ping' ) );
+		add_action( 'wp_ajax_nopriv_prompt/key', array( 'Prompt_Web_Api_Handling', 'receive_key' ) );
 
 		add_action( 'wp_insert_comment', array( 'Prompt_Outbound_Handling', 'action_wp_insert_comment' ), 10, 2 );
 		add_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ), 10, 3 );

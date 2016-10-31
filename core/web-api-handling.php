@@ -54,6 +54,8 @@ class Prompt_Web_Api_Handling {
 	}
 
 	/**
+	 * Receive a ping request.
+	 *
 	 * @since 1.0.0
 	 */
 	public static function receive_ping() {
@@ -61,6 +63,31 @@ class Prompt_Web_Api_Handling {
 		self::validate_or_die();
 
 		wp_send_json_success();
+	}
+
+	/**
+	 * Receive a key request.
+	 *
+	 * @since 2.1.0
+	 */
+	public static function receive_key() {
+
+		if ( ! isset( $_POST['key'] ) ) {
+			status_header( 400 );
+			wp_die();
+		}
+
+		$key = sanitize_text_field( $_POST['key'] );
+
+		$importer = new Prompt_Key_Importer( Prompt_Core::$options, new Prompt_Api_Client( array(), $key ) );
+
+		$result = $importer->import( $key );
+
+		if ( is_wp_error( $result ) ) {
+			status_header( 400 );
+		}
+
+		wp_die();
 	}
 
 	/**
