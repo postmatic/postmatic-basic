@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Handle GET requests for Postmatic routes, e.g. unsubscribes.
+ * Handles GET requests for Postmatic routes, e.g. unsubscribes.
  *
  * @since 2.1.0
  */
@@ -11,7 +11,7 @@ class Prompt_Routing {
 	protected static $route_query_var = 'postmatic_route';
 
 	/**
-	 * Add the Postmatic route query variable.
+	 * Adds the Postmatic route query variable.
 	 *
 	 * @since 2.1.0
 	 * @param array $query_vars
@@ -23,7 +23,7 @@ class Prompt_Routing {
 	}
 
 	/**
-	 * Route requests including the routing query variable.
+	 * Routes requests including the routing query variable.
 	 *
 	 * @since 2.1.0
 	 * @param bool $exit Whether to exit after routing
@@ -47,12 +47,12 @@ class Prompt_Routing {
 	}
 
 	/**
-	 * Get an unsubscribe URL for one or all lists.
+	 * Gets an unsubscribe url for one or all lists.
 	 *
 	 * @since 2.1.0
-	 * @param int $user_id
-	 * @param string $list_slug Leave empty for all lists.
-	 * @return string
+	 * @param int $user_id The ID of the user to unsubscribe.
+	 * @param string $list_slug Optional. The slug of a list to unsubscribe from. Default unsubscribes from all lists.
+	 * @return string The unsubscribe URL.
 	 */
 	public static function unsubscribe_url( $user_id, $list_slug = '' ) {
 		$args = array( self::$route_query_var => 'unsubscribe', 'u' => $user_id );
@@ -65,10 +65,70 @@ class Prompt_Routing {
 	}
 
 	/**
-	 * Handle an unsubscribe request.
+	 * Gets an opt-in url for a list.
 	 *
 	 * @since 2.1.0
-	 * @param array $args
+	 * @param Prompt_Register_Subscribe_Command $command The registration command for the potential new subscriber.
+	 * @return string The opt-in URL.
+	 */
+	public static function opt_in_url( Prompt_Register_Subscribe_Command $command) {
+		$args = array( self::$route_query_var => 'opt_in' );
+
+		$command_keys = $command->get_keys();
+		$args['c'] = $command_keys[0];
+
+		return self::signer()->sign_url( home_url(), $args );
+	}
+
+	/**
+	 * Handles an opt-in request and exit.
+	 *
+	 * @since 2.1.0
+	 * @param array $args {
+	 *      Query string arguments for the opt-in request.
+	 *
+	 *      @type string $c The ID of the comment where the subscriber data was stashed.
+	 *      @type string $t The request token.
+	 *      @type string $s The request signature.
+	 * }
+	 */
+	protected static function opt_in( $args ) {
+
+		$view = new Prompt_Template( 'opt-in-view.php' );
+		$context = array( 'list' => null );
+		$title = __( 'Opt In', 'Postmatic' );
+
+		$stash_id = isset( $args['c'] ) ? intval( $args['c'] ) : null;
+
+		if ( ! self::signer()->is_valid( $args ) or ! $stash_id ) {
+			wp_die( $view->render( $context ), $title, 400 );
+			return; // in case there's a die handler that doesn't die
+		}
+
+		$message = new stdClass();
+		$message->message = Prompt_Agree_Matcher::target();
+
+		$command = new Prompt_Register_Subscribe_Command();
+		$command->set_keys( array( $stash_id ) );
+		$command->set_message( $message );
+
+		$context['list'] = $command->execute( false );
+
+		wp_die( $view->render( $context ), $title, 200 );
+	}
+
+	/**
+	 * Handle an unsubscribe request and exit.
+	 *
+	 * @since 2.1.0
+	 * @param array $args {
+	 *      Query string arguments for the opt-in request.
+	 *
+	 *      @type string $u The ID of the user to unsubscribe
+	 *      @type string $l The slug of a list to unsubscribe from, or all lists if empty
+	 *      @type string $t The request token
+	 *      @type string $s The request signature
+	 * }
 	 */
 	protected static function unsubscribe( $args ) {
 

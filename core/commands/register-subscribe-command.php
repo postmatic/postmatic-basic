@@ -76,7 +76,7 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 
 	/**
 	 * @since 1.0.0
-	 * @since 2.1.0 make notification optional and return opted in list
+	 * @since 2.1.0 Make notification optional and return opted in list
 	 * @param bool $notify Whether to send a confirmation, default true
 	 * @return Prompt_Interface_Subscribable|null opted in list or null if none
 	 */

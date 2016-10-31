@@ -105,18 +105,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			'Expected the supplied message.'
 		);
 
-		$this->assertNotEmpty( $values[0]['reply_to'], 'Expected a tracking address.' );
-
-		$update = new stdClass();
-		$update->metadata = $values[0]['reply_to']['trackable-address'];
-
-		$command = Prompt_Command_Handling::make_command( $update );
-
-		$this->assertInstanceOf(
-			'Prompt_Register_Subscribe_Command',
-			$command,
-			'Expected register subscribe command metadata.'
-		);
+		$this->assertNotEmpty( $values[0]['opt_in_url'], 'Expected an opt-in url.' );
 
 	}
 

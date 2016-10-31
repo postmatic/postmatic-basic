@@ -1,7 +1,8 @@
 <?php
 /**
  * @var Prompt_Interface_Subscribable[] $lists
- * @var string $invite_introduction Only present for invite emails.
+ * @var string                          $invite_introduction Only present for invite emails.
+ * @var bool                            $is_api_transport
  */
 ?>
 
@@ -33,19 +34,29 @@
 		<p>
 			<span class="alert">
 				<?php
-				printf(
-					__(
-						'To confirm your subscription, please reply with the word <a href="%s"><strong>agree</strong></a>.',
-						'Postmatic'
-					),
-					add_query_arg(
-						array(
-							'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-							'body' => __( 'agree', 'Postmatic' ),
+				if ( $is_api_transport ) {
+					printf(
+						__(
+							'To confirm your subscription, please reply with the word <a href="%s"><strong>agree</strong></a>.',
+							'Postmatic'
 						),
-						'mailto:{{{reply_to}}}'
-					)
-				);
+						add_query_arg(
+							array(
+								'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
+								'body' => __( 'agree', 'Postmatic' ),
+							),
+							'mailto:{{{reply_to}}}'
+						)
+					);
+				} else {
+					printf(
+						__(
+							'To confirm your subscription, <a href="%s"><strong>click here</strong></a>.',
+							'Postmatic'
+						),
+						'{{{opt_in_url}}}'
+					);
+				}
 				?>
 			</span>
 		</p>

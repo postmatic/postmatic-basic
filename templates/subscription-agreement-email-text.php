@@ -1,7 +1,8 @@
 <?php
 /**
  * @var Prompt_Interface_Subscribable[] $lists
- * @var string $invite_introduction Only present for invite emails.
+ * @var string                          $invite_introduction Only present for invite emails.
+ * @var bool                            $is_api_transport
  */
 ?>
 <?php if ( !empty( $invite_introduction ) ) : ?>
@@ -29,13 +30,17 @@
 		?>
 		<br/>
 		<?php
-		echo add_query_arg(
-			array(
-				'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-				'body' => __( 'agree', 'Postmatic' ),
-			),
-			'mailto:{{{reply_to}}}'
-		);
+		if ( $is_api_transport ) {
+			echo add_query_arg(
+				array(
+					'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
+					'body' => __( 'agree', 'Postmatic' ),
+				),
+				'mailto:{{{reply_to}}}'
+			);
+		} else {
+			echo '{{{opt_in_url}}}';
+		}
 		?>
 	</p>
 <?php else : ?>
