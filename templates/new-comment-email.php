@@ -84,6 +84,7 @@ $previous_index = count( $previous_comments );
 
 	<?php endif; ?>
 
+	<?php if ( $is_api_delivery ) : ?>
 	<div class="reply-prompt">
 		<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="float: left; margin-right: 10px;"/>
 
@@ -103,5 +104,6 @@ $previous_index = count( $previous_comments );
 			</small>
 		</h3>
 	</div>
+	<?php endif; ?>
 </div>
 
