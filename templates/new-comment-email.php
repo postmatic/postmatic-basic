@@ -12,6 +12,7 @@
  * @var string              $subscribed_post_title_link
  * @var array               $previous_comments
  * @var bool                $is_api_delivery
+ * @var string              $post_author_message
  */
 
 $previous_index = count( $previous_comments );
@@ -105,5 +106,7 @@ $previous_index = count( $previous_comments );
 		</h3>
 	</div>
 	<?php endif; ?>
+
+	{{{post_author_message}}}
 </div>
 

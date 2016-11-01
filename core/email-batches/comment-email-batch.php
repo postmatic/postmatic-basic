@@ -248,6 +248,10 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'subscriber_comment_intro_text' => $this->subscriber_comment_intro_text( $recipient ),
 		);
 
+		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
+			$values['post_author_message'] = __( 'Upgrade for replyable comments and more!', 'Postmatic' );
+		}
+
 		if ( Prompt_Core::is_api_transport() ) {
 
 			$command = new Prompt_Comment_Command();

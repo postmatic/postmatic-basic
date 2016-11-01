@@ -64,7 +64,22 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 			'Expected subject to contain post title.'
 		);
 	}
-	
+
+	function testPostAuthorRecipient() {
+		$author = $this->factory->user->create_and_get();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author->ID ) );
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+
+		$batch = new Prompt_Comment_Email_Batch( $comment );
+
+		$values = $batch->get_individual_message_values();
+		$this->assertCount( 1, $values );
+
+		$values = $values[0];
+		$this->assertEquals( $author->user_email, $values['to_address'], 'Expected author to address.' );
+		$this->assertArrayHasKey( 'post_author_message', $values );
+	}
+
 	function testPersonalizedSubject() {
 		$post_id = $this->factory->post->create();
 		$parent_author = $this->factory->user->create_and_get();

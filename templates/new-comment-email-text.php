@@ -58,6 +58,7 @@
 
 <?php endif; ?>
 
+<?php if ( $is_api_delivery ) : ?>
 <p>
 	<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
 </p>
@@ -85,3 +86,4 @@
 	)
 	?>
 </p>
+<?php endif; ?>
