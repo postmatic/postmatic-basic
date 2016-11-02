@@ -4,6 +4,10 @@
 	"type": "wordpress-plugin",
 	"repositories": [
 		{
+		  "type": "vcs",
+		  "url": "https://github.com/postmatic/commentium"
+		},
+		{
 			"type": "vcs",
 			"url": "https://github.com/vernal-creative/html-to-markdown"
 		}
@@ -16,7 +20,8 @@
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "1.2.1"
+		"freemius/wordpress-sdk": "1.2.1",
+		"postmatic/commentium": "dev-master"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",

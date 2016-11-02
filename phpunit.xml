@@ -7,8 +7,11 @@
         convertWarningsToExceptions="true"
         >
     <testsuites>
-        <testsuite>
+        <testsuite name="Prompt">
             <directory prefix="test-" suffix=".php">./tests/</directory>
+        </testsuite>
+        <testsuite name="Commentium">
+            <directory suffix=".php">./vendor/postmatic/commentium/tests/phpunit/</directory>
         </testsuite>
     </testsuites>
     <groups>

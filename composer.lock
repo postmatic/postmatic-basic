@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ffd1282dc7624bbaf36452ed64eb7772",
-    "content-hash": "7495fe50112dce715c10bbb081780e7a",
+    "hash": "cbb40707d819cba73e2683c3bf3a0621",
+    "content-hash": "ee9b53435201ab91d936e98989a2a1cc",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -71,6 +71,49 @@
                 "wordpress"
             ],
             "time": "2016-09-22 17:51:37"
+        },
+        {
+            "name": "postmatic/commentium",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/postmatic/commentium.git",
+                "reference": "4fd26a1e0e2eae3ebbb61e9aebcd92798e19864f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/4fd26a1e0e2eae3ebbb61e9aebcd92798e19864f",
+                "reference": "4fd26a1e0e2eae3ebbb61e9aebcd92798e19864f",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Postmatic\\Commentium\\": "source"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Postmatic\\Commentium\\Unit_Tests\\": "tests/phpunit"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Postmatic",
+                    "homepage": "https://gopostmatic.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Dylan Kuhn",
+                    "homepage": "http://www.cyberhobo.net",
+                    "role": "Developer"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/postmatic/commentium/tree/master",
+                "issues": "https://github.com/postmatic/commentium/issues"
+            },
+            "time": "2016-10-24 21:48:16"
         },
         {
             "name": "scribu/scb-framework",
@@ -1143,16 +1186,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.12",
+            "version": "v2.8.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c"
+                "reference": "396784cd06b91f3db576f248f2402d547a077787"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
-                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/396784cd06b91f3db576f248f2402d547a077787",
+                "reference": "396784cd06b91f3db576f248f2402d547a077787",
                 "shasum": ""
             },
             "require": {
@@ -1188,7 +1231,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-02 01:57:56"
+            "time": "2016-10-21 20:59:10"
         },
         {
             "name": "tedivm/jshrink",
@@ -1243,6 +1286,7 @@
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
         "xamin/handlebars.php": 20,
+        "postmatic/commentium": 20,
         "rosio/wordpress-i18n-tools": 20
     },
     "prefer-stable": false,
