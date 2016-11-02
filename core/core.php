@@ -117,6 +117,9 @@ class Prompt_Core {
 		add_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ), 10, 3 );
 		add_filter( 'comment_notification_recipients', array( 'Prompt_Outbound_Handling', 'filter_comment_notification_recipients' ) );
 
+		add_action( 'comment_approved_to_unapproved', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'approved_to_unapproved' ) );
+		add_filter( 'comment_moderation_recipients', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'recipients' ), 10, 2 );
+
 		add_action( 'prompt/mailing/send', array( 'Prompt_Mailing', 'send' ) );
 		add_action( 'prompt/comment_mailing/send_notifications', array( 'Prompt_Comment_Mailing', 'send_notifications' ) );
 		add_action( 'prompt/subscription_mailing/send_agreements', array( 'Prompt_Subscription_Mailing', 'send_agreements' ), 10, 4 );
