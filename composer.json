@@ -15,6 +15,11 @@
 	"autoload": {
 		"classmap": ["admin/", "core/", "interfaces/", "enums/" ]
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"Postmatic\\Commentium\\Unit_Tests\\": "vendor/postmatic/commentium/tests/phpunit"
+		}
+	},
 	"require": {
 		"scribu/scb-framework": "dev-master",
 		"vernal-creative/html-to-markdown": "dev-postmatic",

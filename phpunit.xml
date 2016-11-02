@@ -12,6 +12,8 @@
         </testsuite>
         <testsuite name="Commentium">
             <directory suffix=".php">./vendor/postmatic/commentium/tests/phpunit/</directory>
+            <exclude>./vendor/postmatic/commentium/tests/phpunit/No_Outbound_Test_Case.php</exclude>
+            <exclude>./vendor/postmatic/commentium/tests/phpunit/Mock_Mailer_Test_Case.php</exclude>
         </testsuite>
     </testsuites>
     <groups>
