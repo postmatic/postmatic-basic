@@ -120,6 +120,9 @@ class Prompt_Core {
 		add_action( 'comment_approved_to_unapproved', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'approved_to_unapproved' ) );
 		add_filter( 'comment_moderation_recipients', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'recipients' ), 10, 2 );
 
+		add_filter( 'prompt/make_comment_flood_controller', array( 'Postmatic\Commentium\Filters\Factory', 'make_comment_flood_controller' ), 10, 2 );
+		add_filter( 'prompt/comment_notifications/allow', array( 'Postmatic\Commentium\Filters\Comment_Notifications', 'allow' ), 10, 2 );
+
 		add_action( 'prompt/mailing/send', array( 'Prompt_Mailing', 'send' ) );
 		add_action( 'prompt/comment_mailing/send_notifications', array( 'Prompt_Comment_Mailing', 'send_notifications' ) );
 		add_action( 'prompt/subscription_mailing/send_agreements', array( 'Prompt_Subscription_Mailing', 'send_agreements' ), 10, 4 );

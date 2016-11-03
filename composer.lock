@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "cbb40707d819cba73e2683c3bf3a0621",
+    "hash": "60f9642af37bcfff3e437f83f87b2197",
     "content-hash": "ee9b53435201ab91d936e98989a2a1cc",
     "packages": [
         {
@@ -78,12 +78,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "7b3d08a5cbd1a3f9f5796c99648dfe711afd32c9"
+                "reference": "0cca93a95d37bfa3433ea8412daa9bf8beaf13ec"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/7b3d08a5cbd1a3f9f5796c99648dfe711afd32c9",
-                "reference": "7b3d08a5cbd1a3f9f5796c99648dfe711afd32c9",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/0cca93a95d37bfa3433ea8412daa9bf8beaf13ec",
+                "reference": "0cca93a95d37bfa3433ea8412daa9bf8beaf13ec",
                 "shasum": ""
             },
             "type": "library",
@@ -113,7 +113,7 @@
                 "source": "https://github.com/postmatic/commentium/tree/master",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2016-11-02 18:27:19"
+            "time": "2016-11-03 17:59:23"
         },
         {
             "name": "scribu/scb-framework",
