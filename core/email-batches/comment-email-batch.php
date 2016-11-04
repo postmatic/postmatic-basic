@@ -68,7 +68,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 				$this->prompt_parent_comment->get_author_name()
 			);
 
-			$template_file = $is_api_delivery ? 'comment-reply-email.php' : $template_file;
+			$template_file = 'comment-reply-email.php';
 		}
 		
 		$this->parent_author = $parent_author;
