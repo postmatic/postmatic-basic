@@ -78,12 +78,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "0cca93a95d37bfa3433ea8412daa9bf8beaf13ec"
+                "reference": "15370ec0a0786e7b50c7dcca641291faadc8a5d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/0cca93a95d37bfa3433ea8412daa9bf8beaf13ec",
-                "reference": "0cca93a95d37bfa3433ea8412daa9bf8beaf13ec",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/15370ec0a0786e7b50c7dcca641291faadc8a5d0",
+                "reference": "15370ec0a0786e7b50c7dcca641291faadc8a5d0",
                 "shasum": ""
             },
             "type": "library",
@@ -113,7 +113,7 @@
                 "source": "https://github.com/postmatic/commentium/tree/master",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2016-11-03 17:59:23"
+            "time": "2016-11-03 18:36:12"
         },
         {
             "name": "scribu/scb-framework",
