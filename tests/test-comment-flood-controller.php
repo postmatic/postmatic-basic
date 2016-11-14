@@ -43,7 +43,7 @@ class CommentFloodControllerTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testIncludePostAuthor() {
-		// assume: default auto_subscribe_authors is true
+		Prompt_Core::$options->set( 'auto_subscribe_authors', true );
 		$author_id = $this->factory->user->create();
 		$prompt_post = new Prompt_Post( $this->factory->post->create( array( 'post_author' => $author_id ) ) );
 
@@ -74,12 +74,10 @@ class CommentFloodControllerTest extends Prompt_MockMailerTestCase {
 		$recipient_ids = $controller->control_recipient_ids();
 
 		$this->assertEmpty( $recipient_ids, 'Expected no recipients.' );
-
-		Prompt_Core::$options->reset();
 	}
 
 	function testExcludePostAuthorOwnComment() {
-		// assume: default auto_subscribe_authors is true
+		Prompt_Core::$options->set( 'auto_subscribe_authors', true );
 		$author_id = $this->factory->user->create();
 		$prompt_post = new Prompt_Post( $this->factory->post->create( array( 'post_author' => $author_id ) ) );
 
@@ -112,8 +110,7 @@ class CommentFloodControllerTest extends Prompt_MockMailerTestCase {
 
 		$recipient_ids = $controller->control_recipient_ids();
 
-		$this->assertCount( 1, $recipient_ids, 'Expected one recipient.' );
-		$this->assertContains( $post->post_author, $recipient_ids, 'Expected post author only.' );
+		$this->assertCount( 0, $recipient_ids, 'Expected NO recipients.' );
 	}
 
 	function testFlood() {

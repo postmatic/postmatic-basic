@@ -270,6 +270,8 @@ Class PromptCommentCommandTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testAuthorComment() {
+		Prompt_Core::$options->set( 'auto_subscribe_authors', true );
+
 		$author_id = $this->factory->user->create();
 		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$comment_text = 'TEST COMMENT';

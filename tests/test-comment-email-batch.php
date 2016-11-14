@@ -66,6 +66,8 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 	}
 
 	function testPostAuthorRecipient() {
+		Prompt_Core::$options->set( 'auto_subscribe_authors', true );
+
 		$author = $this->factory->user->create_and_get();
 		$post_id = $this->factory->post->create( array( 'post_author' => $author->ID ) );
 		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );

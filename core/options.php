@@ -28,7 +28,7 @@ class Prompt_Options extends scbOptions {
 			'<p>' . __( 'We\'re glad you\'ve decided to join and hope you enjoy our posts.', 'Postmatic' ) . '</p>';
 
 		$standard_defaults = array(
-			'auto_subscribe_authors' => true,
+			'auto_subscribe_authors' => false,
 			'prompt_key' => '',
 			'internal_key' => '',
 			'site_subscription_post_types' => array( 'post' ),
@@ -113,6 +113,14 @@ class Prompt_Options extends scbOptions {
 
 		if ( ! $this->get( 'internal_key' ) ) {
 			$this->set( 'internal_key', wp_generate_password( 32 ) );
+		}
+
+		// Auto subscribe authors when using the moderation service
+		if (
+			in_array( Prompt_Enum_Message_Types::COMMENT_MODERATION, $this->get( 'enabled_message_types' ) ) and
+			! $this->get( 'auto_subscribe_authors' )
+		) {
+			$this->set( 'auto_subscribe_authors', true );
 		}
 	}
 
