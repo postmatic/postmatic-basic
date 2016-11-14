@@ -32,10 +32,12 @@ class Prompt_Freemius {
 
 		require_once Prompt_Core::$dir_path . '/vendor/freemius/wordpress-sdk/start.php';
 
-		self::$freemius = fs_dynamic_init( array(
+		$defaults = array(
 			'id' => '164',
 			'slug' => 'postmatic',
+			'type' => 'plugin',
 			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
+			'is_live' => true,
 			'is_premium' => false,
 			'has_addons' => false,
 			'has_paid_plans' => false,
@@ -48,7 +50,11 @@ class Prompt_Freemius {
 					'slug' => 'options-general.php',
 				),
 			),
-		) );
+		);
+
+		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
+
+		self::$freemius = fs_dynamic_init( array_merge_recursive( $init_data, $defaults ) );
 
 		self::$freemius->add_filter( 
 			'connect_message_on_update', 
