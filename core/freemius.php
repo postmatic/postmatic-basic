@@ -54,7 +54,7 @@ class Prompt_Freemius {
 
 		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
 
-		self::$freemius = fs_dynamic_init( array_merge_recursive( $init_data, $defaults ) );
+		self::$freemius = fs_dynamic_init( array_replace_recursive( $defaults, $init_data ) );
 
 		self::$freemius->add_filter( 
 			'connect_message_on_update', 
