@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60f9642af37bcfff3e437f83f87b2197",
-    "content-hash": "ee9b53435201ab91d936e98989a2a1cc",
+    "hash": "e58fd316522b3c6fa6a83b9e863ecd05",
+    "content-hash": "816fe3052ce1dfbca6c1d495aae161cc",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -71,6 +71,54 @@
                 "wordpress"
             ],
             "time": "2016-09-22 17:51:37"
+        },
+        {
+            "name": "postmatic/comment-iq-api-client",
+            "version": "0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/postmatic/comment-iq-api-client.git",
+                "reference": "839d8b5fa9048f4439c76206afd5c6adb31eb940"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/postmatic/comment-iq-api-client/zipball/839d8b5fa9048f4439c76206afd5c6adb31eb940",
+                "reference": "839d8b5fa9048f4439c76206afd5c6adb31eb940",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "wp-coding-standards/wpcs": "^0.10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Postmatic\\CommentIQ\\": "psr-4"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Carl Alexander",
+                    "email": "contact@carlalexander.ca"
+                },
+                {
+                    "name": "Dylan Kuhn",
+                    "email": "dylan@gopostmatic.com"
+                }
+            ],
+            "description": "A WordPress client for the CommentIQ HTTP API",
+            "homepage": "https://github.com/postmatic/comment-iq-api-client",
+            "keywords": [
+                "api",
+                "commentiq"
+            ],
+            "time": "2016-11-15 18:40:50"
         },
         {
             "name": "postmatic/commentium",
