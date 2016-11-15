@@ -39,13 +39,17 @@ if ( class_exists( 'Prompt_Core' ) ) {
 
 require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
-Prompt_Core::load();
-
 if ( !class_exists( 'Prompt_Root' ) ) {
 	/**
 	 * Manage things that must be done from the root plugin file.
 	 * @since 2.0.0
 	 */
 	class Prompt_Root {
+		public static function load_freemius() {
+			Prompt_Freemius::load();
+		}
 	}
 }
+
+Prompt_Core::load();
+

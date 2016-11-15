@@ -42,6 +42,10 @@ class Prompt_Core {
 		self::$basename = plugin_basename( self::$dir_path . '/postmatic.php' );
 		self::$url_path = plugins_url( '', dirname( __FILE__ ) );
 
+		if ( !class_exists( 'Postmatic\Premium\Core' ) and !self::unit_testing() ) {
+			Prompt_Root::load_freemius();
+		}
+
 		load_plugin_textdomain( 'Postmatic', '', path_join( dirname( self::$basename ), 'lang' ) );
 
 		scb_init();
