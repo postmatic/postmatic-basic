@@ -216,7 +216,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 		
 		$this->assertContains(
-			'Reply-To: commenting@gopostmatic.com',
+			'Reply-To: donotreply@gopostmatic.com',
 			$headers,
 			'Expected the default reply address.'
 		);

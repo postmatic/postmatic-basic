@@ -23,7 +23,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 		$this->assertNotContains( '{{{reply_to}}}', $template['text_content'] );
 		$this->assertEquals( get_option('blogname'), $template['from_name'] );
 		$this->assertEquals( Prompt_Enum_Message_Types::SUBSCRIPTION, $template['message_type'] );
-		$this->assertEquals( 'commenting@gopostmatic.com', $template['reply_to'] );
+		$this->assertEquals( 'donotreply@gopostmatic.com', $template['reply_to'] );
 		$this->assertContains(
 			get_option( 'blogname' ),
 			$template['footnote_html'],

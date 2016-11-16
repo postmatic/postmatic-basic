@@ -123,7 +123,7 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 		$template = $batch->get_batch_message_template();
 
 		$this->assertEquals(
-			'commenting@gopostmatic.com',
+			'donotreply@gopostmatic.com',
 			$template['reply_to'],
 			'Expected the default no-key reply address.'
 		);

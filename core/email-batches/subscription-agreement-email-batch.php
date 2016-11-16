@@ -57,7 +57,7 @@ class Prompt_Subscription_Agreement_Email_Batch extends Prompt_Email_Batch {
 			'message_type' => Prompt_Enum_Message_Types::SUBSCRIPTION,
 			'html_content' => $html_template->render( $message_data ),
 			'text_content' => $text_template->render( $message_data ),
-			'reply_to' => $is_api_transport ? '{{{reply_to}}}' : 'commenting@gopostmatic.com',
+			'reply_to' => $is_api_transport ? '{{{reply_to}}}' : 'donotreply@gopostmatic.com',
 		);
 
 		// Override template with message data

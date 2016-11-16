@@ -137,7 +137,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'html_content' => $html_template->render( $template_data ),
 			'message_type' => Prompt_Enum_Message_Types::COMMENT,
 			'subject' => '{{{subject}}}',
-			'reply_to' => Prompt_Core::$options->is_api_transport() ? '{{{reply_to}}}' : 'commenting@gopostmatic.com',
+			'reply_to' => Prompt_Core::$options->is_api_transport() ? '{{{reply_to}}}' : 'donotreply@gopostmatic.com',
 			'footnote_html' => sprintf(
 				$footnote_format . ' %s',
 				$this->prompt_post->subscription_object_label(),
