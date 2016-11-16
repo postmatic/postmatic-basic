@@ -622,7 +622,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 
 
 		$tabs[] = new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options );
-		$tabs[] = new Prompt_Admin_Support_Options_Tab( $this->options, $this->_overridden_options );
 
 		$tabs = apply_filters( 'prompt/options_page/tabs', $tabs );
 
