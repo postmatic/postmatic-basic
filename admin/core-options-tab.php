@@ -51,10 +51,10 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			$this->promo_html(),
 			html(
 				'div class="intro-text"',
-				html( 'h2', __( 'Welcome to Replyable.', 'Postmatic' ) ),
+				html( 'h2', __( 'Welcome to Replyable', 'Postmatic' ) ),
 				html(
 					'p',
-					__( 'Build relationships, engage your community, and grow your platform using Postmatic.', 'Postmatic' )
+					__( 'The best engagment and commenting solution for WordPress.', 'Postmatic' )
 				),
 				$this->video_link( 'yjbVIBiSyYE' )
 			),
@@ -207,23 +207,6 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		return html(
 			'fieldset class="chooser"',
 			html( 'legend', __( 'Engage Your Readers', 'Postmatic' ) ),
-			$this->video_link( '8y2pzTmliu4' ),
-			$this->input(
-				array(
-					'type' => 'checkbox',
-					'name' => 'enable_comment_delivery',
-					'value' => 1,
-					'desc' => html(
-						'strong',
-						__( 'Comments by Email', 'Postmatic' ) .
-						html(
-							'small',
-							__( 'Let users subscribe to comments - and reply from their inbox.', 'Postmatic' )
-						)
-					),
-				),
-				$this->options->get()
-			),
 			implode( '', $asides )
 		);
 	}
