@@ -62,19 +62,6 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$parts[] = $this->feature_chooser_html();
 
-		$table_entries = array(
-			array(
-				'title' => __( 'Postmatic API Key', 'Postmatic' ),
-				'type' => 'text',
-				'name' => 'prompt_key',
-				'extra' => array( 'class' => 'regular-text last-submit' ),
-			),
-		);
-
-		$this->override_entries( $table_entries );
-
-		$parts[] = $this->table( $table_entries, $this->options->get() );
-
 		$parts[] = html( 'div id="manage-account"',
 			html( 'a',
 				array( 'href' => 'https://app.gopostmatic.com', 'target' => '_blank' ),
@@ -119,35 +106,8 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$valid_data = $this->validate_checkbox_fields( $new_data, $old_data, $checkbox_fields );
 
-		if ( isset( $new_data['prompt_key'] ) and $new_data['prompt_key'] != $old_data['prompt_key'] ) {
-			$valid_data = array_merge( $valid_data, $this->get_new_key_settings( $new_data['prompt_key'] ) );
-		}
-
 		return $valid_data;
 	}
-
-	/**
-	 * Validate a new key and return revised settings to go with it.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $key
-	 * @return array
-	 */
-	protected function get_new_key_settings( $key ) {
-		$key = Prompt_Core::settings_page()->validate_key( $key );
-
-		if ( is_wp_error( $key ) ) {
-			add_settings_error( 'prompt_key', 'invalid_key', $key->get_error_message() );
-			return array();
-		}
-
-		$new_settings = $this->options->get();
-		$new_settings['prompt_key'] = $key;
-
-		return $new_settings;
-	}
-
 
 	/**
 	 * @since 2.0.0
