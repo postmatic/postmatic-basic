@@ -26,8 +26,7 @@
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
 		"freemius/wordpress-sdk": "1.2.1",
-		"postmatic/commentium": "dev-master",
-		"postmatic/comment-iq-api-client": "^0.1.1"
+		"postmatic/commentium": "dev-master"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",

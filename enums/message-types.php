@@ -10,4 +10,5 @@ class Prompt_Enum_Message_Types {
 	const DIGEST = 'digest';
 	const WP_MAIL = 'wp-mail';
 	const NOTE = 'note';
+	const COMMENT_DIGEST = 'comment-digest';
 }
