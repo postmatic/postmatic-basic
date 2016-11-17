@@ -91,25 +91,6 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	}
 
 	/**
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param array $new_data
-	 * @param array $old_data
-	 * @return array
-	 */
-	function validate( $new_data, $old_data ) {
-
-		$checkbox_fields = array(
-			'enable_comment_delivery',
-		);
-
-		$valid_data = $this->validate_checkbox_fields( $new_data, $old_data, $checkbox_fields );
-
-		return $valid_data;
-	}
-
-	/**
 	 * @since 2.0.0
 	 * @return string
 	 */

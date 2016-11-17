@@ -121,6 +121,10 @@ class Prompt_Core {
 		add_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ), 10, 3 );
 		add_filter( 'comment_notification_recipients', array( 'Prompt_Outbound_Handling', 'filter_comment_notification_recipients' ) );
 
+		add_action( 'wp_insert_comment', array( 'Postmatic\Commentium\Actions\Comment_IQ', 'maybe_save_comment' ) );
+		add_action( 'edit_comment', array( 'Postmatic\Commentium\Actions\Comment_IQ', 'maybe_save_comment' ) );
+		add_action( 'save_post', array( 'Postmatic\Commentium\Actions\Comment_IQ', 'maybe_save_post_article' ), 10, 2 );
+
 		add_action( 'comment_approved_to_unapproved', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'approved_to_unapproved' ) );
 		add_filter( 'comment_moderation_recipients', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'recipients' ), 10, 2 );
 

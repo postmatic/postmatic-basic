@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e58fd316522b3c6fa6a83b9e863ecd05",
-    "content-hash": "816fe3052ce1dfbca6c1d495aae161cc",
+    "hash": "60f9642af37bcfff3e437f83f87b2197",
+    "content-hash": "ee9b53435201ab91d936e98989a2a1cc",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -126,13 +126,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "36b246201ced78a736def1b43f0e0a23c04ad2a6"
+                "reference": "c466c68b93a96e0894f82876cf254f330431531d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/36b246201ced78a736def1b43f0e0a23c04ad2a6",
-                "reference": "36b246201ced78a736def1b43f0e0a23c04ad2a6",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/c466c68b93a96e0894f82876cf254f330431531d",
+                "reference": "c466c68b93a96e0894f82876cf254f330431531d",
                 "shasum": ""
+            },
+            "require": {
+                "postmatic/comment-iq-api-client": "^0.1.1"
             },
             "type": "library",
             "autoload": {
@@ -161,7 +164,7 @@
                 "source": "https://github.com/postmatic/commentium/tree/master",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2016-11-14 22:45:46"
+            "time": "2016-11-17 23:14:52"
         },
         {
             "name": "scribu/scb-framework",

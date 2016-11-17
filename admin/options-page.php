@@ -618,10 +618,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$tabs = array(
 			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options ),
 		);
-
-
-		$tabs[] = new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options );
 
 		$tabs = apply_filters( 'prompt/options_page/tabs', $tabs );
 
