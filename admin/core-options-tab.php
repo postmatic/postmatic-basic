@@ -200,7 +200,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	protected function comment_chooser_html() {
 		$asides = array();
 
-		if ( !defined( 'EPOCH_VER' ) ) {
+		if ( ! defined( 'EPOCH_VER' ) ) {
 			$asides[] = html(
 				'aside',
 				html( 'h3', __( 'Make commenting fun with Epoch', 'Postmatic' ) ),
@@ -222,7 +222,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			);
 		}
 
-		if ( !class_exists( 'Postmatic_Social' ) ) {
+		if ( ! class_exists( 'Postmatic_Social' ) ) {
 			$asides[] = html(
 				'aside',
 				html( 'h3', __( 'Enable Social Commenting', 'Postmatic' ) ),
@@ -244,28 +244,11 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			);
 		}
 
-		// return html(
-		// 	'fieldset class="chooser"',
-		// 	html( 'legend', __( 'Engage Your Readers', 'Postmatic' ) ),
-		// 	$this->video_link( '8y2pzTmliu4' ),
-		// 	$this->input(
-		// 		array(
-		// 			'type' => 'checkbox',
-		// 			'name' => 'enable_comment_delivery',
-		// 			'value' => 1,
-		// 			'desc' => html(
-		// 				'strong',
-		// 				__( 'Comments by Email', 'Postmatic' ) .
-		// 				html(
-		// 					'small',
-		// 					__( 'Let users subscribe to comments - and reply from their inbox.', 'Postmatic' )
-		// 				)
-		// 			),
-		// 		),
-		// 		$this->options->get()
-		// 	),
-		// 	implode( '', $asides )
-		// );
+		return html(
+			'fieldset class="chooser"',
+			html( 'legend', __( 'Engage Your Readers', 'Postmatic' ) ),
+			implode( '', $asides )
+		);
 	}
 
 }
