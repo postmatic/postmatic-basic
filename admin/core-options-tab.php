@@ -206,7 +206,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		return html(
 			'fieldset class="chooser"',
-			html( 'legend', __( 'Engage Your Readers', 'Postmatic' ) ),
+			html( 'legend', __( 'Other commenting plugins we make', 'Postmatic' ) ),
 			implode( '', $asides )
 		);
 	}
