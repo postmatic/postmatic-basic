@@ -10,7 +10,7 @@ class CoreOptionsTabTest extends WP_UnitTestCase {
 		$content = $tab->render();
 
 		$this->assertContains( 'core-options-promo', $content );
-		$this->assertContains( 'enable_comment_delivery', $content );
+		$this->assertContains( 'intro-text', $content );
 
 	}
 
