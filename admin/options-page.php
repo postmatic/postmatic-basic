@@ -8,6 +8,9 @@
 class Prompt_Admin_Options_Page extends scbAdminPage {
 	const DISMISS_ERRORS_META_KEY = 'prompt_error_dismiss_time';
 
+	/** @type Prompt_Options */
+	protected $options;
+
 	/** @type array */
 	protected $_overridden_options;
 
@@ -32,7 +35,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	/**
 	 * @since 1.0.0
 	 * @param string|bool                       $file
-	 * @param scbOptions                        $options
+	 * @param Prompt_Options                    $options
 	 * @param array                             $overrides
 	 * @param Prompt_Admin_Options_Tab[]        $tabs
 	 * @param Prompt_Admin_Conditional_Notice[] $notices
@@ -620,6 +623,10 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options ),
 		);
+
+		if ( ! $this->options->is_api_transport() ) {
+			$tabs[] = new Prompt_Admin_Upgrade_Options_Tab( $this->options );
+		}
 
 		$tabs = apply_filters( 'prompt/options_page/tabs', $tabs );
 
