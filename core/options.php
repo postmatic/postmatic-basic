@@ -24,8 +24,8 @@ class Prompt_Options extends scbOptions {
 			'Postmatic'
 		);
 
-		$subscribed_introduction = '<h2>' . __( 'Thanks for signing up!', 'Postmatic' ) . '</h2>' .
-			'<p>' . __( 'We\'re glad you\'ve decided to join and hope you enjoy our posts.', 'Postmatic' ) . '</p>';
+		$subscribed_introduction = '<h2>' . __( 'Thanks for joining the conversation!', 'Postmatic' ) . '</h2>' .
+			'<p>' . __( 'We\'ll send you the latest comments as they come in.', 'Postmatic' ) . '</p>';
 
 		$standard_defaults = array(
 			'auto_subscribe_authors' => false,
