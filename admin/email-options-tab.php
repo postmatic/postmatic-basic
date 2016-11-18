@@ -24,7 +24,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function name() {
-		return __( 'Your Template', 'Postmatic' );
+		return __( 'Configure Your Template', 'Postmatic' );
 	}
 
 	/**

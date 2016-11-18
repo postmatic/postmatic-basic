@@ -12,7 +12,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function name() {
-		return __( 'Configure Comments', 'Postmatic' );
+		return __( 'Comment Subscription Options', 'Postmatic' );
 	}
 
 	/**
@@ -133,7 +133,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'p',
 						sprintf(
 							__(
-								'Postmatic automatically pauses comment notifications on posts that go viral. Setting the trigger to be 6 comments per hour is good for most sites. You can read more about it <a href="%s" target="_blank">on our support site</a>.  ',
+								'Replyable automatically pauses comment notifications on posts that go viral. Setting the trigger to be 6 comments per hour is good for most sites. You can read more about it <a href="%s" target="_blank">on our support site</a>.  ',
 								'Postmatic'
 							),
 							'http://docs.gopostmatic.com/article/143-what-happens-if-a-post-gets-a-gazillion-comments-do-i-get-a-gazillion-emails'
