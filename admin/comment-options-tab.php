@@ -90,7 +90,10 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @since 2.0.6
 	 * @return array
 	 */
+	 
+
 	protected function table_entries() {
+	
 
 		$snob_extra = array();
 		$snob_upgrade_link = '';

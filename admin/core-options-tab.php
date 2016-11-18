@@ -54,7 +54,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				html( 'h2', __( 'Welcome to Replyable', 'Postmatic' ) ),
 				html(
 					'p',
-					__( 'The best engagment and commenting solution for WordPress.', 'Postmatic' )
+					__( 'The best engagement and commenting solution for WordPress.', 'Postmatic' )
 				),
 				$this->video_link( 'yjbVIBiSyYE' )
 			),
@@ -144,7 +144,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		if ( ! defined( 'EPOCH_VER' ) ) {
 			$asides[] = html(
 				'aside',
-				html( 'h3', __( 'Make commenting fun with Epoch', 'Postmatic' ) ),
+				html( 'h3', __( 'Make comments fun & fast with Epoch', 'Postmatic' ) ),
 				html(
 					'p',
 					__(
@@ -166,7 +166,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		if ( ! class_exists( 'Postmatic_Social' ) ) {
 			$asides[] = html(
 				'aside',
-				html( 'h3', __( 'Enable Social Commenting', 'Postmatic' ) ),
+				html( 'h3', __( 'Get rid of the comment form with Postmatic Social Commenting', 'Postmatic' ) ),
 				html(
 					'p',
 					__(
@@ -184,10 +184,55 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				)
 			);
 		}
+		
+		if ( ! class_exists( 'Sift_Ninja' ) ) {
+			$asides[] = html(
+				'aside',
+				html( 'h3', __( 'Filter profanity, bullying, harassment, and trolls with Sift Ninja', 'Postmatic' ) ),
+				html(
+					'p',
+					__(
+						'The quickest, cleverest and most accurate filter for auto-moderating comments. Language isn’t black and white so your filter shouldn’t be either. <strong><a href="/wp-admin/options-general.php?page=postmatic-pricing">Upgrade Replyable and get 25% off 6 months of premium Sift Ninja service</a>!</strong>',
+						'Postmatic'
+					)
+				),
+				html(
+					'a class="button"',
+					array( 'href' => wp_nonce_url(
+						admin_url( 'update.php?action=install-plugin&plugin=postmatic-social-commenting' ),
+						'install-plugin_postmatic-social-commenting'
+					) ),
+					__( 'Install Sift Ninja', 'Postmatic' )
+				)
+			);
+		}
+
+		if ( ! class_exists( 'elevated_comments' ) ) {
+			$asides[] = html(
+				'aside',
+				html( 'h3', __( 'Comments can be the best part of a post. So why are they always buried?', 'Postmatic' ) ),
+				html(
+					'p',
+					__(
+						'<a href="http://elevated.gopostmatic.com" target="_blank">Elevated Comments</a> uses language analysis and machine learning to identify the most relevant and thoughtful comment on each of your posts. The comment is then automatically inserted near the top of the post as a simple sidebar pull quote.',
+						'Postmatic'
+					)
+				),
+				html(
+					'a class="button"',
+					array( 'href' => wp_nonce_url(
+						admin_url( 'update.php?action=install-plugin&plugin=postmatic-social-commenting' ),
+						'install-plugin_postmatic-social-commenting'
+					) ),
+					__( 'Install Elevated Comments', 'Postmatic' )
+				)
+			);
+		}
+
 
 		return html(
 			'fieldset class="chooser"',
-			html( 'legend', __( 'Other commenting plugins we make', 'Postmatic' ) ),
+			html( 'legend', __( 'Looking to solve commenting? You\'re going to want these free plugins:', 'Postmatic' ) ),
 			implode( '', $asides )
 		);
 	}

@@ -689,37 +689,16 @@ ul.ui-tabs-nav li.ui-state-active a,ul.ui-tabs-nav li a:hover {
   border-top: 1px solid #43C0C7;
 }
 
-.chooser, .local-transport fieldset.chooser:nth-child(5) {
-    margin: 1%;
-    width: 30%;
-    float: left;
-    background:#FCFCFC;
-    padding-bottom: 2%;
-    border: 1px solid #EAEAEA;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+.chooser {
 }
 
-fieldset.chooser:nth-child(5) label {
-  float: none !important;
-}
 
 .chooser legend {
-    color: #fff;
-    background:#454545;
+    color: #454545;
     display: block;
-    /*width: 94%;*/
     padding: 10px 20px;
-    font-size: 110%;
+    font-size: 150%;
     margin-bottom: 15px;
-    margin-left: -1px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 .chooser label, .local-transport fieldset.chooser:nth-child(5) label, .local-transport fieldset.chooser:nth-child(5) label:nth-child(2) {
@@ -773,8 +752,18 @@ fieldset.chooser:nth-child(5) label:nth-child(2) {
 
 
 fieldset.chooser aside {
-  padding: 5px 5%;
-  font-size: 85%;
+    font-size: 95%;
+    width: 41%;
+    float: left;
+    margin: 2%;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 0 2% 2% 2%;
+    min-height: 180px;
+}
+
+fieldset.chooser aside a.button {
+
 }
 
 fieldset.chooser aside h3 {
