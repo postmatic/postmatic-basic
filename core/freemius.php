@@ -56,6 +56,11 @@ class Prompt_Freemius {
 
 		self::$freemius = fs_dynamic_init( array_replace_recursive( $defaults, $init_data ) );
 
+		self::$freemius->override_i18n( array(
+			'opt-in-connect' => __( 'Emails and replies', 'Postmatic' ),
+			'skip' => __( 'Just emails', 'Postmatic' ),
+		) );
+
 		self::$freemius->add_filter( 
 			'connect_message_on_update', 
 			array( __CLASS__, 'custom_connect_message_on_update' ), 
