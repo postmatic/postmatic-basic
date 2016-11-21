@@ -5,8 +5,9 @@
 ?>
 <div id="core-options-promo">
 	<h2><?php _e( '<span>Email was never meant to be a one-way street.</span>', 'Postmatic' ); ?></h2>
-	<p>Ever gotten a comment notification and just wanted to hit reply? So have your readers.</p>
-	<p>Enable two-way comment notifications for just $2.99 a month. Support a fantastic WordPress startup at the same time.</p>
+	<p>Have you ever received a comment notification and just wanted to hit reply? No forms. No browser. Just email.<br />
+	<em>Your readers have</em>.</p>
+	<p>Have better conversations, improved SEO, and support a fantastic WordPress startup at the same time.<br />Enable two-way comment notifications for just $2.99 a month. The first month is free.</p>
 	<p><a href="o/wp-admin/options-general.php?page=postmatic-pricing" target="_blank" class="btn-regular btn-postmatic">Upgrade</a></p>
 </div>
  

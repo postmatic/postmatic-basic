@@ -97,7 +97,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$introduction = html(
 			'div class="intro-text"',
-			html( 'h2', __( 'Customize Your Replyable Template', 'Postmatic' ) ),
+			html( 'h2', __( 'Customize your Replyable template', 'Postmatic' ) ),
 			html( 'p',
 				__( 'Since we\'ll be sending via email the focus should be on <em>the comments</em>. That\'s why we keep things simple. Configure your colors, header and footer. Replyable will handle what goes in between.',
 					'Postmatic'

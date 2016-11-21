@@ -4,5 +4,8 @@
  */
 ?>
 <div id="upgrade-options-promo">
-	<?php esc_html_e( 'How bouts an upgrade?', 'Postmatic' ); ?>
+	<div class="intro-text">
+	    <h2>Get the full version of Replyable for perfect comment subscriptions</h2>
+	    <p></p>
+	</div>
 </div>
