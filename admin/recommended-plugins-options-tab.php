@@ -117,9 +117,11 @@ class Prompt_Admin_Recommended_Plugins_Options_Tab extends Prompt_Admin_Options_
 
 		return html(
 			'fieldset class="chooser"',
-			'div class="intro-text"',
-			html( 'h2', __( 'Looking to solve commenting? You\'re going to want these free plugins:', 'Postmatic' ) ),
-			implode( '', $asides )
+			html(
+				'div class="intro-text"',
+				html( 'h2', __( 'Looking to solve commenting? You\'re going to want these free plugins:', 'Postmatic' ) ),
+				implode( '', $asides )
+			)
 		);
 	}
 }
