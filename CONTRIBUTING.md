@@ -1,4 +1,4 @@
-# How to contribute to Replybale
+# How to contribute to Replyable
 
 Glad you're here! Coordinating a project requires practices that will work together. Those are described here. They are the dull scaffolding we build on, but should leave room for you to add your personal touch to Postmatic. 
 
