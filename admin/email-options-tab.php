@@ -63,11 +63,11 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 			$html_template = new Prompt_Template( 'test-email.php' );
 
 			$footnote = __(
-				'This is a test email sent by Postmatic. It is solely for demonstrating the Postmatic template and is not replyable. Also, that is not latin. <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">It is Lorem ipsum</a>.',
+				'This is a test email sent by Replybale. It is solely for testing email delivery and is not replyable.',
 				'Postmatic'
 			);
 
-			$subject = __( 'This is a test email. By Postmatic.', 'Postmatic' ) . ' ' .
+			$subject = __( 'This is a test email. By Replyable.', 'Postmatic' ) . ' ' .
 				date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 
 			$batch = new Prompt_Email_Batch( array(

@@ -460,7 +460,7 @@ class Prompt_Email_Batch {
 		);
 		if ( Prompt_Core::$options->get( 'email_footer_credit' ) ) {
 			$html .= ' ' . sprintf(
-				__( 'Delivered by <a href="%s">Postmatic</a>.', 'Postmatic' ),
+				__( 'Delivered by <a href="%s">Replyable</a>.', 'Postmatic' ),
 				path_join( Prompt_Enum_Urls::HOME, '?utm_source=footer&utm_medium=email&utm_campaign=pluginfooter' )
 			);
 		}
@@ -479,7 +479,7 @@ class Prompt_Email_Batch {
 			get_bloginfo( 'url' )
 		);
 		if ( Prompt_Core::$options->get( 'email_footer_credit' ) ) {
-			$text .= ' ' . __( 'Delivered by Postmatic.', 'Postmatic' );
+			$text .= ' ' . __( 'Delivered by Replyable.', 'Postmatic' );
 		}
 		return $text;
 	}

@@ -100,7 +100,7 @@ class Prompt_Freemius {
 		return sprintf(
 			__fs( 'hey-x' ) . ' commenting is about to get awesome arond here!<br>' .
 			__(
-				'Replybale lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters hit reply to send a followup comment and keep the conversation going.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $3.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
+				'Replybale lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters hit reply to send a followup comment and keep the conversation going.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $2.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
 				,
 				'Postmatic'
 			),
