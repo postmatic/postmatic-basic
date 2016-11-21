@@ -57,8 +57,8 @@ class Prompt_Freemius {
 		self::$freemius = fs_dynamic_init( array_replace_recursive( $defaults, $init_data ) );
 
 		self::$freemius->override_i18n( array(
-			'opt-in-connect' => __( 'Emails and replies', 'Postmatic' ),
-			'skip' => __( 'Just emails', 'Postmatic' ),
+			'opt-in-connect' => __( 'Two-way conversations', 'Postmatic' ),
+			'skip' => __( 'One-way notifications', 'Postmatic' ),
 		) );
 
 		self::$freemius->add_filter( 
@@ -98,9 +98,10 @@ class Prompt_Freemius {
 		$freemius_link
 	) {
 		return sprintf(
-			__fs( 'hey-x' ) . ' just a quick request:<br>' .
+			__fs( 'hey-x' ) . ' commenting is about to get awesome arond here!<br>' .
 			__(
-				'Help us improve Postmatic by sharing usage statistics with us? It will help with shaping our roadmap as well as offering you support - <strong>plus we\'ll send you a coupon for 10%% off your first 6 months of paid Postmatic service.</strong><br /><br /> Feel free to skip. Postmatic will still be fully functional.',
+				'Replybale lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters hit reply to send a followup comment and keep the conversation going.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $3.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
+				,
 				'Postmatic'
 			),
 			$user_first_name,
