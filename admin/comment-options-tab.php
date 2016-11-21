@@ -28,6 +28,10 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function render() {
+		return html(
+				'div class="intro-text"',
+				html( 'h2', __( 'Looking to solve commenting? You\'re going to want these free plugins:', 'Postmatic' ) ),
+			);
 		return $this->form_table( $this->table_entries() );
 	}
 
