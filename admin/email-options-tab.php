@@ -63,7 +63,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 			$html_template = new Prompt_Template( 'test-email.php' );
 
 			$footnote = __(
-				'This is a test email sent by Replybale. It is solely for testing email delivery and is not replyable.',
+				'This is a test email sent by Replyable. It is solely for testing email delivery and is not replyable.',
 				'Postmatic'
 			);
 
