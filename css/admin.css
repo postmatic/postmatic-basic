@@ -654,6 +654,16 @@ ul.ui-tabs-nav li.ui-state-active a,ul.ui-tabs-nav li a:hover {
   border-top: 1px solid #43C0C7;
 }
 
+ul.ui-tabs-nav li#prompt-tab-upgrade a {
+  background: #D54E21;
+  border: 1px solid #FA5923;
+}
+
+ ul.ui-tabs-nav li#prompt-tab-upgrade.ui-state-active a {
+  background: #D54E21;
+  border: 1px solid #FA5923;
+ }
+
 .chooser {
 }
 

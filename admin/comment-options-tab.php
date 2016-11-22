@@ -156,7 +156,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'p',
 						sprintf(
 							__(
-								'We\'ll analyze each comment, identify those worth sending, and hold on to the rest for the daily comment digest. This keeps short comments, nonsense, and any potential spam from bothering subscribers. Direct replies will still be sent to the person being responded to. Requires <a href="%s" target="_blank">Elevated Comments</a>.',
+								'We\'ll analyze each comment, identify those worth sending, and hold on to the rest for the daily comment digest. This keeps short comments, nonsense, and any potential spam from bothering subscribers. Direct replies will still be sent to the person being responded to so the conversation keeps growing.',
 								'Postmatic'
 							),
 							'http://elevated.gopostmatic.com'
