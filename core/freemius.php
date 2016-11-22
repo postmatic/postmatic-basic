@@ -38,9 +38,9 @@ class Prompt_Freemius {
 			'type' => 'plugin',
 			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
 			'is_live' => true,
-			'is_premium' => false,
+			'is_premium' => true,
 			'has_addons' => false,
-			'has_paid_plans' => false,
+			'has_paid_plans' => true,
 			'menu' => array(
 				'slug' => 'postmatic',
 				'contact' => false,
