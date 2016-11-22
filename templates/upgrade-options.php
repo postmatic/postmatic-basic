@@ -5,7 +5,7 @@
 ?>
 <div id="upgrade-options-promo">
 	<div class="intro-text">
-	    <h2>Get the full version of Replyable for perfect comment subscriptions</h2>
+	    <h2>Get the full version of Replyable - perfect comment subscriptions from $2.99/month</h2>
 	    <p></p>
 	</div>
 </div>
