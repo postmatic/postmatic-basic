@@ -34,7 +34,7 @@
 					<li>Keep conversations going for increased SEO and search relevancy - Long, active conversations will send you to the top of Google search results</li>
 				</ul>
 			</div>
-			<div class="left">
+			<div class="left" style="border: none;">
 			<h2>Intelligent comment subscriptions for any size community</h2>
 				<ul>
 					<li>Daily comment digests for smart subscriptions on chatty posts - Subscriptions automatically throttle depending on how active a conversation is. Nobody gets too much email. </li>

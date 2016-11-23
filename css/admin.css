@@ -1187,10 +1187,9 @@ div.intro-text a.thickbox.video span {
 
 .left, .right {
     margin: 3%;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px dashed #F6BDAA;
     padding: 4% 0;
-    min-height: 250px
-    color: #D54E21;
+    min-height: 250px;
 }
 
 .left h2 {
