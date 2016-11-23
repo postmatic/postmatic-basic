@@ -902,7 +902,7 @@ tr.email-header-image img {
 }
 
 .labslist h3, .intro-text h3 {
-    color:#2ecc71;
+    color:#464646;
 }
 
 a.button.download, a.button.install{
@@ -1156,4 +1156,85 @@ div.intro-text a.thickbox.video span {
   padding: 1% 5% 2% 2%;
   width: auto;
   margin: 0;
+}
+
+/*replyable upgrade page*/
+#plans h2 {
+    font-size: 300%;
+    line-height: normal;
+    padding: 0;
+    margin-top: 0;
+    font-weight: normal;
+    color: #21759B;
+}
+
+#plans ul li {
+    list-style: circle;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 150%;
+}
+
+#plans {
+    margin-top: 45px
+}
+
+#plans h1 {
+    text-align: center;
+    font-size: 350%;
+    color: #D54E21;
+}
+
+.left, .right {
+    margin: 3%;
+    border-bottom: 1px solid #ddd;
+    padding: 4% 0;
+    min-height: 250px
+    color: #D54E21;
+}
+
+.left h2 {
+    float: left;
+    width: 35%;
+    clear: both;
+    margin-right: 5%; 
+}
+
+.right h2 {
+    float: right;
+    width: 35%;
+    clear: both;
+    margin-left: 5%; 
+}
+
+.right ul {
+    margin-right: 40%;
+    clear: left;
+}
+
+.left ul {
+    margin-left: 40%;
+    clear: right;
+}
+
+#goupgrade {
+    clear: both;
+    margin: 2% 0;
+    background: #D54E21;
+    color: #fff;
+    padding: 2%;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+#goupgrade a.btn-regular {
+    display: block;
+    margin-top: 10px;
+}
+
+#goupgrade p {
+     font-size: 120%;
 }
