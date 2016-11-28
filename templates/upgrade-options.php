@@ -13,7 +13,7 @@
 		<p>Don't just let users to subscribe to comments. Ask them to <em>engage in the conversation</em> with Replyable. <strong>It's simple</strong>: one-way comment notifications are like talking without listening. Which is bad for users, bad for engagement, and bad for your search engine rankings.</p>
 	
 		<div id="plans">
-			<h1>In the full version of Replyable:</h1>
+			<h1>Get the full version of Replyable:</h1>
 			<div class="left">
 				<h2>Two-way comment subscriptions with guaranteed delivery</h2>
 				<ul>
