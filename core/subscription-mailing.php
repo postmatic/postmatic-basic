@@ -173,7 +173,7 @@ class Prompt_Subscription_Mailing {
 		}
 
 		$html_template = new Prompt_Template( $template_file );
-		$text_template = new Prompt_Template( str_replace( '.php', '-text.php', $template_file ) );
+		$text_template = new Prompt_Text_Template( str_replace( '.php', '-text.php', $template_file ) );
 
 		$template_data = array(
 			'subscriber' => $prompt_subscriber->get_wp_user(),

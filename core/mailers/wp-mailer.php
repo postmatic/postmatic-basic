@@ -142,7 +142,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		}
 
 		if ( isset( $template['text_content'] ) ) {
-			$text_template = new Prompt_Template( 'text-email-wrapper.php' );
+			$text_template = new Prompt_Text_Template( 'text-email-wrapper.php' );
 			$template['text_content'] = $text_template->render( $template );
 		}
 

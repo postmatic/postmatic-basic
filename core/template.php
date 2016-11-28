@@ -9,7 +9,7 @@ class Prompt_Template {
 
 	public function __construct( $name, $dir = null ) {
 		$this->name = $name;
-		$this->dir = $dir ? $dir : path_join( Prompt_Core::$dir_path, 'templates' );
+		$this->dir = $dir ? $dir : path_join( Prompt_Core::$dir_path, 'templates/html' );
 	}
 
 	/**

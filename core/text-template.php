@@ -9,6 +9,18 @@
 class Prompt_Text_Template extends Prompt_Template {
 
 	/**
+	 * Instantiate a text template.
+	 *
+	 * @since 2.1.0
+	 * @param string $name
+	 * @param string|null $dir
+	 */
+	public function __construct( $name, $dir = null ) {
+		$this->name = $name;
+		$this->dir = $dir ? $dir : path_join( Prompt_Core::$dir_path, 'templates/text' );
+	}
+
+	/**
 	 * Convert HTML data to Markdown before rendering.
 	 *
 	 * @since 2.0.0
