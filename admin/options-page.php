@@ -70,6 +70,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	public function setup() {
 		$this->args = array(
 			'page_title' => __( 'Replyable', 'Postmatic' ),
+			'page_slug' => 'postmatic',
 		);
 	}
 
