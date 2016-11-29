@@ -60,6 +60,8 @@ class Prompt_Freemius {
 		self::$freemius->add_action( 'after_account_delete', array( __CLASS__, 'after_account_delete' ) );
 
 		self::$freemius->add_action( 'after_license_change', array( __CLASS__, 'after_license_change' ) );
+
+		self::$freemius->add_filter( 'sticky_message_trial_started', array( __CLASS__, 'sticky_message_trial_started' ) );
 	}
 
 	/**
@@ -129,5 +131,16 @@ class Prompt_Freemius {
 			$init_values['is_premium'] = true;
 		}
 		Prompt_Core::$options->set( 'freemius_init', $init_values );
+	}
+
+	/**
+	 * Customize the trial started sticky message.
+	 *
+	 * @since 2.1.0
+	 * @param string $message
+	 * @return string
+	 */
+	public static function sticky_message_trial_started( $message ) {
+		return __( 'Great, your trial has started!', 'Postmatic' );
 	}
 }
