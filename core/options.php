@@ -89,6 +89,25 @@ class Prompt_Options extends scbOptions {
 			'enable_analytics' => true,
 			'account_email' => '',
 			'suppress_error_submissions' => false,
+			'freemius_init' => array(
+				'id' => '164',
+				'slug' => 'postmatic',
+				'type' => 'plugin',
+				'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
+				'is_live' => true,
+				'is_premium' => false,
+				'has_addons' => false,
+				'has_paid_plans' => true,
+				'menu' => array(
+					'slug' => 'postmatic',
+					'contact' => false,
+					'account' => false,
+					'support' => false,
+					'parent' => array(
+						'slug' => 'options-general.php',
+					),
+				),
+			)
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );
@@ -112,7 +131,7 @@ class Prompt_Options extends scbOptions {
 		}
 
 		if ( ! $this->get( 'internal_key' ) ) {
-			$this->set( 'internal_key', wp_generate_password( 32 ) );
+			add_action( 'plugins_loaded', array( $this, 'generate_internal_key' ) );
 		}
 
 		// Auto subscribe authors when using the moderation service
@@ -143,6 +162,14 @@ class Prompt_Options extends scbOptions {
 		return ( Prompt_Enum_Email_Transports::API == $this->get( 'email_transport' ) );
 	}
 
+	/**
+	 * Set a random internal key.
+	 *
+	 * @since 2.1.0
+	 */
+	public function generate_internal_key() {
+		$this->set( 'internal_key', wp_generate_password( 32 ) );
+	}
 	/**
 	 * Detect and prevent options default errors.
 	 *

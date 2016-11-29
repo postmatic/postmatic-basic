@@ -18,7 +18,7 @@ class CoreTest extends WP_UnitTestCase {
 	function testDefaultOptionsFilter() {
 		add_filter( 'prompt/default_options', create_function( '$o', 'return array_merge( $o, array( "foo" => "bar" ) );' ) );
 
-		Prompt_Core::action_plugins_loaded();
+		Prompt_Core::load();
 
 		$this->assertEquals( 'bar', Prompt_Core::$options->get( 'foo' ), 'Expected to find added option.' );
 	}

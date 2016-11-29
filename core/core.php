@@ -42,23 +42,23 @@ class Prompt_Core {
 		self::$basename = plugin_basename( self::$dir_path . '/postmatic.php' );
 		self::$url_path = plugins_url( '', dirname( __FILE__ ) );
 
-		if ( !class_exists( 'Postmatic\Premium\Core' ) and !self::unit_testing() ) {
-			Prompt_Root::load_freemius();
-		}
-
 		load_plugin_textdomain( 'Postmatic', '', path_join( dirname( self::$basename ), 'lang' ) );
 
 		scb_init();
 
+		self::$options = new Prompt_Options();
+
 		add_action( 'plugins_loaded', array( __CLASS__, 'action_plugins_loaded' ) );
+
+		if ( !class_exists( 'Postmatic\Premium\Core' ) and !self::unit_testing() ) {
+			Prompt_Root::load_freemius();
+		}
 	}
 
 	/**
 	 * Continue loading with dependencies.
 	 */
 	public static function action_plugins_loaded() {
-
-		self::$options = new Prompt_Options();
 
 		self::add_hooks();
 

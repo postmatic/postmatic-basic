@@ -32,25 +32,7 @@ class Prompt_Freemius {
 
 		require_once Prompt_Core::$dir_path . '/vendor/freemius/wordpress-sdk/start.php';
 
-		$defaults = array(
-			'id' => '164',
-			'slug' => 'postmatic',
-			'type' => 'plugin',
-			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
-			'is_live' => true,
-			'is_premium' => true,
-			'has_addons' => false,
-			'has_paid_plans' => true,
-			'menu' => array(
-				'slug' => 'postmatic',
-				'contact' => false,
-				'account' => false,
-				'support' => false,
-				'parent' => array(
-					'slug' => 'options-general.php',
-				),
-			),
-		);
+		$defaults = Prompt_Core::$options->get( 'freemius_init' );
 
 		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
 
@@ -76,6 +58,8 @@ class Prompt_Freemius {
 		);
 		
 		self::$freemius->add_action( 'after_account_delete', array( __CLASS__, 'after_account_delete' ) );
+
+		self::$freemius->add_action( 'after_license_change', array( __CLASS__, 'after_license_change' ) );
 	}
 
 	/**
@@ -119,7 +103,7 @@ class Prompt_Freemius {
 	 * @param FS_Site $site
 	 */
 	public static function after_account_connection( $user, $site ) {
-		\Prompt_Core::$options->set( 'enable_collection', true );
+		Prompt_Core::$options->set( 'enable_collection', true );
 		Prompt_Event_Handling::record_environment();
 	}
 
@@ -129,6 +113,21 @@ class Prompt_Freemius {
 	 * @since 2.0.0
 	 */
 	public static function after_account_delete() {
-		\Prompt_Core::$options->set( 'enable_collection', false );
+		Prompt_Core::$options->set( 'enable_collection', false );
+	}
+
+	/**
+	 * Keep track of whether premium service is enabled.
+	 * @since 2.1.0
+	 * @param string $event
+	 */
+	public static function after_license_change( $event ) {
+		$init_values = Prompt_Core::$options->get( 'freemius_init' );
+		if ( in_array( $event, array( 'cancelled', 'expired', 'trial_expired' ) ) ) {
+			$init_values['is_premium'] = false;
+		} else {
+			$init_values['is_premium'] = true;
+		}
+		Prompt_Core::$options->set( 'freemius_init', $init_values );
 	}
 }
