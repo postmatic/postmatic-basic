@@ -156,16 +156,24 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 
 		return $valid_data;
 	}
-	
-	
+
+	/**
+	 * @since 2.1.0
+	 * @return string
+	 */
+	protected function upgrade_url() {
+		return admin_url( 'options-general.php?page=postmatic-pricing' );
+	}
+
 	/**
 	 * @since 2.0.0
 	 * @return string
 	 */
 	protected function upgrade_link() {
 		return sprintf(
-			__( '<a href="%s" class="upgrade_link">Premium</a>', 'Postmatic' ),
-			Prompt_Enum_Urls::MANAGE
+			__( '<a href="%s" class="%s">Upgrade</a>', 'Postmatic' ),
+			$this->upgrade_url(),
+			'upgrade_link'
 		);
 	}
 
@@ -225,7 +233,15 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 	protected function is_digest_message_type_enabled() {
 		return in_array( Prompt_Enum_Message_Types::DIGEST, $this->options->get( 'enabled_message_types' ) );
 	}
-	
+
+	/**
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	protected function is_comment_digest_message_type_enabled() {
+		return in_array( Prompt_Enum_Message_Types::COMMENT_DIGEST, $this->options->get( 'enabled_message_types' ) );
+	}
+
 	/**
 	 * @since 2.0.0
 	 * @return string

@@ -98,18 +98,13 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 
 	protected function table_entries() {
 	
-
 		$snob_extra = array();
 		$snob_upgrade_link = '';
 
-		if ( ! $this->is_digest_message_type_enabled() ) {
+		if ( ! $this->is_comment_digest_message_type_enabled() ) {
 			$snob_extra['class'] = 'disabled';
 			$snob_extra['disabled'] = 'disabled';
 			$snob_upgrade_link = $this->upgrade_link();
-		} else if ( ! $this->is_premium_active() ) {
-			$snob_extra['class'] = 'disabled';
-			$snob_extra['disabled'] = 'disabled';
-			$snob_upgrade_link = $this->download_premium_link();
 		}
 
 		$table_entries = array(
