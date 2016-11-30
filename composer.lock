@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "60f9642af37bcfff3e437f83f87b2197",
-    "content-hash": "ee9b53435201ab91d936e98989a2a1cc",
+    "hash": "ca89f48e6be627f80d8fbe1644f27f2d",
+    "content-hash": "c5f142c3bb0be0a0c2c06959ca4b69be",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -42,23 +42,22 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "1.2.1",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "647ed777b502fd38af28a2612acf15b0936c9756"
+                "reference": "42ebfaaa27098f0a8de8933719d33fab77a570d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/647ed777b502fd38af28a2612acf15b0936c9756",
-                "reference": "647ed777b502fd38af28a2612acf15b0936c9756",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/42ebfaaa27098f0a8de8933719d33fab77a570d5",
+                "reference": "42ebfaaa27098f0a8de8933719d33fab77a570d5",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
             "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0+"
             ],
@@ -70,7 +69,11 @@
                 "sdk",
                 "wordpress"
             ],
-            "time": "2016-09-22 17:51:37"
+            "support": {
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
+                "issues": "https://github.com/Freemius/wordpress-sdk/issues"
+            },
+            "time": "2016-11-30 14:19:29"
         },
         {
             "name": "postmatic/comment-iq-api-client",
@@ -1337,6 +1340,7 @@
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
         "xamin/handlebars.php": 20,
+        "freemius/wordpress-sdk": 20,
         "postmatic/commentium": 20,
         "rosio/wordpress-i18n-tools": 20
     },

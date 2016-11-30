@@ -9,6 +9,10 @@
 		},
 		{
 			"type": "vcs",
+			"url": "https://github.com/Freemius/wordpress-sdk"
+		},
+		{
+			"type": "vcs",
 			"url": "https://github.com/vernal-creative/html-to-markdown"
 		}
 	],
@@ -25,7 +29,7 @@
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "1.2.1",
+		"freemius/wordpress-sdk": "dev-develop",
 		"postmatic/commentium": "dev-master"
 	},
 	"require-dev": {
