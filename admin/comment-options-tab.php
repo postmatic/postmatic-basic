@@ -144,20 +144,6 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 				'extra' => array( 'size' => 3 ),
 			),
 			array(
-				'title' => __( 'Author Subscriptions', 'Postmatic' ),
-				'type' => 'checkbox',
-				'name' => 'auto_subscribe_authors',
-				'desc' => __(
-						'Subscribe authors to comments on their own posts.<small>(Recommended)</small>',
-						'Postmatic'
-					) . html( 'p',
-						__(
-							'This will automatically subscribe post authors to new comment notifications on their posts. This works well to keep the author up to date with the latest comments and discussion.',
-							'Postmatic'
-						)
-					),
-			),
-			array(
 				'title' => __( 'Comment Intelligence', 'Postmatic' ) . ' ' . $snob_upgrade_link,
 				'type' => 'checkbox',
 				'name' => 'comment_snob_notifications',

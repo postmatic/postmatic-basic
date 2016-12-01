@@ -10,6 +10,7 @@ class OptionsTest extends WP_UnitTestCase {
 	function test_author_subscription_with_moderation() {
 		$options = new Prompt_Options();
 		$this->assertFalse( $options->get( 'auto_subscribe_authors' ), 'Expected automatic author subscription to default to false.' );
+
 		$options->set( 'enabled_message_types', array( Prompt_Enum_Message_Types::COMMENT_MODERATION ) );
 
 		$options = new Prompt_Options();

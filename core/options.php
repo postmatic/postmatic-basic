@@ -134,12 +134,10 @@ class Prompt_Options extends scbOptions {
 			add_action( 'plugins_loaded', array( $this, 'generate_internal_key' ) );
 		}
 
-		// Auto subscribe authors when using the moderation service
-		if (
-			in_array( Prompt_Enum_Message_Types::COMMENT_MODERATION, $this->get( 'enabled_message_types' ) ) and
-			! $this->get( 'auto_subscribe_authors' )
-		) {
+		if ( ! $this->get( 'auto_subscribe_authors' ) and $this->enable_auto_subscribe_authors() ) {
 			$this->set( 'auto_subscribe_authors', true );
+		} elseif ( $this->get( 'auto_subscribe_authors' ) and ! $this->enable_auto_subscribe_authors() ) {
+			$this->set( 'auto_subscribe_authors', false );
 		}
 	}
 
@@ -182,6 +180,20 @@ class Prompt_Options extends scbOptions {
 		if ( ! is_array( get_option( $key, array() ) ) ) {
 			update_option( $key, array() );
 		}
+	}
+
+	/**
+	 * Whether to auto-subscribe authors to their comments.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	protected function enable_auto_subscribe_authors() {
+		if ( defined( 'REPLYABLE_DISABLE_AUTO_SUBSCRIBE_AUTHORS' ) and REPLYABLE_DISABLE_AUTO_SUBSCRIBE_AUTHORS ) {
+			return false;
+		}
+
+		return in_array( Prompt_Enum_Message_Types::COMMENT_MODERATION, $this->get( 'enabled_message_types' ) );
 	}
 
 }
