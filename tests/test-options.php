@@ -3,12 +3,14 @@
 class OptionsTest extends WP_UnitTestCase {
 
 	function test_internal_key() {
+		Prompt_Core::$options->set( 'internal_key', '' );
 		$options = new Prompt_Options();
 		$this->assertEquals(
 			10,
 			has_action( 'plugins_loaded', array( $options, 'generate_internal_key' ) ),
 			'Expected key generation action to be added.'
 		);
+		Prompt_Core::$options->reset();
 	}
 
 	function test_author_subscription_with_moderation() {
