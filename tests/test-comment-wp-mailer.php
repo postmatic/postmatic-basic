@@ -222,58 +222,6 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 	}
 
-	function testChunking() {
-
-		$chunk_size = 3;
-		Prompt_Core::$options->set( 'emails_per_chunk', $chunk_size );
-
-		$subscriber_ids = $this->factory->user->create_many( $chunk_size + 1 );
-
-		$post_id = $this->factory->post->create();
-
-		$this->data->comment = $this->factory->comment->create_and_get( array(
-			'comment_post_ID' => $post_id,
-		) );
-
-		$mock_flood_controller = $this->getMockFloodController(
-			$this->data->comment,
-			$subscriber_ids
-		);
-
-		$batch = new Prompt_Comment_Email_Batch( $this->data->comment, $mock_flood_controller );
-
-		$mailer_mock = $this->getMock( 'AdHoc', array( 'send' ) );
-		$mailer_mock->expects( $this->any() )->method( 'send' )->will( $this->returnValue( true ) );
-
-		$client_mock = $this->getMockApiClient();
-		$client_mock->expects( $this->once() )
-			->method( 'post_instant_callback' )
-			->will( $this->returnCallback( array( $this, 'verifyChunkMetadata' ) ) );
-
-		$mailer = new Prompt_Comment_Wp_Mailer( $batch, $client_mock, array( $mailer_mock, 'send' ) );
-
-		$this->data->verified_chunk_event = false;
-		$mailer->send();
-
-		$this->assertTrue( $this->data->verified_chunk_event, 'Expected another mailing to be scheduled.' );
-
-		Prompt_Core::$options->reset();
-	}
-
-	function verifyChunkMetadata( $data ) {
-
-		$this->assertArrayHasKey( 'metadata', $data );
-
-		$this->assertEquals( 'prompt/comment_mailing/send_notifications', $data['metadata'][0] );
-
-		$this->assertEquals( $this->data->comment->comment_ID, $data['metadata'][1][0] );
-
-		$this->data->verified_chunk_event = true;
-
-		return true;
-	}
-
-
 	function testClearFailures() {
 
 		$recipient = $this->factory->user->create_and_get();
