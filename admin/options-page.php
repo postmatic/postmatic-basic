@@ -623,6 +623,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Recommended_Plugins_Options_Tab( $this->options, $this->_overridden_options ),
 		);
 
