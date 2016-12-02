@@ -184,6 +184,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 	function testConnectionCheck() {
 
+		Prompt_Core::$options->set( 'prompt_key', 'test' );
 		Prompt_Core::$options->set( 'connection_status', false );
 
 		$api_mock = $this->getValidKeyApiMock();
@@ -204,6 +205,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 	function testSkipConnectionCheck() {
 
+		Prompt_Core::$options->set( 'prompt_key', 'test' );
 		Prompt_Core::$options->set( 'connection_status', Prompt_Enum_Connection_Status::CONNECTED );
 
 		$api_mock = $this->getValidKeyApiMock();
