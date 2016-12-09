@@ -45,7 +45,7 @@
 			</div>
 			
 			<div id="goupgrade">
-				<p>How about a trial? The first 30 days on us.<a href="/wp-admin/options-general.php?page=postmatic-pricing" class="btn-regular btn-postmatic">Show me the plans!</a></p>
+				<p>How about a trial? The first 30 days on us.<a href="/wp-admin/options-general.php?page=postmatic-pricing&trial=true" class="btn-regular btn-postmatic">Show me the plans!</a></p>
 				
 			</div>
 		</div>
