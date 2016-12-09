@@ -182,12 +182,10 @@ class WebApiTest extends WP_Ajax_UnitTestCase {
 		$this->assertTrue( $data->success, 'Expected the standard WP success response.' );
 	}
 
-	function testReceiveKeyNoOverwrite() {
+	function testReceiveKeyBadRequest() {
 
-		// Key doesn't close the output buffer
+		// Receive key doesn't close the output buffer
 		ob_end_clean();
-
-		$_POST['key'] = 'foo';
 
 		try {
 			$this->_handleAjax( 'nopriv_prompt/key' );
@@ -196,7 +194,6 @@ class WebApiTest extends WP_Ajax_UnitTestCase {
 		}
 
 		$this->assertEmpty( $this->_last_response, 'Expected no response body.' );
-		$this->assertNotEquals( 'foo', Prompt_Core::$options->get( 'prompt_key' ) );
 	}
 
 }

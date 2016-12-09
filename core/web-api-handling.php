@@ -85,6 +85,7 @@ class Prompt_Web_Api_Handling {
 
 		if ( is_wp_error( $result ) ) {
 			status_header( 400 );
+			Prompt_Logging::add_wp_error( $result );
 		}
 
 		wp_die();

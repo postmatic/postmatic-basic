@@ -36,7 +36,7 @@ class Prompt_Key_Importer {
 	public function import() {
 
 		if ( $this->options->get( 'prompt_key' ) ) {
-			return new WP_Error( 'prompt_key_import_exists', 'Cannot replace key.' );
+			return new WP_Error( 'prompt_key_import_exists', 'Cannot replace key.', $this->key );
 		}
 
 		$check = $this->client->get_site();
@@ -46,7 +46,7 @@ class Prompt_Key_Importer {
 		}
 
 		if ( !isset( $check['response']['code'] ) or $check['response']['code'] != 200 ) {
-			return new WP_Error( 'prompt_key_import_unverified', 'The new key was not verfied.' );
+			return new WP_Error( 'prompt_key_import_unverified', 'The new key was not verfied.', $this->key  );
 		}
 
 		$this->options->set( 'prompt_key', $this->key );
