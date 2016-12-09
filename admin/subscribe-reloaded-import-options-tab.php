@@ -11,7 +11,7 @@ class Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab extends Prompt_Admin_Im
 	protected $import_type = 'subscribe-reloaded-import';
 
 	public function name() {
-		return __( 'SCR Importer', 'Postmatic' );
+		return __( 'Importer', 'Postmatic' );
 	}
 
 	public function slug() {
