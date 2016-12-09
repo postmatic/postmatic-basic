@@ -46,12 +46,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "42ebfaaa27098f0a8de8933719d33fab77a570d5"
+                "reference": "dd6923128fe75bb3df117f15e2751c84da1b1489"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/42ebfaaa27098f0a8de8933719d33fab77a570d5",
-                "reference": "42ebfaaa27098f0a8de8933719d33fab77a570d5",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/dd6923128fe75bb3df117f15e2751c84da1b1489",
+                "reference": "dd6923128fe75bb3df117f15e2751c84da1b1489",
                 "shasum": ""
             },
             "require": {
@@ -73,7 +73,7 @@
                 "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues"
             },
-            "time": "2016-11-30 14:19:29"
+            "time": "2016-12-09 01:10:33"
         },
         {
             "name": "postmatic/comment-iq-api-client",
