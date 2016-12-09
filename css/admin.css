@@ -1015,6 +1015,10 @@ div#core-options-promo h2 span {
   text-align: left;
 }
 
+#prompt-settings-import-subscribe-reloaded h3 {
+  color: #27ae60;
+}
+
 #notes-promo div.intro-text {
     margin: 0;
 }

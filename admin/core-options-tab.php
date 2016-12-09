@@ -64,7 +64,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$parts[] = html( 'div id="manage-account"',
 			html( 'a',
-				array( 'href' => 'https://app.gopostmatic.com', 'target' => '_blank' ),
+				array( 'href' => '/wp-admin/options-general.php?page=postmatic-account', 'target' => '_blank' ),
 				__( '&#9998; Manage your account', 'Postmatic' )
 			)
 		);
