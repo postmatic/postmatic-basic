@@ -43,9 +43,16 @@ class Prompt_Freemius {
 			'skip' => __( 'One-way notifications', 'Postmatic' ),
 		) );
 
+		self::$freemius->add_filter(
+			'connect_message',
+			array( __CLASS__, 'custom_connect_message' ),
+			10,
+			6
+		);
+
 		self::$freemius->add_filter( 
 			'connect_message_on_update', 
-			array( __CLASS__, 'custom_connect_message_on_update' ), 
+			array( __CLASS__, 'custom_connect_message' ),
 			10, 
 			6
 		);
@@ -75,7 +82,7 @@ class Prompt_Freemius {
 	 * @param $freemius_link
 	 * @return string
 	 */
-	public static function custom_connect_message_on_update(
+	public static function custom_connect_message(
 		$message,
 		$user_first_name,
 		$plugin_title,
@@ -116,6 +123,9 @@ class Prompt_Freemius {
 	 */
 	public static function after_account_delete() {
 		Prompt_Core::$options->set( 'enable_collection', false );
+		$init_values = Prompt_Core::$options->get( 'freemius_init' );
+		$init_values['is_premium'] = false;
+		Prompt_Core::$options->set( 'freemius_init', $init_values );
 	}
 
 	/**
