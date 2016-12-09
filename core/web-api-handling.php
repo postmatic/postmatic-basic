@@ -79,9 +79,9 @@ class Prompt_Web_Api_Handling {
 
 		$key = sanitize_text_field( $_POST['key'] );
 
-		$importer = new Prompt_Key_Importer( Prompt_Core::$options, new Prompt_Api_Client( array(), $key ) );
+		$importer = new Prompt_Key_Importer( $key, Prompt_Core::$options, new Prompt_Api_Client( array(), $key ) );
 
-		$result = $importer->import( $key );
+		$result = $importer->import();
 
 		if ( is_wp_error( $result ) ) {
 			status_header( 400 );

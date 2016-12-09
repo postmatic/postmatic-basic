@@ -18,9 +18,9 @@ class KeyImporterTest extends PHPUnit_Framework_TestCase {
 			->method( 'get_site' )
 			->willReturn( array( 'response' => array( 'code' => 200 ) ) );
 
-		$importer = new Prompt_Key_Importer( $options_mock, $client_mock );
+		$importer = new Prompt_Key_Importer( 'foo', $options_mock, $client_mock );
 
-		$this->assertTrue( $importer->import( 'foo' ), 'Expected key import to succeed.' );
+		$this->assertTrue( $importer->import(), 'Expected key import to succeed.' );
 	}
 
 	function test_key_exists() {
@@ -35,9 +35,9 @@ class KeyImporterTest extends PHPUnit_Framework_TestCase {
 		$client_mock = $this->getMock( 'Prompt_Api_Client' );
 		$client_mock->expects( $this->never() )->method( 'get_site' );
 
-		$importer = new Prompt_Key_Importer( $options_mock, $client_mock );
+		$importer = new Prompt_Key_Importer( 'foo', $options_mock, $client_mock );
 
-		$result = $importer->import( 'foo' );
+		$result = $importer->import();
 
 		$this->assertInstanceOf( 'WP_Error', $result );
 		$this->assertEquals( 'prompt_key_import_exists', $result->get_error_code() );
@@ -58,9 +58,9 @@ class KeyImporterTest extends PHPUnit_Framework_TestCase {
 			->method( 'get_site' )
 			->willReturn( array( 'response' => array( 'code' => 401 ) ) );
 
-		$importer = new Prompt_Key_Importer( $options_mock, $client_mock );
+		$importer = new Prompt_Key_Importer( 'foo', $options_mock, $client_mock );
 
-		$result = $importer->import( 'foo' );
+		$result = $importer->import();
 
 		$this->assertInstanceOf( 'WP_Error', $result );
 		$this->assertEquals( 'prompt_key_import_unverified', $result->get_error_code() );
