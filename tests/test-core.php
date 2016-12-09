@@ -38,9 +38,9 @@ class CoreTest extends WP_UnitTestCase {
 			\Prompt_Core::$options->get( 'skip_download_intro' ),
 			'Expected the skip download intro flag to be false.'
 		);
-		$this->assertNotEmpty(
+		$this->assertEmpty(
 			Prompt_Core::$options->get( 'whats_new_notices' ),
-			'Expected a what\'s new notice.'
+			'Expected no what\'s new notice.'
 		);
 	}
 

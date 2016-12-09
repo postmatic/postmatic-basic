@@ -186,15 +186,7 @@ class Prompt_Core {
 		self::$options->set( 'last_version', self::version() );
 		self::$options->set( 'upgrade_required', false );
 		self::$options->set( 'skip_download_intro', false );
-		self::$options->set( 'whats_new_notices', array(
-			'2.0' => sprintf(
-				__(
-					'Welcome to Postmatic 2! This has been a major upgrade with <a target="_blank" href="%1$s">tons of new features</a> and changes to how the plugin works with your publishing workflow. <a target="_blank" href="%1$s">You might want to read a quick overview</a>.', 
-					'Postmatic' 
-				),
-				'https://gopostmatic.com/whatsnew'
-			)
-		) );
+		self::$options->set( 'whats_new_notices', array() );
 
 		if ( self::$options->get( 'enable_collection' ) ) {
 			Prompt_Event_Handling::record_environment();
