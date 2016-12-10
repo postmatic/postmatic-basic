@@ -29,6 +29,9 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	/** @var  Prompt_Admin_Conditional_Notice[] */
 	protected $notices;
 
+	/** @var  Prompt_Interface_License_Status */
+	protected $license_status;
+
 	/** @var  boolean */
 	protected $is_current_page = false;
 
@@ -39,11 +42,13 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 * @param array                             $overrides
 	 * @param Prompt_Admin_Options_Tab[]        $tabs
 	 * @param Prompt_Admin_Conditional_Notice[] $notices
+	 * @param Prompt_Interface_License_Status   $license_status
 	 * @param Prompt_Api_Client                 $api_client
 	 */
 	public function __construct(
 		$file = false,
 		$options = null,
+		Prompt_Interface_License_Status $license_status = null,
 		$overrides = null,
 		$tabs = null,
 		$notices = null,
@@ -54,6 +59,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$this->key = $options->get( 'prompt_key' );
 
 		$this->maybe_auto_load();
+
+		$this->license_status = $license_status;
 
 		$this->tabs = $tabs;
 
@@ -616,7 +623,11 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		return $did_updates;
 	}
 
-
+	/**
+	 * Create and add options tabs.
+	 *
+	 * @since 1.0.0
+	 */
 	protected function add_tabs() {
 
 		$tabs = array(

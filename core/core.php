@@ -35,6 +35,12 @@ class Prompt_Core {
 	static protected $settings_page = null;
 
 	/**
+	 * @since 2.1.0
+	 * @var Prompt_Freemius
+	 */
+	static protected $freemius = null;
+
+	/**
 	 * @since 2.0.0
 	 */
 	public static function load() {
@@ -51,7 +57,7 @@ class Prompt_Core {
 		add_action( 'plugins_loaded', array( __CLASS__, 'action_plugins_loaded' ) );
 
 		if ( !class_exists( 'Postmatic\Premium\Core' ) and !self::unit_testing() ) {
-			Prompt_Root::load_freemius();
+			self::$freemius = Prompt_Root::load_freemius();
 		}
 	}
 
@@ -252,6 +258,7 @@ class Prompt_Core {
 			self::$settings_page = new Prompt_Admin_Options_Page(
 				self::$dir_path . '/postmatic.php',
 				self::$options,
+				self::$freemius,
 				self::$options->get_overridden_options()
 			);
 
