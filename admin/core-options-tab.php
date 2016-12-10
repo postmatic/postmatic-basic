@@ -99,16 +99,16 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	protected function promo_html() {
-		if ( ! $this->license_status ) {
-			return '';
-		}
+		$data = array(
+			'is_trial_available' => $this->license_status->is_trial_available(),
+			'is_trial_underway' => $this->license_status->is_trial_underway(),
+			'is_premium' => $this->license_status->is_premium(),
+			'is_key_present' => (bool) $this->options->get( 'prompt_key' ),
+		);
 
-		if ( $this->license_status->is_trial_available() ) {
-			$template = new Prompt_Template( 'core-options-promo.php' );
-			return $template->render();
-		}
+		$template = new Prompt_Template( 'core-options-promo.php' );
 
-		return '';
+		return $template->render( $data );
 	}
 
 	/**

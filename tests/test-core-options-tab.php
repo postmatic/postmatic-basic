@@ -5,7 +5,10 @@ class CoreOptionsTabTest extends WP_UnitTestCase {
 	function testRenderWelcome() {
 		$options_mock = $this->getMockBuilder( 'Prompt_Options' )->disableOriginalConstructor()->getMock();
 
-		$license_status_mock = $this->getMock( 'Prompt_Interface_License_Status', array( 'is_trial_available' ) );
+		$license_status_mock = $this->getMockBuilder( 'Prompt_Interface_License_Status' )
+			->setMethods( array( 'is_trial_available', 'is_trial_underway', 'is_premium' ) )
+			->getMock();
+
 		$license_status_mock->expects( $this->once() )
 			->method( 'is_trial_available' )
 			->willReturn( true );
