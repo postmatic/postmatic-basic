@@ -43,10 +43,13 @@ if ( !class_exists( 'Prompt_Root' ) ) {
 	/**
 	 * Manage things that must be done from the root plugin file.
 	 * @since 2.0.0
+	 * @return Freemius Freemius instance.
 	 */
 	class Prompt_Root {
 		public static function load_freemius() {
-			Prompt_Freemius::load();
+			$freemius = new Prompt_Freemius( Prompt_Core::$options );
+			$freemius->load();
+			return $freemius;
 		}
 	}
 }

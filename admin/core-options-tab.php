@@ -7,6 +7,8 @@
  *
  */
 class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
+	/** @var  Prompt_Interface_License_Status */
+	protected $license_status;
 
 	/**
 	 *
@@ -14,8 +16,10 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 *
 	 * @param Prompt_Options $options
 	 * @param array|null $overridden_options
+	 * @param Prompt_Interface_License_Status $license_status
 	 */
-	public function __construct( $options, $overridden_options = null ) {
+	public function __construct( $options, $overridden_options = null, Prompt_Interface_License_Status $license_status = null ) {
+		$this->license_status = $license_status;
 		parent::__construct( $options, $overridden_options );
 	}
 
@@ -95,11 +99,16 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	protected function promo_html() {
-		if ( $this->options->is_api_transport() ) {
+		if ( ! $this->license_status ) {
 			return '';
 		}
-		$template = new Prompt_Template( 'core-options-promo.php' );
-		return $template->render();
+
+		if ( $this->license_status->is_trial_available() ) {
+			$template = new Prompt_Template( 'core-options-promo.php' );
+			return $template->render();
+		}
+
+		return '';
 	}
 
 	/**
