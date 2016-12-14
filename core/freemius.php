@@ -195,7 +195,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 * Whether a trial has started but not expired.
 	 *
 	 * @since 2.1.0
-	 * @return mixed
+	 * @return bool
 	 */
 	public function is_trial_underway() {
 		return $this->freemius->is_trial();

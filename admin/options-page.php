@@ -631,7 +631,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	protected function add_tabs() {
 
 		$tabs = array(
-			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options, $this->license_status ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options ),
 			new Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab( $this->options, $this->_overridden_options ),
