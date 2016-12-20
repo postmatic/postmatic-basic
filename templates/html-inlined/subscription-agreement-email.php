@@ -6,14 +6,14 @@
  */
 ?>
 
-<div class="padded">
+<div class="padded" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 0 20px 20px 20px;">
 	<?php if ( !empty( $invite_introduction ) ) : ?>
 		<?php /* translators: %s is site name */ ?>
-		<h3><?php printf( __( 'An invitation from %s', 'Postmatic' ), get_bloginfo( 'name' ) ); ?></h3>
-		<p><?php echo $invite_introduction; ?></p>
+		<h3 style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 22px; line-height: 1.2; margin-bottom: 15px; font-weight: 200; margin-top: 15px;"><?php printf( __( 'An invitation from %s', 'Postmatic' ), get_bloginfo( 'name' ) ); ?></h3>
+		<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;"><?php echo $invite_introduction; ?></p>
 	<?php else : ?>
-		<h4>
-			<strong>
+		<h4 style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 1.2; margin-bottom: 5px; font-weight: normal; margin-top: 15px;">
+			<strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
 				<?php
 				if ( count( $lists ) < 2 ) {
 					printf(
@@ -31,13 +31,13 @@
 	{{{notice_html}}}
 
 	<?php if ( count( $lists ) < 2 ) : ?>
-		<p>
-			<span class="alert">
+		<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
+			<span class="alert" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 2px; background: #FFFEBA; font-weight: normal;">
 				<?php
 				if ( $is_api_transport ) {
 					printf(
 						__(
-							'To confirm your subscription, please reply with the word <a href="%s"><strong>agree</strong></a>.',
+							'To confirm your subscription, please reply with the word <a href="%s"><strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">agree</strong>.',
 							'Postmatic'
 						),
 						add_query_arg(
@@ -51,7 +51,7 @@
 				} else {
 					printf(
 						__(
-							'To confirm your subscription, <a href="%s"><strong>click here</strong></a>.',
+							'To confirm your subscription, <a href="%s" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;"><strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">click here</strong></a>.',
 							'Postmatic'
 						),
 						'{{{opt_in_url}}}'
@@ -61,8 +61,8 @@
 			</span>
 		</p>
 	<?php else : ?>
-		<p>
-			<span class="alert">
+		<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
+			<span class="alert" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 2px; background: #FFFEBA; font-weight: normal;">
 				<?php
 				printf(
 					__(
@@ -74,9 +74,9 @@
 				?>
 			</span>
 		</p>
-		<ol>
+		<ol style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
 			<?php foreach ( $lists as $list ) : ?>
-				<li>
+				<li style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin-left: 25px; list-style-position: inside; list-style-type: decimal;">
 					<?php echo $list->select_reply_prompt(); ?>
 				</li>
 			<?php endforeach; ?>
@@ -84,9 +84,9 @@
 	<?php endif; ?>
 </div>
 
-<div class="padded gray">
+<div class="padded gray" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 25px; background: #f6f6f6;">
 
-	<p class="abuse">
+	<p class="abuse" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; margin-bottom: 10px; font-weight: normal; font-size: 85%;">
 		<?php
 		printf(
 			__(

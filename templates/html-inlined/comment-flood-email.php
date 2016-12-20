@@ -6,8 +6,8 @@
  */
 ?>
 
-<div class="padded">
-	<h3>
+<div class="padded" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 0 20px 20px 20px;">
+	<h3 style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 22px; line-height: 1.2; margin-bottom: 15px; font-weight: 200; margin-top: 15px;">
 		<?php
 		printf(
 			__( 'Heads up: the conversation around %s is heating up.', 'Postmatic' ),
@@ -19,7 +19,7 @@
 		?>
 	</h3>
 
-	<p>
+	<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
 		<?php
 		_e(
 			'You love email -- but maybe not this much. We\'re going to pause notifications for you to prevent a flood in your inbox.',
@@ -28,7 +28,7 @@
 		?>
 	</p>
 
-	<p>
+	<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
 		<?php
 		/* translators: %1$s and %3$s may be replaced with link tags, %2$s is the rejoin command */
 		printf(
@@ -42,13 +42,12 @@
 				rawurlencode( Prompt_Rejoin_Matcher::target() )
 			),
 			Prompt_Rejoin_Matcher::target(),
-			'</a>'
+			''
 		);
 		?>
 	</p>
 
-	<p id="button">
-		<a href="<?php get_permalink( $post->id() ); ?>"
-	       class="btn-secondary"><?php _e( 'Continue the conversation online', 'Postmatic' ); ?></a>
+	<p id="button" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal; clear: both; margin-top: 25px;">
+		<a href="<?php get_permalink( $post->id() ); ?>" class="btn-secondary" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; padding: 0; line-height: 2; color: #FFF; text-decoration: none; background-color: #aaa; margin-top: 10px; border-width: 5px 10px; font-weight: normal; margin-right: 10px; text-align: center; cursor: pointer; display: inline-block; border-radius: 15px; border: solid #aaa;"><?php _e( 'Continue the conversation online', 'Postmatic' ); ?></a>
 	</p>
 </div>
