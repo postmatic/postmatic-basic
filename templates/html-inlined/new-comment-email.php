@@ -61,7 +61,7 @@ $previous_index = count( $previous_comments );
 		printf(
 			__( '%1$s added a comment in reply to %2$s.', 'Postmatic' ),
 			'<span style="text-tranform: capitalize;" class="capitalize">' . $commenter_name . '',
-			'<a href="' . get_permalink( $comment_post_ID ) . '" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;">' . get_the_title( $comment_post_ID ) . '</a>'
+			'<a href="' . get_permalink( $comment_post_ID ) . '" style="' . "margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;\">" . get_the_title( $comment_post_ID ) . '</a>'
 		);
 		?>
 	</p>
@@ -132,10 +132,12 @@ $previous_index = count( $previous_comments );
 				<?php
 				printf(
 					__(
-						'<br /><strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">Please note</strong>: Your reply will be published on %s.',
+						'<br /><strong style="%s">Please note</strong>: Your reply will be published on %s.',
 						'Postmatic'
 					),
-					'<a href="' . get_permalink( $comment_post_ID ) . '" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;">' .
+					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;",
+					'<a href="' . get_permalink( $comment_post_ID ) . '" style="' .
+					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;" . '>' .
 					get_the_title( $comment_post_ID ) . '</a>'
 				);
 				?>

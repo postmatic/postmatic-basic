@@ -37,7 +37,7 @@
 				if ( $is_api_transport ) {
 					printf(
 						__(
-							'To confirm your subscription, please reply with the word <a href="%s"><strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">agree</strong>.',
+							'To confirm your subscription, please reply with the word <a href="%s"><strong style="%s">agree</strong></a>.',
 							'Postmatic'
 						),
 						add_query_arg(
@@ -46,15 +46,18 @@
 								'body' => __( 'agree', 'Postmatic' ),
 							),
 							'mailto:{{{reply_to}}}'
-						)
+						),
+						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;"
 					);
 				} else {
 					printf(
 						__(
-							'To confirm your subscription, <a href="%s" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;"><strong style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">click here</strong></a>.',
+							'To confirm your subscription, <a href="%s" style="%s"><strong style="%s">click here</strong></a>.',
 							'Postmatic'
 						),
-						'{{{opt_in_url}}}'
+						'{{{opt_in_url}}}',
+						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;",
+						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;"
 					);
 				}
 				?>
