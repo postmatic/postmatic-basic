@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ae6a6aa19d8da3c75fdff34975c3fa13",
-    "content-hash": "fb00e5dc0ac7f042a3c46ed435031480",
+    "hash": "92d62df6c75f9debfec4c80cb58a046d",
+    "content-hash": "075cc46b33ec4143c092330757ceb6ed",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -42,16 +42,16 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "1.2.1.5",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "0c132a52b69dd6bc160112d2cf7399702d95599b"
+                "reference": "4f2a5e1d5f07a049156dd57585ee65016d2f79a6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/0c132a52b69dd6bc160112d2cf7399702d95599b",
-                "reference": "0c132a52b69dd6bc160112d2cf7399702d95599b",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/4f2a5e1d5f07a049156dd57585ee65016d2f79a6",
+                "reference": "4f2a5e1d5f07a049156dd57585ee65016d2f79a6",
                 "shasum": ""
             },
             "require": {
@@ -70,10 +70,10 @@
                 "wordpress"
             ],
             "support": {
-                "source": "https://github.com/Freemius/wordpress-sdk/tree/1.2.1.5",
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues"
             },
-            "time": "2016-12-13 01:17:43"
+            "time": "2016-12-21 19:45:47"
         },
         {
             "name": "postmatic/comment-iq-api-client",
@@ -1340,6 +1340,7 @@
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
         "xamin/handlebars.php": 20,
+        "freemius/wordpress-sdk": 20,
         "postmatic/commentium": 20,
         "rosio/wordpress-i18n-tools": 20
     },

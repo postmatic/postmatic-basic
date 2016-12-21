@@ -140,24 +140,6 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 */
 	public function after_account_delete() {
 		$this->options->set( 'enable_collection', false );
-		$init_values = $this->options->get( 'freemius_init' );
-		$init_values['is_premium'] = false;
-		$this->options->set( 'freemius_init', $init_values );
-	}
-
-	/**
-	 * Keep track of whether premium service is enabled.
-	 * @since 2.1.0
-	 * @param string $event
-	 */
-	public function after_license_change( $event ) {
-		$init_values = $this->options->get( 'freemius_init' );
-		if ( in_array( $event, array( 'cancelled', 'expired', 'trial_expired' ) ) ) {
-			$init_values['is_premium'] = false;
-		} else {
-			$init_values['is_premium'] = true;
-		}
-		$this->options->set( 'freemius_init', $init_values );
 	}
 
 	/**
