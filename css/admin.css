@@ -251,14 +251,18 @@ h2#trial a {
 .welcome {
   padding: 3% 5%;
   line-height: 190%;
-  border: 1px double #ddd;
   margin-bottom: 25px;
-  background: #eee;
-  text-align: left; }
+  text-align: center; }
 
 .welcome p {
   font-size: 100%;
-  font-style: italic; }
+  font-style: italic; 
+  text-align: center;
+}
+  
+.welcome h2 {
+  text-align: center;
+}
 
 #manage-account {float: right;}
 
@@ -1240,4 +1244,15 @@ div.intro-text a.thickbox.video span {
 
 #goupgrade p {
      font-size: 120%;
+}
+
+.passive {
+    border: 3px dashed #D54E21;
+    background: white;
+    padding:2%;
+    margin-bottom: 25px;
+}
+
+div#prompt-settings-core p.submit {
+    display: none;
 }

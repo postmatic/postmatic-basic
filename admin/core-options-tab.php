@@ -55,10 +55,10 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			$this->promo_html(),
 			html(
 				'div class="intro-text welcome"',
-				html( 'h2', __( 'Welcome to Replyable', 'Postmatic' ) ),
+				html( 'h2', __( 'Let\'s get started', 'Postmatic' ) ),
 				html(
 					'p',
-					__( 'The best engagement and commenting solution for WordPress.', 'Postmatic' )
+					__( 'Replyable is the best engagement and commenting solution for WordPress. Want to see how it works?', 'Postmatic' )
 				),
 				$this->video_link( 'yjbVIBiSyYE' )
 			),

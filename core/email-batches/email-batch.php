@@ -461,7 +461,7 @@ class Prompt_Email_Batch {
 		if ( Prompt_Core::$options->get( 'email_footer_credit' ) ) {
 			$html .= ' ' . sprintf(
 				__( 'Delivered by <a href="%s">Replyable</a>.', 'Postmatic' ),
-				path_join( Prompt_Enum_Urls::HOME, '?utm_source=footer&utm_medium=email&utm_campaign=pluginfooter' )
+				path_join( Prompt_Enum_Urls::HOME, '?utm_source=replyablefooter&utm_medium=email&utm_campaign=pluginfooter' )
 			);
 		}
 		return $html;

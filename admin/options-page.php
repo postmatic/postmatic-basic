@@ -472,7 +472,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		if ( 503 == $response['response']['code'] ) {
 			$message = sprintf(
 				__(
-					'Postmatic service is temporarily unavailable, see <a href="%s">our twitter feed</a> for updates.',
+					'Replyable service is temporarily unavailable, see <a href="%s">our twitter feed</a> for updates.',
 					'Postmatic'
 				),
 				Prompt_Enum_Urls::TWITTER
@@ -483,7 +483,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		if ( 401 == $response['response']['code'] ) {
 			$message = sprintf(
 				__(
-					'We didn\'t recognize the key "%s". Please make sure it exactly matches the key we supplied you. <a href="%s" target="_blank">Visit your Postmatic dashboard for assistance</a>. ',
+					'We didn\'t recognize the key "%s". Please make sure it exactly matches the key we supplied you. <a href="%s" target="_blank">Visit your Replyable dashboard for assistance</a>. ',
 					'Postmatic'
 				),
 				$key,
