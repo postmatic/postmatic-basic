@@ -86,7 +86,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			'comment_post_ID' => $comment->comment_post_ID,
 			'comment_author_url' => $comment->comment_author_url,
 			'comment_text' => Prompt_Formatting::escape_handlebars_expressions( wpautop( $comment->comment_content ) ),
-			'avatar' => $is_api_delivery ? get_avatar( $comment ) : '',
+			'avatar' => get_avatar( $comment ),
 			'subscribed_post' => $prompt_post,
 			'subscribed_post_author_name' => $post_author_name,
 			'subscribed_post_title_link' => $this->subscribed_post_title_link,
