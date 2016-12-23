@@ -101,9 +101,6 @@ class Prompt_Options extends scbOptions {
 				'has_paid_plans' => true,
 				'menu' => array(
 					'slug' => 'postmatic',
-					'contact' => false,
-					'account' => false,
-					'support' => false,
 					'parent' => array(
 						'slug' => 'options-general.php',
 					),
