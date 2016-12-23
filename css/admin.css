@@ -811,8 +811,12 @@ div#fs_connect {
 }
 .fs-visual {
     height: 150px !important;
-    background: white url(../media/postmatic.png) center no-repeat !important;
+    background: white url(../media/replyable.png) center no-repeat !important;
     background-size: 400px !important;
+}
+
+#fs_connect {
+  background: white;
 }
 
 #checking-connection, #bad-connection {
