@@ -82,8 +82,6 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 		
 		$this->freemius->add_action( 'after_account_delete', array( $this, 'after_account_delete' ) );
 
-		$this->freemius->add_action( 'after_license_change', array( $this, 'after_license_change' ) );
-
 		$this->freemius->add_filter( 'sticky_message_trial_started', array( $this, 'sticky_message_trial_started' ) );
 	}
 
