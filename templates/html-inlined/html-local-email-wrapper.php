@@ -31,7 +31,7 @@
 	<title><?php bloginfo( 'name' ); ?> | <?php echo esc_html( $subject ); ?></title>
 	<style>
 
-<?php include("unlined.css"); ?>
+<?php include( dirname( __FILE__ ) . '/unlined.css' ); ?>
 
 @media only screen and (max-width: 480px) {
   #the_title {
