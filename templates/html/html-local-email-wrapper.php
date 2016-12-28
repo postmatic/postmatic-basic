@@ -1554,11 +1554,7 @@
       opacity: 1.0;
     }
 
-    /*Digests and Newsletters*/
 
-
-
-		<?php echo $site_css; ?>
 	</style>
 </head>
 <body bgcolor="#ffffff">

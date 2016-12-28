@@ -49,7 +49,7 @@
 		<h3 class="reply">
 			<a href="mailto:{{{reply_to}}}?subject=<?php
 				echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
-				?>"><?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
+				?>"><?php printf( __( 'Reply to this email to respond to %s.', 'Postmatic' ), $commenter_name ); ?>
 			</a>
 		</h3>
 	</div>

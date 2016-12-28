@@ -161,6 +161,8 @@
     margin-left: 0 !important;
   }
 }
+
+<?php echo $site_css; ?>
 </style>
 </head>
 <body bgcolor="#ffffff" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100%; height: 100%;">
