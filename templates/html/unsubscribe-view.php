@@ -7,6 +7,8 @@
  */
 ?>
 <div class="padded">
+	<img src="<?php echo site_icon_url(); ?>" style="width: 32px; margin-right: 5px; display: block; float: left;">
+	<h1 style="clear: none; font-weight: normal;"><?php bloginfo( 'name' ); ?> - <?php bloginfo('description'); ?></h1>
 	<?php if ( ! $is_valid ) : ?>
 		<p>
 			<?php
@@ -30,7 +32,7 @@
 			<?php
 			printf(
 				/* translators: %1$s is email, %2$s list URL, %3$s list label */
-				__( 'Got it. %1$s has been unsubscribed from <a href="%2$s">%3$s</a>.', 'Postmatic' ),
+				__( 'No problem. %1$s has been unsubscribed from <a href="%2$s">%3$s</a>.', 'Postmatic' ),
 				$user->get_wp_user()->user_email,
 				$list->subscription_url(),
 				$list->subscription_object_label()
@@ -39,6 +41,6 @@
 		</p>
 	<?php endif; ?>
 	<p>
-		<a href="<?php echo home_url(); ?>"><?php bloginfo( 'name' ); ?></a>
+		<a class="button" href="<?php echo home_url(); ?>">&#8592; Back to <?php bloginfo( 'name' ); ?></a>
 	</p>
 </div>
