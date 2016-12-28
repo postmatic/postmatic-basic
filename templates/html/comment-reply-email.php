@@ -43,16 +43,18 @@
 		</div>
 	</div>
 
-	<div class="reply-prompt">
-		<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="float: left; margin-right: 10px;"/>
+	<?php if ( $is_api_delivery ) : ?>
+		<div class="reply-prompt">
+			<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="float: left; margin-right: 10px;"/>
 
-		<h3 class="reply">
-			<a href="mailto:{{{reply_to}}}?subject=<?php
+			<h3 class="reply">
+				<a href="mailto:{{{reply_to}}}?subject=<?php
 				echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
 				?>"><?php printf( __( 'Reply to this email to respond to %s.', 'Postmatic' ), $commenter_name ); ?>
-			</a>
-		</h3>
-	</div>
+				</a>
+			</h3>
+		</div>
+	<?php endif; ?>
 </div>
 
 
@@ -95,12 +97,14 @@
 		?>
 	</div>
 
-	<div class="reply-prompt">
-		<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="float: left; margin-right: 10px;"/>
+	<?php if ( $is_api_delivery ) : ?>
+		<div class="reply-prompt">
+			<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="float: left; margin-right: 10px;"/>
 
-		<h3 class="reply">
-			<?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
-		</h3>
-	</div>
+			<h3 class="reply">
+				<?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
+			</h3>
+		</div>
+	<?php endif; ?>
 
 </div>

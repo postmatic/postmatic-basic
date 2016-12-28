@@ -21,6 +21,11 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 			$template['message_type'],
 			'Expected comment message type.'
 		);
+		$this->assertNotContains(
+			'prompt-reply',
+			$template['html_content'],
+			'Expected no reply prompt with local delivery.'
+		);
 	}
 
 	function testAnonymous() {

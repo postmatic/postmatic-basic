@@ -43,16 +43,18 @@
 		</div>
 	</div>
 
-	<div class="reply-prompt" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; clear: both; margin-top: 0px; margin-bottom: 20px;">
-		<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; outline: none; display: block; max-width: 100%; text-decoration: none; -ms-interpolation-mode: bicubic; width: 30px; height: 30px; margin-right: 10px; float: left;">
+	<?php if ( $is_api_delivery ) : ?>
+		<div class="reply-prompt" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; clear: both; margin-top: 0px; margin-bottom: 20px;">
+			<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; outline: none; display: block; max-width: 100%; text-decoration: none; -ms-interpolation-mode: bicubic; width: 30px; height: 30px; margin-right: 10px; float: left;">
 
-		<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
-			<a href="mailto:{{{reply_to}}}?subject=<?php
-				echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
-				?>" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;"><?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
-			</a>
-		</h3>
-	</div>
+			<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
+				<a href="mailto:{{{reply_to}}}?subject=<?php
+					echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
+					?>" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;"><?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
+				</a>
+			</h3>
+		</div>
+	<?php endif; ?>
 </div>
 
 
@@ -95,12 +97,14 @@
 		?>
 	</div>
 
-	<div class="reply-prompt" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; clear: both; margin-top: 0px; margin-bottom: 20px;">
-		<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; outline: none; display: block; max-width: 100%; text-decoration: none; -ms-interpolation-mode: bicubic; width: 30px; height: 30px; margin-right: 10px; float: left;">
+	<?php if ( $is_api_delivery ) : ?>
+		<div class="reply-prompt" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; clear: both; margin-top: 0px; margin-bottom: 20px;">
+			<img src="<?php echo Prompt_Core::$url_path . '/media/reply-comment-2x.png'; ?>" width="30" height="30" align="left" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; outline: none; display: block; max-width: 100%; text-decoration: none; -ms-interpolation-mode: bicubic; width: 30px; height: 30px; margin-right: 10px; float: left;">
 
-		<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
-			<?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
-		</h3>
-	</div>
+			<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
+				<?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
+			</h3>
+		</div>
+	<?php endif; ?>
 
 </div>
