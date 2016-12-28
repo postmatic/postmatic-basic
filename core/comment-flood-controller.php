@@ -112,6 +112,7 @@ class Prompt_Comment_Flood_Controller {
 		$template_data = array(
 			'post' => $this->prompt_post,
 			'comment_header' => true,
+			'is_api_delivery' => Prompt_Core::is_api_transport(),
 		);
 		/**
 		 * Filter comment email template data.

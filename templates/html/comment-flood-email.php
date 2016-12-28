@@ -3,6 +3,7 @@
  * comment flood notification email
  *
  * @var Prompt_Post $post
+ * @var bool $is_api_delivery
  */
 ?>
 
@@ -28,24 +29,26 @@
 		?>
 	</p>
 
-	<p>
-		<?php
-		/* translators: %1$s and %3$s may be replaced with link tags, %2$s is the rejoin command */
-		printf(
-			__(
-				'You won\'t receive new comments on this post, unless you reply to this email with the word %1$s\'%2$s\'%3$s. We\'ll send you a recap and renew your subscription.',
-				'Postmatic'
-			),
-			sprintf(
-				'<a href="mailto:{{{reply_to}}}?subject=%s&body=%s">',
-				rawurlencode( __( 'Just press send', 'Postmatic' ) ),
-				rawurlencode( Prompt_Rejoin_Matcher::target() )
-			),
-			Prompt_Rejoin_Matcher::target(),
-			'</a>'
-		);
-		?>
-	</p>
+	<?php if ( $is_api_delivery ) : ?>
+		<p>
+			<?php
+			/* translators: %1$s and %3$s may be replaced with link tags, %2$s is the rejoin command */
+			printf(
+				__(
+					'You won\'t receive new comments on this post, unless you reply to this email with the word %1$s\'%2$s\'%3$s. We\'ll send you a recap and renew your subscription.',
+					'Postmatic'
+				),
+				sprintf(
+					'<a href="mailto:{{{reply_to}}}?subject=%s&body=%s">',
+					rawurlencode( __( 'Just press send', 'Postmatic' ) ),
+					rawurlencode( Prompt_Rejoin_Matcher::target() )
+				),
+				Prompt_Rejoin_Matcher::target(),
+				'</a>'
+			);
+			?>
+		</p>
+	<?php endif; ?>
 
 	<p id="button">
 		<a href="<?php get_permalink( $post->id() ); ?>"

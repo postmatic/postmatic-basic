@@ -173,6 +173,16 @@ class CommentFloodControllerTest extends Prompt_MockMailerTestCase {
 			$message_template['message_type'],
 			'Expected subscription message type.'
 		);
+		$this->assertNotContains(
+			'mailto:',
+			$message_template['html_content'],
+			'Expected no mailto links in local flood email HTML.'
+		);
+		$this->assertNotContains(
+			'mailto:',
+			$message_template['text_content'],
+			'Expected no mailto links in local flood email text.'
+		);
 	}
 
 }
