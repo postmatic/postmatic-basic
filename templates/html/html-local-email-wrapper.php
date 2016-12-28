@@ -283,7 +283,7 @@
         border-bottom: none;
         max-width: 722px;
         width: 100%;
-        margin: 0 auto;
+        margin: 25px auto 0 auto;
         border-collapse: collapse;
     }
 
@@ -298,7 +298,7 @@
     table.footer-wrap {
         width: 100%;
         clear: both;
-        margin: 10px auto 0 auto;
+        margin: 0 auto 0 auto;
         padding: 0 2%;
         max-width: 720px;
         font-size: 90% !important;
@@ -375,7 +375,8 @@
 
     .footnote, .credit {
         clear: both;
-        padding: 1% 4%;
+        padding: 1% 0;
+        font-size: 90%;
     }
 
     .utils h3, .utils h4 {
@@ -1592,7 +1593,7 @@
 </table><!-- /body --><!-- footer -->
 
 
-<table class="footer-wrap padded">
+<table class="footer-wrap">
     <tr>
         <td class="container">
                   <tr>

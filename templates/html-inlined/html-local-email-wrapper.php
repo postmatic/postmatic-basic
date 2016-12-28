@@ -26,10 +26,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
 <head>
-	<meta name="viewport" content="width=device-width">
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title><?php bloginfo( 'name' ); ?> | <?php echo esc_html( $subject ); ?></title>
-	<style>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title><?php bloginfo( 'name' ); ?> | <?php echo esc_html( $subject ); ?></title>
+  <style>
 @media only screen and (max-width: 480px) {
   #the_title {
     font-size: 17px !important;
@@ -161,7 +161,7 @@
 </style>
 </head>
 <body bgcolor="#ffffff" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: none; width: 100%; height: 100%;">
-   <table class="header wrap commentheader" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0 auto; padding: 0; border-collapse: collapse; width: 100%; border: 1px solid #f0f0f0; border-bottom: none; max-width: 722px;" width="100%">
+   <table class="header wrap commentheader" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 25px auto 0 auto; padding: 0; border-collapse: collapse; width: 100%; border: 1px solid #f0f0f0; border-bottom: none; max-width: 722px;" width="100%">
         <tr style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
             <td class="brand" bgcolor="#FFFFFF" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; background: #fff; max-width: 760px; border-bottom: 0; padding: 20px 20px 0 20px;">
                 <img width="32" height="32" src="<?php echo $site_icon_url; ?>" class="favicon" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 0; outline: none; text-decoration: none; -ms-interpolation-mode: bicubic; display: block; max-width: 100%; height: auto; width: 32px; float: left; margin-right: 10px;">
@@ -192,37 +192,37 @@
 </table><!-- /body --><!-- footer -->
 
 
-<table class="footer-wrap padded" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; border-collapse: collapse; margin: 10px auto 0 auto; padding: 0 2%; font-size: 90%; width: 100%; clear: both; max-width: 720px;" width="100%">
+<table class="footer-wrap" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; border-collapse: collapse; margin: 0 auto 0 auto; padding: 0 2%; font-size: 90%; width: 100%; clear: both; max-width: 720px;" width="100%">
     <tr style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
         <td class="container" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin: 0 auto; display: block; clear: both; padding: 0; max-width: 720px;">
                   </td></tr><tr style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
-                      <td class="footnote" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 1% 4%; clear: both;">
+                      <td class="footnote" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; padding: 1% 0; font-size: 90%; clear: both;">
                           <?php echo $footer_text; ?>
                           <?php echo $footnote_html; ?>
                       </td>
                   </tr>
 
                   <tr style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
-                      <td class="credit" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 1% 4%; color: #666; clear: both;">
+                      <td class="credit" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; padding: 1% 0; font-size: 90%; color: #666; clear: both;">
                           <?php echo $credit_html; ?>
                       </td>
                       <td style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
                       <?php if ( !empty( $unsubscribe_url ) ) : ?>
-						<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
-							<unsubscribe style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
-								<?php
-								printf(
-									__(
-										'To immediately stop receiving all posts and comments from %s you can <a href="%s">unsubscribe with a single click.',
-										'Postmatic'
-									),
-									get_bloginfo( 'name' ),
-									$unsubscribe_url
-								);
-								?>
-							</unsubscribe>
-						</p>
-					<?php endif; ?>
+            <p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
+              <unsubscribe style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;">
+                <?php
+                printf(
+                  __(
+                    'To immediately stop receiving all posts and comments from %s you can <a href="%s">unsubscribe with a single click.',
+                    'Postmatic'
+                  ),
+                  get_bloginfo( 'name' ),
+                  $unsubscribe_url
+                );
+                ?>
+              </unsubscribe>
+            </p>
+          <?php endif; ?>
                       </td>
                   </tr>
         
