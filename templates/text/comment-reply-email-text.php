@@ -11,14 +11,14 @@
  * @var WP_User $parent_author
  * @var string $parent_author_name
  * @var object $parent_comment
- * @var bool $is_api_transport
+ * @var bool $is_api_delivery
  */
 ?>
 {{subscriber_comment_intro_text}}
 
 <?php echo $comment_text; ?>
 
-<?php if ( $is_api_transport ) : ?>
+<?php if ( $is_api_delivery ) : ?>
 	<p>
 		<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
 	</p>
@@ -63,7 +63,7 @@ wp_list_comments( array(
 ?>
 </div>
 
-<?php if ( $is_api_transport ) : ?>
+<?php if ( $is_api_delivery ) : ?>
 	<p>
 	<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
 	</p>
