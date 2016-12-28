@@ -358,18 +358,21 @@ class Prompt_Subscription_Mailing {
 			$list
 		);
 
-		$unsubscribe_mailto = sprintf(
-			'mailto:{{{reply_to}}}?subject=%s&body=%s',
-			rawurlencode( __( 'Press send to confirm', 'Postmatic' ) ),
-			rawurlencode( Prompt_Unsubscribe_Matcher::target() )
-		);
-		$unsubscribe_format = __( 'To unsubscribe at any time reply with the word \'%s\'.', 'Postmatic' );
+		if ( Prompt_Core::is_api_transport() ) {
 
-		$html_parts[] = sprintf(
-			$unsubscribe_format,
-			"<a href=\"$unsubscribe_mailto\">" . Prompt_Unsubscribe_Matcher::target() . '</a>'
-		);
-		$text_parts[] = sprintf( $unsubscribe_format, Prompt_Unsubscribe_Matcher::target() );
+			$unsubscribe_mailto = sprintf(
+				'mailto:{{{reply_to}}}?subject=%s&body=%s',
+				rawurlencode( __( 'Press send to confirm', 'Postmatic' ) ),
+				rawurlencode( Prompt_Unsubscribe_Matcher::target() )
+			);
+			$unsubscribe_format = __( 'To unsubscribe at any time reply with the word \'%s\'.', 'Postmatic' );
+
+			$html_parts[] = sprintf(
+				$unsubscribe_format,
+				"<a href=\"$unsubscribe_mailto\">" . Prompt_Unsubscribe_Matcher::target() . '</a>'
+			);
+			$text_parts[] = sprintf( $unsubscribe_format, Prompt_Unsubscribe_Matcher::target() );
+		}
 
 		return array( implode( ' ', $html_parts ), implode( ' ', $text_parts ) );
 	}

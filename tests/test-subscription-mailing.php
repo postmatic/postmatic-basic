@@ -31,6 +31,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			$template['subject'],
 			'Expected the object label in the email subject.'
 		);
+
 	}
 
 	function setupAgreementData() {
@@ -110,7 +111,6 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testWelcome() {
-		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API );
 		Prompt_Core::$options->set( 'subscribed_introduction', 'XXWELCOMEXX' );
 
 		$object = new Prompt_Site_Comments();
@@ -147,6 +147,11 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			Prompt_Core::$options->get( 'subscribed_introduction' ),
 			$template['html_content'],
 			'Expected custom subscribed introduction content in email.'
+		);
+		$this->assertNotContains(
+			'mailto:',
+			$template['footnote_html'],
+			'Expected no mailto link in the footnote.'
 		);
 	}
 
