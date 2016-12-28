@@ -33,6 +33,10 @@ img.avatar {
         line-height: normal;
     }
 
+        .capitalize {
+        text-transform: capitalize !important;
+    }
+
     .comment {
         font-size: 100%;
         line-height: normal;

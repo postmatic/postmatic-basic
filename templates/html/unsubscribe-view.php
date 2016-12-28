@@ -13,7 +13,7 @@
 		<p>
 			<?php
 			_e(
-				'We tried to unsubscribe you, but there was some required information missing from this request.',
+				'We tried to unsubscribe you but something went wrong. Try getting in touch with the site adminstrator.',
 				'Postmatic'
 			);
 			?>
