@@ -1,0 +1,37 @@
+img.avatar {
+    float: left !important;
+    width: 48px;
+    height: 48px;
+    max-height: 48px;
+    float: left;
+    padding-bottom: 0;
+    border-radius: 5px;
+}
+
+#content img.avatar, #content img.reply-icon {
+    float: left !important;
+    clear: left !important;
+    margin: 0 10px 0 0 !important;
+}
+
+.depth-2 {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+.depth-3 {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+.depth-4 {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+.depth-5 {
+    margin-left: 25px;
+    margin-bottom: 15px;
+}
+
+p {margin: 0;}

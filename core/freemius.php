@@ -52,7 +52,9 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 
 		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
 
-		$this->freemius = fs_dynamic_init( array_replace_recursive( $defaults, $init_data ) );
+		$init_data = array_replace_recursive( $defaults, $init_data );
+
+		$this->freemius = fs_dynamic_init( $init_data );
 
 		$this->freemius->override_i18n( array(
 			'opt-in-connect' => __( 'Two-way conversations', 'Postmatic' ),
