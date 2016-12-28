@@ -113,11 +113,14 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 	function testWelcome() {
 		Prompt_Core::$options->set( 'subscribed_introduction', 'XXWELCOMEXX' );
 
-		$object = new Prompt_Site_Comments();
-		$this->mail_data->object = $object;
-
 		$subscriber = $this->factory->user->create_and_get();
 		$this->mail_data->subscriber = $subscriber;
+
+		$object = new Prompt_Post( $this->factory->post->create() );
+		$this->mail_data->object = $object;
+
+		// The template should exclude comments when mailing locally
+		$this->factory->comment->create( array( 'comment_post_ID' => $object->id() ) );
 
 		$object->subscribe( $subscriber->ID );
 
@@ -125,7 +128,6 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 		Prompt_Subscription_Mailing::send_subscription_notification( $subscriber->ID, $object );
 
-		remove_shortcode( 'testwelcome' );
 		Prompt_Core::$options->reset();
 	}
 
@@ -139,14 +141,24 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 		$template = $this->mailer_payload->get_batch_message_template();
 		$this->assertContains(
-			$this->mail_data->object->subscription_object_label(),
+			strip_tags( $this->mail_data->object->subscription_object_label() ),
 			$template['subject'],
 			'Expected the object label in the email subject.'
 		);
-		$this->assertContains(
+		$this->assertNotContains(
 			Prompt_Core::$options->get( 'subscribed_introduction' ),
 			$template['html_content'],
-			'Expected custom subscribed introduction content in email.'
+			'Expected NO custom subscribed introduction content in post subscribed email.'
+		);
+		$this->assertNotContains(
+			'previous-comments',
+			$template['html_content'],
+			'Expected no previous comments in the welcome email.'
+		);
+		$this->assertNotContains(
+			'reply-prompt',
+			$template['html_content'],
+			'Expected no reply prompt in the welcome email.'
 		);
 		$this->assertNotContains(
 			'mailto:',
