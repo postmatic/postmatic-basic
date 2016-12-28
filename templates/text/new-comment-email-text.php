@@ -26,7 +26,7 @@
 	<?php echo $comment_text; ?>
 </div>
 
-<?php if ( count( $previous_comments ) > 1 ) : ?>
+<?php if ( count( $previous_comments ) > 1 and $is_api_delivery ) : ?>
 	<p>
 		<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
 	</p>
@@ -42,19 +42,17 @@
 		?>
 	</p>
 
-	<?php if ( $is_api_delivery ) : ?>
-		<h2><?php _e( 'Recently in this conversation...', 'Postmatic' ); ?></h2>
+	<h2><?php _e( 'Recently in this conversation...', 'Postmatic' ); ?></h2>
 
-		<div id="comments">
-			<?php
-			wp_list_comments( array(
-				'callback' => array( 'Prompt_Email_Comment_Rendering', 'render_text' ),
-				'end-callback' => '__return_empty_string',
-				'style' => 'div',
-			), $previous_comments );
-			?>
-		</div>
-	<?php endif; ?>
+	<div id="comments">
+		<?php
+		wp_list_comments( array(
+			'callback' => array( 'Prompt_Email_Comment_Rendering', 'render_text' ),
+			'end-callback' => '__return_empty_string',
+			'style' => 'div',
+		), $previous_comments );
+		?>
+	</div>
 
 <?php endif; ?>
 

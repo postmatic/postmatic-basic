@@ -11,15 +11,18 @@
  * @var WP_User $parent_author
  * @var string $parent_author_name
  * @var object $parent_comment
+ * @var bool $is_api_transport
  */
 ?>
 {{subscriber_comment_intro_text}}
 
 <?php echo $comment_text; ?>
 
-<p>
-<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
-</p>
+<?php if ( $is_api_transport ) : ?>
+	<p>
+		<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
+	</p>
+<?php endif; ?>
 
 
 <h2><?php _e( 'Here\'s a recap of this post and conversation:', 'Postmatic' ); ?></h2>
@@ -60,18 +63,20 @@ wp_list_comments( array(
 ?>
 </div>
 
-<p>
-<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
-</p>
+<?php if ( $is_api_transport ) : ?>
+	<p>
+	<?php printf( __( '* Reply to this email to reply to %s. *', 'Postmatic' ), $commenter_name ); ?>
+	</p>
 
-<p>
-<?php
-printf(
-	__(
-		"To no longer receive other comments or replies in this discussion reply with the word '%s'.",
-		'Postmatic'
-	),
-	Prompt_Unsubscribe_Matcher::target()
-);
-?>
-</p>
+	<p>
+	<?php
+	printf(
+		__(
+			"To no longer receive other comments or replies in this discussion reply with the word '%s'.",
+			'Postmatic'
+		),
+		Prompt_Unsubscribe_Matcher::target()
+	);
+	?>
+	</p>
+<?php endif; ?>
