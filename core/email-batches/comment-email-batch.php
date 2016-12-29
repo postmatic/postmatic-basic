@@ -35,7 +35,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param object $comment Target comment
+	 * @param WP_Comment $comment Target comment
 	 * @param Prompt_Comment_Flood_Controller
 	 */
 	public function __construct( $comment, Prompt_Comment_Flood_Controller $flood_controller = null ) {
@@ -81,6 +81,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		$this->set_previous_comments();
 
 		$template_data = array(
+			'comment_ID' => $comment->comment_ID,
 			'comment_author' => $this->prompt_comment->get_author_user(),
 			'commenter_name' => $this->prompt_comment->get_author_name(),
 			'comment_post_ID' => $comment->comment_post_ID,

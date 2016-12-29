@@ -2,6 +2,7 @@
 /**
  * comment notification email template
  * variables in scope:
+ * @var int                 $comment_ID
  * @var {WP_User}           $comment_author
  * @var string              $commenter_name
  * @var string              $comment_post_ID
@@ -47,8 +48,17 @@ $previous_index = count( $previous_comments );
 		</div>
 	</div>
 	
-	<?php if ( count( $previous_comments ) > 1 and ! $is_api_delivery ) : ?>
-		To reply to <?php echo $commenter_name; ?> <a href="">visit this conversation on the web</a>.
+	<?php if ( ! $is_api_delivery ) : ?>
+		<p>
+			<?php
+			/* translators: %1$s is commenter name, %2$s is comment URL */
+			printf(
+				__( 'To reply to %1$s <a href="%2$s">visit this conversation on the web</a>.', 'Postmatic' ),
+				$commenter_name,
+				get_comment_link( $comment_ID )
+			);
+			?>
+		</p>
 	<?php endif; ?>
 
 	<?php if ( count( $previous_comments ) > 1 and $is_api_delivery ) : ?>
