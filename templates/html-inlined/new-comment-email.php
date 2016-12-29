@@ -46,6 +46,10 @@
 		</div>
 	</div>
 
+		<?php if ( count( $previous_comments ) > 1 and ! $is_api_delivery ) : ?>
+		I'm a local
+		<?php endif; ?>
+
 
 	<?php if ( count( $previous_comments ) > 1 and $is_api_delivery ) : ?>
 

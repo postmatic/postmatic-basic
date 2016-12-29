@@ -33,10 +33,12 @@ $previous_index = count( $previous_comments );
 		<div class="comment-header">
 			<?php echo $avatar; ?>
 			<div class="author-name">
-				<?php if ( $is_api_delivery and $comment_author_url ) : ?>
+				<?php if ( $comment_author_url ) : ?>
 					<a href="<?php echo esc_url( $comment_author_url ); ?>">
 						<?php echo $commenter_name; ?>
 					</a>
+				<?php else : ?>
+					<?php echo $commenter_name; ?>
 				<?php endif; ?>
 			</div>
 			<div class="comment-body">
@@ -44,7 +46,10 @@ $previous_index = count( $previous_comments );
 			</div>
 		</div>
 	</div>
-
+	
+	<?php if ( count( $previous_comments ) > 1 and ! $is_api_delivery ) : ?>
+		To reply to <?php echo $commenter_name; ?> <a href="">visit this conversation on the web</a>.
+	<?php endif; ?>
 
 	<?php if ( count( $previous_comments ) > 1 and $is_api_delivery ) : ?>
 
