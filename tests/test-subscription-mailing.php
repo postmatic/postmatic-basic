@@ -165,6 +165,11 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			$template['footnote_html'],
 			'Expected no mailto link in the footnote.'
 		);
+		$this->assertEquals(
+			'donotreply@gopostmatic.com',
+			$template['reply_to'],
+			'Expected do-not-reply reply-to address.'
+		);
 	}
 
 	function testWelcomeInvalidEmail() {
