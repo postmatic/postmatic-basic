@@ -164,8 +164,11 @@ class CommentFloodControllerTest extends Prompt_MockMailerTestCase {
 		$this->assertContains( $subscriber0->user_email, $to_addresses );
 		$subscriber1 = get_userdata( $this->mail_data->subscriber_ids[1] );
 		$this->assertContains( $subscriber1->user_email, $to_addresses );
-		$metadata = $message_values[0]['reply_to']['trackable-address'];
-		$this->assertCount( 3, $metadata->ids, 'Expected comment command metadata.' );
+		$this->assertEquals(
+			'donotreply@gopostmatic.com',
+			$message_values[0]['reply_to'],
+			'Expected the do not reply address for local flood control email.'
+		);
 
 		$message_template = $this->mailer_payload->get_batch_message_template();
 		$this->assertEquals(
