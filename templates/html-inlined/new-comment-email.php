@@ -2,6 +2,7 @@
 /**
  * comment notification email template
  * variables in scope:
+ * @var int                 $comment_ID
  * @var {WP_User}           $comment_author
  * @var string              $commenter_name
  * @var string              $comment_post_ID
@@ -14,30 +15,32 @@
  * @var bool                $is_api_delivery
  * @var string              $post_author_message
  */
+
+$previous_index = count( $previous_comments );
 ?>
 <div class="padded" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 0 20px 20px 20px;">
-
-	<p class="padding" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal; padding: 10px 0;">{{{subscriber_comment_intro_html}}}</p>
-
 	<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
-		<?php
+<?php
 		/* translators: %1$s is commenter name, %2$s is post title */
 		printf(
 			__( '%1$s added a comment in reply to %2$s.', 'Postmatic' ),
-			'<span style="text-tranform: capitalize;" class="capitalize">' . $commenter_name . '',
-			'<a href="' . get_permalink( $comment_post_ID ) . '" style="' . "margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;\">" . get_the_title( $comment_post_ID ) . '</a>'
+			'<span style="text-tranform: capitalize;" class="capitalize">' . $commenter_name . '</span>',
+			'<a href="' . get_permalink( $comment_post_ID ) . '">' . get_the_title( $comment_post_ID ) . '</a>'
 		);
 		?>
 	</p>
-	
+
+
 	<div class="primary-comment comment" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: normal; min-height: 55px; clear: left;">
 		<div class="comment-header" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 100%; padding-bottom: 0; margin-bottom: 20px;">
 			<?php echo $avatar; ?>
 			<div class="author-name" style="margin: 0; padding: 0; font-size: 100%; font-family: serif; line-height: normal; display: inline; margin-left: 12px; font-style: italic;">
-				<?php if ( $is_api_delivery and $comment_author_url ) : ?>
+				<?php if ( $comment_author_url ) : ?>
 					<a href="<?php echo esc_url( $comment_author_url ); ?>" style="margin: 0; padding: 0; font-size: 100%; color: #404040; font-family: serif; line-height: normal; font-style: italic;">
 						<?php echo $commenter_name; ?>
 					</a>
+				<?php else : ?>
+					<?php echo $commenter_name; ?>
 				<?php endif; ?>
 			</div>
 			<div class="comment-body" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; margin-left: 60px; color: #000;">
@@ -45,11 +48,19 @@
 			</div>
 		</div>
 	</div>
-
-		<?php if ( count( $previous_comments ) > 1 and ! $is_api_delivery ) : ?>
-		I'm a local
-		<?php endif; ?>
-
+	
+	<?php if ( ! $is_api_delivery ) : ?>
+		<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
+			<?php
+			/* translators: %1$s is commenter name, %2$s is comment URL */
+			printf(
+				__( 'To reply to %1$s <a href="%2$s">visit this conversation on the web.', 'Postmatic' ),
+				$commenter_name,
+				get_comment_link( $comment_ID )
+			);
+			?>
+		</p>
+	<?php endif; ?>
 
 	<?php if ( count( $previous_comments ) > 1 and $is_api_delivery ) : ?>
 
@@ -97,15 +108,13 @@
 		<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
 			<?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
 			<small style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; margin-left: 20px; font-size: 90%; display: block;">
-				<?php
+					<?php
 				printf(
 					__(
-						'<br /><strong style="%s">Please note</strong>: Your reply will be published on %s.',
+						'<br /><strong>Please note</strong>: Your reply will be published on %s.',
 						'Postmatic'
 					),
-					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;",
-					'<a href="' . get_permalink( $comment_post_ID ) . '" style="' .
-					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;" . '>' .
+					'<a href="' . get_permalink( $comment_post_ID ) . '">' .
 					get_the_title( $comment_post_ID ) . '</a>'
 				);
 				?>
@@ -116,4 +125,6 @@
 
 	{{{post_author_message}}}
 </div>
+
+
 
