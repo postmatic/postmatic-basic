@@ -49,8 +49,8 @@
 
 			<h3 class="reply" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; padding: 0; margin-top: 15px; line-height: 1.2; font-weight: 200; margin-bottom: 15px; padding-bottom: 15px; margin-left: 20px; font-size: 100%; padding-top: 5px; clear: none;">
 				<a href="mailto:{{{reply_to}}}?subject=<?php
-					echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
-					?>" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;"><?php printf( __( 'Reply to this email to reply to %s.', 'Postmatic' ), $commenter_name ); ?>
+				echo rawurlencode( sprintf( __( 'In reply to %s', 'Postmatic' ), $commenter_name ) );
+				?>" style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040; text-decoration: none;"><?php printf( __( 'Reply to this email to respond to %s.', 'Postmatic' ), $commenter_name ); ?>
 				</a>
 			</h3>
 		</div>
@@ -88,7 +88,7 @@
 		?>
 	</h3>
 
-	<div class="previous-comments" id="comments" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; background: #f6f6f6; clear: both; margin: 10px 20px; padding: 5px 25px;">
+	<div class="previous-comments" id="comments" style="font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; background: #f6f6f6; clear: both; margin: 25px 0 10px 0; padding: 5px 0 5px 0;">
 		<?php
 		wp_list_comments( array(
 			'callback' => array( 'Prompt_Email_Comment_Rendering', 'render' ),

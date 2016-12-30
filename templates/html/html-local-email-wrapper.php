@@ -130,6 +130,7 @@
         cursor: pointer;
         display: inline-block;
         border-radius: 25px;
+        padding: 5px;
     }
 
     .btn-secondary {
@@ -146,6 +147,7 @@
         display: inline-block;
         border-radius: 15px;
         margin-top: 10px;
+        padding: 5px;
     }
 
     .capitalize {
@@ -1504,8 +1506,8 @@
     .reply-link img {float: left; width: 13px; height: 8px; margin: 5px 5px 0 0; clear: none; border: 0 !important;}
     
     #comments {
-        padding: 5px 25px;
-        margin: 10px 20px;
+        padding: 5px 0 5px 0;
+        margin: 25px 0 10px 0;
     }
     
     #comments p:last-of-type {
