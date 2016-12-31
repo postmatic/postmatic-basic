@@ -123,7 +123,9 @@ $previous_index = count( $previous_comments );
 	</div>
 	<?php endif; ?>
 
-	{{{post_author_message}}}
+	<div class="author_message" style="padding: 5px; background: yellow; font-weight: bold;">
+		{{{post_author_message}}}
+	</div>
 </div>
 
 

@@ -250,7 +250,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		);
 
 		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
-			$values['post_author_message'] = __( 'Upgrade for replyable comments and more!', 'Postmatic' );
+			$values['post_author_message'] = __( '<strong>Wish you could reply to this comment via email?</strong> Upgrade Replyable to gain access to invaluable author tools, two-way email commenting, and features for more engagement, more comments, and a happier community.', 'Postmatic' );
 		}
 
 		if ( Prompt_Core::is_api_transport() ) {
