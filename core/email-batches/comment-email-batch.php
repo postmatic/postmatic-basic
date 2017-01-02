@@ -41,11 +41,11 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	public function __construct( $comment, Prompt_Comment_Flood_Controller $flood_controller = null ) {
 
 		$this->prompt_comment = new Prompt_Comment( $comment );
-		
+
 		$this->prompt_post = $prompt_post = new Prompt_Post( $comment->comment_post_ID );
 
 		$this->flood_controller = $flood_controller;
-		if ( !$this->flood_controller ) {
+		if ( ! $this->flood_controller ) {
 			$this->flood_controller = Prompt_Factory::make_comment_flood_controller( $comment );
 		}
 
@@ -70,7 +70,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 			$template_file = 'comment-reply-email.php';
 		}
-		
+
 		$this->parent_author = $parent_author;
 		$this->parent_author_name = $parent_author_name;
 
@@ -163,7 +163,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		 * @param object $comment
 		 * @param array $recipient_ids
 		 */
-		if ( !apply_filters( 'prompt/send_comment_notifications', true, $this->prompt_comment, $recipient_ids ) )
+		if ( ! apply_filters( 'prompt/send_comment_notifications', true, $this->prompt_comment, $recipient_ids ) )
 			return null;
 
 		$this->add_recipients( $recipient_ids );
@@ -250,13 +250,24 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		);
 
 		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
-			$values['post_author_message'] = sprintf(
-							__(
-								'<strong>Hey %s - Authors who engage their readers through commenting are more likely to have better search engine placement, more traffic, and healthier blogs.</strong><br /><br /><a href="%s">Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.</a>', 'Postmatic'
-							),
-							'http://replyable.com/upgrade'
+			$values['post_author_message'] = html(
+					'strong',
+					sprintf(
+						__(
+							'Hey %s - Authors who engage their readers through commenting are more likely to have better search engine placement, more traffic, and healthier blogs.',
+							'Postmatic'
 						),
-					
+						$recipient->display_name
+					)
+				) . '<br /><br />' .
+				html(
+					'a',
+					array( 'href' => 'http://replyable.com/upgrade' ),
+					__(
+						'Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.',
+						'Postmatic'
+					)
+				);
 		}
 
 		if ( Prompt_Core::is_api_transport() ) {
@@ -497,7 +508,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	protected function flood_controlled_recipient_ids() {
 
 		// We currently only mail standard WP comments
-		if ( !empty( $this->prompt_comment->get_wp_comment()->comment_type ) )
+		if ( ! empty( $this->prompt_comment->get_wp_comment()->comment_type ) )
 			return array();
 
 		$recipient_ids = $this->prompt_comment->get_recipient_ids();
@@ -533,7 +544,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 			$subscriber = get_userdata( $subscriber_id );
 
-			if ( !$subscriber or !$subscriber->user_email )
+			if ( ! $subscriber or ! $subscriber->user_email )
 				continue;
 
 			$this->add_recipient( $subscriber );
