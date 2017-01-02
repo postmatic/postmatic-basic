@@ -1555,7 +1555,9 @@
     .contextual .featured img {
       opacity: 1.0;
     }
-
+.author_message {
+    padding: 10px; background: #FFFBCC; font-weight: bold; margin: 15px 0; border-top: 1px dashed #ddd; border-bottom: 1px dashed #ddd; font-size: 11px;
+}
 
 	</style>
 </head>

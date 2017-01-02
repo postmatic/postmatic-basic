@@ -54,7 +54,7 @@ $previous_index = count( $previous_comments );
 			<?php
 			/* translators: %1$s is commenter name, %2$s is comment URL */
 			printf(
-				__( 'To reply to %1$s <a href="%2$s">visit this conversation on the web.', 'Postmatic' ),
+				__( 'To reply to %1$s <a href="%2$s">visit this conversation on the web.</a>', 'Postmatic' ),
 				$commenter_name,
 				get_comment_link( $comment_ID )
 			);
