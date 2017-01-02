@@ -251,9 +251,12 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
 			$values['post_author_message'] = sprintf(
-				__( '<strong>Hey %s - Authors that engage their readers through commenting are more likely to have better search engine placement, more traffic, and healthier blogs.</strong> Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.', 'Postmatic' ),
-				$recipient->display_name
-			);
+							__(
+								'<strong>Hey %s - Authors who engage their readers through commenting are more likely to have better search engine placement, more traffic, and healthier blogs.</strong><br /><br /><a href="%s">Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.</a>', 'Postmatic'
+							),
+							'http://replyable.com/upgrade'
+						),
+					
 		}
 
 		if ( Prompt_Core::is_api_transport() ) {
