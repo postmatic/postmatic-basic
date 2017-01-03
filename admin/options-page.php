@@ -638,7 +638,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			new Prompt_Admin_Recommended_Plugins_Options_Tab( $this->options, $this->_overridden_options ),
 		);
 
-		if ( ! $this->options->is_api_transport() ) {
+		if ( ! $this->license_status->is_trial_underway() and ! $this->license_status->is_paying() ) {
 			$tabs[] = new Prompt_Admin_Upgrade_Options_Tab( $this->options );
 		}
 

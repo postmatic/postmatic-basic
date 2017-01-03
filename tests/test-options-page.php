@@ -7,7 +7,11 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 	function testPageLoaded() {
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
+		$license_mock = $this->getMock( 'Prompt_Interface_License_Status' );
+		$license_mock->expects( $this->once() )->method( 'is_trial_underway' )->willReturn( false );
+		$license_mock->expects( $this->once() )->method( 'is_paying' )->willReturn( false );
+
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, $license_mock );
 
 		$mock_filter = $this->getMock( 'Foo', array( 'tabs' ) );
 		$mock_filter->expects( $this->once() )
