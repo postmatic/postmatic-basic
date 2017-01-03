@@ -9,7 +9,7 @@
  */
 ?>
 
-	<?php if ( $is_trial_available ) : ?>
+	<?php if ( $is_trial_available and ! $is_premium ) : ?>
 	<div id="core-options-promo" class="goupgrade">
 		<h2><?php _e( '<span>Email was never meant to be a one-way street.</span>', 'Postmatic' ); ?></h2>
 		<p>Have you ever received a comment notification and just wanted to hit reply? No forms, no browser, just email?<br />
