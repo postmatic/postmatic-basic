@@ -251,6 +251,8 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
 			$values['post_author_message'] = html(
+				'div class="author_message"',
+				html(
 					'strong',
 					sprintf(
 						__(
@@ -259,7 +261,8 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 						),
 						$recipient->display_name
 					)
-				) . '<br /><br />' .
+				),
+				'<br /><br />',
 				html(
 					'a',
 					array( 'href' => 'http://replyable.com/upgrade' ),
@@ -267,7 +270,8 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 						'Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.',
 						'Postmatic'
 					)
-				);
+				)
+			);
 		}
 
 		if ( Prompt_Core::is_api_transport() ) {
