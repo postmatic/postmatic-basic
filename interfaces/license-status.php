@@ -29,6 +29,6 @@ interface Prompt_Interface_License_Status {
 	 * @since 2.1.0
 	 * @return bool
 	 */
-	function is_premium();
+	function is_paying();
 
 }

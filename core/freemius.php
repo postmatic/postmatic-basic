@@ -159,7 +159,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 * @since 2.1.0
 	 * @return bool
 	 */
-	public function is_premium() {
+	public function is_paying() {
 		return $this->freemius->is_paying();
 	}
 
