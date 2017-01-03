@@ -101,9 +101,14 @@ class Prompt_Options extends scbOptions {
 				'has_paid_plans' => true,
 				'menu' => array(
 					'slug' => 'postmatic',
+					'support' => false,
 					'parent' => array(
 						'slug' => 'options-general.php',
 					),
+				),
+				'trial' => array(
+					'days' => 7,
+					'is_require_payment' => true,
 				),
 			)
 		);
@@ -124,7 +129,7 @@ class Prompt_Options extends scbOptions {
 		$filtered_options = apply_filters( 'prompt/override_options', array(), $this->get() );
 
 		$this->overridden_options = wp_array_slice_assoc( $filtered_options, array_keys( $this->get() ) );
-		if ( !empty( $this->overridden_options ) ) {
+		if ( ! empty( $this->overridden_options ) ) {
 			$this->set( $this->overridden_options );
 		}
 
@@ -166,6 +171,7 @@ class Prompt_Options extends scbOptions {
 	public function generate_internal_key() {
 		$this->set( 'internal_key', wp_generate_password( 32 ) );
 	}
+
 	/**
 	 * Detect and prevent options default errors.
 	 *
