@@ -251,7 +251,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
 			$values['post_author_message'] = html(
-				'div class="author_message"',
+				'div class="author_message" style="padding: 10px; background: #FFFBCC; font-weight: bold; margin: 15px 0; border-top: 1px dashed #ddd; border-bottom: 1px dashed #ddd; font-size: 11px;"',
 				html(
 					'strong',
 					sprintf(
