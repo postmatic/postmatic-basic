@@ -973,7 +973,7 @@ a.button.download:hover, a.button.install:hover {
   cursor: pointer;
 }
 
-div#core-options-promo {
+div#core-options-promo, #core-options-promo-paid {
     margin: -37px 0 25px 0;
     padding: 50px 8% 10% 8%;
     border-top: 1px solid #E7E7E7;
@@ -985,7 +985,7 @@ div#core-options-promo {
   text-align: center;
 }
 
-div#core-options-promo p {
+div#core-options-promo p, #core-options-promo-paid p {
     margin-bottom: 35px;
     font-size: 120%;
 }
@@ -1015,8 +1015,19 @@ div#core-options-promo h2 {
     background-size: 100%;
 }
 
-div#core-options-promo h2 span {
+div#core-options-promo-paid h3 {
+    width: 100%;
+    height: 160px;
+    background: url(../media/thanks.png) top center no-repeat;
+    background-size: 60%;
+}
+
+div#core-options-promo h2 span, #core-options-promo-paid h3 span {
   display: none;
+}
+
+#core-options-promo-paid a {
+  color: white;
 }
 
 .scr-import {

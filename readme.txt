@@ -80,7 +80,7 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 == Screenshots ==
 1. Replyable installs in seconds with zero configuration (you can play with settings if you want to, though). The only thing you'll notice is a little checkbox on your comment form.
 2. This is what Subscribe to Comments looks like. It could use a facelift. Scroll down to see the same comment notification sent by Replyable.
-3. Comment notifications for the modern day! Our templates are fully branded (yours, not ours), adjust automatically to match your brand typography and colors, and frankly are just awesome. Notifications include gravatars, post recaps, and conversational context with inline reply buttons for each comment. Whoa.
+3. Comment notifications for the modern day! Our templates are fully branded (your brand, not ours), adjust automatically to match your brand typography and colors, and frankly are just awesome. Notifications include gravatars, post recaps, and conversational context with inline reply buttons for each comment. Whoa.
 4. A comment moderation email. Post authors are automatically subscribed to moderate comments on their own writing. From here the author can approve/spam/trash, or both approve and reply at once with a simple email reply. All without touching WordPress.
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 

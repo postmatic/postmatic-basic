@@ -30,9 +30,9 @@
 	</div>
 	<?php else : ?>
 	<div id="core-options-promo-paid">
-		<h3>Thanks for supporting Replyable</h3>
+		<h3><span>Thanks for supporting Replyable!</span></h3>
 		<p>Your contribution to Replyable will keep the features rolling and make WordPress better for everyone. Cheers to you!</p>
-		<p>Need anything? <a href="#">Get in touch with support. You'll be first in line.</a></p>
+		<p>Need anything? <a href="options-general.php?page=postmatic-contact">Get in touch with support. You'll be first in line.</a></p>
 	</div>
 	<?php endif; ?>
  
