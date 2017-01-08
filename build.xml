@@ -39,11 +39,10 @@
     <fileset dir="." id="dependency_files">
         <include name="vendor/vernal-creative/**"/>
         <include name="vendor/scribu/**"/>
-        <include name="vendor/mailchimp/**"/>
         <include name="vendor/calderawp/**"/>
         <include name="vendor/xamin/**"/>
-        <include name="vendor/yahnis-elsts/**"/>
         <include name="vendor/freemius/**"/>
+        <include name="vendor/postmatic/**"/>
     </fileset>
 
     <target name="build" depends="prepare">
