@@ -37,6 +37,8 @@
     </fileset>
 
     <fileset dir="." id="dependency_files">
+        <include name="vendor/autoload.php"/>
+        <include name="vendor/composer/**"/>
         <include name="vendor/vernal-creative/**"/>
         <include name="vendor/scribu/**"/>
         <include name="vendor/calderawp/**"/>
