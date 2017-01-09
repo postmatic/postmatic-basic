@@ -4,12 +4,21 @@
  *
  * @var bool $is_trial_available
  * @var bool $is_trial_underway
- * @var bool $is_premium
+ * @var bool $is_paying
  * @var bool $is_key_present
+ * @var bool $is_api_transport
  */
 ?>
 
-	<?php if ( $is_trial_available and ! $is_premium ) : ?>
+	<?php if ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
+	<div id="core-options-promo">
+		<!-- Postmatic with service message -->
+	</div>
+	<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport ) : ?>
+	<div id="core-options-promo">
+		<!-- Postmatic without service message -->
+	</div>
+	<?php elseif ( $is_trial_available and ! $is_paying ) : ?>
 	<div id="core-options-promo" class="goupgrade">
 		<h2><?php _e( '<span>Email was never meant to be a one-way street.</span>', 'Postmatic' ); ?></h2>
 		<p>Have you ever received a comment notification and just wanted to hit reply? No forms, no browser, just email?<br />

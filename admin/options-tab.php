@@ -13,6 +13,8 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 	protected $overridden_options;
 	/** @var array */
 	protected $notices;
+	/** @var Prompt_Options */
+	protected $options;
 
 	/**
 	 * Construct so the form is embeddable in another page rather than adding a new one.

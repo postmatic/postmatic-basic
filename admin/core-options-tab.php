@@ -102,8 +102,9 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 		$data = array(
 			'is_trial_available' => $this->license_status->is_trial_available(),
 			'is_trial_underway' => $this->license_status->is_trial_underway(),
-			'is_premium' => $this->license_status->is_paying(),
+			'is_paying' => $this->license_status->is_paying(),
 			'is_key_present' => (bool) $this->options->get( 'prompt_key' ),
+			'is_api_transport' => (bool) $this->options->is_api_transport(),
 		);
 
 		$template = new Prompt_Template( 'core-options-promo.php' );
