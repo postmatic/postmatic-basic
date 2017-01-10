@@ -34,29 +34,13 @@
 		<p>
 			<span class="alert">
 				<?php
-				if ( $is_api_transport ) {
-					printf(
-						__(
-							'To confirm your subscription, please reply with the word <a href="%s"><strong>agree</strong></a>.',
-							'Postmatic'
-						),
-						add_query_arg(
-							array(
-								'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-								'body' => __( 'agree', 'Postmatic' ),
-							),
-							'mailto:{{{reply_to}}}'
-						)
-					);
-				} else {
-					printf(
-						__(
-							'To confirm your subscription, <a href="%s"><strong>click here</strong></a>.',
-							'Postmatic'
-						),
-						'{{{opt_in_url}}}'
-					);
-				}
+				printf(
+					__(
+						'To confirm your subscription, <a href="%s"><strong>click here</strong></a>.',
+						'Postmatic'
+					),
+					'{{{opt_in_url}}}'
+				);
 				?>
 			</span>
 		</p>

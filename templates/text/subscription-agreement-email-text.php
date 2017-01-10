@@ -23,25 +23,13 @@
 		<?php
 		printf(
 			__(
-				'To confirm your subscription, please reply with the word agree:',
+				'To confirm your subscription, please visit this web page:',
 				'Postmatic'
 			)
 		);
 		?>
 		<br/>
-		<?php
-		if ( $is_api_transport ) {
-			echo add_query_arg(
-				array(
-					'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-					'body' => __( 'agree', 'Postmatic' ),
-				),
-				'mailto:{{{reply_to}}}'
-			);
-		} else {
-			echo '{{{opt_in_url}}}';
-		}
-		?>
+		{{{opt_in_url}}}
 	</p>
 <?php else : ?>
 	<p>
