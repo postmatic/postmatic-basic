@@ -322,11 +322,11 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		return html( 'div id="checking-connection" ',
 			html( 'p',
 				html( 'span', array( 'class' => 'loading-indicator' ) ),
-				__( '<strong>Just a moment</strong>. Postmatic is running a test to make sure our server can talk to yours. It may take a few seconds.', 'Postmatic' )
+				__( '<strong>Just a moment</strong>. Replyable is running a test to make sure our server can talk to yours. It may take a few seconds.', 'Postmatic' )
 			)
 		) . html( 'div id="bad-connection" style="display: none;"',
 			html( 'p',
-				__( '<strong>There\'s a problem :(</strong> Postmatic was unable to connect to your server. If you or your web host have put restrictions on incoming web connections an exception may be needed to let our server (app.gopostmatic.com) talk to yours. Click the question mark icon in the lower right corner for more assistance or try contacting your web host.', 'Postmatic' )
+				__( '<strong>There\'s a problem :(</strong> Replyable was unable to connect to your server. If you or your web host have put restrictions on incoming web connections an exception may be needed to let our server (app.gopostmatic.com) talk to yours. Click the question mark icon in the lower right corner for more assistance or try contacting your web host.', 'Postmatic' )
 			)
 		);
 	}
