@@ -18,7 +18,8 @@
 		<p>Need something? <a href="options-general.php?page=postmatic-contact">Get in touch with support.</a></p>
 		</div>
 	<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport ) : ?>
-		<div id="core-options-postmatic-service" class="passive alert">
+		<div id="core-options-promo" class="goupgrade">
+		<h2><?php _e( '<span>Email was never meant to be a one-way street.</span>', 'Postmatic' ); ?></h2>
 		<h3>Important: It looks like this site used to use Postmatic Basic</h3>
 		<p>Postmatic Basic is now Replyable. We've added some features and removed a few as well.</p>
 		<p>With Replyable you can get all of the awesome commenting features of the full version of Postmatic, but for 15% the cost. Plans start at $2.99/month. Or, stick with the free service and still get awesome comment subscriptions, but without the bells and whistles.</p>
