@@ -5,6 +5,7 @@
   Version: 2.1.0
   License: GPL2+
   Author: Postmatic
+  Description: Two-way email commenting for WordPress. Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replyable.
   Author URI: http://gopostmatic.com/
   Text Domain: Postmatic
   Domain Path: /lang
