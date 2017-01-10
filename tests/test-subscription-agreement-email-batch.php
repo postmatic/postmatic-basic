@@ -48,8 +48,10 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 		$template = $batch->get_batch_message_template();
 
 		$this->assertEquals( '{{{reply_to}}}', $template['reply_to'] );
-		$this->assertContains( '{{{reply_to}}}', $template['html_content'] );
-		$this->assertContains( '{{{reply_to}}}', $template['text_content'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['html_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['html_content'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['text_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['text_content'] );
 	}
 
 	function testAddRecipient() {

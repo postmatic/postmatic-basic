@@ -34,32 +34,15 @@
 		<p style="margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; line-height: 1.6; font-size: 14px; margin-bottom: 10px; font-weight: normal;">
 			<span class="alert" style="margin: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; padding: 2px; background: #FFFEBA; font-weight: normal;">
 				<?php
-				if ( $is_api_transport ) {
-					printf(
-						__(
-							'To confirm your subscription, please reply with the word <a href="%s"><strong style="%s">agree</strong></a>.',
-							'Postmatic'
-						),
-						add_query_arg(
-							array(
-								'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-								'body' => __( 'agree', 'Postmatic' ),
-							),
-							'mailto:{{{reply_to}}}'
-						),
-						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;"
-					);
-				} else {
-					printf(
-						__(
-							'To confirm your subscription, <a href="%s" style="%s"><strong style="%s">click here</strong></a>.',
-							'Postmatic'
-						),
-						'{{{opt_in_url}}}',
-						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;",
-						"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;"
-					);
-				}
+				printf(
+					__(
+						'To confirm your subscription, <a href="%s" style="%s"><strong style="%s">click here</strong></a>.',
+						'Postmatic'
+					),
+					'{{{opt_in_url}}}',
+					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6; color: #404040;",
+					"margin: 0; padding: 0; font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif; font-size: 100%; line-height: 1.6;"
+				);
 				?>
 			</span>
 		</p>
