@@ -107,8 +107,8 @@ class Prompt_Admin_Recommended_Plugins_Options_Tab extends Prompt_Admin_Options_
 				html(
 					'a class="button"',
 					array( 'href' => wp_nonce_url(
-						admin_url( 'update.php?action=install-plugin&plugin=postmatic-social-commenting' ),
-						'install-plugin_postmatic-social-commenting'
+						admin_url( 'update.php?action=install-plugin&plugin=elevated-comments' ),
+						'install-plugin_elevated-comments'
 					) ),
 					__( 'Install Elevated Comments', 'Postmatic' )
 				)

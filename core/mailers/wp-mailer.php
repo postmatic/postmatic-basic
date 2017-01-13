@@ -98,7 +98,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 		Prompt_Logging::add_error(
 			'prompt_wp_mail',
-			__( 'Failed sending an email locally. Did you know Postmatic can deliver email for you?', 'Prompt_Core' ),
+			__( 'Replyable is having trouble sending email through your webhost. Consider upgrading to a paid Replyable account and we can send email for you.', 'Prompt_Core' ),
 			array( 'error_data' => $this->error_data )
 		);
 	}
