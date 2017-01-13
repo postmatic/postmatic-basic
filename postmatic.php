@@ -2,7 +2,7 @@
 /*
   Plugin Name: Replyable - Subscribe to Comments & Reply via email
   Description:
-  Version: 2.1.0-beta1
+  Version: 2.1.0-beta2
   License: GPL2+
   Author: Postmatic
   Author URI: http://gopostmatic.com/
