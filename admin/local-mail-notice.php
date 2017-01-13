@@ -43,7 +43,7 @@ class Prompt_Admin_Local_Mail_Notice extends Prompt_Admin_Conditional_Notice {
 
 		return $this->render_message(
 			__(
-				'We detected that your host is unable to send email. You\'ll have to contact them for help, or upgrade Postmatic to use our awesome delivery services.',
+				'Heads up! We detected that your hosting account is unable to send email. You\'ll have to contact them for help, or use the button below to upgrade Replyable. We\'ll send email for you from our servers.,
 				'Postmatic'
 			)
 		);
