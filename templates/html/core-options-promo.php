@@ -36,13 +36,13 @@
 	<div id="core-options-promo-ontrial" class="passive">
 		<h3>Welcome back. How is your trial going?</h3>
 		<p>We hope you are enjoying your trial of Replyable. Be sure to try out the great features such as replying directly to comment notifications, author tools, and email-based moderation.</p>
-		<p>Need something? <a href="#">Get in touch with support.</a></p>
+		<p>Need something? <a href="options-general.php?page=postmatic-contact">Get in touch with support.</a></p>
 	</div>
 	<?php elseif ( ! $is_key_present ) : ?>
 	<div id="core-options-promo-pending" class="passive">
 		<h3>We're cooking up your service</h3>
 		<p>Thanks for upgrading Replyable. We notice you have started premium service but service hasn't been started just yet. <strong>Please reload this page to try to move things along.</strong></p>
-		<p>Stuck? <a href="#">Get in touch with support.</a></p>
+		<p>Stuck? <a href="/wp-admin/options-general.php?topic=bug&message=I+have+upgraded+my+account+but+Replyable+has+not+granted+me+a+working+key.&page=postmatic-contact">Get in touch with support.</a></p>
 	</div>
 	<?php else : ?>
 	<div id="core-options-promo-paid">
