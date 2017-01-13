@@ -2,7 +2,7 @@
 /*
   Plugin Name: Replyable - Subscribe to Comments & Reply via email
   Description:
-  Version: 2.1.0-beta2
+  Version: 2.1.0-beta3
   License: GPL2+
   Author: Postmatic
   Description: Two-way email commenting for WordPress. Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replyable.
