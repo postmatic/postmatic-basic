@@ -24,7 +24,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 * @since 2.1.0
 	 * @param Prompt_Options $options Plugin options.
 	 */
-	public function __construct( Prompt_Options $options) {
+	public function __construct( Prompt_Options $options ) {
 		$this->options = $options;
 		$this->freemius = null;
 	}
@@ -48,7 +48,28 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 
 		require_once Prompt_Core::$dir_path . '/vendor/freemius/wordpress-sdk/start.php';
 
-		$defaults = $this->options->get( 'freemius_init' );
+		$defaults = array(
+			'id' => '164',
+			'slug' => 'postmatic',
+			'type' => 'plugin',
+			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
+			'is_live' => true,
+			'is_premium' => false,
+			'has_premium_version' => false,
+			'has_addons' => false,
+			'has_paid_plans' => true,
+			'menu' => array(
+				'slug' => 'postmatic',
+				'support' => false,
+				'parent' => array(
+					'slug' => 'options-general.php',
+				),
+			),
+			'trial' => array(
+				'days' => 7,
+				'is_require_payment' => true,
+			),
+		);
 
 		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
 
@@ -69,9 +90,9 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 		);
 
 		$this->freemius->add_filter(
-			'connect_message_on_update', 
+			'connect_message_on_update',
 			array( $this, 'custom_connect_message' ),
-			10, 
+			10,
 			6
 		);
 		

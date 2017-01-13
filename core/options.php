@@ -89,28 +89,7 @@ class Prompt_Options extends scbOptions {
 			'enable_analytics' => true,
 			'account_email' => '',
 			'suppress_error_submissions' => false,
-			'freemius_init' => array(
-				'id' => '164',
-				'slug' => 'postmatic',
-				'type' => 'plugin',
-				'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
-				'is_live' => true,
-				'is_premium' => false,
-				'has_premium_version' => false,
-				'has_addons' => false,
-				'has_paid_plans' => true,
-				'menu' => array(
-					'slug' => 'postmatic',
-					'support' => false,
-					'parent' => array(
-						'slug' => 'options-general.php',
-					),
-				),
-				'trial' => array(
-					'days' => 7,
-					'is_require_payment' => true,
-				),
-			)
+			'freemius_init' => array(),
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );
