@@ -12,8 +12,10 @@
 ?>
 
 	<?php if ( $is_pending_activation ) : ?>
-		<div>
-			<!-- Check your email, yo. -->
+	<div id="core-options-promo-ontrial" class="passive">
+		<h3>Hey! An important message about your account!</h3>
+		<p>It looks like you have upgraded Replyable but have not yet verified your email address. This step is required to begin service. Please check your inbox for an activation email in order to continue.</p>
+		<p>Need something? <a href="options-general.php?page=postmatic-contact">Get in touch with support.</a></p>
 		</div>
 	<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
 		<div id="core-options-postmatic-service" class="passive alert">
