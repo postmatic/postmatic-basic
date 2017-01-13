@@ -2,6 +2,7 @@
 /**
  * Promote all the things!
  *
+ * @var bool $is_pending_activation
  * @var bool $is_trial_available
  * @var bool $is_trial_underway
  * @var bool $is_paying
@@ -10,7 +11,11 @@
  */
 ?>
 
-	<?php if ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
+	<?php if ( $is_pending_activation ) : ?>
+		<div>
+			<!-- Check your email, yo. -->
+		</div>
+	<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
 		<div id="core-options-postmatic-service" class="passive alert">
 		<h3>Hey! An important message about your account!</h3>
 		<p>It looks like you used to use Postmatic on this site and that you are still paying for Postmatic service. That's no good.</p>

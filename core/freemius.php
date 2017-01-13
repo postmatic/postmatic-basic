@@ -203,4 +203,17 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	public function is_trial_underway() {
 		return $this->freemius->is_trial();
 	}
+
+
+	/**
+	 * Whether the site is still pending activation.
+	 *
+	 * When this is the case, license data is not yet available.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	public function is_pending_activation() {
+		return $this->freemius->is_pending_activation();
+	}
 }

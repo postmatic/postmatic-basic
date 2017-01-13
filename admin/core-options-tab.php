@@ -100,6 +100,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 */
 	protected function promo_html() {
 		$data = array(
+			'is_pending_activation' => $this->license_status->is_pending_activation(),
 			'is_trial_available' => $this->license_status->is_trial_available(),
 			'is_trial_underway' => $this->license_status->is_trial_underway(),
 			'is_paying' => $this->license_status->is_paying(),
