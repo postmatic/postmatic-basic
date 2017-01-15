@@ -12,7 +12,7 @@
 ?>
 
 <?php if ( $is_pending_activation ) : ?>
-	<div id="core-options-promo-ontrial" class="passive">
+	<div id="core-options-promo-ontrial" class="passive alert">
 		<h3><?php _e( 'Hey! An important message about your account!', 'Postmatic' ); ?></h3>
 		<p><?php _e(
 				'It looks like you have upgraded Replyable but have not yet verified your email address. This step is required to begin service. Please check your inbox for an activation email in order to continue.',
