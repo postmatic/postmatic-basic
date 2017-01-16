@@ -1,4 +1,4 @@
-=== Subscribe to Comments and Reply via Email ===
+=== Replyable - Subscribe to Comments and Reply by Email ===
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
 Requires at least: 4.4
@@ -89,6 +89,6 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 == Changelog ==
 = 2.1 =
 
-Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://replyable.helpscoutdocs.com/article/263-im-a-postmatic-basic-user-whats-different-about-replyable). 
+Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable). 
 
 == Upgrade Notice ==

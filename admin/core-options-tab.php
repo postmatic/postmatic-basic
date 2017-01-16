@@ -55,12 +55,11 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			$this->promo_html(),
 			html(
 				'div class="intro-text welcome"',
-				html( 'h2', __( 'Let\'s get started', 'Postmatic' ) ),
+				html( 'h2', __( 'Welcome to Replyable', 'Postmatic' ) ),
 				html(
 					'p',
-					__( 'Replyable is the best engagement and commenting solution for WordPress. Want to see how it works?', 'Postmatic' )
-				),
-				$this->video_link( 'yjbVIBiSyYE' )
+					__( 'Get started via the tabs above, or check out our other plugins below.', 'Postmatic' )
+				)
 			),
 		);
 
@@ -232,8 +231,8 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				html(
 					'a class="button"',
 					array( 'href' => wp_nonce_url(
-						admin_url( 'update.php?action=install-plugin&plugin=postmatic-social-commenting' ),
-						'install-plugin_postmatic-social-commenting'
+						admin_url( 'update.php?action=install-plugin&plugin=elevated-comments' ),
+						'install-plugin_elevated-comments'
 					) ),
 					__( 'Install Elevated Comments', 'Postmatic' )
 				)
