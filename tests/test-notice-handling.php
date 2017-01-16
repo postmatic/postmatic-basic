@@ -28,6 +28,7 @@ class NoticeHandlingTest extends Prompt_MockMailerTestCase {
 	function testServiceNotice() {
 		$admin_id = $this->factory->user->create( array( 'role' => 'administrator' ) );
 		wp_set_current_user( $admin_id );
+		Prompt_Core::$options->set( 'redirect_to_options_page', false );
 		Prompt_Core::$options->set( 'service_notices', array( 'foo' => 'XXBARXX' ) );
 
 		ob_start();

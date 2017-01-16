@@ -24,9 +24,6 @@ class UsersHandlingTest extends WP_UnitTestCase {
 		$subscriber_id = $this->factory->user->create();
 		$author_id = $this->factory->user->create();
 
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
-
 		$prompt_author = new Prompt_User( $author_id );
 		$prompt_author->subscribe( $subscriber_id );
 
@@ -40,12 +37,6 @@ class UsersHandlingTest extends WP_UnitTestCase {
 			'ignore',
 			$column_content,
 			'Expected initial content to be overridden.'
-		);
-
-		$this->assertContains(
-			'prompt-site-subscription',
-			$column_content,
-			'Expected site subscription hash in column content.'
 		);
 
 		$this->assertContains(

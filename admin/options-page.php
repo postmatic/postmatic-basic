@@ -8,6 +8,9 @@
 class Prompt_Admin_Options_Page extends scbAdminPage {
 	const DISMISS_ERRORS_META_KEY = 'prompt_error_dismiss_time';
 
+	/** @type Prompt_Options */
+	protected $options;
+
 	/** @type array */
 	protected $_overridden_options;
 
@@ -26,21 +29,26 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	/** @var  Prompt_Admin_Conditional_Notice[] */
 	protected $notices;
 
+	/** @var  Prompt_Interface_License_Status */
+	protected $license_status;
+
 	/** @var  boolean */
 	protected $is_current_page = false;
 
 	/**
 	 * @since 1.0.0
 	 * @param string|bool                       $file
-	 * @param scbOptions                        $options
+	 * @param Prompt_Options                    $options
 	 * @param array                             $overrides
 	 * @param Prompt_Admin_Options_Tab[]        $tabs
 	 * @param Prompt_Admin_Conditional_Notice[] $notices
+	 * @param Prompt_Interface_License_Status   $license_status
 	 * @param Prompt_Api_Client                 $api_client
 	 */
 	public function __construct(
 		$file = false,
 		$options = null,
+		Prompt_Interface_License_Status $license_status = null,
 		$overrides = null,
 		$tabs = null,
 		$notices = null,
@@ -51,6 +59,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$this->key = $options->get( 'prompt_key' );
 
 		$this->maybe_auto_load();
+
+		$this->license_status = $license_status;
 
 		$this->tabs = $tabs;
 
@@ -66,7 +76,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 */
 	public function setup() {
 		$this->args = array(
-			'page_title' => __( 'Postmatic', 'Postmatic' ),
+			'page_title' => __( 'Replyable', 'Postmatic' ),
+			'page_slug' => 'postmatic',
 		);
 	}
 
@@ -222,32 +233,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$key_alert = $this->key_alert();
 		echo $key_alert;
 
-		if ( $key_alert or !$this->key ) {
-
-			self::display_key_prompt();
-
-			echo html( 'div class="initialize-key"',
-				html( 'h2', __( 'Already have a key?', 'Postmatic' ) ),
-				$this->form_table( array(
-					array(
-						'title' => __( 'Postmatic Key', 'Postmatic' ),
-						'type' => 'text',
-						'name' => 'prompt_key',
-						'desc' => sprintf(
-							__(
-								'Once you have your key, enter it here to blast off!.',
-								'Postmatic'
-							),
-							Prompt_Enum_Urls::TERMS_OF_SERVICE
-						)
-					),
-				) )
-			);
-
-			return;
-		}
-
 		$connection_alert = $this->connection_alert();
+
 		if ( $connection_alert ) {
 			echo $connection_alert;
 			return;
@@ -314,6 +301,10 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 */
 	protected function connection_alert() {
 
+		if ( ! $this->key ) {
+			return '';
+		}
+
 		$skip_statuses = array( Prompt_Enum_Connection_Status::CONNECTED, Prompt_Enum_Connection_Status::ISOLATED );
 
 		if ( in_array( Prompt_Core::$options->get( 'connection_status' ), $skip_statuses ) ) {
@@ -331,11 +322,11 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		return html( 'div id="checking-connection" ',
 			html( 'p',
 				html( 'span', array( 'class' => 'loading-indicator' ) ),
-				__( '<strong>Just a moment</strong>. Postmatic is running a test to make sure our server can talk to yours. It may take a few seconds.', 'Postmatic' )
+				__( '<strong>Just a moment</strong>. Replyable is running a test to make sure our server can talk to yours. It may take a few seconds.', 'Postmatic' )
 			)
 		) . html( 'div id="bad-connection" style="display: none;"',
 			html( 'p',
-				__( '<strong>There\'s a problem :(</strong> Postmatic was unable to connect to your server. If you or your web host have put restrictions on incoming web connections an exception may be needed to let our server (app.gopostmatic.com) talk to yours. Click the question mark icon in the lower right corner for more assistance or try contacting your web host.', 'Postmatic' )
+				__( '<strong>There\'s a problem :(</strong> Replyable was unable to connect to your server. If you or your web host have put restrictions on incoming web connections an exception may be needed to let our server (app.gopostmatic.com) talk to yours. Click the question mark icon in the lower right corner for more assistance or try contacting your web host.', 'Postmatic' )
 			)
 		);
 	}
@@ -432,19 +423,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 
 	/**
 	 * @since 1.0.0
-	 */
-	protected function display_key_prompt() {
-
-		$new_site_url = Prompt_Enum_Urls::MANAGE . '/sites/link?ajax_url=' . urlencode( admin_url( 'admin-ajax.php' ) );
-
-		$template = new Prompt_Template( 'get-a-key.php' );
-		$content = $template->render( compact( 'new_site_url' ) );
-
-		echo $content;
-	}
-
-	/**
-	 * @since 1.0.0
 	 * @param array $new_data
 	 * @param array $old_data
 	 * @return array
@@ -494,7 +472,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		if ( 503 == $response['response']['code'] ) {
 			$message = sprintf(
 				__(
-					'Postmatic service is temporarily unavailable, see <a href="%s">our twitter feed</a> for updates.',
+					'Replyable service is temporarily unavailable, see <a href="%s">our twitter feed</a> for updates.',
 					'Postmatic'
 				),
 				Prompt_Enum_Urls::TWITTER
@@ -505,7 +483,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		if ( 401 == $response['response']['code'] ) {
 			$message = sprintf(
 				__(
-					'We didn\'t recognize the key "%s". Please make sure it exactly matches the key we supplied you. <a href="%s" target="_blank">Visit your Postmatic dashboard for assistance</a>. ',
+					'We didn\'t recognize the key "%s". Please make sure it exactly matches the key we supplied you. <a href="%s" target="_blank">Visit your Replyable dashboard for assistance</a>. ',
 					'Postmatic'
 				),
 				$key,
@@ -645,32 +623,24 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		return $did_updates;
 	}
 
-
+	/**
+	 * Create and add options tabs.
+	 *
+	 * @since 1.0.0
+	 */
 	protected function add_tabs() {
 
 		$tabs = array(
-			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Core_Options_Tab( $this->options, $this->_overridden_options, $this->license_status ),
 			new Prompt_Admin_Email_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Post_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Optins_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Jetpack_Import_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_Mailpoet_Import_Options_Tab( $this->options, $this->_overridden_options ),
-			new Prompt_Admin_MailChimp_Import_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab( $this->options, $this->_overridden_options ),
+			new Prompt_Admin_Recommended_Plugins_Options_Tab( $this->options, $this->_overridden_options ),
 		);
 
-		$subscribe_reloaded_import_tab = new Prompt_Admin_Subscribe_Reloaded_Import_Options_Tab(
-			$this->options,
-			$this->_overridden_options
-		);
-
-		if ( $subscribe_reloaded_import_tab->is_available() ) {
-			$tabs[] = $subscribe_reloaded_import_tab;
+		if ( ! $this->license_status->is_trial_underway() and ! $this->license_status->is_paying() ) {
+			$tabs[] = new Prompt_Admin_Upgrade_Options_Tab( $this->options );
 		}
-
-		$tabs[] = new Prompt_Admin_Comment_Options_Tab( $this->options, $this->_overridden_options );
-		$tabs[] = new Prompt_Admin_Notes_Promo_Tab( $this->options, $this->_overridden_options );
-		$tabs[] = new Prompt_Admin_Analytics_Options_Tab( $this->options, $this->_overridden_options );
-		$tabs[] = new Prompt_Admin_Support_Options_Tab( $this->options, $this->_overridden_options );
 
 		$tabs = apply_filters( 'prompt/options_page/tabs', $tabs );
 
@@ -680,11 +650,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	protected function add_notices() {
 		$this->notices = array(
 			new Prompt_Admin_Local_Mail_Notice(),
-			new Prompt_Admin_Widget_Notice(),
-			new Prompt_Admin_Moderation_User_Notice(),
 			new Prompt_Admin_Akismet_Notice(),
 			new Prompt_Admin_Zero_Spam_Notice(),
-			new Prompt_Admin_Download_Modal_Notice(),
 		);
 	}
 

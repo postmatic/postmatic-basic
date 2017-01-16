@@ -150,7 +150,7 @@ class Prompt_Comment_Form_Handling {
 	 */
 	public static function form_content( $post_id ) {
 
-		if ( !Prompt_Core::$options->get( 'prompt_key' ) or !Prompt_Core::$options->get( 'enable_comment_delivery' ) ) {
+		if ( !Prompt_Core::$options->get( 'enable_comment_delivery' ) ) {
 			return;
 		}
 

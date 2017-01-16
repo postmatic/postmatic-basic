@@ -6,7 +6,12 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	protected $page;
 
 	function testPageLoaded() {
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
+
+		$license_mock = $this->getMock( 'Prompt_Interface_License_Status' );
+		$license_mock->expects( $this->once() )->method( 'is_trial_underway' )->willReturn( false );
+		$license_mock->expects( $this->once() )->method( 'is_paying' )->willReturn( false );
+
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, $license_mock );
 
 		$mock_filter = $this->getMock( 'Foo', array( 'tabs' ) );
 		$mock_filter->expects( $this->once() )
@@ -27,10 +32,11 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testPageHead() {
+
 		$mock_tab = $this->getMock( 'Tab_Mock', array( 'page_head' ) );
 		$mock_tab->expects( $this->once() )->method( 'page_head' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array( $mock_tab ) );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array( $mock_tab ) );
 
 		$page->page_head();
 
@@ -39,6 +45,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testTabFormHandler() {
+
 		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
 
 		$mock_tab = $this->getMockBuilder( 'Prompt_Admin_Options_Tab' )
@@ -58,21 +65,22 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testNoKeyContent() {
+
 		Prompt_Core::$options->set( 'prompt_key', '' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array() );
 
 		ob_start();
 		$page->page_content();
 		$content = ob_get_clean();
 
-		$this->assertContains( 'id="prompt_key"', $content );
-		$this->assertNotContains( 'id="prompt-tabs"', $content );
+		$this->assertNotContains( 'id="prompt_key"', $content );
+		$this->assertContains( 'id="prompt-tabs"', $content );
 
 		Prompt_Core::$options->reset();
 	}
 
-	function testPageContent() {
+	function testPageContentWithKey() {
 		$key = 'test';
 		Prompt_Core::$options->set( 'prompt_key', $key );
 		$mock_page = $this->getNoAlertPageMock( $key );
@@ -97,7 +105,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		$mock_page = $this->getMock(
 			'Prompt_Admin_Options_Page',
 			array( 'check_args' ),
-			array( false, Prompt_Core::$options, null, array() )
+			array( false, Prompt_Core::$options, null, null, array() )
 		);
 		$mock_page->expects( $this->never() )
 			->method( 'form_handler' );
@@ -133,6 +141,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testRedirect() {
+
 		Prompt_Core::$options->set( 'prompt_key', '' );
 		add_filter( 'wp_redirect', array( $this, 'checkRedirect' ) );
 
@@ -140,7 +149,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		wp_set_current_user( $admin->ID );
 
 		$this->mail_data->redirect_url = '';
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array() );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array() );
 		$this->assertEquals( $page->url(), $this->mail_data->redirect_url, 'Expected to detect an auto load redirect.' );
 
 		wp_set_current_user( 0 );
@@ -155,7 +164,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	function testValidateKey() {
 
 		$api_mock = $this->getValidKeyApiMock();
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array(), $api_mock );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 		$page->validate_key( 'foo' );
 
 		$this->assertEquals(
@@ -176,7 +185,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 		$this->setExpectedException( 'PHPUnit_Framework_Error' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array(), $api_mock );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 		$result = $page->validate_key( 'foo' );
 
 		$this->assertEquals( $error, $result );
@@ -184,6 +193,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 	function testConnectionCheck() {
 
+		Prompt_Core::$options->set( 'prompt_key', 'test' );
 		Prompt_Core::$options->set( 'connection_status', false );
 
 		$api_mock = $this->getValidKeyApiMock();
@@ -191,7 +201,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 			->method( 'post_instant_callback' )
 			->will( $this->returnValue( array( 'response' => array( 'code' => 200 ) ) ) );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array(), $api_mock );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 
 		ob_start();
 		$page->page_content();
@@ -203,13 +213,13 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSkipConnectionCheck() {
-
+		Prompt_Core::$options->set( 'prompt_key', 'test' );
 		Prompt_Core::$options->set( 'connection_status', Prompt_Enum_Connection_Status::CONNECTED );
 
 		$api_mock = $this->getValidKeyApiMock();
 		$api_mock->expects( $this->never() )->method( 'post_instant_callback' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, array(), array(), $api_mock );
+		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 
 		ob_start();
 		$page->page_content();
@@ -241,7 +251,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		$mock_page = $this->getMock(
 			'Prompt_Admin_Options_Page',
 			array( 'validate_key', 'display_key_prompt', 'connection_alert' ),
-			array( __FILE__, Prompt_Core::$options, null, array(), array() )
+			array( __FILE__, Prompt_Core::$options, null, null, array(), array() )
 		);
 		$mock_page->expects( $this->once() )
 			->method( 'validate_key' )

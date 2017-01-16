@@ -12,7 +12,7 @@ class SubscriptionAgreementMailerTest extends WP_UnitTestCase {
 	function testAgreementsRetry() {
 		add_filter( 'prompt/make_rescheduler', array( $this, 'mockAgreementsRescheduler' ) );
 
-		$object = new Prompt_Site;
+		$object = new Prompt_Site_Comments();
 		$users = array(
 			array( 'user_email' => 'test1@example.com' ),
 			array( 'user_email' => 'test2@example.com' ),

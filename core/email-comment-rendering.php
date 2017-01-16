@@ -43,14 +43,11 @@ class Prompt_Email_Comment_Rendering {
 
 		$comment_actions = '';
 		if ( comments_open( $comment->comment_post_ID ) ) {
+
 			$comment_actions = html( 'a',
 				array(
 					'class' => 'reply-link',
-					'href' => sprintf(
-						'mailto:{{{reply_to_comment_%s}}}?subject=%s',
-						$comment->comment_ID,
-						rawurlencode( sprintf( __( 'Reply to %s', 'Postmatic' ), $comment->comment_author ) )
-					)
+					'href' => self::reply_url( $comment ),
 				),
 				html(
 					'img',
@@ -115,7 +112,7 @@ class Prompt_Email_Comment_Rendering {
 
 	/**
 	 * Provide a base class to apply to a set of comments.
-	 * 
+	 *
 	 * @since 2.0.6
 	 * @param array $comments
 	 * @param string $class
@@ -123,7 +120,26 @@ class Prompt_Email_Comment_Rendering {
 	public static function classify_comments( array $comments, $class ) {
 		self::$comment_classes[$class] = wp_list_pluck( $comments, 'comment_ID' );
 	}
-	
+
+	/**
+	 * Return a mailto or comment URL based on email transport.
+	 *
+	 * @since 2.1.0
+	 * @param Wp_Comment $comment
+	 * @return string
+	 */
+	protected static function reply_url( $comment ) {
+		if ( Prompt_Core::is_api_transport() ) {
+			return sprintf(
+				'mailto:{{{reply_to_comment_%s}}}?subject=%s',
+				$comment->comment_ID,
+				rawurlencode( sprintf( __( 'Reply to %s', 'Postmatic' ), $comment->comment_author ) )
+			);
+		}
+
+		return get_comment_link( $comment );
+	}
+
 	/**
 	 * @since 1.0.0
 	 * @param string $text
@@ -133,7 +149,7 @@ class Prompt_Email_Comment_Rendering {
 	protected static function indent( $text, $depth ) {
 		$lines = $text ? preg_split( '/$\R?^/m', $text ) : array( '' );
 		$indented_text = '';
-		foreach( $lines as $line ) {
+		foreach ( $lines as $line ) {
 			$indented_text .= str_repeat( '  ', $depth - 1 ) . $line . "\n";
 		}
 		return $indented_text;
@@ -166,15 +182,15 @@ class Prompt_Email_Comment_Rendering {
 	protected static function base_classes( $comment ) {
 
 		$classes = array();
-		
+
 		foreach ( self::$comment_classes as $class => $ids ) {
 			if ( in_array( $comment->comment_ID, $ids ) ) {
 				$classes[] = $class;
 			}
 		}
-		
+
 		if ( ! self::$flood_comment ) {
-			return implode( ' ' , $classes );
+			return implode( ' ', $classes );
 		}
 
 		if ( self::$flood_comment->comment_ID == $comment->comment_ID ) {
@@ -185,7 +201,7 @@ class Prompt_Email_Comment_Rendering {
 			$classes[] = 'post-flood';
 		}
 
-		return implode( ' ' , $classes );
+		return implode( ' ', $classes );
 	}
 
 }

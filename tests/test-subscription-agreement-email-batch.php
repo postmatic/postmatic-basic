@@ -4,7 +4,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testDefaults() {
 
-		$lists = array( new Prompt_Site() );
+		$lists = array( new Prompt_Site_Comments() );
 
 		$content = 'XXCONTENTXX';
 		$message = '<strong>' . $content . '</strong>';
@@ -16,12 +16,14 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 		$this->assertContains( $lists[0]->subscription_object_label(), $template['subject'] );
 		$this->assertContains( '{{name_prefix}}', $template['subject'] );
 		$this->assertContains( $message, $template['html_content'] );
-		$this->assertContains( '{{{reply_to}}}', $template['html_content'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['html_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['html_content'] );
 		$this->assertContains( $content, $template['text_content'] );
-		$this->assertContains( '{{{reply_to}}}', $template['text_content'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['text_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['text_content'] );
 		$this->assertEquals( get_option('blogname'), $template['from_name'] );
 		$this->assertEquals( Prompt_Enum_Message_Types::SUBSCRIPTION, $template['message_type'] );
-		$this->assertEquals( '{{{reply_to}}}', $template['reply_to'] );
+		$this->assertEquals( 'donotreply@gopostmatic.com', $template['reply_to'] );
 		$this->assertContains(
 			get_option( 'blogname' ),
 			$template['footnote_html'],
@@ -36,12 +38,28 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 		$this->assertEmpty( $batch->get_individual_message_values(), 'Expected no individual values.' );
 	}
 
+	function testApiTransport() {
+		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API);
+
+		$lists = array( new Prompt_Site_Comments() );
+
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( $lists );
+
+		$template = $batch->get_batch_message_template();
+
+		$this->assertEquals( '{{{reply_to}}}', $template['reply_to'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['html_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['html_content'] );
+		$this->assertContains( '{{{opt_in_url}}}', $template['text_content'] );
+		$this->assertNotContains( '{{{reply_to}}}', $template['text_content'] );
+	}
+
 	function testAddRecipient() {
 
-		$site_mock = $this->getMock( 'Prompt_Site' );
-		$site_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
+		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_mock ) );
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
 
 		$user_data = array(
 			'display_name' => 'TEST DUDE',
@@ -73,10 +91,10 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testAddInvalidRecipient() {
 
-		$site_mock = $this->getMock( 'Prompt_Site' );
-		$site_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
+		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_mock ) );
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
 
 		$user_data = array(
 			'display_name' => 'TEST DUDE',

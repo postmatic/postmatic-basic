@@ -36,29 +36,29 @@ class UserTest extends WP_UnitTestCase {
 
 		$form = $this->_prompt_user->profile_options();
 
-		$this->assertContains( 'prompt_site_subscribed', $form, 'Expected site option.' );
-		$this->assertNotContains( 'prompt_site_comments_subscribed', $form, 'Expected site comments option.' );
-		$this->assertNotRegExp( '/checked="checked"[^>]*prompt_site_subscribed/', $form, 'Expected unchecked site option.' );
+		$this->assertNotRegExp( '/checked="checked"[^>]*prompt_site_comments_subscribed/', $form, 'Expected unchecked site option.' );
 
 		$this->_prompt_user->update_profile_options( array(
-			'prompt_site_subscribed' => array( get_current_blog_id() ),
+			'prompt_site_comments_subscribed' => array( get_current_blog_id() ),
 		) );
 
 		$form = $this->_prompt_user->profile_options();
 
-		$this->assertContains( 'prompt_site_subscribed', $form, 'Expected site option.' );
-		$this->assertNotRegExp( '/checked="checked"[^>]*prompt_site_subscribed/', $form, 'Expected unchecked site option.' );
+		// Should't work, not current user
+		$this->assertNotRegExp( '/checked="checked"[^>]*prompt_site_comments_subscribed/', $form, 'Expected unchecked site option.' );
 
 		$current_user_id = get_current_user_id();
 		wp_set_current_user( $this->_prompt_user->id() );
 
+
 		$this->_prompt_user->update_profile_options( array(
-			'prompt_site_subscribed' => array( get_current_blog_id() ),
+			'prompt_site_comments_subscribed' => array( get_current_blog_id() ),
 		) );
 
 		$form = $this->_prompt_user->profile_options();
 
-		$this->assertRegExp( '/checked="checked"[^>]*prompt_site_subscribed/', $form, 'Expected checked site option.' );
+		// Should't work, not admin
+		$this->assertNotRegExp( '/checked="checked"[^>]*prompt_site_comments_subscribed/', $form, 'Expected unchecked site option.' );
 
 		wp_set_current_user( $current_user_id );
 		Prompt_Core::$options->reset();
@@ -174,23 +174,23 @@ class UserTest extends WP_UnitTestCase {
 		$prompt_user1 = new Prompt_Post( $this->factory->user->create() );
 		$prompt_user2 = new Prompt_Post( $this->factory->user->create() );
 
-		$site = new Prompt_Site();
+		$site_comments = new Prompt_Site_Comments();
 
 		$prompt_post1->subscribe( $prompt_user1->id() );
 		$prompt_post1->subscribe( $prompt_user2->id() );
 		$prompt_post2->subscribe( $prompt_user1->id() );
 		$prompt_post2->subscribe( $prompt_user2->id() );
-		$site->subscribe( $prompt_user1->id() );
-		$site->subscribe( $prompt_user2->id() );
+		$site_comments->subscribe( $prompt_user1->id() );
+		$site_comments->subscribe( $prompt_user2->id() );
 
 		wp_delete_user( $prompt_user1->id() );
 
 		$this->assertFalse( $prompt_post1->is_subscribed( $prompt_user1->id() ), 'Expected user to be unsubscribed.' );
 		$this->assertFalse( $prompt_post2->is_subscribed( $prompt_user1->id() ), 'Expected user to be unsubscribed.' );
-		$this->assertFalse( $site->is_subscribed( $prompt_user1->id() ), 'Expected user to be unsubscribed.' );
+		$this->assertFalse( $site_comments->is_subscribed( $prompt_user1->id() ), 'Expected user to be unsubscribed.' );
 		$this->assertTrue( $prompt_post1->is_subscribed( $prompt_user2->id() ), 'Expected user to be subscribed.' );
 		$this->assertTrue( $prompt_post2->is_subscribed( $prompt_user2->id() ), 'Expected user to be subscribed.' );
-		$this->assertTrue( $site->is_subscribed( $prompt_user2->id() ), 'Expected user to be subscribed.' );
+		$this->assertTrue( $site_comments->is_subscribed( $prompt_user2->id() ), 'Expected user to be subscribed.' );
 	}
 
 	function testAllSubscriberIds() {
@@ -257,22 +257,22 @@ class UserTest extends WP_UnitTestCase {
 		
 		$prompt_user = new Prompt_User( $this->factory->user->create_and_get() );
 		
-		$site = new Prompt_Site();
-		$site->subscribe( $prompt_user->id() );
+		$site_comments = new Prompt_Site_Comments();
+		$site_comments->subscribe( $prompt_user->id() );
 		
 		$author = new Prompt_User( $this->factory->user->create_and_get() );
 		$author->subscribe( $prompt_user->id() );
 		
 		$unsub_lists = $prompt_user->delete_all_subscriptions();
 		
-		$this->assertFalse( $site->is_subscribed( $prompt_user->id() ), 'Expected user to be unsubscribed from site.' );
+		$this->assertFalse( $site_comments->is_subscribed( $prompt_user->id() ), 'Expected user to be unsubscribed from site.' );
 		$this->assertFalse( 
 			$author->is_subscribed( $prompt_user->id() ), 
 			'Expected user to be unsubscribed from author.' 
 		);
 		
 		$unsub_classes = array_map( 'get_class', $unsub_lists );
-		$this->assertContains( 'Prompt_Site', $unsub_classes );
+		$this->assertContains( 'Prompt_Site_Comments', $unsub_classes );
 		$this->assertContains( 'Prompt_User', $unsub_classes );
 	}
 }

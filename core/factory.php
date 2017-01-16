@@ -58,10 +58,6 @@ class Prompt_Factory {
 	 */
 	protected static function make_api_mailer( $batch ) {
 
-		if ( is_a( $batch, 'Prompt_Post_Email_Batch' ) ) {
-			return new Prompt_Post_Mailer( $batch );
-		}
-
 		if ( is_a( $batch, 'Prompt_Comment_Email_Batch' ) ) {
 			return new Prompt_Comment_Mailer( $batch );
 		}
@@ -80,10 +76,6 @@ class Prompt_Factory {
 	 * @return Prompt_Mailer
 	 */
 	protected static function make_local_mailer( $batch, $chunk = 0 ) {
-
-		if ( is_a( $batch, 'Prompt_Post_Email_Batch' ) ) {
-			return new Prompt_Post_Wp_Mailer( $batch );
-		}
 
 		if ( is_a( $batch, 'Prompt_Comment_Email_Batch' ) ) {
 			return new Prompt_Comment_Wp_Mailer( $batch, null, null, $chunk );

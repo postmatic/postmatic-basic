@@ -24,12 +24,13 @@ class Prompt_Options extends scbOptions {
 			'Postmatic'
 		);
 
-		$subscribed_introduction = '<h2>' . __( 'Thanks for signing up!', 'Postmatic' ) . '</h2>' .
-			'<p>' . __( 'We\'re glad you\'ve decided to join and hope you enjoy our posts.', 'Postmatic' ) . '</p>';
+		$subscribed_introduction = '<h2>' . __( 'Thanks for joining the conversation!', 'Postmatic' ) . '</h2>' .
+			'<p>' . __( 'We\'ll send you the latest comments as they come in.', 'Postmatic' ) . '</p>';
 
 		$standard_defaults = array(
-			'auto_subscribe_authors' => true,
+			'auto_subscribe_authors' => false,
 			'prompt_key' => '',
+			'internal_key' => '',
 			'site_subscription_post_types' => array( 'post' ),
 			'skip_notices' => array(),
 			'service_notices' => array(),
@@ -88,11 +89,11 @@ class Prompt_Options extends scbOptions {
 			'enable_analytics' => true,
 			'account_email' => '',
 			'suppress_error_submissions' => false,
+			'freemius_init' => array(),
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );
 		$defaults = apply_filters( 'prompt/default_options', $defaults );
-		$defaults = array_merge( $defaults, Prompt_Optins::options_fields() );
 
 		$this->prevent_options_errors( $key );
 
@@ -107,8 +108,18 @@ class Prompt_Options extends scbOptions {
 		$filtered_options = apply_filters( 'prompt/override_options', array(), $this->get() );
 
 		$this->overridden_options = wp_array_slice_assoc( $filtered_options, array_keys( $this->get() ) );
-		if ( !empty( $this->overridden_options ) ) {
+		if ( ! empty( $this->overridden_options ) ) {
 			$this->set( $this->overridden_options );
+		}
+
+		if ( ! $this->get( 'internal_key' ) ) {
+			add_action( 'plugins_loaded', array( $this, 'generate_internal_key' ) );
+		}
+
+		if ( ! $this->get( 'auto_subscribe_authors' ) and $this->enable_auto_subscribe_authors() ) {
+			$this->set( 'auto_subscribe_authors', true );
+		} elseif ( $this->get( 'auto_subscribe_authors' ) and ! $this->enable_auto_subscribe_authors() ) {
+			$this->set( 'auto_subscribe_authors', false );
 		}
 	}
 
@@ -132,6 +143,15 @@ class Prompt_Options extends scbOptions {
 	}
 
 	/**
+	 * Set a random internal key.
+	 *
+	 * @since 2.1.0
+	 */
+	public function generate_internal_key() {
+		$this->set( 'internal_key', wp_generate_password( 32 ) );
+	}
+
+	/**
 	 * Detect and prevent options default errors.
 	 *
 	 * It seems that defaults may not work on Windows, and cause errors.
@@ -143,6 +163,20 @@ class Prompt_Options extends scbOptions {
 		if ( ! is_array( get_option( $key, array() ) ) ) {
 			update_option( $key, array() );
 		}
+	}
+
+	/**
+	 * Whether to auto-subscribe authors to their comments.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	protected function enable_auto_subscribe_authors() {
+		if ( defined( 'REPLYABLE_DISABLE_AUTO_SUBSCRIBE_AUTHORS' ) and REPLYABLE_DISABLE_AUTO_SUBSCRIBE_AUTHORS ) {
+			return false;
+		}
+
+		return in_array( Prompt_Enum_Message_Types::COMMENT_MODERATION, $this->get( 'enabled_message_types' ) );
 	}
 
 }

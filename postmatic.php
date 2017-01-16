@@ -1,10 +1,10 @@
 <?php
 /*
-  Plugin Name: Postmatic Basic
-  Description:
-  Version: 2.0.14
+  Plugin Name: Replyable - Subscribe to Comments & Reply via email
+  Version: 2.1.0
   License: GPL2+
   Author: Postmatic
+  Description: Two-way email commenting for WordPress. Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replyable.
   Author URI: http://gopostmatic.com/
   Text Domain: Postmatic
   Domain Path: /lang
@@ -27,31 +27,32 @@
   details.
  */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
 if ( class_exists( 'Prompt_Core' ) ) {
 	// Allow others to use Prompt as a dependency
 	return;
 }
 
-require_once dirname( __FILE__ ) . '/vendor/scribu/scb-framework/load.php';
-require_once dirname( __FILE__ ) . '/core/autoload.php';
-
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/commands', '_Command' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/mailers', '_Mailer' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/email-batches', '_Email_Batch' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/matchers', '_Matcher' );
-Prompt_Autoload::register( 'Prompt_', dirname( __FILE__ ) . '/core/post-rendering-modifiers', '_Post_Rendering_Modifier' );
-Prompt_Autoload::register( 'Prompt_Interface_', dirname( __FILE__ ) . '/interfaces' );
-Prompt_Autoload::register( 'Prompt_Admin_', dirname( __FILE__ ) . '/admin' );
-Prompt_Autoload::register( 'Prompt_Enum_', dirname( __FILE__ ) . '/enums' );
-
-Prompt_Core::load();
+require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 if ( !class_exists( 'Prompt_Root' ) ) {
 	/**
 	 * Manage things that must be done from the root plugin file.
 	 * @since 2.0.0
+	 * @return Freemius Freemius instance.
 	 */
 	class Prompt_Root {
+		public static function load_freemius() {
+			$freemius = new Prompt_Freemius( Prompt_Core::$options );
+			$freemius->load();
+			return $freemius;
+		}
 	}
 }
+
+Prompt_Core::load();
+

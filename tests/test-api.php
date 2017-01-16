@@ -14,7 +14,9 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyNewSubscriberEmail' ) );
 
-		$status = Prompt_Api::subscribe( $subscriber_data );
+		$post = new Prompt_Post( $this->factory->post->create() );
+
+		$status = Prompt_Api::subscribe( $subscriber_data, Prompt_Subscribing::get_subscribable_slug( $post ) );
 
 		$this->assertEquals( Prompt_Api::OPT_IN_SENT, $status );
 
@@ -42,7 +44,7 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUserSubscriberEmail' ) );
 
-		$status = Prompt_Api::subscribe( array( 'user_email' => $user->user_email ) );
+		$status = Prompt_Api::subscribe( array( 'user_email' => $user->user_email ), 'site_comments' );
 
 		$this->assertEquals( Prompt_Api::CONFIRMATION_SENT, $status );
 
@@ -50,7 +52,9 @@ class ApiTest extends Prompt_MockMailerTestCase {
 
 	function testSubscribeUserToLists() {
 
-		$lists = array( 'site', 'site_comments' );
+		$post = new Prompt_Post( $this->factory->post->create() );
+
+		$lists = array( 'site_comments', Prompt_Subscribing::get_subscribable_slug( $post ) );
 
 		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
@@ -82,12 +86,13 @@ class ApiTest extends Prompt_MockMailerTestCase {
 	function testSubscribeExisting() {
 		$user = $this->factory->user->create_and_get();
 
-		$site = new Prompt_Site();
-		$site->subscribe( $user->ID );
+		$post = new Prompt_Post( $this->factory->post->create() );
+		$post->subscribe( $user->ID );
 
 		$this->mailer_expects = $this->never();
 
-		$status = Prompt_Api::subscribe( array( 'email_address' => $user->user_email ) );
+		$slug = Prompt_Subscribing::get_subscribable_slug( $post );
+		$status = Prompt_Api::subscribe( array( 'email_address' => $user->user_email ), $slug );
 
 		$this->assertEquals( Prompt_Api::ALREADY_SUBSCRIBED, $status );
 	}
@@ -105,12 +110,12 @@ class ApiTest extends Prompt_MockMailerTestCase {
 		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
 
-		$site = new Prompt_Site();
-		$site->subscribe( $user->ID );
+		$post = new Prompt_Post( $this->factory->post->create() );
+		$post->subscribe( $user->ID );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUserSubscriberEmail' ) );
 
-		$status = Prompt_Api::unsubscribe( $user->user_email );
+		$status = Prompt_Api::unsubscribe( $user->user_email, Prompt_Subscribing::get_subscribable_slug( $post ) );
 
 		$this->assertEquals( Prompt_Api::CONFIRMATION_SENT, $status );
 	}
@@ -119,9 +124,9 @@ class ApiTest extends Prompt_MockMailerTestCase {
 		
 		$user = $this->factory->user->create_and_get();
 		$this->mail_data->user = $user;
-		
-		$site = new Prompt_Site();
-		$site->subscribe( $user->ID );
+
+		$post = new Prompt_Post( $this->factory->post->create() );
+		$post->subscribe( $user->ID );
 
 		$prompt_author = new Prompt_User( $this->factory->user->create_and_get() );
 		$prompt_author->subscribe( $user->ID );

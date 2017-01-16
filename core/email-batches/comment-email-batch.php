@@ -35,19 +35,17 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param object $comment Target comment
+	 * @param WP_Comment $comment Target comment
 	 * @param Prompt_Comment_Flood_Controller
 	 */
 	public function __construct( $comment, Prompt_Comment_Flood_Controller $flood_controller = null ) {
 
-		$this->prompt_comment = $comment instanceof Prompt_Comment ? $comment : new Prompt_Comment( $comment );
+		$this->prompt_comment = new Prompt_Comment( $comment );
 
-		$comment = $this->prompt_comment->get_wp_comment();
-		
 		$this->prompt_post = $prompt_post = new Prompt_Post( $comment->comment_post_ID );
 
 		$this->flood_controller = $flood_controller;
-		if ( !$this->flood_controller ) {
+		if ( ! $this->flood_controller ) {
 			$this->flood_controller = Prompt_Factory::make_comment_flood_controller( $comment );
 		}
 
@@ -70,9 +68,9 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 				$this->prompt_parent_comment->get_author_name()
 			);
 
-			$template_file = $is_api_delivery ? 'comment-reply-email.php' : $template_file;
+			$template_file = 'comment-reply-email.php';
 		}
-		
+
 		$this->parent_author = $parent_author;
 		$this->parent_author_name = $parent_author_name;
 
@@ -83,12 +81,13 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		$this->set_previous_comments();
 
 		$template_data = array(
+			'comment_ID' => $comment->comment_ID,
 			'comment_author' => $this->prompt_comment->get_author_user(),
 			'commenter_name' => $this->prompt_comment->get_author_name(),
 			'comment_post_ID' => $comment->comment_post_ID,
 			'comment_author_url' => $comment->comment_author_url,
 			'comment_text' => Prompt_Formatting::escape_handlebars_expressions( wpautop( $comment->comment_content ) ),
-			'avatar' => $is_api_delivery ? get_avatar( $comment ) : '',
+			'avatar' => get_avatar( $comment ),
 			'subscribed_post' => $prompt_post,
 			'subscribed_post_author_name' => $post_author_name,
 			'subscribed_post_title_link' => $this->subscribed_post_title_link,
@@ -126,28 +125,30 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		$html_template = new Prompt_Template( $template_file );
 		$text_template = new Prompt_Text_Template( str_replace( '.php', '-text.php', $template_file ) );
 
-		/* translators: %1$s is a subscription list title, %2$s the unsubscribe command */
+		/* translators: %s is a subscription list title */
 		$footnote_format = __(
-			'You received this email because you\'re subscribed to %1$s. To no longer receive other comments or replies in this discussion reply with the word \'%2$s\'.',
+			'You received this email because you\'re subscribed to %s.',
 			'Postmatic'
 		);
+		$unsubscribe_href = $is_api_delivery ? $this->unsubscribe_mailto() : '{{{unsubscribe_url}}}';
+
 		$message_template = array(
 			'from_name' => $this->prompt_comment->get_author_name(),
 			'text_content' => $text_template->render( $template_data ),
 			'html_content' => $html_template->render( $template_data ),
 			'message_type' => Prompt_Enum_Message_Types::COMMENT,
 			'subject' => '{{{subject}}}',
-			'reply_to' => '{{{reply_to}}}',
+			'reply_to' => Prompt_Core::$options->is_api_transport() ? '{{{reply_to}}}' : 'donotreply@gopostmatic.com',
 			'footnote_html' => sprintf(
-				$footnote_format,
+				$footnote_format . ' %s',
 				$this->prompt_post->subscription_object_label(),
-				"<a href=\"{$this->unsubscribe_mailto()}\">" . Prompt_Unsubscribe_Matcher::target() . "</a>"
+				"<a href=\"{$unsubscribe_href}\">" . Prompt_Unsubscribe_Matcher::target() . "</a>"
 			),
 			/* translators: %1$s is a subscription list title, %2$s is the unsubscribe command word */
 			'footnote_text' => sprintf(
-				$footnote_format,
+				$footnote_format . ' %s',
 				$this->prompt_post->subscription_object_label( Prompt_Enum_Content_Types::TEXT ),
-				Prompt_Unsubscribe_Matcher::target()
+				Prompt_Unsubscribe_Matcher::target() . ": $unsubscribe_href"
 			),
 		);
 
@@ -162,7 +163,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		 * @param object $comment
 		 * @param array $recipient_ids
 		 */
-		if ( !apply_filters( 'prompt/send_comment_notifications', true, $this->prompt_comment, $recipient_ids ) )
+		if ( ! apply_filters( 'prompt/send_comment_notifications', true, $this->prompt_comment, $recipient_ids ) )
 			return null;
 
 		$this->add_recipients( $recipient_ids );
@@ -254,28 +255,57 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 */
 	protected function add_recipient( WP_User $recipient ) {
 
-		$unsubscribe_link = new Prompt_Unsubscribe_Link( $recipient );
-
-		$command = new Prompt_Comment_Command();
-		$command->set_post_id( $this->prompt_post->id() );
-		$command->set_user_id( $recipient->ID );
-		$command->set_parent_comment_id( $this->prompt_comment->id() );
+		$list_slug = Prompt_Subscribing::get_subscribable_slug( $this->prompt_post );
 
 		$values = array(
 			'id' => $recipient->ID,
 			'to_name' => $recipient->display_name,
 			'to_address' => $recipient->user_email,
 			'subject' => $this->subscriber_subject( $recipient ),
-			'unsubscribe_url' => $unsubscribe_link->url(),
+			'unsubscribe_url' => Prompt_Routing::unsubscribe_url( $recipient->ID, $list_slug ),
 			'subscriber_comment_intro_html' => $this->subscriber_comment_intro_html( $recipient ),
 			'subscriber_comment_intro_text' => $this->subscriber_comment_intro_text( $recipient ),
-			'reply_to' => $this->trackable_address( Prompt_Command_Handling::get_command_metadata( $command ) ),
 		);
 
-		$values = array_merge(
-			$values,
-			Prompt_Command_Handling::get_comment_reply_macros( $this->previous_comments, $recipient->ID )
-		);
+		if ( $recipient->ID == $this->prompt_post->get_wp_post()->post_author ) {
+			$values['post_author_message'] = html(
+				'div class="author_message" style="padding: 10px; background: #FFFBCC; font-weight: bold; margin: 15px 0; border-top: 1px dashed #ddd; border-bottom: 1px dashed #ddd; font-size: 11px;"',
+				html(
+					'strong',
+					sprintf(
+						__(
+							'Hey %s - Authors who engage their readers through commenting are more likely to have better search engine placement, more traffic, and healthier blogs.',
+							'Postmatic'
+						),
+						$recipient->display_name
+					)
+				),
+				'<br /><br />',
+				html(
+					'a',
+					array( 'href' => 'http://replyable.com/upgrade' ),
+					__(
+						'Upgrade Replyable to gain access to invaluable author tools, two-way email commenting (you could reply to this email to leave a followup comment!), and features for more engagement, more comments, and a happier community.',
+						'Postmatic'
+					)
+				)
+			);
+		}
+
+		if ( Prompt_Core::is_api_transport() ) {
+
+			$command = new Prompt_Comment_Command();
+			$command->set_post_id( $this->prompt_post->id() );
+			$command->set_user_id( $recipient->ID );
+			$command->set_parent_comment_id( $this->prompt_comment->id() );
+
+			$values['reply_to'] = $this->trackable_address( Prompt_Command_Handling::get_command_metadata( $command ) );
+
+			$values = array_merge(
+				$values,
+				Prompt_Command_Handling::get_comment_reply_macros( $this->previous_comments, $recipient->ID )
+			);
+		}
 
 		return $this->add_individual_message_values( $values );
 	}
@@ -500,7 +530,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	protected function flood_controlled_recipient_ids() {
 
 		// We currently only mail standard WP comments
-		if ( !empty( $this->prompt_comment->get_wp_comment()->comment_type ) )
+		if ( ! empty( $this->prompt_comment->get_wp_comment()->comment_type ) )
 			return array();
 
 		$recipient_ids = $this->prompt_comment->get_recipient_ids();
@@ -536,7 +566,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 
 			$subscriber = get_userdata( $subscriber_id );
 
-			if ( !$subscriber or !$subscriber->user_email )
+			if ( ! $subscriber or ! $subscriber->user_email )
 				continue;
 
 			$this->add_recipient( $subscriber );

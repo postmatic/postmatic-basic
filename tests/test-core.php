@@ -18,7 +18,7 @@ class CoreTest extends WP_UnitTestCase {
 	function testDefaultOptionsFilter() {
 		add_filter( 'prompt/default_options', create_function( '$o', 'return array_merge( $o, array( "foo" => "bar" ) );' ) );
 
-		Prompt_Core::action_plugins_loaded();
+		Prompt_Core::load();
 
 		$this->assertEquals( 'bar', Prompt_Core::$options->get( 'foo' ), 'Expected to find added option.' );
 	}
@@ -38,13 +38,10 @@ class CoreTest extends WP_UnitTestCase {
 			\Prompt_Core::$options->get( 'skip_download_intro' ),
 			'Expected the skip download intro flag to be false.'
 		);
-		$this->assertNotEmpty(
+		$this->assertEmpty(
 			Prompt_Core::$options->get( 'whats_new_notices' ),
-			'Expected a what\'s new notice.'
+			'Expected no what\'s new notice.'
 		);
 	}
 
-	function testLabsNotice() {
-		$this->assertInstanceOf( 'Prompt_Admin_Labs_Notice', Prompt_Core::labs_notice() );
-	}
 }

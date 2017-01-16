@@ -51,7 +51,7 @@ class Prompt_User_Handling {
 		$basename = substr( $email, 0, strpos( $email, '@' ) );
 		do {
 			$username = $basename . $suffix;
-			$suffix++;
+			$suffix += 1;
 		} while ( username_exists( $username ) );
 
 		$user_id = wp_create_user( $username, $password, $email );

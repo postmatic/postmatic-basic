@@ -186,7 +186,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		);
 
 		$template = $this->mailer_payload->get_batch_message_template();
-		$this->assertContains( 'agree', $template['html_content'], 'Expected the email to ask for agreement.' );
+		$this->assertContains( 'confirm', $template['html_content'], 'Expected the email to offer confirm instructions.' );
 
 		return true;
 	}

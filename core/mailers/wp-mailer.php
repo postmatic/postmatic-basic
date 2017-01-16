@@ -51,29 +51,16 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 			);
 		}
 
-		$tracking_results = $this->track_replies() ? $this->request_tracking_addresses() : array();
-
-		if ( $this->reschedule( $tracking_results ) ) {
-			return $tracking_results;
-		}
-
-		if ( is_wp_error( $tracking_results ) ) {
-			return $tracking_results;
-		}
-
 		$this->render_batch_template();
 
 		$source_values = $this->batch->get_individual_message_values();
 		$return_values = array();
 
-
 		add_action( 'wp_mail_failed', array( $this, 'add_mail_error' ) );
 
 		for( $i = 0; $i < count( $source_values ); $i += 1 ) {
 
-			$outbound_message = $tracking_results ? $tracking_results->outboundMessages[$i] : null;
-
-			$local_email = $this->render_individual_email( $source_values[$i], $outbound_message );
+			$local_email = $this->render_individual_email( $source_values[$i] );
 
 			$return_values[$local_email['to_address']] = $this->send_prepared( $local_email );
 		}
@@ -111,7 +98,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 		Prompt_Logging::add_error(
 			'prompt_wp_mail',
-			__( 'Failed sending an email locally. Did you know Postmatic can deliver email for you?', 'Prompt_Core' ),
+			__( 'Replyable is having trouble sending email through your webhost. Consider upgrading to a paid Replyable account and we can send email for you.', 'Prompt_Core' ),
 			array( 'error_data' => $this->error_data )
 		);
 	}
@@ -155,7 +142,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		}
 
 		if ( isset( $template['text_content'] ) ) {
-			$text_template = new Prompt_Template( 'text-email-wrapper.php' );
+			$text_template = new Prompt_Text_Template( 'text-email-wrapper.php' );
 			$template['text_content'] = $text_template->render( $template );
 		}
 
@@ -168,10 +155,9 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	 * @since 2.0.0
 	 *
 	 * @param array $values
-	 * @param object $outbound_message
 	 * @return array
 	 */
-	protected function render_individual_email( $values, $outbound_message ) {
+	protected function render_individual_email( $values ) {
 
 		$template = $this->batch->get_batch_message_template();
 
@@ -183,18 +169,19 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 		if ( $reply_to ) {
 			$email_fields['metadata'] = $reply_to['trackable-address'];
-			$values['reply_to'] = $outbound_message->reply_to;
 		}
 
-		$values['ref_id'] = $outbound_message ? $outbound_message->id : 'noreply';
+		$values['ref_id'] = 'noreply';
 
 		foreach( $template as $field_name => $field_template ) {
 			$email_fields[$field_name] = $this->handlebars->render_string( $field_template, $values );
 		}
 
-		if ( $outbound_message ) {
-			$email_fields['reply_address'] = Prompt_Email_Batch::address( $outbound_message->reply_to );
-			$email_fields['reply_name'] = Prompt_Email_Batch::name( $outbound_message->reply_to );
+		if ( isset( $template['reply_to'] ) and is_email( $template['reply_to'] ) ) {
+
+			$email_fields['reply_address'] = Prompt_Email_Batch::address( $template['reply_to'] );
+			$email_fields['reply_name'] = Prompt_Email_Batch::name( $template['reply_to'] );
+
 		}
 
 		return $email_fields;

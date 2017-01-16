@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * A simple HTML view renderer.
+ */
 class Prompt_Template {
 
 	/** @var  string */
@@ -7,9 +10,16 @@ class Prompt_Template {
 	/** @var  string */
 	protected $name;
 
+	/**
+	 * Instantiate an HTML template.
+	 *
+	 * @since 2.0.0
+	 * @param string $name
+	 * @param string|null $dir
+	 */
 	public function __construct( $name, $dir = null ) {
 		$this->name = $name;
-		$this->dir = $dir ? $dir : path_join( Prompt_Core::$dir_path, 'templates' );
+		$this->dir = $dir ? $dir : path_join( Prompt_Core::$dir_path, 'templates/html' );
 	}
 
 	/**
@@ -30,9 +40,15 @@ class Prompt_Template {
 		);
 		$template = locate_template( $template_names );
 
+		// For local mailing look for an inlined template first
+		if ( ! $template and ! Prompt_Core::is_api_transport() ) {
+			$template = path_join( $this->dir . '-inlined', $this->name );
+		}
+
 		// Fallback is the core or provided directory
-		if ( !$template )
+		if ( ! $template or ! file_exists( $template ) ) {
 			$template = path_join( $this->dir, $this->name );
+		}
 
 		return $template;
 	}

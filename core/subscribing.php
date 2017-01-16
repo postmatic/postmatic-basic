@@ -5,13 +5,15 @@ class Prompt_Subscribing {
 
 	/** @var array Subscribable types - could be extended into a registration system  */
 	protected static $subscribables = array(
-		'Prompt_Site' => null,
+		'Prompt_Site_Comments' => null,
 		'Prompt_Post' => 'WP_Post',
 		'Prompt_User' => 'WP_User',
 	);
 
 	/**
 	 * Instantiate a subscribable object.
+	 *
+	 * @since 2.1.0 No longer makes site subscriptions by default
 	 *
 	 * @param null|WP_Post|WP_user|int|string $object Optional object to pass to the constructor.
 	 * @return Prompt_Interface_Subscribable|null
@@ -37,7 +39,7 @@ class Prompt_Subscribing {
 
 		return apply_filters(
 			'prompt/subscribing/make_subscribable',
-			new Prompt_Site(),
+			null,
 			$object
 		);
 	}
@@ -59,7 +61,8 @@ class Prompt_Subscribing {
 			$id = intval( array_pop( $parts ) );
 		}
 
-		$class = 'Prompt_' . ucwords( $parts[0] );
+		// ucwords does not accept a delimiter in PHP 5.3
+		$class = 'Prompt_' . str_replace( ' ', '_', ucwords( str_replace( '_', ' ', $parts[0] ) ) );
 
 		if ( class_exists( $class ) ) {
 			return new $class( $id );
@@ -71,7 +74,7 @@ class Prompt_Subscribing {
 			$slug
 		);
 	}
-	
+
 	/**
 	 * Get a text identifier (slug) for a list that can be used later to remake it.
 	 *
@@ -102,24 +105,12 @@ class Prompt_Subscribing {
 	 * Get the lists enabled for new subscribers to choose from.
 	 *
 	 * @since 2.0.0
+	 * @since 2.1.0 With post delivery removed, there are no signup lists by default
 	 *
 	 * @return Prompt_Interface_Subscribable[]
 	 */
 	public static function get_signup_lists() {
-		$lists = array();
-
-		if ( Prompt_Core::$options->get( 'enable_post_delivery' ) ) {
-			$lists[] = new Prompt_Site();
-		}
-
-		$lists = apply_filters( 'prompt/subscribing/get_signup_lists', $lists );
-
-		// Always have something to sign up for
-		if ( empty( $lists ) ) {
-			$lists[] = new Prompt_Site();
-		}
-
-		return $lists;
+		return apply_filters( 'prompt/subscribing/get_signup_lists', array() );
 	}
 
 }

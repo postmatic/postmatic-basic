@@ -24,7 +24,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function name() {
-		return __( 'Your Template', 'Postmatic' );
+		return __( 'Configure Your Template', 'Postmatic' );
 	}
 
 	/**
@@ -63,11 +63,11 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 			$html_template = new Prompt_Template( 'test-email.php' );
 
 			$footnote = __(
-				'This is a test email sent by Postmatic. It is solely for demonstrating the Postmatic template and is not replyable. Also, that is not latin. <a href="https://en.wikipedia.org/wiki/Lorem_ipsum">It is Lorem ipsum</a>.',
+				'This is a test email sent by Replyable. It is solely for testing email delivery and is not replyable.',
 				'Postmatic'
 			);
 
-			$subject = __( 'This is a test email. By Postmatic.', 'Postmatic' ) . ' ' .
+			$subject = __( 'This is a test email. By Replyable.', 'Postmatic' ) . ' ' .
 				date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) );
 
 			$batch = new Prompt_Email_Batch( array(
@@ -97,9 +97,9 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$introduction = html(
 			'div class="intro-text"',
-			html( 'h2', __( 'Customize Your Postmatic Template', 'Postmatic' ) ),
+			html( 'h2', __( 'Customize your Replyable template', 'Postmatic' ) ),
 			html( 'p',
-				__( 'Since we\'ll be sending via email the focus should be on <em>your content</em>. That\'s why we keep things simple. Configure your colors, header and footer. Postmatic will handle what goes in between.',
+				__( 'Since we\'ll be sending via email the focus should be on <em>the comments</em>. That\'s why we keep things simple. Configure your colors, header and footer. Replyable will handle what goes in between.',
 					'Postmatic'
 				)
 			)
@@ -111,7 +111,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$subscriber_welcome_content = html( 'div id="subscriber-welcome-message"',
 			html( 'h3', __( 'Custom welcome message', 'Postmatic' ) ),
-			html( 'p', __( 'When someone sucessfully subscribes to your site we\'ll shoot back a confirmation note. Use this as a place to say thanks, or even offer an incentive.', 'Postmatic' ) ),
+			html( 'p', __( 'When someone sucessfully subscribes to a conversation we\'ll shoot back a confirmation note. Use this as a place to say thanks, or welcome them to come back and read some other posts.', 'Postmatic' ) ),
 			$subscriber_welcome_editor
 		);
 
@@ -193,7 +193,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 				'<br/>',
 				html( 'small',
 					__(
-						'Want the Postmatic template to use your typography and colors? Do so with a single click. We\'ll analyze the active theme and make your email template follow suit.',
+						'Want the Replyable template to use your typography and colors? Do so with a single click. We\'ll analyze the active theme and make your email template follow suit.',
 						'Postmatic'
 					)
 				)

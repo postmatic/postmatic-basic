@@ -12,7 +12,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function name() {
-		return __( 'Configure Comments', 'Postmatic' );
+		return __( 'Comment Subscription Options', 'Postmatic' );
 	}
 
 	/**
@@ -28,7 +28,11 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return string
 	 */
 	public function render() {
-		return $this->form_table( $this->table_entries() );
+		return html(
+			'div class="intro-text"',
+			html( 'h2', __( 'Choose how comment subscriptions work', 'Postmatic' ) ),
+			$this->form_table( $this->table_entries() )
+		);
 	}
 
 	/**
@@ -62,7 +66,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 		$valid_data = $this->validate_checkbox_fields(
 			$new_data,
 			$old_data,
-			array( 'comment_opt_in_default', 'comment_snob_notifications' )
+			array( 'comment_opt_in_default', 'comment_snob_notifications', 'auto_subscribe_authors' )
 		);
 
 		if ( isset( $new_data['comment_opt_in_text'] ) ) {
@@ -90,19 +94,17 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @since 2.0.6
 	 * @return array
 	 */
-	protected function table_entries() {
+	 
 
+	protected function table_entries() {
+	
 		$snob_extra = array();
 		$snob_upgrade_link = '';
 
-		if ( ! $this->is_digest_message_type_enabled() ) {
+		if ( ! $this->is_comment_digest_message_type_enabled() ) {
 			$snob_extra['class'] = 'disabled';
 			$snob_extra['disabled'] = 'disabled';
 			$snob_upgrade_link = $this->upgrade_link();
-		} else if ( ! $this->is_premium_active() ) {
-			$snob_extra['class'] = 'disabled';
-			$snob_extra['disabled'] = 'disabled';
-			$snob_upgrade_link = $this->download_premium_link();
 		}
 
 		$table_entries = array(
@@ -133,7 +135,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'p',
 						sprintf(
 							__(
-								'Postmatic automatically pauses comment notifications on posts that go viral. Setting the trigger to be 6 comments per hour is good for most sites. You can read more about it <a href="%s" target="_blank">on our support site</a>.  ',
+								'Replyable automatically pauses comment notifications on posts that go viral. Setting the trigger to be 6 comments per hour is good for most sites. You can read more about it <a href="%s" target="_blank">on our support site</a>.  ',
 								'Postmatic'
 							),
 							'http://docs.gopostmatic.com/article/143-what-happens-if-a-post-gets-a-gazillion-comments-do-i-get-a-gazillion-emails'
@@ -149,7 +151,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 					html( 'p',
 						sprintf(
 							__(
-								'We\'ll analyze each comment, identify those worth sending, and hold on to the rest for the daily comment digest. This keeps short comments, nonsense, and any potential spam from bothering subscribers. Direct replies will still be sent to the person being responded to. Requires <a href="%s" target="_blank">Elevated Comments</a>.',
+								'We\'ll analyze each comment, identify those worth sending, and hold on to the rest for the daily comment digest. This keeps short comments, nonsense, and any potential spam from bothering subscribers. Direct replies will still be sent to the person being responded to so the conversation keeps growing.',
 								'Postmatic'
 							),
 							'http://elevated.gopostmatic.com'

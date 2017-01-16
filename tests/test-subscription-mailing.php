@@ -5,7 +5,7 @@
 class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 	function testAgreement() {
-		$this->mail_data->lists = array( new Prompt_Site );
+		$this->mail_data->lists = array( new Prompt_Site_Comments() );
 		$this->mail_data->email = 'test@example.com';
 		$user_data = array();
 
@@ -31,10 +31,11 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			$template['subject'],
 			'Expected the object label in the email subject.'
 		);
+
 	}
 
 	function setupAgreementData() {
-		$this->mail_data->lists = array( new Prompt_Site(), new Prompt_Site_Comments() );
+		$this->mail_data->lists = array( new Prompt_Post( $this->factory->post->create() ), new Prompt_Site_Comments() );
 		$this->mail_data->users = array(
 			array( 'user_email' => 'test1@example.com' ),
 			array( 'user_email' => 'test2@example.com' ),
@@ -105,30 +106,21 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 			'Expected the supplied message.'
 		);
 
-		$this->assertNotEmpty( $values[0]['reply_to'], 'Expected a tracking address.' );
-
-		$update = new stdClass();
-		$update->metadata = $values[0]['reply_to']['trackable-address'];
-
-		$command = Prompt_Command_Handling::make_command( $update );
-
-		$this->assertInstanceOf(
-			'Prompt_Register_Subscribe_Command',
-			$command,
-			'Expected register subscribe command metadata.'
-		);
+		$this->assertNotEmpty( $values[0]['opt_in_url'], 'Expected an opt-in url.' );
 
 	}
 
 	function testWelcome() {
-		Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API );
 		Prompt_Core::$options->set( 'subscribed_introduction', 'XXWELCOMEXX' );
-
-		$object = new Prompt_Site;
-		$this->mail_data->object = $object;
 
 		$subscriber = $this->factory->user->create_and_get();
 		$this->mail_data->subscriber = $subscriber;
+
+		$object = new Prompt_Post( $this->factory->post->create() );
+		$this->mail_data->object = $object;
+
+		// The template should exclude comments when mailing locally
+		$this->factory->comment->create( array( 'comment_post_ID' => $object->id() ) );
 
 		$object->subscribe( $subscriber->ID );
 
@@ -136,7 +128,6 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 		Prompt_Subscription_Mailing::send_subscription_notification( $subscriber->ID, $object );
 
-		remove_shortcode( 'testwelcome' );
 		Prompt_Core::$options->reset();
 	}
 
@@ -150,20 +141,40 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 		$template = $this->mailer_payload->get_batch_message_template();
 		$this->assertContains(
-			$this->mail_data->object->subscription_object_label(),
+			strip_tags( $this->mail_data->object->subscription_object_label() ),
 			$template['subject'],
 			'Expected the object label in the email subject.'
 		);
-		$this->assertContains(
+		$this->assertNotContains(
 			Prompt_Core::$options->get( 'subscribed_introduction' ),
 			$template['html_content'],
-			'Expected custom subscribed introduction content in email.'
+			'Expected NO custom subscribed introduction content in post subscribed email.'
+		);
+		$this->assertNotContains(
+			'previous-comments',
+			$template['html_content'],
+			'Expected no previous comments in the welcome email.'
+		);
+		$this->assertNotContains(
+			'reply-prompt',
+			$template['html_content'],
+			'Expected no reply prompt in the welcome email.'
+		);
+		$this->assertNotContains(
+			'mailto:',
+			$template['footnote_html'],
+			'Expected no mailto link in the footnote.'
+		);
+		$this->assertEquals(
+			'donotreply@gopostmatic.com',
+			$template['reply_to'],
+			'Expected do-not-reply reply-to address.'
 		);
 	}
 
 	function testWelcomeInvalidEmail() {
 
-		$object = new Prompt_Site;
+		$object = new Prompt_Site_Comments();
 		$subscriber = $this->factory->user->create_and_get( array( 'user_email' => '23kjk3' ) );
 
 		$this->mailer_expects = $this->never();

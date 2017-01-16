@@ -11,7 +11,7 @@ class FactoryTest extends WP_UnitTestCase {
 		
 		add_filter( 'prompt/make_mailer', array( $verifier, 'verify' ), 10, 4 );
 		
-		$batch = new Prompt_Subscription_Agreement_Email_Batch( Prompt_Subscribing::get_signup_lists() );
+		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( new Prompt_Site_Comments() ) );
 		
 		$mailer = Prompt_Factory::make_mailer( $batch );
 		

@@ -173,7 +173,7 @@ class Prompt_Subscription_Mailing {
 		}
 
 		$html_template = new Prompt_Template( $template_file );
-		$text_template = new Prompt_Template( str_replace( '.php', '-text.php', $template_file ) );
+		$text_template = new Prompt_Text_Template( str_replace( '.php', '-text.php', $template_file ) );
 
 		$template_data = array(
 			'subscriber' => $prompt_subscriber->get_wp_user(),
@@ -197,14 +197,18 @@ class Prompt_Subscription_Mailing {
 
 		$post_id = ( $object instanceof Prompt_Post ) ? $object->id() : 0;
 
-		$command = new Prompt_Confirmation_Command();
-		$command->set_post_id( $post_id );
-		$command->set_user_id( $subscriber->ID );
-		$command->set_object_type( get_class( $object ) );
-		$command->set_object_id( $object->id() );
-		$command_reply_macro = Prompt_Email_Batch::trackable_address(
-			Prompt_Command_Handling::get_command_metadata( $command )
-		);
+		$reply_to = 'donotreply@gopostmatic.com';
+
+		if ( Prompt_Core::is_api_transport() ) {
+			$command = new Prompt_Confirmation_Command();
+			$command->set_post_id( $post_id );
+			$command->set_user_id( $subscriber->ID );
+			$command->set_object_type( get_class( $object ) );
+			$command->set_object_id( $object->id() );
+			$reply_to = Prompt_Email_Batch::trackable_address(
+				Prompt_Command_Handling::get_command_metadata( $command )
+			);
+		}
 
 		$batch_data = array(
 			'to_name' => $subscriber->display_name,
@@ -213,7 +217,7 @@ class Prompt_Subscription_Mailing {
 			'subject' => $subject,
 			'html_content' => $html_template->render( $template_data ),
 			'text_content' => $text_template->render( $template_data ),
-			'reply_to' => $command_reply_macro,
+			'reply_to' => $reply_to,
 			'welcome_message' => Prompt_Core::$options->get( 'subscriber_welcome_message' ),
 			'footnote_html' => $footnote_html,
 			'footnote_text' => $footnote_text,
@@ -276,15 +280,20 @@ class Prompt_Subscription_Mailing {
 			$prompt_post->subscription_object_label()
 		);
 
+		$reply_to = 'donotreply@gopostmatic.com';
+		if ( Prompt_Core::is_api_transport() ) {
+			$reply_to = Prompt_Email_Batch::trackable_address(
+				Prompt_Command_Handling::get_comment_command_metadata( $subscriber->ID, $prompt_post->id() )
+			);
+		}
+
 		$batch_data = array(
 			'to_address' => $subscriber->user_email,
 			'message_type' => Prompt_Enum_Message_Types::SUBSCRIPTION,
 			'subject' => sprintf( __( 'You\'ve rejoined %s', 'Postmatic' ), $prompt_post->subscription_object_label() ),
 			'html_content' => $html_template->render( $template_data ),
 			'text_content' => $text_template->render( $template_data ),
-			'reply_to' => Prompt_Email_Batch::trackable_address(
-				Prompt_Command_Handling::get_comment_command_metadata( $subscriber->ID, $prompt_post->id() )
-			),
+			'reply_to' => $reply_to,
 			'welcome_back_message' => sprintf(
 				__( 'Welcome back, <span class="capitalize">%s</span>.', 'Postmatic' ),
 				$subscriber->display_name
@@ -358,18 +367,21 @@ class Prompt_Subscription_Mailing {
 			$list
 		);
 
-		$unsubscribe_mailto = sprintf(
-			'mailto:{{{reply_to}}}?subject=%s&body=%s',
-			rawurlencode( __( 'Press send to confirm', 'Postmatic' ) ),
-			rawurlencode( Prompt_Unsubscribe_Matcher::target() )
-		);
-		$unsubscribe_format = __( 'To unsubscribe at any time reply with the word \'%s\'.', 'Postmatic' );
+		if ( Prompt_Core::is_api_transport() ) {
 
-		$html_parts[] = sprintf(
-			$unsubscribe_format,
-			"<a href=\"$unsubscribe_mailto\">" . Prompt_Unsubscribe_Matcher::target() . '</a>'
-		);
-		$text_parts[] = sprintf( $unsubscribe_format, Prompt_Unsubscribe_Matcher::target() );
+			$unsubscribe_mailto = sprintf(
+				'mailto:{{{reply_to}}}?subject=%s&body=%s',
+				rawurlencode( __( 'Press send to confirm', 'Postmatic' ) ),
+				rawurlencode( Prompt_Unsubscribe_Matcher::target() )
+			);
+			$unsubscribe_format = __( 'To unsubscribe at any time reply with the word \'%s\'.', 'Postmatic' );
+
+			$html_parts[] = sprintf(
+				$unsubscribe_format,
+				"<a href=\"$unsubscribe_mailto\">" . Prompt_Unsubscribe_Matcher::target() . '</a>'
+			);
+			$text_parts[] = sprintf( $unsubscribe_format, Prompt_Unsubscribe_Matcher::target() );
+		}
 
 		return array( implode( ' ', $html_parts ), implode( ' ', $text_parts ) );
 	}

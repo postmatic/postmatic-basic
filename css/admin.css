@@ -53,8 +53,8 @@
   font-weight: bold; }
 
 h2#prompt-settings-header {
-  background: url(../media/postmatic.png) no-repeat top center;
-  background-size: 210px;
+  background: url(../media/replyable.png) no-repeat top left;
+  background-size: 250px;
   height: 65px;
   margin-bottom: 10px;
   margin-top: 30px; 
@@ -74,42 +74,6 @@ h2#prompt-settings-header span {
   color: #3EC0C6;
   font-weight: normal;
   font-size: 150%; }
-
-.get-prompt-key a.button-primary {
-    float: left;
-    margin-right: 10px;
-}
-.wrap.signup a {
- }
-.wrap.signup .error a {
-  color: #29bfc7; }
-.wrap.signup table, .wrap.signup .description {
-}
-.wrap.signup h2 {
-}
-.wrap.signup h2, .wrap.signup label, .wrap.signup th {
- }
-.wrap.signup th {
-  width: 75px;
-  display: block;
-  float: left; }
-.form-table {clear: none;}
-.wrap.signup .form-table tr {
-  display: block;
-  float: left;
-  width: 38%;
-  margin-right: 3%; }
-.wrap.signup .form-table td {
-  width: 100%; }
-
-.get-prompt-key {
-  padding: 25px 50px;}
-
-.get-prompt-key h1 {
-}
-
-.get-prompt-key p {
-  font-size: 110%; }
 
 input.regular-text {
   width: 100%; }
@@ -287,14 +251,18 @@ h2#trial a {
 .welcome {
   padding: 3% 5%;
   line-height: 190%;
-  border: 1px double #ddd;
   margin-bottom: 25px;
-  background: #eee;
-  text-align: left; }
+  text-align: center; }
 
 .welcome p {
   font-size: 100%;
-  font-style: italic; }
+  font-style: italic; 
+  text-align: center;
+}
+  
+.welcome h2 {
+  text-align: center;
+}
 
 #manage-account {float: right;}
 
@@ -633,7 +601,7 @@ input#digest_name {
 
 
 .intro-text {
-  text-align: center;
+  text-align: left;
   clear: left;
 }
 
@@ -642,6 +610,7 @@ input#digest_name {
   color: #E85E43;
   font-family: serif;
   font-weight:normal;
+  margin-top: 0;
 }
 .intro-text p {
   font-size: 120%;
@@ -668,7 +637,6 @@ ul.ui-tabs-nav li {
 
 ul.ui-tabs-nav a {
     padding: 0.5rem 0.75rem;
-    max-width: 140px;
     font-size: 80%;
     font-weight: bold;
     text-decoration: none;
@@ -690,37 +658,26 @@ ul.ui-tabs-nav li.ui-state-active a,ul.ui-tabs-nav li a:hover {
   border-top: 1px solid #43C0C7;
 }
 
-.chooser, .local-transport fieldset.chooser:nth-child(5) {
-    margin: 1%;
-    width: 30%;
-    float: left;
-    background:#FCFCFC;
-    padding-bottom: 2%;
-    border: 1px solid #EAEAEA;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+ul.ui-tabs-nav li#prompt-tab-upgrade a {
+  background: #D54E21;
+  border: 1px solid #FA5923;
 }
 
-fieldset.chooser:nth-child(5) label {
-  float: none !important;
+ ul.ui-tabs-nav li#prompt-tab-upgrade.ui-state-active a {
+  background: #D54E21;
+  border: 1px solid #FA5923;
+ }
+
+.chooser {
 }
+
 
 .chooser legend {
-    color: #fff;
-    background:#454545;
+    color: #454545;
     display: block;
-    /*width: 94%;*/
     padding: 10px 20px;
-    font-size: 110%;
+    font-size: 150%;
     margin-bottom: 15px;
-    margin-left: -1px;
-    -webkit-border-top-left-radius: 5px;
-    -webkit-border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 .chooser label, .local-transport fieldset.chooser:nth-child(5) label, .local-transport fieldset.chooser:nth-child(5) label:nth-child(2) {
@@ -774,8 +731,18 @@ fieldset.chooser:nth-child(5) label:nth-child(2) {
 
 
 fieldset.chooser aside {
-  padding: 5px 5%;
-  font-size: 85%;
+    font-size: 95%;
+    width: 41%;
+    float: left;
+    margin: 2%;
+    border: 1px solid #ddd;
+    background: white;
+    padding: 0 2% 2% 2%;
+    min-height: 180px;
+}
+
+fieldset.chooser aside a.button {
+
 }
 
 fieldset.chooser aside h3 {
@@ -844,8 +811,12 @@ div#fs_connect {
 }
 .fs-visual {
     height: 150px !important;
-    background: white url(../media/postmatic.png) center no-repeat !important;
+    background: white url(../media/replyable.png) center no-repeat !important;
     background-size: 400px !important;
+}
+
+#fs_connect {
+  background: white;
 }
 
 #checking-connection, #bad-connection {
@@ -939,7 +910,7 @@ tr.email-header-image img {
 }
 
 .labslist h3, .intro-text h3 {
-    color:#2ecc71;
+    color:#464646;
 }
 
 a.button.download, a.button.install{
@@ -1002,9 +973,9 @@ a.button.download:hover, a.button.install:hover {
   cursor: pointer;
 }
 
-div#core-options-promo {
+div#core-options-promo, #core-options-promo-paid {
     margin: -37px 0 25px 0;
-    padding: 10% 8%;
+    padding: 50px 8% 10% 8%;
     border-top: 1px solid #E7E7E7;
     border-bottom: 1px solid #E7E7E7;
     background: url(../media/hero.jpg) top center no-repeat;
@@ -1014,7 +985,7 @@ div#core-options-promo {
   text-align: center;
 }
 
-div#core-options-promo p {
+div#core-options-promo p, #core-options-promo-paid p {
     margin-bottom: 35px;
     font-size: 120%;
 }
@@ -1038,18 +1009,33 @@ div#core-options-promo p {
 }
 
 div#core-options-promo h2 {
-  width: 100%;
-  height: 71px;
-  background: url(../media/story.png) top center no-repeat;
-  background-size: 593px;
+    width: 100%;
+    height: 160px;
+    background: url(../media/story.png) top center no-repeat;
+    background-size: 100%;
 }
 
-div#core-options-promo h2 span {
+div#core-options-promo-paid h3 {
+    width: 100%;
+    height: 160px;
+    background: url(../media/thanks.png) top center no-repeat;
+    background-size: 60%;
+}
+
+div#core-options-promo h2 span, #core-options-promo-paid h3 span {
   display: none;
+}
+
+#core-options-promo-paid a {
+  color: white;
 }
 
 .scr-import {
   text-align: left;
+}
+
+#prompt-settings-import-subscribe-reloaded h3 {
+  color: #27ae60;
 }
 
 #notes-promo div.intro-text {
@@ -1187,4 +1173,100 @@ div.intro-text a.thickbox.video {
 
 div.intro-text a.thickbox.video span {
   display: block;
+}
+
+.wrap {
+  padding: 1% 5% 2% 2%;
+  width: auto;
+  margin: 0;
+}
+
+/*replyable upgrade page*/
+#plans h2 {
+    font-size: 300%;
+    line-height: normal;
+    padding: 0;
+    margin-top: 0;
+    font-weight: normal;
+    color: #21759B;
+}
+
+#plans ul li {
+    list-style: circle;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 150%;
+}
+
+#plans {
+    margin-top: 45px
+}
+
+#plans h1 {
+    text-align: center;
+    font-size: 350%;
+    color: #D54E21;
+}
+
+.left, .right {
+    margin: 3%;
+    border-bottom: 1px dashed #F6BDAA;
+    padding: 4% 0;
+}
+
+.left h2 {
+    float: left;
+    width: 35%;
+    clear: both;
+    margin-right: 5%; 
+}
+
+.right h2 {
+    float: right;
+    width: 35%;
+    clear: both;
+    margin-left: 5%; 
+}
+
+.right ul {
+    margin-right: 40%;
+    clear: left;
+}
+
+.left ul {
+    margin-left: 40%;
+    clear: right;
+}
+
+#goupgrade {
+    clear: both;
+    margin: 2% 0;
+    background: #D54E21;
+    color: #fff;
+    padding: 2%;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+
+}
+
+#goupgrade a.btn-regular {
+    display: block;
+    margin-top: 10px;
+}
+
+#goupgrade p {
+     font-size: 120%;
+}
+
+.passive {
+    border: 3px dashed #D54E21;
+    background: white;
+    padding:2%;
+    margin-bottom: 25px;
+}
+
+div#prompt-settings-core p.submit {
+    display: none;
 }

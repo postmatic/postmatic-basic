@@ -3,82 +3,124 @@
 /**
  * Freemius integration
  * @since 2.0.0
+ * @since 2.1.0 Made instantiable.
  */
-class Prompt_Freemius {
+class Prompt_Freemius implements Prompt_Interface_License_Status {
 
 	/**
 	 * @since 2.0.0
 	 * @var Freemius
 	 */
-	protected static $freemius;
+	protected $freemius;
+
+	/**
+	 * @since 2.1.0
+	 * @var Prompt_Options
+	 */
+	protected $options;
+
+	/**
+	 * Instantiate Freemius integration.
+	 * @since 2.1.0
+	 * @param Prompt_Options $options Plugin options.
+	 */
+	public function __construct( Prompt_Options $options ) {
+		$this->options = $options;
+		$this->freemius = null;
+	}
 
 	/**
 	 * @since 2.0.0
 	 * @return bool
 	 */
-	public static function is_loaded() {
-		return isset( self::$freemius );
+	public function is_loaded() {
+		return ! is_null( $this->freemius );
 	}
 
 	/**
 	 * @since 2.0.0
-	 * @return null
 	 */
-	public static function load() {
+	public function load() {
 
-		if ( self::is_loaded() ) {
+		if ( $this->is_loaded() ) {
 			return null;
 		}
 
 		require_once Prompt_Core::$dir_path . '/vendor/freemius/wordpress-sdk/start.php';
 
-		self::$freemius = fs_dynamic_init( array(
+		$defaults = array(
 			'id' => '164',
 			'slug' => 'postmatic',
+			'type' => 'plugin',
 			'public_key' => 'pk_3ecff09a994aaeb35de148a63756e',
+			'is_live' => true,
 			'is_premium' => false,
+			'has_premium_version' => false,
 			'has_addons' => false,
-			'has_paid_plans' => false,
+			'has_paid_plans' => true,
 			'menu' => array(
 				'slug' => 'postmatic',
-				'contact' => false,
-				'account' => false,
 				'support' => false,
 				'parent' => array(
 					'slug' => 'options-general.php',
 				),
 			),
+			'trial' => array(
+				'days' => 7,
+				'is_require_payment' => true,
+			),
+		);
+
+		$init_data = defined( 'POSTMATIC_FREEMIUS_INIT' ) ? unserialize( POSTMATIC_FREEMIUS_INIT ) : array();
+
+		$init_data = array_replace_recursive( $defaults, $init_data );
+
+		$this->freemius = fs_dynamic_init( $init_data );
+
+		$this->freemius->override_i18n( array(
+			'opt-in-connect' => __( 'Two-way conversations', 'Postmatic' ),
+			'skip' => __( 'One-way notifications', 'Postmatic' ),
 		) );
 
-		self::$freemius->add_filter( 
-			'connect_message_on_update', 
-			array( __CLASS__, 'custom_connect_message_on_update' ), 
-			10, 
+		$this->freemius->add_filter(
+			'connect_message',
+			array( $this, 'custom_connect_message' ),
+			10,
+			6
+		);
+
+		$this->freemius->add_filter(
+			'connect_message_on_update',
+			array( $this, 'custom_connect_message' ),
+			10,
 			6
 		);
 		
-		self::$freemius->add_action(
+		$this->freemius->add_action(
 			'after_account_connection',
-			array( __CLASS__, 'after_account_connection' ),
+			array( $this, 'after_account_connection' ),
 			10,
 			2
 		);
 		
-		self::$freemius->add_action( 'after_account_delete', array( __CLASS__, 'after_account_delete' ) );
+		$this->freemius->add_action( 'after_account_delete', array( $this, 'after_account_delete' ) );
+
+		$this->freemius->add_filter( 'sticky_message_trial_started', array( $this, 'sticky_message_trial_started' ) );
 	}
 
 	/**
 	 * Use our own connect message.
+	 *
 	 * @since 2.0.0
-	 * @param $message
-	 * @param $user_first_name
-	 * @param $plugin_title
-	 * @param $user_login
-	 * @param $site_link
-	 * @param $freemius_link
+	 * @param string $message
+	 * @param string $user_first_name
+	 * @param string $plugin_title
+	 * @param string $user_login
+	 * @param string $site_link
+	 * @param string $freemius_link
 	 * @return string
 	 */
-	public static function custom_connect_message_on_update(
+	public function custom_connect_message(
 		$message,
 		$user_first_name,
 		$plugin_title,
@@ -87,9 +129,10 @@ class Prompt_Freemius {
 		$freemius_link
 	) {
 		return sprintf(
-			__fs( 'hey-x' ) . ' just a quick request:<br>' .
+			__fs( 'hey-x' ) . ' commenting is about to get awesome around here!<br>' .
 			__(
-				'Help us improve Postmatic by sharing usage statistics with us? It will help with shaping our roadmap as well as offering you support - <strong>plus we\'ll send you a coupon for 10%% off your first 6 months of paid Postmatic service.</strong><br /><br /> Feel free to skip. Postmatic will still be fully functional.',
+				'Replyable lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters hit reply to send a followup comment and keep the conversation going.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $2.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
+				,
 				'Postmatic'
 			),
 			$user_first_name,
@@ -106,8 +149,8 @@ class Prompt_Freemius {
 	 * @param FS_User $user
 	 * @param FS_Site $site
 	 */
-	public static function after_account_connection( $user, $site ) {
-		\Prompt_Core::$options->set( 'enable_collection', true );
+	public function after_account_connection( $user, $site ) {
+		$this->options->set( 'enable_collection', true );
 		Prompt_Event_Handling::record_environment();
 	}
 
@@ -116,7 +159,61 @@ class Prompt_Freemius {
 	 * Disable our data collection on freemius deactivation.
 	 * @since 2.0.0
 	 */
-	public static function after_account_delete() {
-		\Prompt_Core::$options->set( 'enable_collection', false );
+	public function after_account_delete() {
+		$this->options->set( 'enable_collection', false );
+	}
+
+	/**
+	 * Customize the trial started sticky message.
+	 *
+	 * @since 2.1.0
+	 * @param string $message
+	 * @return string
+	 */
+	public function sticky_message_trial_started( $message ) {
+		return __( 'Great, your trial has started!', 'Postmatic' );
+	}
+
+	/**
+	 * Whether a premium license is in effect.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	public function is_paying() {
+		return $this->freemius->is_paying();
+	}
+
+	/**
+	 * Whether a trial is available to start.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	public function is_trial_available() {
+		return ! $this->freemius->is_trial_utilized();
+	}
+
+	/**
+	 * Whether a trial has started but not expired.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	public function is_trial_underway() {
+		return $this->freemius->is_trial();
+	}
+
+
+	/**
+	 * Whether the site is still pending activation.
+	 *
+	 * When this is the case, license data is not yet available.
+	 *
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	public function is_pending_activation() {
+		return $this->freemius->is_pending_activation();
 	}
 }

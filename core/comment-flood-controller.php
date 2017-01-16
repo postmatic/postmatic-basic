@@ -112,6 +112,7 @@ class Prompt_Comment_Flood_Controller {
 		$template_data = array(
 			'post' => $this->prompt_post,
 			'comment_header' => true,
+			'is_api_delivery' => Prompt_Core::is_api_transport(),
 		);
 		/**
 		 * Filter comment email template data.
@@ -145,18 +146,24 @@ class Prompt_Comment_Flood_Controller {
 
 			$subscriber = get_userdata( $recipient_id );
 
-			if ( !$subscriber or !$subscriber->user_email )
+			if ( !$subscriber or !$subscriber->user_email ) {
 				continue;
+			}
 
-			$command = new Prompt_Comment_Flood_Command();
-			$command->set_post_id( $this->prompt_post->id() );
-			$command->set_user_id( $recipient_id );
+			$reply_to = 'donotreply@gopostmatic.com';
+
+			if ( Prompt_Core::is_api_transport() ) {
+				$command = new Prompt_Comment_Flood_Command();
+				$command->set_post_id( $this->prompt_post->id() );
+				$command->set_user_id( $recipient_id );
+				$reply_to = Prompt_Email_Batch::trackable_address(
+					Prompt_Command_Handling::get_command_metadata( $command )
+				);
+			}
 
 			$batch->add_individual_message_values( array(
 				'to_address' => $subscriber->user_email,
-				'reply_to' => Prompt_Email_Batch::trackable_address(
-					Prompt_Command_Handling::get_command_metadata( $command )
-				),
+				'reply_to' => $reply_to,
 			) );
 
 		}

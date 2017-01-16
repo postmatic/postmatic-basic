@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c1ef7a724e451709b7653ce386ee81b8",
-    "content-hash": "945597fcc7af61614b1b18a2be4451b1",
+    "hash": "92d62df6c75f9debfec4c80cb58a046d",
+    "content-hash": "075cc46b33ec4143c092330757ceb6ed",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -42,23 +42,22 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "1.1.9",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "97bd4dd73a3a46853a7cb417de752fd3a396248a"
+                "reference": "c5e7e5e87b3f55bed1dbd8f2afe7f385a42b12cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/97bd4dd73a3a46853a7cb417de752fd3a396248a",
-                "reference": "97bd4dd73a3a46853a7cb417de752fd3a396248a",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/c5e7e5e87b3f55bed1dbd8f2afe7f385a42b12cb",
+                "reference": "c5e7e5e87b3f55bed1dbd8f2afe7f385a42b12cb",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
             "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-2.0+"
             ],
@@ -70,53 +69,105 @@
                 "sdk",
                 "wordpress"
             ],
-            "time": "2016-06-10 22:03:56"
+            "support": {
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
+                "issues": "https://github.com/Freemius/wordpress-sdk/issues"
+            },
+            "time": "2017-01-13 22:48:29"
         },
         {
-            "name": "mailchimp/mailchimp",
-            "version": "dev-master",
+            "name": "postmatic/comment-iq-api-client",
+            "version": "0.1.1",
             "source": {
                 "type": "git",
-                "url": "https://bitbucket.org/mailchimp/mailchimp-api-php.git",
-                "reference": "03ae0dba64d1a902fb4d76004ef12c8391ededc8"
+                "url": "https://github.com/postmatic/comment-iq-api-client.git",
+                "reference": "839d8b5fa9048f4439c76206afd5c6adb31eb940"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/mailchimp/mailchimp-api-php/get/03ae0dba64d1a902fb4d76004ef12c8391ededc8.zip",
-                "reference": "03ae0dba64d1a902fb4d76004ef12c8391ededc8",
+                "url": "https://api.github.com/repos/postmatic/comment-iq-api-client/zipball/839d8b5fa9048f4439c76206afd5c6adb31eb940",
+                "reference": "839d8b5fa9048f4439c76206afd5c6adb31eb940",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.2.0"
+                "php": ">=5.3.3"
             },
             "require-dev": {
-                "apigen/apigen": "dev-master"
+                "wp-coding-standards/wpcs": "^0.10.0"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Mailchimp": "src/"
+                "psr-4": {
+                    "Postmatic\\CommentIQ\\": "psr-4"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT"
+                "GPL-2.0+"
             ],
             "authors": [
                 {
-                    "name": "MailChimp Devs",
-                    "email": "api@mailchimp.com",
-                    "homepage": "http://mailchimp.com",
+                    "name": "Carl Alexander",
+                    "email": "contact@carlalexander.ca"
+                },
+                {
+                    "name": "Dylan Kuhn",
+                    "email": "dylan@gopostmatic.com"
+                }
+            ],
+            "description": "A WordPress client for the CommentIQ HTTP API",
+            "homepage": "https://github.com/postmatic/comment-iq-api-client",
+            "keywords": [
+                "api",
+                "commentiq"
+            ],
+            "time": "2016-11-15 18:40:50"
+        },
+        {
+            "name": "postmatic/commentium",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/postmatic/commentium.git",
+                "reference": "3cf8b80e8e11694a3f6b3739e9b12c52481313b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/3cf8b80e8e11694a3f6b3739e9b12c52481313b5",
+                "reference": "3cf8b80e8e11694a3f6b3739e9b12c52481313b5",
+                "shasum": ""
+            },
+            "require": {
+                "postmatic/comment-iq-api-client": "^0.1.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Postmatic\\Commentium\\": "source"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Postmatic\\Commentium\\Unit_Tests\\": "tests/phpunit"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Postmatic",
+                    "homepage": "https://gopostmatic.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Dylan Kuhn",
+                    "homepage": "http://www.cyberhobo.net",
                     "role": "Developer"
                 }
             ],
-            "description": "API client library for the MailChimp bulk email as a service platform",
-            "homepage": "https://bitbucket.org/mailchimp/mailchimp-api-php",
-            "keywords": [
-                "api",
-                "email"
-            ],
-            "time": "2015-03-23 21:00:25"
+            "support": {
+                "source": "https://github.com/postmatic/commentium/tree/master",
+                "issues": "https://github.com/postmatic/commentium/issues"
+            },
+            "time": "2016-12-30 22:04:57"
         },
         {
             "name": "scribu/scb-framework",
@@ -299,16 +350,16 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.6.1",
+            "version": "4.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3"
+                "reference": "6a6a20e568db37fb501fe9deb75ed2a8600d1b30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
-                "reference": "aca8da84b4a699b16b8bcc96d2bc794a4c7b5ae3",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/6a6a20e568db37fb501fe9deb75ed2a8600d1b30",
+                "reference": "6a6a20e568db37fb501fe9deb75ed2a8600d1b30",
                 "shasum": ""
             },
             "require": {
@@ -332,7 +383,7 @@
                 "blog",
                 "cms"
             ],
-            "time": "2016-09-07 15:01:47"
+            "time": "2017-01-11 17:46:47"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
@@ -647,16 +698,16 @@
         },
         {
             "name": "phpunit/php-token-stream",
-            "version": "1.4.8",
+            "version": "1.4.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da"
+                "reference": "3b402f65a4cc90abf6e1104e388b896ce209631b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
-                "reference": "3144ae21711fb6cac0b1ab4cbe63b75ce3d4e8da",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/3b402f65a4cc90abf6e1104e388b896ce209631b",
+                "reference": "3b402f65a4cc90abf6e1104e388b896ce209631b",
                 "shasum": ""
             },
             "require": {
@@ -692,7 +743,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2015-09-15 10:49:45"
+            "time": "2016-11-15 14:06:22"
         },
         {
             "name": "phpunit/phpunit",
@@ -868,22 +919,22 @@
         },
         {
             "name": "sebastian/comparator",
-            "version": "1.2.0",
+            "version": "1.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/comparator.git",
-                "reference": "937efb279bd37a375bcadf584dec0726f84dbf22"
+                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/937efb279bd37a375bcadf584dec0726f84dbf22",
-                "reference": "937efb279bd37a375bcadf584dec0726f84dbf22",
+                "url": "https://api.github.com/repos/sebastianbergmann/comparator/zipball/6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
+                "reference": "6a1ed12e8b2409076ab22e3897126211ff8b1f7f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "sebastian/diff": "~1.2",
-                "sebastian/exporter": "~1.2"
+                "sebastian/exporter": "~1.2 || ~2.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.4"
@@ -928,7 +979,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2015-07-26 15:48:44"
+            "time": "2016-11-19 09:18:40"
         },
         {
             "name": "sebastian/diff",
@@ -1101,16 +1152,16 @@
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "1.0.2",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791"
+                "reference": "938df7a6478e72795e5f8266cff24d06e3136f2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/913401df809e99e4f47b27cdd781f4a258d58791",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/938df7a6478e72795e5f8266cff24d06e3136f2e",
+                "reference": "938df7a6478e72795e5f8266cff24d06e3136f2e",
                 "shasum": ""
             },
             "require": {
@@ -1150,7 +1201,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11 19:50:13"
+            "time": "2016-11-15 06:55:36"
         },
         {
             "name": "sebastian/version",
@@ -1189,16 +1240,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.12",
+            "version": "v2.8.16",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c"
+                "reference": "dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
-                "reference": "e7540734bad981fe59f8ef14b6fc194ae9df8d9c",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2",
+                "reference": "dbe61fed9cd4a44c5b1d14e5e7b1a8640cfb2bf2",
                 "shasum": ""
             },
             "require": {
@@ -1234,7 +1285,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-02 01:57:56"
+            "time": "2017-01-03 13:49:52"
         },
         {
             "name": "tedivm/jshrink",
@@ -1288,8 +1339,9 @@
     "stability-flags": {
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
-        "mailchimp/mailchimp": 20,
         "xamin/handlebars.php": 20,
+        "freemius/wordpress-sdk": 20,
+        "postmatic/commentium": 20,
         "rosio/wordpress-i18n-tools": 20
     },
     "prefer-stable": false,

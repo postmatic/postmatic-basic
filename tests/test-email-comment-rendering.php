@@ -32,5 +32,22 @@ class EmailCommentRenderingTest extends \WP_UnitTestCase {
 			'Expected no contextual class in child content.'
 		);
 	}
-	
+
+	public function test_local_rendering() {
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array(
+			'comment_post_ID' => $post_id,
+		) );
+
+		ob_start();
+		Prompt_Email_Comment_Rendering::render( $comment, array(), 0 );
+		$content = ob_get_clean();
+
+		$this->assertNotContains(
+			'mailto:',
+			$content,
+			'Expected to mailto links in local rendering.'
+		);
+
+	}
 }

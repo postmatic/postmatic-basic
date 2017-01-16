@@ -46,8 +46,8 @@ class ConfirmationCommandTest extends Prompt_MockMailerTestCase {
 		$message = new stdClass();
 		$message->message = $comment_text;
 
-		$prompt_site = new Prompt_Site();
-		$prompt_site->subscribe( $subscriber_id );
+		$prompt_site_comments = new Prompt_Site_Comments();
+		$prompt_site_comments->subscribe( $subscriber_id );
 
 		$this->mailer_expects = $this->never();
 
@@ -55,12 +55,12 @@ class ConfirmationCommandTest extends Prompt_MockMailerTestCase {
 		$command->set_post_id( 0 );
 		$command->set_user_id( $subscriber_id );
 		$command->set_object_type( 'Prompt_Site' );
-		$command->set_object_id( $prompt_site->id() );
+		$command->set_object_id( $prompt_site_comments->id() );
 		$command->set_message( $message );
 		$command->execute();
 
 		$this->assertTrue(
-			$prompt_site->is_subscribed( $subscriber_id ),
+			$prompt_site_comments->is_subscribed( $subscriber_id ),
 			'Expected subscriber to remain subscribed to site.'
 		);
 

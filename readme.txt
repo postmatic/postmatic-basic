@@ -1,159 +1,94 @@
-=== Postmatic Basic - Subscribe to Comments & Posts. And simply reply. ===
+=== Subscribe to Comments and Reply via Email ===
 Contributors: vernal, cyberhobo
-Tags: email, notification, subscribe, subscription, email, subscribe to comments, commenting, reply, email, optins, popups, optin forms, subscribe form, subscriptions, newsletter, newsletters, email newsletter, email subscription, post notification, email subscription, mailchimp, mailgun, email commenting, reply to email, email replies, engagement, invitations
-Requires at least: 4.3
-Tested up to: 4.6.1
+Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
+Requires at least: 4.4
+Tested up to: 4.7.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Relationships are a two-way street. WordPress email can be too.
+Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replyable.
 
 == Description ==
 
-= Blog engagement is only as limited as the technology which powers it. =
-Postmatic Basic sends beautiful replyable emails for post and native comment subscriptions. 
+**Important info for existing users**: Postmatic Basic is now Replyable. The [feature set has changed](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable) to focus singularly on being the best *subscribe to comments* experience for WordPress. If you would like to continue using the same features you enjoyed with Postmatic Basic you may do so by switching to [Postmatic Labs](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable).
+
+Take *Subscribe to Comments*. Now, make it smart. And beautiful. And a good listener that accepts replies. That's Replyable, and it's built by Postmatic.
+
+= Comment subscriptions reimagined - for better SEO, better conversations, and easier comment management =
+
+**Replyable is smart**: Not all comments are created equal. Some are thoughtful, relevant, and worth sharing. Others are just a waste of time. Replyable lets your users subscribe to comments without fear - only the best comments will be sent via email.
+
+**Replyable is aware**: Nobody will get too much email. As conversations get busy comments will be combined into a daily digest. *Subscribe to comments* is finally safe again.
+
+**Replyable listens**: Reply to any email sent from Replyable to post your response as a followup comment. No forms, no websites. It works online or offline, from anywhere. And to make comment moderation easier, authors can moderate comments with simple email commands.
+
+**Replyable plays wells with others**: Replyable is compatible with all other WordPress comment plugins including Epoch, wpDiscuz, Inline Comments, Commentluv, and your current antispam and moderation workflows.
 
 The days of one-way notifications are over. It’s time to let them hit reply.
 
-Postmatic lets your readers subscribe by email when they leave a comment. Subsequent comments and replies will land in their inbox, just like with _Mailpoet_, _Jetpack_ or _Subscribe to Comments_. **Except now with Postmatic, they can comment back and keep the conversation going just by hitting reply**. They never have to leave their inbox.
+[Visit our website to learn more](http://replyable.email/features)
 
-Online or offline, everyone stays in the loop—regardless of desktop or mobile.
+= Core Features =
 
-= Your posts and comments delivered to their inbox. =
-= Their comments delivered through a simple reply. =
-= That’s how the conversation gets started. That’s how you increase engagement. =
+* Subscribe to Comments modernized - rock-solid comment subscriptions which comply with *all international spam laws*.
+* Onc-click migration from legacy *Subscribe to Comments* plugins.
+* Comment subscriptions reimagined - Our notifications bring along profile images, gravatars, post recaps, and display the comment in context of the larger conversation.
+* Responsive templates - rich html-based comment templates that look great on both desktop and mobile displays.
+* Fully branded, auto-adapting templates which magically mimic your active theme - it's true. Our email templates self-adjust to match the colors, images, and typography of your theme. It's kind of nuts.
+* Replyable strictly adheres to WordPress best practices. It uses the native commenting and user systems. We’re just a magical email gateway.
+* Automatic pausing of subscriptions on chatty posts - if too many comments are happening at once subscriptions will automatically be placed on pause the users notified. They can resume their subscription with a simple command. 
 
-Postmatic can also deliver your WordPress posts to readers as a beautiful mobile-ready html email.  
-And they can comment just by hitting reply. No accounts. No forms.  
-No browsers. Easy.
+= Premium Features (starting at $2.99/month, 30 day free trial) =
 
-[Visit gopostmatic.com to learn more](http://gopostmatic.com/basic)
+* Reply to comments without leaving your inbox - reply to any comment notification to post a followup comment. Even when offline.
+* Automatic author subscriptions - Choose to have authors and guest authors automatically subscribed to comments on their own posts. Replyable will deliver the most relevant and thoughtful comments via email (no *nice post, dude* notices here), and of course let them reply to send a response.
+* Moderation as a shared task - Authors can also moderate comments with simple email commands such as approve, spam, or trash. Or, just reply with a response and the comment will be approved and the reply posts, all without touching WordPress.
+* Comment Intelligence - Replyable recognizes the quality and relevance of comments and only sends the best to people who have subscribed. Comment content is scored for relevance, length, reading level, and sentiment. If it doesn’t add to the conversation, it’ll be held back and only included in a daily recap.
+* Subscription scaling for any size community - Email is great – but too much of it can be a drag. Replyable throttles notifications on chatty posts to meet the needs of the conversation. When things are quiet subscribers receive new comments as they happen. If there are more than a few new comments in the same day email is held back and grouped together into a what’s new daily digest. Best of all, direct replies are always sent immediately to keep side conversations going without bothering the larger group.
+* Outbound email delivery - stop worrying about host throttling, spam filters, and deliverability. All Replyable notices are sent via our servers and include guaranteed delivery.
+* Affordable plans for any site.
 
-= Key Features =
 
-* Postmatic strictly adheres to WordPress best practices. It uses the native commenting and user systems. We’re just a magical email gateway.
-* Start building your subscriber list with 35 different Optins including popups, top bars, sliders, and after-the-post.
-* Posts are converted into fully responsive html emails on the fly.
-* Users can reply to new post notifications to leave a comment.
-* Replies are posted as comments in as little as 6 seconds.
-* Users commenting from your posts can subscribe to new comment notifications and reply to each to send back a response.
-* Single-click migration tools for Jetpack, MailPoet, and Mailchimp lists as well as Subscribe to Comments and Subscribe to Comments Reloaded subscriptions.
-* We’re serious about privacy and doing the right thing. We do not profile users, run ads, or sell data in any way and maintain a very strict [privacy](http://gopostmatic.com/privacy) policy.
-* This Basic version of Postmatic, which brings 100% email commenting to WordPress, is free without limits. To learn about enhanced features for publishers please visit [our website](http://gopostmatic.com).
+We’re serious about privacy and doing the right thing. We do not profile users, run ads, or sell data in any way and maintain a very strict [privacy](http://replyable.email/privacy) policy.
 
 == Frequently Asked Questions ==
 
+= What is the difference between Postmatic and Replyable? Which is right for me? =
+Think of Replyable as Postmatic's over-achieving little sister. Same tech, same people, just smaller and, well, more focused. We took the most-loved features from Postmatic, refined them, and then dropped the price by 85%. Hooray!
+
+Replyable brings all of the *commenting* features from Postmatic. No delivery of posts, automatic digests, or newsletters. No optin forms. No webhooks, integrations, or otherwise. Just perfect comment subscriptions for instant gains in SEO, engagement, and  conversations.
+
+= I already use the paid version Postmatic. Can I switch to Replyable? =
+The choice is yours. If you already use Postmatic and want to stick with it you can. It contains everything you'll find in Replyable, in addition to optins, content delivery, newsletters, digests, webhooks, and more. If none of that stuff matters to you just cancel your Postmatic service, disable the plugin, and enable Replyable instead. Your previous Postmatic comment subscriptions will work without a hitch.
+
+= I used to use the free version of Postmatic (Postmatic Basic). Where did it go and what should I do? =
+Postmatic Basic has been replaced by Replyable. It's safe to switch to Replyable - your previous Postmatic subscriptions will work just fine. To learn more about what has changed [visit our support site](http://replyable.helpscoutdocs.com/article/263-im-a-postmatic-basic-user-whats-different-about-replyable).
+
+= I already use Subscribe to Comments/Reloaded. Can I switch to Replyable? =
+
+Totally. Upon activation you'll be invited to migrate your Subscribe to Comments subscriptions in just one click.
+
 = This is really free? Do you sell my data or run advertising? =
 
-Yes to free. [No to bad stuff](http://gopostmatic.com/privacy). We're not in the data brokering or advertising game. Instead we're in the business of making [Postmatic](http://gopostmatic.com/features) _so good_ and _so affordable_ that you'll happily upgrade.You can help fund our development while sending your engagement through the roof by subscribing to the full version of Postmatic.
+Yes to free. [No to bad stuff](http://replyable.email/privacy). We're not in the data brokering or advertising game. Instead we're in the business of making [Replyable](http://replyable.email/features) _so good_ and _so affordable_ that you'll happily upgrade.You can help fund our development while sending your engagement through the roof by subscribing to one of our extremely affordable plans. They start at just $2.99 a month!
 
 = Is this a 3rd party commenting system? =
-Not at all. Postmatic uses native WordPress commenting. All we do is wire up some magic to turn emails into comments, then push them to your site via the WordPress api. We even have a companion plugin, [Epoch](http://wordpress.org/plugins/epoch) which will serve as a replacement for Disqus if you need to move back to native commenting.
+Not at all. Replyable uses native WordPress commenting. All we do is wire up some magic to turn emails into comments, then push them to your site via the WordPress api. We even have a companion plugin, [Epoch](http://wordpress.org/plugins/epoch) which will serve as a replacement for Disqus if you need to move back to native commenting.
 
 = How quickly do email comments post to my website =
-It takes Postmatic **six to ten seconds** after you hit send to turn your email into a WordPress comment.
+It takes Replyable **six to ten seconds** after you hit send to turn your email into a WordPress comment.
 
-Find a few hundred more answers at our [big FAQ](http://gopostmatic.com/faq/).
 
 == Screenshots ==
-1. Configure your template. The system automatically adapts to the typography and colors of your active theme.
-2. New posts are sent as simple mobile-ready emails. The user can just hit reply to send a comment. Nifty.
-3. Start growing your list using our built in optins pacakge for popups, flyover, and more.
-4. Write posts just as you always have. When you hit publish it will be sent to your subscribers. A built-in precheck alerts you if there are any post elements which may not work well in email. You can then edit an email-specific version if you wish.
-5. The post as delivered via email.
-6. Send a comment by just hitting reply from your inbox.
-7. The comment arrives to the site and is sent to the author as well as other comment subscribers. They in turn can respond by hitting reply.
-8. Comments arrive via email to your site in under 6 seconds. Postmatic uses native WordPress commenting.
-9. Comments arrive via email to your site in under 6 seconds. Postmatic uses native WordPress commenting.
-10. Postmatic is 100% compatible with all your favorite user and commenting plugins because it is fully WordPress native.
-11. The popup optin can be configured based on time, page scroll, or after the user leaves a comment.
-12. The after-the-post optin displays above the comment area. Shown in Dark.
-13. The topbar optin shows across the top of your site on all posts and pages.
-14. The bottom slider optin invites users to subscribe with a collapsible animated window.
-15.  We're serious about privacy. Your data is yours, and always will be. Postmatic uses fully-native commenting. Just think of us as a magical email > WordPress gateway.
+1. Replyable installs in seconds with zero configuration (you can play with settings if you want to, though). The only thing you'll notice is a little checkbox on your comment form.
+2. This is what Subscribe to Comments looks like. It could use a facelift. Scroll down to see the same comment notification sent by Replyable.
+3. Comment notifications for the modern day! Our templates are fully branded (your brand, not ours), adjust automatically to match your brand typography and colors, and frankly are just awesome. Notifications include gravatars, post recaps, and conversational context with inline reply buttons for each comment. Whoa.
+4. A comment moderation email. Post authors are automatically subscribed to moderate comments on their own writing. From here the author can approve/spam/trash, or both approve and reply at once with a simple email reply. All without touching WordPress.
+5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
-= 2.0.14 =
+= 2.1 =
 
-- Better detection of failed email delivery with a new admin notification if there is a continual problem.
-
-= 2.0.13 =
-
-- IMPORTANT - Big changes are coming to Postmatic Basic on December 1st. This release adds a button to your dashboard to tell you about the upgrade and explain what you need to do.
-- Fixed - Better handling of failures during the url validation process.
-
-== Changelog ==
-= 2.0.12 =
-
-- We're always finding new and fun command misspellings to recognize
-
-= 2.0.11 =
-
-- A fix for the color palette detection script. Give it a try if it wasn't working for you.
-- More checks to test local mail delivery and alert the admin if there is a problem.
-- Improved handling of 'unsubscribe' typos, including the mysterious ?unsubscribe. 
-
-= 2.0.10 =
-
-- Bug fixes
-- Better support for handlebars tags in post content
-
-= 2.0.9 =
-
-- Temporarily removed Freemius to bypass optin bugs
-
-= 2.0.8 =
-
-- Updated German translation
-- Misc bug fixes
-
-= 2.0.7 =
-
-- NEW: we added a number of video tutorials to the plugin interface
-- Fixed an issue with Freemius when logging in as an editor
-
-= 2.0.6 =
-
-- [Fixed issues with that new tooltip on mobile as well as hover issues](https://github.com/postmatic/postmatic-basic/issues/12)
-- Fixed a horrible typo in the tooltip
-- Fixed a freemius bug which was affecting logged in users.
-
-= 2.0.5 =
-
-- NEW: A tooltip on the comment form subscription checkbox gives users info about what the subscription means.
-- [Added tests for better debugging of malformed inbound messages](https://github.com/postmatic/postmatic-basic/commit/1bbb721351384a2512faec50cf9ca450c2569b33)
-
-= 2.0.4 =
-
-- [We have fixed the possibility of the invitations system going haywire on certain hosts while on the free plan](https://github.com/postmatic/postmatic-basic/commit/00662ab477e67c7ea48886303854cb5dbdf958c1)
-- [Updates to the popup modal library](https://github.com/postmatic/postmatic-basic/commit/005e134f993edb8ed5f5725fbbb8cd4982d75c32)
-- [Improved PHP 5.2 compatibility](https://github.com/postmatic/postmatic-basic/commit/69fedc90f93e9c61dedc92b591e554a6fbf063c2)
-
-= 2.0.3 =
-
-- [Fixed an issue in which Postmatic caused errors on the edit>post screen of WPML users](https://github.com/postmatic/postmatic-basic/issues/5)
-- Fixed errors with Freemius related to logged in users of the subscriber role
-- [Simplified the admin UI to get rid of jqueryui tab conflicts](https://github.com/postmatic/postmatic-basic/pull/7)
-
-= 2.0.2 =
-
-- [Fixed a bug which was leading logged-in users to unsubscribe when they thought they were subscribing](https://github.com/postmatic/postmatic-basic/commit/a1c70efdf4cce95221772b6b90a3013ca62a90d3) 
-
-= 2.0.1 =
-We have moved development to a public [Github repo](https://github.com/postmatic/postmatic-basic). This is our first atttempt at an awesome changelog which blends user-friendly info with developer-friendly code.
-
-- [Fixed a php error in admin caused by a legacy feed parser](https://github.com/postmatic/postmatic-basic/commit/05141972fe6475b2a087f0134bcde30ba2d45e15)
-- [Improved error logging](https://github.com/postmatic/postmatic-basic/commit/37fc0592955a49c38ad69f8491168b721635a63c)
-- [New banner assets](https://github.com/postmatic/postmatic-basic/commit/1615304221f87aae7391253d8b0b721ae4d3e111)
-
-= 2.0.0 =
-A complete rewrite of Postmatic Basic. We've put a ton of work into our technology and hope you enjoy it.
-
-- Postmatic now uses wp_mail for sending outgoing email.
-- The Postmatic template now automatically adapts to the colors and fonts of your active theme.
-- A brand new widget for smoother and faster subscriptions.
-- All transactional actions (subscribe/unsubscribe commands etc) are now clickable.
-- Customize the email version of your post content before it gets sent.
-
+Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://replyable.helpscoutdocs.com/article/263-im-a-postmatic-basic-user-whats-different-about-replyable). 
 
 == Upgrade Notice ==

@@ -239,26 +239,24 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 	 *
 	 * Post types not enabled in the options will have no recipients.
 	 *
+	 * @since 2.1.0 Site subscriptions removed, new posts have no recipients by default
+	 *
 	 * @return array An array of user IDs.
 	 */
 	public function recipient_ids() {
 
 		$post = $this->get_wp_post();
 
-		if ( !in_array( $post->post_type, Prompt_Core::$options->get( 'site_subscription_post_types' ) ) )
+		if ( !in_array( $post->post_type, Prompt_Core::$options->get( 'site_subscription_post_types' ) ) ) {
 			return array();
+		}
 
 		$recipient_ids = $this->cached_recipient_ids();
 
 		if ( !$recipient_ids ) {
 
-			$prompt_site = new Prompt_Site;
-			$recipient_ids = $prompt_site->subscriber_ids();
-
 			$prompt_author = new Prompt_User( $post->post_author );
-			$recipient_ids = array_unique(
-				array_merge( $recipient_ids, $prompt_author->subscriber_ids() )
-			);
+			$recipient_ids = $prompt_author->subscriber_ids();
 
 			/**
 			 * Filter the recipient ids of notifications for a post.
@@ -268,8 +266,9 @@ class Prompt_Post extends Prompt_Meta_Subscribable_Object {
 			 */
 			$recipient_ids = apply_filters( 'prompt/recipient_ids/post', $recipient_ids, $post );
 
-			if ( 'publish' == $post->post_status )
+			if ( 'publish' == $post->post_status ) {
 				update_post_meta( $post->ID, self::$recipient_ids_meta_key, $recipient_ids );
+			}
 
 		}
 

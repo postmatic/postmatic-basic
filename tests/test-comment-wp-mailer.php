@@ -47,9 +47,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 	function getMockApiClient() {
 		$this->api_mock = $this->getMock( 'Prompt_Api_Client' );
-		$this->api_mock->expects( $this->once() )
-			->method( 'post_outbound_messages' )
-			->will( $this->returnCallback( array( $this, 'verifyTrackingRequest' ) ) );
+		$this->api_mock->expects( $this->never() )->method( 'post_outbound_messages' );
 		return $this->api_mock;
 	}
 
@@ -95,24 +93,6 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		$mailer->send();
 	}
 
-	function verifyTrackingRequest( $data ) {
-		$this->assertGreaterThan( 0, count( $data->outboundMessages ), 'Expected multiple notification emails.' );
-		$this->assertEquals(
-			Prompt_Enum_Message_Types::COMMENT,
-			$data->outboundMessages[0]['type'],
-			'Expected comment message type.'
-		);
-
-		foreach ( $data->outboundMessages as $index => $message ) {
-			$data->outboundMessages[$index]['id'] = $index;
-			$data->outboundMessages[$index]['reply_to'] = "reply$index@example.com";
-		}
-		return array(
-			'response' => array( 'code' => 200, 'message' => 'OK' ),
-			'body' => json_encode( $data )
-		);
-	}
-
 	function verifyLocalMailing( $to, $subject, $message, $headers ) {
 
 		$expected_to_addresses = array(
@@ -127,7 +107,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 		$this->assertContains( $to, $expected_to_addresses );
 		$this->assertContains( $this->data->comment->comment_author, $message );
-		
+
 		$reply_to_filter = create_function( '$a', 'return (strpos( $a, "Reply-To:" ) === 0);' );
 		$this->assertNotEmpty( array_filter( $headers, $reply_to_filter ), 'Expected a reply-to header.' );
 		
@@ -236,65 +216,13 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		);
 		
 		$this->assertContains(
-			'Reply-To: reply0@example.com',
+			'Reply-To: donotreply@gopostmatic.com',
 			$headers,
-			'Expected a trackable reply address.'
+			'Expected the default reply address.'
 		);
 	}
 
-	function testChunking() {
-
-		$chunk_size = 3;
-		Prompt_Core::$options->set( 'emails_per_chunk', $chunk_size );
-
-		$subscriber_ids = $this->factory->user->create_many( $chunk_size + 1 );
-
-		$post_id = $this->factory->post->create();
-
-		$this->data->comment = $this->factory->comment->create_and_get( array(
-			'comment_post_ID' => $post_id,
-		) );
-
-		$mock_flood_controller = $this->getMockFloodController(
-			$this->data->comment,
-			$subscriber_ids
-		);
-
-		$batch = new Prompt_Comment_Email_Batch( $this->data->comment, $mock_flood_controller );
-
-		$mailer_mock = $this->getMock( 'AdHoc', array( 'send' ) );
-		$mailer_mock->expects( $this->any() )->method( 'send' )->will( $this->returnValue( true ) );
-
-		$client_mock = $this->getMockApiClient();
-		$client_mock->expects( $this->once() )
-			->method( 'post_instant_callback' )
-			->will( $this->returnCallback( array( $this, 'verifyChunkMetadata' ) ) );
-
-		$mailer = new Prompt_Comment_Wp_Mailer( $batch, $client_mock, array( $mailer_mock, 'send' ) );
-
-		$this->data->verified_chunk_event = false;
-		$mailer->send();
-
-		$this->assertTrue( $this->data->verified_chunk_event, 'Expected another mailing to be scheduled.' );
-
-		Prompt_Core::$options->reset();
-	}
-
-	function verifyChunkMetadata( $data ) {
-
-		$this->assertArrayHasKey( 'metadata', $data );
-
-		$this->assertEquals( 'prompt/comment_mailing/send_notifications', $data['metadata'][0] );
-
-		$this->assertEquals( $this->data->comment->comment_ID, $data['metadata'][1][0] );
-
-		$this->data->verified_chunk_event = true;
-
-		return true;
-	}
-
-
-	function testRecordFailures() {
+	function testClearFailures() {
 
 		$recipient = $this->factory->user->create_and_get();
 

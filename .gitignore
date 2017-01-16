@@ -3,3 +3,7 @@ wordpress
 build
 .sass-cache/*
 js/post-editor-ck.js
+
+composer.phar
+
+wp-cli.phar

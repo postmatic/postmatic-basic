@@ -13,6 +13,8 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 	protected $overridden_options;
 	/** @var array */
 	protected $notices;
+	/** @var Prompt_Options */
+	protected $options;
 
 	/**
 	 * Construct so the form is embeddable in another page rather than adding a new one.
@@ -156,16 +158,24 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 
 		return $valid_data;
 	}
-	
-	
+
+	/**
+	 * @since 2.1.0
+	 * @return string
+	 */
+	protected function upgrade_url() {
+		return admin_url( 'options-general.php?page=postmatic-pricing' );
+	}
+
 	/**
 	 * @since 2.0.0
 	 * @return string
 	 */
 	protected function upgrade_link() {
 		return sprintf(
-			__( '<a href="%s" class="upgrade_link">Premium</a>', 'Postmatic' ),
-			Prompt_Enum_Urls::MANAGE
+			__( '<a href="%s" class="%s">Upgrade</a>', 'Postmatic' ),
+			$this->upgrade_url(),
+			'upgrade_link'
 		);
 	}
 
@@ -223,9 +233,34 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 	 * @return bool
 	 */
 	protected function is_digest_message_type_enabled() {
-		return in_array( Prompt_Enum_Message_Types::DIGEST, $this->options->get( 'enabled_message_types' ) );
+		return $this->is_message_type_enabled( Prompt_Enum_Message_Types::DIGEST );
 	}
-	
+
+	/**
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	protected function is_comment_digest_message_type_enabled() {
+		return $this->is_message_type_enabled( Prompt_Enum_Message_Types::COMMENT_DIGEST );
+	}
+
+	/**
+	 * @since 2.1.0
+	 * @return bool
+	 */
+	protected function is_comment_moderation_message_type_enabled() {
+		return $this->is_message_type_enabled( Prompt_Enum_Message_Types::COMMENT_MODERATION );
+	}
+
+	/**
+	 * @since 2.1.0
+	 * @param string $type The message type to check.
+	 * @return bool
+	 */
+	protected function is_message_type_enabled( $type ) {
+		return in_array( $type, $this->options->get( 'enabled_message_types' ) );
+	}
+
 	/**
 	 * @since 2.0.0
 	 * @return string

@@ -122,12 +122,12 @@ EOD;
 
 	function testFunkyRegisterFormat() {
 
-		$prompt_site = new Prompt_Site();
+		$prompt_site_comments = new Prompt_Site_Comments();
 		$this->mail_data->address = 'test@example.com';
 		
 		$command = new Prompt_Register_Subscribe_Command();
 		$command->save_subscription_data( 
-			array( $prompt_site ), 
+			array( $prompt_site_comments ), 
 			$this->mail_data->address, 
 			array( 'display_name' => 'Test Subscriber' ) 
 		);
@@ -150,7 +150,7 @@ EOD;
 
 		$new_user = get_user_by( 'email', 'test@example.com' );
 		$this->assertNotEmpty( $new_user, 'Expected a new subscriber user to be created.' );
-		$this->assertTrue( $prompt_site->is_subscribed( $new_user->ID ), 'Expected new user to be subscribed.' );
+		$this->assertTrue( $prompt_site_comments->is_subscribed( $new_user->ID ), 'Expected new user to be subscribed.' );
 	}
 
 	function verifyUnsubscribedEmail() {

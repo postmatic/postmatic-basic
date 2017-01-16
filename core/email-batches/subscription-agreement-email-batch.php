@@ -48,13 +48,16 @@ class Prompt_Subscription_Agreement_Email_Batch extends Prompt_Email_Batch {
 			$subject = __( '{{name_prefix}}Important: Please select your subscription', 'Postmatic' );
 		}
 
+		$is_api_transport = Prompt_Core::$options->is_api_transport();
+		$message_data['is_api_transport'] = $is_api_transport;
+
 		$batch_message_template = array(
 			'subject' => $subject,
 			'from_name' => get_option( 'blogname' ),
 			'message_type' => Prompt_Enum_Message_Types::SUBSCRIPTION,
 			'html_content' => $html_template->render( $message_data ),
 			'text_content' => $text_template->render( $message_data ),
-			'reply_to' => '{{{reply_to}}}',
+			'reply_to' => $is_api_transport ? '{{{reply_to}}}' : 'donotreply@gopostmatic.com',
 		);
 
 		// Override template with message data
@@ -109,7 +112,7 @@ class Prompt_Subscription_Agreement_Email_Batch extends Prompt_Email_Batch {
 
 		$values = array(
 			'to_address' => $email_address,
-			'reply_to' => array( 'trackable-address' => Prompt_Command_Handling::get_command_metadata( $command ) ),
+			'opt_in_url' => Prompt_Routing::opt_in_url( $command ),
 			'notice_html' => $notice_html,
 			'notice_text' => $notice_text,
 		);
@@ -120,6 +123,10 @@ class Prompt_Subscription_Agreement_Email_Batch extends Prompt_Email_Batch {
 
 		if ( ! empty( $user_data['display_name'] ) ) {
 			$values['name_prefix'] = $user_data['display_name'] . ' - ';
+		}
+
+		if ( Prompt_Core::is_api_transport() ) {
+			$values['reply_to'] = array( 'trackable-address' => Prompt_Command_Handling::get_command_metadata( $command ) );
 		}
 
 		$this->add_individual_message_values( $values );
