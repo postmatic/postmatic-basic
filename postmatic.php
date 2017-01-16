@@ -1,6 +1,6 @@
 <?php
 /*
-  Plugin Name: Replyable - Subscribe to Comments & Reply via email
+  Plugin Name: Replyable - Subscribe to Comments & Reply by email
   Version: 2.1.1
   License: GPL2+
   Author: Postmatic

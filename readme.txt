@@ -1,4 +1,4 @@
-=== Subscribe to Comments and Reply via Email ===
+=== Replyable - Subscribe to Comments and Reply by Email ===
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
 Requires at least: 4.4
