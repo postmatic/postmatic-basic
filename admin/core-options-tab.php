@@ -59,8 +59,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				html(
 					'p',
 					__( 'Get started via the tabs above, or check out our other plugins below.', 'Postmatic' )
-				),
-				$this->video_link( 'yjbVIBiSyYE' )
+				)
 			),
 		);
 
