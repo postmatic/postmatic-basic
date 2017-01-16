@@ -10,6 +10,8 @@ Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replya
 
 == Description ==
 
+**Important info for existing users**: Postmatic Basic is now Replyable. The [feature set has changed](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable) to focus singularly on being the best *subscribe to comments* experience for WordPress. If you would like to continue using the same features you enjoyed with Postmatic Basic you may do so by switching to [Postmatic Labs](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable).
+
 Take *Subscribe to Comments*. Now, make it smart. And beautiful. And a good listener that accepts replies. That's Replyable, and it's built by Postmatic.
 
 = Comment subscriptions reimagined - for better SEO, better conversations, and easier comment management =
