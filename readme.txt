@@ -89,6 +89,6 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 == Changelog ==
 = 2.1 =
 
-Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://replyable.helpscoutdocs.com/article/263-im-a-postmatic-basic-user-whats-different-about-replyable). 
+Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable). 
 
 == Upgrade Notice ==
