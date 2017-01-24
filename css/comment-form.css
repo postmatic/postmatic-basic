@@ -21,7 +21,7 @@
   display: block;
   font-style: normal;
   font-weight: normal;
-  left: 88%;
+  left: 8%;
   margin-bottom: 15px;
   opacity: 0;
   padding: 5px 10px;
@@ -74,8 +74,7 @@
   bottom: -10px;
   content: " ";
   height: 0;
-  left: 10%;
-  margin-left: -13px;
+  left: 88%;
   position: absolute;
   width: 0;
 }
