@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( class_exists( 'Prompt_Core' ) ) {
+if ( class_exists( 'Prompt_Core' ) and Prompt_Core::$dir_path ) {
 	// Allow others to use Prompt as a dependency
 	return;
 }
