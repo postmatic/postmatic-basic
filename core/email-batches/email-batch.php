@@ -229,7 +229,8 @@ class Prompt_Email_Batch {
 		$individual_message_values = array(),
 		$default_values = array()
 	) {
-		$brand_type = Prompt_Core::$options->get( 'email_header_type' );
+	    // Use text headers in Replyable.
+		$brand_type = Prompt_Enum_Email_Header_Types::TEXT;
 
 		$brand_image_id = 0;
 		if ( Prompt_Enum_Email_Header_Types::IMAGE === $brand_type ) {
