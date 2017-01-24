@@ -87,6 +87,12 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.1.2 =
+
+- We made an update to the tooltip hover on the comment form. It should be compatible with more themes and devices.
+- We've cleaned up the menus and some general plugin UI tweaks.
+- Fixed a bug in which authors were receiving upgrade notice on paid plans. Sorry about that.
+
 = 2.1 =
 
 Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable). 
