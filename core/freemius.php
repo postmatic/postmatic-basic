@@ -60,7 +60,10 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 			'has_paid_plans' => true,
 			'menu' => array(
 				'slug' => 'postmatic',
+                'account' => false,
+                'contact' => false,
 				'support' => false,
+                'pricing' => false,
 				'parent' => array(
 					'slug' => 'options-general.php',
 				),
