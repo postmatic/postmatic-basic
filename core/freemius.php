@@ -19,14 +19,22 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 */
 	protected $options;
 
+    /**
+     * @since 2.1.2
+     * @var Prompt_Template
+     */
+    protected $account_template;
+
 	/**
 	 * Instantiate Freemius integration.
 	 * @since 2.1.0
 	 * @param Prompt_Options $options Plugin options.
+     * @param Prompt_Template $account_template The template for the account page.
 	 */
-	public function __construct( Prompt_Options $options ) {
+	public function __construct( Prompt_Options $options, Prompt_Template $account_template = null ) {
 		$this->options = $options;
 		$this->freemius = null;
+		$this->account_template = $account_template ? $account_template : new Prompt_Template( 'freemius-account.php' );
 	}
 
 	/**
@@ -60,7 +68,6 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 			'has_paid_plans' => true,
 			'menu' => array(
 				'slug' => 'postmatic',
-                'account' => false,
                 'contact' => false,
 				'support' => false,
                 'pricing' => false,
@@ -109,6 +116,8 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 		$this->freemius->add_action( 'after_account_delete', array( $this, 'after_account_delete' ) );
 
 		$this->freemius->add_filter( 'sticky_message_trial_started', array( $this, 'sticky_message_trial_started' ) );
+
+		$this->freemius->add_filter( 'templates/account.php', array( $this, 'wrap_account_content' ) );
 	}
 
 	/**
@@ -219,4 +228,14 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	public function is_pending_activation() {
 		return $this->freemius->is_pending_activation();
 	}
+
+    /**
+     * Add branding to account page content.
+     *
+     * @param string $html Account page HTML.
+     * @return string
+     */
+	public function wrap_account_content( $html ) {
+        return $this->account_template->render( array( 'account_html' => $html ) );
+    }
 }
