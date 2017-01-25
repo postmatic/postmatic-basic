@@ -277,7 +277,34 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 				)
 			)
 		);
+
+		if ( $this->options->is_api_transport() ) {
+		    $rows[] = $this->footer_credit_row();
+        }
 	
 		return $rows;
 	}
+
+    /**
+     * @since 0.5.0
+     * @return string
+     */
+    protected function footer_credit_row() {
+        return html(
+            'tr class="email-footer-credit"',
+            html( 'th scope="row"', __( 'Share the love?', 'postmatic-premium' ) ),
+            html(
+                'td',
+                $this->input(
+                    array(
+                        'name' => 'email_footer_credit',
+                        'type' => 'checkbox',
+                        'desc' => __( 'Include "Delivered by Postmatic" in the footer area. We appreciate it!', 'postmatic-premium' ),
+                        'extra' => 'class=last-submit',
+                    ),
+                    $this->options->get()
+                )
+            )
+        );
+    }
 }
