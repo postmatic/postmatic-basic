@@ -25,7 +25,7 @@ class Prompt_Admin_Recommended_Plugins_Options_Tab extends Prompt_Admin_Options_
 	 * @return string
 	 */
 	public function render() {
-				$asides = array();
+		$asides = array();
 
 		if ( ! defined( 'EPOCH_VER' ) ) {
 			$asides[] = html(
