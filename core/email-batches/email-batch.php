@@ -271,6 +271,8 @@ class Prompt_Email_Batch {
 			'brand_image_height' => $brand_image->height() / 2,
 			'site_icon_url' => $site_icon_url,
 			'site_css' => $site_styles->get_css() . $integration_css,
+            'html_content' => '',
+            'text_content' => '',
 			'header_html' => apply_filters( 'prompt/email_batch/header_html', '', $message_type ),
 			'sidebar_html' => apply_filters( 'prompt/email_batch/sidebar_html', '', $message_type ),
 			'footer_html' => $this->footer_html( $message_type ),
@@ -505,12 +507,11 @@ class Prompt_Email_Batch {
 	 * @return string
 	 */
 	protected function footer_html( $message_type ) {
-
-		if ( Prompt_Enum_Email_Footer_Types::TEXT == Prompt_Core::$options->get( 'email_footer_type' ) ) {
-			return Prompt_Core::$options->get( 'email_footer_text' );
-		}
-
-		return apply_filters( 'prompt/email_batch/footer_html', '', $message_type );
+		return apply_filters(
+		    'prompt/email_batch/footer_html',
+            Prompt_Core::$options->get( 'email_footer_text' ),
+            $message_type
+        );
 	}
 
 	/**

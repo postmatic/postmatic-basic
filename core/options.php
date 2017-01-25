@@ -47,7 +47,7 @@ class Prompt_Options extends scbOptions {
 			'email_header_type' => Prompt_Enum_Email_Header_Types::TEXT,
 			'email_header_image' => 0,
 			'email_header_text' => get_option( 'blogname' ),
-			'email_footer_type' => Prompt_Enum_Email_Footer_Types::WIDGETS,
+			'email_footer_type' => Prompt_Enum_Email_Footer_Types::TEXT,
 			'email_footer_text' => '',
 			'email_footer_credit' => true,
 			'plan' => '',

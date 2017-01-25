@@ -19,4 +19,15 @@ class EmailBatchTest extends WP_UnitTestCase {
 			'Expected default from address to be the Postmatic mail server default.'
 		);
 	}
+
+	function test_text_footer() {
+	    Prompt_Core::$options->set( 'email_footer_text', 'FOO' );
+	    $batch = new Prompt_Email_Batch();
+	    $template = $batch->get_batch_message_template();
+	    $this->assertContains(
+	        'FOO',
+            $template['footer_html'],
+            'Expected to find footer HTML.'
+        );
+    }
 }
