@@ -58,35 +58,35 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 				html( 'h2', __( 'Welcome to Replyable', 'Postmatic' ) ),
 				html(
 					'p',
-					__( 'Get started via the tabs above, or check out our other plugins below.', 'Postmatic' )
+					__( 'Configure Replyable using the tabs above, or get help below.', 'Postmatic' )
 				)
 			),
 		);
 
 		$parts[] = html(
-		    'ul',
+		    'ul id="replyable-utils"',
             html(
                 'li id="util-account"',
                 html(
-                    'a',
+                    'a class="btn-postmatic"',
                     array( 'href' => admin_url( 'options-general.php?page=postmatic-account' ) ),
-                    __( '&#9998; Manage your account', 'Postmatic' )
+                    __( 'Manage your account', 'Postmatic' )
                 )
             ),
             html(
                 'li id="util-contact"',
                 html(
-                    'a',
+                    'a class="btn-postmatic"',
                     array( 'href' => admin_url( 'options-general.php?page=postmatic-contact' ) ),
-                    __( '&#9998; Contact us', 'Postmatic' )
+                    __( 'Contact us', 'Postmatic' )
                 )
             ),
             html(
                 'li id="util-docs"',
                 html(
-                    'a',
+                    'a class="btn-postmatic" target="_blank"',
                     array( 'href' => 'http://docs.replyable.com' ),
-                    __( '&#9998; Read the docs', 'Postmatic' )
+                    __( 'Read the docs', 'Postmatic' )
                 )
             )
         );

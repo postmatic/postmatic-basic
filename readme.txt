@@ -92,6 +92,8 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 - We made an update to the tooltip hover on the comment form. It should be compatible with more themes and devices.
 - We've cleaned up the menus and some general plugin UI tweaks.
 - Fixed a bug in which authors were receiving upgrade notice on paid plans. Sorry about that.
+- Legacy Postmatic Premium users would in some cases have their full header image showing in Replyable emails. We fixed that.
+- We fixed a bug in which the customized email footer text was not working properly on paid plans.
 
 = 2.1 =
 
