@@ -63,12 +63,33 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			),
 		);
 
-		$parts[] = html( 'div id="manage-account"',
-			html( 'a',
-				array( 'href' => '/wp-admin/options-general.php?page=postmatic-account', 'target' => '_blank' ),
-				__( '&#9998; Manage your account', 'Postmatic' )
-			)
-		);
+		$parts[] = html(
+		    'ul',
+            html(
+                'li id="util-account"',
+                html(
+                    'a',
+                    array( 'href' => admin_url( 'options-general.php?page=postmatic-account' ) ),
+                    __( '&#9998; Manage your account', 'Postmatic' )
+                )
+            ),
+            html(
+                'li id="util-contact"',
+                html(
+                    'a',
+                    array( 'href' => admin_url( 'options-general.php?page=postmatic-contact' ) ),
+                    __( '&#9998; Contact us', 'Postmatic' )
+                )
+            ),
+            html(
+                'li id="util-docs"',
+                html(
+                    'a',
+                    array( 'href' => 'http://docs.replyable.com' ),
+                    __( '&#9998; Read the docs', 'Postmatic' )
+                )
+            )
+        );
 
 		return $this->form_wrap( implode( '', $parts ) );
 	}
