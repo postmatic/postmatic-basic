@@ -63,33 +63,38 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			),
 		);
 
-		$parts[] = html(
-		    'ul id="replyable-utils"',
-            html(
+		$buttons = array();
+
+		if ( $this->license_status->is_paying() or $this->license_status->is_trial_underway() ) {
+		    $buttons[] = html(
                 'li id="util-account"',
                 html(
                     'a class="btn-postmatic"',
                     array( 'href' => admin_url( 'options-general.php?page=postmatic-account' ) ),
                     __( 'Manage your account', 'Postmatic' )
                 )
-            ),
+            );
+        }
+
+        $buttons[] = html(
+            'li id="util-contact"',
             html(
-                'li id="util-contact"',
-                html(
-                    'a class="btn-postmatic"',
-                    array( 'href' => admin_url( 'options-general.php?page=postmatic-contact' ) ),
-                    __( 'Contact us', 'Postmatic' )
-                )
-            ),
-            html(
-                'li id="util-docs"',
-                html(
-                    'a class="btn-postmatic" target="_blank"',
-                    array( 'href' => 'http://docs.replyable.com' ),
-                    __( 'Read the docs', 'Postmatic' )
-                )
+                'a class="btn-postmatic"',
+                array('href' => admin_url('options-general.php?page=postmatic-contact')),
+                __('Contact us', 'Postmatic')
             )
         );
+
+        $buttons[] = html(
+            'li id="util-docs"',
+            html(
+                'a class="btn-postmatic" target="_blank"',
+                array('href' => 'http://docs.replyable.com'),
+                __('Read the docs', 'Postmatic')
+            )
+        );
+
+		$parts[] = html( 'ul id="replyable-utils"', implode( '', $buttons ) );
 
 		return $this->form_wrap( implode( '', $parts ) );
 	}
