@@ -53,7 +53,7 @@ ul.ui-tabs-nav li#prompt-tab-upgrade a {
   border: 1px solid #FA5923;
  }
  h2#prompt-settings-header {
-  background: url(/wp-content/plugins/postmatic-basic/media/replyable.png) no-repeat top left;
+  background: url(<?php echo Prompt_Core::$url_path; ?>/media/replyable.png) no-repeat top left;
   background-size: 250px;
   height: 65px;
   margin-bottom: 10px;
