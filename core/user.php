@@ -279,7 +279,7 @@ class Prompt_User extends Prompt_Meta_Subscribable_Object {
 
 		$checkboxes = array_map( array( $this, 'profile_subscription_checkbox' ), $signup_lists );
 
-		if ( $this->get_wp_user()->has_cap( 'manage_options' ) ) {
+		if ( $this->get_wp_user()->has_cap( 'edit_posts' ) ) {
 			$site_comments = new Prompt_Site_Comments();
 			$checkboxes[] = $this->profile_subscription_checkbox( $site_comments );
 		}

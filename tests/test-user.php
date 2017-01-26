@@ -104,6 +104,14 @@ class UserTest extends WP_UnitTestCase {
 		wp_set_current_user( $current_user_id );
 	}
 
+	function testContributorProfileOptions() {
+        $prompt_contributor = new Prompt_User( $this->factory->user->create( array( 'role' => 'contributor' ) ) );
+
+        $form = $prompt_contributor->profile_options();
+
+        $this->assertContains( 'prompt_site_comments_subscribed', $form, 'Expected site comments option.' );
+    }
+
 	function testAuthorProfileOptions() {
 		$prompt_author = new Prompt_User( $this->factory->user->create() );
 		$prompt_author->subscribe( $this->_prompt_user->id() );
