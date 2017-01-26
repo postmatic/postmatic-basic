@@ -47,7 +47,7 @@
 <?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport ) : ?>
 	<div id="core-options-promo" class="goupgrade">
 		<h2><span><?php _e( 'Email was never meant to be a one-way street.', 'Postmatic' ); ?></span></h2>
-		<h3><?php _e( 'Important: It looks like this site used to use Postmatic Basic', 'Postmatic' ); ?></h3>
+		<h3><?php _e( 'Important: It looks like this site previously used Postmatic Basic', 'Postmatic' ); ?></h3>
 		<p><?php _e( 'Postmatic Basic is now Replyable. We\'ve added some features and removed a few as well.', 'Postmatic' ); ?></p>
 		<p><?php _e(
 				'With Replyable you can get all of the awesome commenting features of the full version of Postmatic, but for 15% the cost. Plans start at $2.99/month. Or, stick with the free service and still get awesome comment subscriptions, but without the bells and whistles.',
