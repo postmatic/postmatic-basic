@@ -119,6 +119,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 		$this->freemius->add_filter( 'sticky_message_trial_started', array( $this, 'sticky_message_trial_started' ) );
 
 		$this->freemius->add_filter( 'templates/account.php', array( $this, 'wrap_account_content' ) );
+        $this->freemius->add_filter( 'templates/billing.php', array( $this, 'wrap_account_content' ) );
 	}
 
 	/**
