@@ -27,9 +27,25 @@
 		</p>
 	</div>
 <?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport and $has_changed_license ) : ?>
-    <div id="core-options-cancelled-service" class="passive alert">
-        <!-- cancelled plan -->
-    </div>
+    	<div id="core-options-promo" class="goupgrade">
+		<h2><span><?php _e( 'Email was never meant to be a one-way street.', 'Postmatic' ); ?></span></h2>
+		<p><?php _e(
+				'Have you ever received a comment notification and just wanted to hit reply? No forms, no browser, just email?',
+				'Postmatic'
+			); ?>
+		</p>
+		<p><?php _e(
+				'Have better conversations, improve SEO, and support a fantastic WordPress startup at the same time.',
+				'Postmatic'
+			); ?>
+			<br/><?php _e(
+				'Enable two-way comment notifications for just $2.99 a month. The first month is free.',
+				'Postmatic'
+			); ?>
+		</p>
+		<p><a href="<?php echo admin_url( 'options-general.php?page=postmatic-pricing' ); ?>"
+		      class="btn-regular btn-postmatic"><?php _e( 'Upgrade', 'Postmatic' ); ?></a></p>
+	</div>
 <?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
 	<div id="core-options-postmatic-service" class="passive alert">
 		<h3><?php _e( 'Hey! An important message about your account!', 'Postmatic' ); ?></h3>
