@@ -176,6 +176,8 @@ class Prompt_Comment_Form_Handling {
 			);
 		}
 
+		$tooltip_text = apply_filters( 'replyable/comment_form/opt_in_tooltip_text', $tooltip_text );
+
 		echo html( 'label id="prompt-comment-subscribe"',
 			html( 'input',
 				array(
