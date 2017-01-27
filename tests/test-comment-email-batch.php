@@ -68,6 +68,7 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 			$values['subject'],
 			'Expected subject to contain post title.'
 		);
+        $this->assertArrayNotHasKey( 'post_author_message', $values );
 	}
 
 	function testPostAuthorRecipient() {
@@ -85,6 +86,24 @@ class CommentEmailTest extends Prompt_UnitTestCase {
 		$values = $values[0];
 		$this->assertEquals( $author->user_email, $values['to_address'], 'Expected author to address.' );
 		$this->assertArrayHasKey( 'post_author_message', $values );
+	}
+
+	function testPostAuthorApiRecipient() {
+        Prompt_Core::$options->set( 'email_transport', Prompt_Enum_Email_Transports::API );
+		Prompt_Core::$options->set( 'auto_subscribe_authors', true );
+
+		$author = $this->factory->user->create_and_get();
+		$post_id = $this->factory->post->create( array( 'post_author' => $author->ID ) );
+		$comment = $this->factory->comment->create_and_get( array( 'comment_post_ID' => $post_id ) );
+
+		$batch = new Prompt_Comment_Email_Batch( $comment );
+
+		$values = $batch->get_individual_message_values();
+		$this->assertCount( 1, $values );
+
+		$values = $values[0];
+		$this->assertEquals( $author->user_email, $values['to_address'], 'Expected author to address.' );
+		$this->assertArrayNotHasKey( 'post_author_message', $values );
 	}
 
 	function testPersonalizedSubject() {
