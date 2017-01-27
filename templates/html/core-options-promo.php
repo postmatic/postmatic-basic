@@ -8,6 +8,7 @@
  * @var bool $is_paying
  * @var bool $is_key_present
  * @var bool $is_api_transport
+ * @var bool $has_changed_license
  */
 ?>
 
@@ -25,6 +26,10 @@
 			); ?>
 		</p>
 	</div>
+<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport and $has_changed_license ) : ?>
+    <div id="core-options-cancelled-service" class="passive alert">
+        <!-- cancelled plan -->
+    </div>
 <?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and $is_api_transport ) : ?>
 	<div id="core-options-postmatic-service" class="passive alert">
 		<h3><?php _e( 'Hey! An important message about your account!', 'Postmatic' ); ?></h3>
