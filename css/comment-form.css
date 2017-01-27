@@ -78,7 +78,8 @@
   position: absolute;
   width: 0;
 }
-  
+
+@media screen and (min-width: 500px) {
 #prompt-comment-subscribe:hover .postmatic-tooltip em {
   opacity: 1;
   pointer-events: none;
@@ -89,7 +90,13 @@
           transform: translateY(0px);
 }
 
+}
+
 @media screen and (max-width: 500px) {
+  
+    #prompt-comment-subscribe .postmatic-tooltip {
+      background: none;
+    }
     #prompt-comment-subscribe .postmatic-tooltip em {
         left: 0;
        width: 300px;
