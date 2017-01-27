@@ -125,6 +125,19 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		);
 	}
 
+	function testFormContentTooltipFilter() {
+        $post_id = $this->factory->post->create();
+
+	    $filter_mock = $this->getMock( 'filterMock', array( 'filter_tooltip' ) );
+	    $filter_mock->expects( $this->once() )->method( 'filter_tooltip' )->willReturn( 'TOOLTIP' );
+
+	    add_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
+        $content = $this->getCommentFormContent( $post_id );
+        remove_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
+
+        $this->assertContains( 'TOOLTIP', $content );
+    }
+
 	function testSubscribeNewUser() {
 		$author_id = $this->factory->user->create();
 		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
