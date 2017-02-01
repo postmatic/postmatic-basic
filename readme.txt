@@ -87,6 +87,12 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.1.3 =
+
+- Further enhancements to the admin UI
+- A [new hook to customize the text of the tooltip](http://docs.replyable.com/article/291-filter-replyable-commentform-optintooltiptext)
+- Fixed a bug in which authors were receiving upgrade notice on paid plans. Again. Sorry, again.
+
 = 2.1.2 =
 
 - We made an update to the tooltip hover on the comment form. It should be compatible with more themes and devices.
