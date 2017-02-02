@@ -90,6 +90,7 @@ class Prompt_Options extends scbOptions {
 			'account_email' => '',
 			'suppress_error_submissions' => false,
 			'freemius_init' => array(),
+            'freemius_license_changes' => array(),
 		);
 
 		$defaults = array_merge( $standard_defaults, $defaults );

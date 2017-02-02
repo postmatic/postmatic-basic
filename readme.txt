@@ -2,7 +2,7 @@
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
 Requires at least: 4.4
-Tested up to: 4.7.1
+Tested up to: 4.7.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,12 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.1.3 =
+
+- Further enhancements to the admin UI
+- A [new hook to customize the text of the tooltip](http://docs.replyable.com/article/291-filter-replyable-commentform-optintooltiptext)
+- Fixed a bug in which authors were receiving upgrade notice on paid plans. Again. Sorry, again.
+
 = 2.1.2 =
 
 - We made an update to the tooltip hover on the comment form. It should be compatible with more themes and devices.

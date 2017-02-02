@@ -129,6 +129,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'is_paying' => $this->license_status->is_paying(),
 			'is_key_present' => (bool) $this->options->get( 'prompt_key' ),
 			'is_api_transport' => (bool) $this->options->is_api_transport(),
+            'has_changed_licenses' => (bool) $this->options->get( 'freemius_license_changes' ),
 		);
 
 		$template = new Prompt_Template( 'core-options-promo.php' );
