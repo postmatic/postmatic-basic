@@ -299,7 +299,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
                     array(
                         'name' => 'email_footer_credit',
                         'type' => 'checkbox',
-                        'desc' => __( 'Include "Delivered by Postmatic" in the footer area. We appreciate it!', 'postmatic-premium' ),
+                        'desc' => __( 'Include "Delivered by Replyable" in the footer area. We appreciate it!', 'postmatic-premium' ),
                         'extra' => 'class=last-submit',
                     ),
                     $this->options->get()
