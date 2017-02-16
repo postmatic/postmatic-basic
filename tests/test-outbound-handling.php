@@ -2,6 +2,11 @@
 
 class OutboundHandlingTest extends Prompt_MockMailerTestCase {
 
+	/**
+	 * @var array
+	 */
+	protected $native_notification_addresses;
+
 	function setUp() {
 		$this->remove_outbound_hooks = false;
 		parent::setUp();
