@@ -8,7 +8,7 @@
  * @var bool $is_paying
  * @var bool $is_key_present
  * @var bool $is_api_transport
- * @var bool $has_changed_license
+ * @var bool $has_changed_licenses
  */
 ?>
 
@@ -26,7 +26,7 @@
 			); ?>
 		</p>
 	</div>
-<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport and $has_changed_license ) : ?>
+<?php elseif ( ! $is_trial_underway and ! $is_paying and $is_key_present and ! $is_api_transport and $has_changed_licenses ) : ?>
     	<div id="core-options-promo" class="goupgrade">
 		<h2><span><?php _e( 'Email was never meant to be a one-way street.', 'Postmatic' ); ?></span></h2>
 		<p><?php _e(
