@@ -100,7 +100,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'div class="key"',
 			html(
 				'label',
-				__( 'Postmatic API Key', 'Postmatic' ),
+				__( 'Your Replyable API Key (used for troubleshooting)', 'Postmatic' ),
 				$this->input(
 					array(
 						'type' => 'text',

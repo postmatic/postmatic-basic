@@ -82,6 +82,13 @@ input#prompt_key {
     padding: 10px;
     font-size: 15px;
 }
+
+.key {
+    clear: both;
+    padding-top: 80px;
+    opacity: .65;
+}
+
 .initialize-key {
   padding: 0 50px 40px 50px; }
 
