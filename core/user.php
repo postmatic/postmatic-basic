@@ -91,7 +91,7 @@ class Prompt_User extends Prompt_Meta_Subscribable_Object {
 	 */
 	public function profile_options() {
 		return html( 'div class="prompt-profile-options"',
-			html( 'h2', __( 'Postmatic Subscription Information', 'Postmatic' ) ),
+			html( 'h2', __( 'Conversation Subscriptions', 'Postmatic' ) ),
 			$this->profile_subscribers(),
 			$this->profile_site_subscriptions(),
 			$this->profile_author_subscriptions(),
