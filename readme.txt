@@ -10,8 +10,6 @@ Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replya
 
 == Description ==
 
-**Important info for existing users**: Postmatic Basic is now Replyable. The [feature set has changed](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable) to focus singularly on being the best *subscribe to comments* experience for WordPress. If you would like to continue using the same features you enjoyed with Postmatic Basic you may do so by switching to [Postmatic Labs](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable).
-
 Take *Subscribe to Comments*. Now, make it smart. And beautiful. And a good listener that accepts replies. That's Replyable, and it's built by Postmatic.
 
 = Comment subscriptions reimagined - for better SEO, better conversations, and easier comment management =
@@ -87,6 +85,12 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.1.4 =
+
+- The checkbox to remove Replyable branding wasn't sticking properly. Fixed.
+- Misc UI tweaks in wp-admin
+- Bug fixes for legacy Postmatic Basic users
+
 = 2.1.3 =
 
 - Further enhancements to the admin UI
