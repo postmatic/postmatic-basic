@@ -130,10 +130,14 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @param array $old_data
 	 * @return array
 	 */
-	function validate( $new_data, $old_data ) {
+	public function validate( $new_data, $old_data ) {
 
 		$valid_data = $old_data;
-		
+
+		if ( $this->options->is_api_transport() ) {
+			$valid_data = $this->validate_checkbox_fields( $new_data, $old_data, array( 'email_footer_credit' ) );
+		}
+
 		if ( isset( $new_data['email_header_text'] ) ) {
 			$valid_data['email_header_text'] = sanitize_text_field( $new_data['email_header_text'] );
 		}
