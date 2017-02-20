@@ -1266,6 +1266,13 @@ div.intro-text a.thickbox.video span {
     margin-bottom: 25px;
 }
 
+.active {
+    border: 3px dashed #27ae60;
+    background: white;
+    padding:2%;
+    margin-bottom: 25px;  
+}
+
 div#prompt-settings-core p.submit {
     display: none;
 }

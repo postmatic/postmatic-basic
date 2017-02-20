@@ -100,7 +100,7 @@
 		      class="btn-regular btn-postmatic"><?php _e( 'Upgrade', 'Postmatic' ); ?></a></p>
 	</div>
 <?php elseif ( $is_trial_underway and $is_key_present ) : ?>
-	<div id="core-options-promo-ontrial" class="passive">
+	<div id="core-options-promo-ontrial" class="active">
 		<h3><?php _e( 'Welcome back. How is your trial going?', 'Postmatic' ); ?></h3>
 		<p><?php _e(
 				'We hope you are enjoying your trial of Replyable. Be sure to try out the great features such as replying directly to comment notifications, author tools, and email-based moderation.',
