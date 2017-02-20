@@ -78,15 +78,25 @@ class Prompt_Admin_Recommended_Plugins_Options_Tab extends Prompt_Admin_Options_
 				html(
 					'p',
 					__(
-						'The quickest, cleverest and most accurate filter for auto-moderating comments. Language isn’t black and white so your filter shouldn’t be either. <strong><a href="/wp-admin/options-general.php?page=postmatic-pricing">Upgrade Replyable and get 25% off 6 months of premium Sift Ninja service</a>!</strong>',
+						'The quickest, cleverest and most accurate filter for auto-moderating comments. Language isn’t black and white so your filter shouldn’t be either.',
 						'Postmatic'
+					),
+					' ',
+					html(
+						'strong',
+						html(
+							'a',
+							array( 'href' => admin_url( 'options-general.php?page=postmatic-pricing' ) ),
+							__( 'Upgrade Replyable and get 25% off 6 months of premium Sift Ninja service!', 'Postmatic' )
+
+						)
 					)
 				),
 				html(
 					'a class="button"',
 					array( 'href' => wp_nonce_url(
-						admin_url( 'update.php?action=install-plugin&plugin=postmatic-social-commenting' ),
-						'install-plugin_postmatic-social-commenting'
+						admin_url( 'update.php?action=install-plugin&plugin=sift-ninja' ),
+						'install-plugin_sift-ninja'
 					) ),
 					__( 'Install Sift Ninja', 'Postmatic' )
 				)
