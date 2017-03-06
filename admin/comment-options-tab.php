@@ -131,14 +131,14 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 				'title' => __( 'Comment flood control', 'Postmatic' ),
 				'type' => 'text',
 				'name' => 'comment_flood_control_trigger_count',
-				'desc' => __( 'How many comments in one hour should it take to trigger the flood control? There is a mimimum of 3.', 'Postmatic' ) .
+				'desc' => __( 'How many comments in one hour should it take to trigger flood control? There is a mimimum of 2 (one comment, one reply).', 'Postmatic' ) .
 					html( 'p',
 						sprintf(
 							__(
 								'Replyable automatically pauses comment notifications on posts that go viral. Setting the trigger to be 6 comments per hour is good for most sites. You can read more about it <a href="%s" target="_blank">on our support site</a>.  ',
 								'Postmatic'
 							),
-							'http://docs.gopostmatic.com/article/143-what-happens-if-a-post-gets-a-gazillion-comments-do-i-get-a-gazillion-emails'
+							'http://docs.replyable.com/article/275-what-happens-if-a-post-gets-a-gazillion-comments-do-i-get-a-gazillion-emails'
 						)
 					),
 				'extra' => array( 'size' => 3 ),
