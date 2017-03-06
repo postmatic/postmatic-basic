@@ -85,6 +85,11 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.1.5 =
+
+- Fixed an error in which notices when subscriptions are being paused (Flood Control) were not sending correctly.
+- Fixed Freemius error when upgrading.
+
 = 2.1.4 =
 
 - The checkbox to remove Replyable branding wasn't sticking properly. Fixed.
