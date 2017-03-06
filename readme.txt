@@ -89,6 +89,7 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 
 - Fixed an error in which notices when subscriptions are being paused (Flood Control) were not sending correctly.
 - Fixed Freemius error when upgrading.
+- We adjusted the minimum number of comments to trigger flood control. You can now set it down to 2 (which is essentially off).
 
 = 2.1.4 =
 
