@@ -114,7 +114,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 			2
 		);
 
-        $this->freemius->add_action( 'after_license_change', array( $this, 'after_license_change' ) );
+        $this->freemius->add_action( 'after_license_change', array( $this, 'after_license_change' ), 10, 2 );
 		$this->freemius->add_action( 'after_account_delete', array( $this, 'after_account_delete' ) );
 
 		$this->freemius->add_filter( 'sticky_message_trial_started', array( $this, 'sticky_message_trial_started' ) );
@@ -163,11 +163,12 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
      *
 	 * @since 2.0.0
 	 * @param string $change
+	 * @param string $plan
 	 */
-	public function after_license_change( $change ) {
-	    $changes = $this->options->get( 'freemius_license_changes' );
-	    $changes[] = $change;
-	    $this->options->set( 'freemius_license_changes', $change );
+	public function after_license_change( $change, $plan ) {
+	    $changes = (array) $this->options->get( 'freemius_license_changes' );
+	    $changes[] = $plan;
+	    $this->options->set( 'freemius_license_changes', $changes );
 	}
 
 	/**
