@@ -75,7 +75,7 @@ class Prompt_Admin_Comment_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$flood_trigger_count = $new_data['comment_flood_control_trigger_count'];
 		$flood_trigger_count = is_numeric( $flood_trigger_count ) ? absint( $flood_trigger_count ) : 6;
-		$flood_trigger_count = ( $flood_trigger_count < 3 ) ? 3 : $flood_trigger_count;
+		$flood_trigger_count = ( $flood_trigger_count < 2 ) ? 2 : $flood_trigger_count;
 		$valid_data['comment_flood_control_trigger_count'] = $flood_trigger_count;
 
 		return $valid_data;
