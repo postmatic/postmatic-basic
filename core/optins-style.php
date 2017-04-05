@@ -751,8 +751,8 @@ class Prompt_Optins_Style {
 		-webkit-border-bottom-right-radius: 15px !important;
 		-moz-border-radius-topleft: 15px !important;
 		-moz-border-radius-bottomright: 15px !important;
-		border-top-left-radius: 15px !important;
-		border-bottom-right-radius: 15px !important;
+		border-top-left-radius: 15px;
+		border-bottom-right-radius: 15px;
 		min-height: 230px !important;
 		}
 		
