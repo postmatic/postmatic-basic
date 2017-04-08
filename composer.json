@@ -6,18 +6,22 @@
 		{
 			"type": "vcs",
 			"url": "https://github.com/vernal-creative/html-to-markdown"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/postmatic/wp-scb-framework"
 		}
 	],
 	"autoload": {
 		"classmap": ["admin/", "core/", "interfaces/", "enums/" ]
 	},
 	"require": {
-		"scribu/scb-framework": "dev-master",
+		"scribu/scb-framework": "dev-composer-voodoo",
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"mailchimp/mailchimp": "~2.0.6",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "1.2.1"
+		"freemius/wordpress-sdk": "^1.2.1"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",
