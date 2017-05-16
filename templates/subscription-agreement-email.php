@@ -85,7 +85,12 @@
 				add_query_arg(
 					array(
 						'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
-						'body' => __( 'I did not initiate this subscription to ***sitename***', 'Postmatic' ),
+						'body' => rawurlencode(
+                            sprintf(
+                                __( 'I did not initiate this subscription to %s', 'Postmatic' ),
+                                   get_bloginfo( 'name' )
+                            )
+                        )
 					),
 					'mailto:abuse@gopostmatic.com'
 				)

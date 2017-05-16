@@ -2,7 +2,7 @@
 
 class PostEmailTest extends WP_UnitTestCase {
 
-	function testDefaults() {
+	public function testDefaults() {
 
 		$post = $this->factory->post->create_and_get();
 
@@ -48,7 +48,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$this->assertEmpty( $batch->get_individual_message_values(), 'Expected no individual values.' );
 	}
 
-	function testDefaultRecipient() {
+	public function testDefaultRecipient() {
 
 		$post = $this->factory->post->create_and_get();
 		$recipient = $this->factory->user->create_and_get();
@@ -68,7 +68,7 @@ class PostEmailTest extends WP_UnitTestCase {
 	 * @expectedException PHPUnit_Framework_Error
 	 * @expectedExceptionMessage Did not add an invalid post recipient
 	 */
-	function testNonexistentRecipient() {
+	public function testNonexistentRecipient() {
 
 		$post = $this->factory->post->create_and_get();
 
@@ -81,7 +81,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$this->assertEmpty( $batch->get_individual_message_values(), 'Expected no individual message values.' );
 	}
 
-	function testAuthorSubscriberFromName() {
+	public function testAuthorSubscriberFromName() {
 
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 		$post = $this->factory->post->create_and_get( array( 'post_author' => $author->ID ) );
@@ -109,7 +109,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		);
 	}
 
-	function testRecipientValues() {
+	public function testRecipientValues() {
 		$post = $this->factory->post->create_and_get();
 		$recipient = $this->factory->user->create_and_get();
 		$prompt_site = new Prompt_Site();
@@ -128,7 +128,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$this->assertEquals( $prompt_site->subscription_object_label(), $values[0]['subscribed_object_label'] );
 	}
 
-	function testClosedPost() {
+	public function testClosedPost() {
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
 		$post = $this->factory->post->create_and_get( array(
@@ -156,7 +156,7 @@ class PostEmailTest extends WP_UnitTestCase {
 
 		$this->assertContains( $post->post_content, $template['html_content'], 'Expected post content in HTML.' );
 
-		$this->assertNotContains( $post->post_excerpt, $template['html_content'], 'Expected NO post excerpt in HTML.' );
+		$this->assertNotRegExp( '/XXEXCERPTXX.*XXEXCERPTXX/', $template['html_content'], 'Expected only one post excerpt in HTML.' );
 
 		$values = $batch->get_individual_message_values();
 
@@ -181,7 +181,8 @@ class PostEmailTest extends WP_UnitTestCase {
 		$this->assertArrayNotHasKey( 'reply_address', $values[0], 'Expected no reply address' );
 	}
 
-	function testExcerptPostEmail() {
+	public function testExcerptPostEmail() {
+
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
 		$post = $this->factory->post->create_and_get( array(
@@ -206,7 +207,7 @@ class PostEmailTest extends WP_UnitTestCase {
 
 		$this->assertNotContains( $post->post_content, $template['html_content'], 'Expected NO post content in HTML.' );
 
-		$this->assertContains( $post->post_excerpt, $template['html_content'], 'Expected post excerpt in HTML.' );
+        $this->assertNotRegExp( '/XXEXCERPTXX.*XXEXCERPTXX/', $template['html_content'], 'Expected only one post excerpt in HTML.' );
 
 		$values = $batch->get_individual_message_values();
 
@@ -216,7 +217,7 @@ class PostEmailTest extends WP_UnitTestCase {
 	}
 
 
-	function testOverrideExcerptPostEmail() {
+	public function testOverrideExcerptPostEmail() {
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
 		$post = $this->factory->post->create_and_get( array(
@@ -241,14 +242,14 @@ class PostEmailTest extends WP_UnitTestCase {
 
 		$this->assertContains( $post->post_content, $template['html_content'], 'Expected post content in HTML.' );
 
-		$this->assertNotContains( $post->post_excerpt, $template['html_content'], 'Expected NO post excerpt in HTML.' );
+        $this->assertNotRegExp( '/XXEXCERPTXX.*XXEXCERPTXX/', $template['html_content'], 'Expected only one post excerpt in HTML.' );
 
 		$values = $batch->get_individual_message_values();
 
 		$this->assertArrayHasKey( 'reply_to', $values[0], 'Expected the email to have command metadata.' );
 	}
 
-	function testUnrenderedContent() {
+	public function testUnrenderedContent() {
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
 
 		$post = $this->factory->post->create_and_get( array(
@@ -266,7 +267,7 @@ class PostEmailTest extends WP_UnitTestCase {
 
 	}
 
-	function testFootnoteFilter() {
+	public function testFootnoteFilter() {
 
 		$mock_filter = $this->getMock( 'Foo', array( 'filter' ) );
 		$mock_filter->expects( $this->once() )
@@ -291,7 +292,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		remove_filter( 'prompt/post_email_batch/extra_footnote_content', array( $mock_filter, 'filter' ) );
 	}
 
-	function testComments() {
+	public function testComments() {
 		remove_action( 'transition_comment_status', array( 'Prompt_Outbound_Handling', 'action_transition_comment_status' ) );
 		remove_action( 'wp_insert_comment', array( 'Prompt_Outbound_Handling', 'action_wp_insert_comment' ) );
 
@@ -323,7 +324,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		add_action( 'wp_insert_comment', array( 'Prompt_Outbound_Handling', 'action_wp_insert_comment' ), 10, 2 );
 	}
 
-	function testIncludeAuthorFilter() {
+	public function testIncludeAuthorFilter() {
 		add_filter( 'prompt/new_post_email/include_author', '__return_true' );
 
 		$author = $this->factory->user->create_and_get( array( 'role' => 'author' ) );
@@ -344,7 +345,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		remove_filter( 'prompt/new_post_email/include_author', '__return_true' );
 	}
 
-	function testLockForSending() {
+	public function testLockForSending() {
 		$post = $this->factory->post->create_and_get();
 
 		$recipient = $this->factory->user->create_and_get();
@@ -368,7 +369,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$batch->lock_for_sending();
 	}
 
-	function testClearFailures() {
+	public function testClearFailures() {
 		$post = $this->factory->post->create_and_get();
 
 		$failed_recipient = $this->factory->user->create_and_get();
@@ -394,7 +395,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$batch->clear_failures( array( $failed_recipient->user_email ) );
 	}
 
-	function testClearForRetry() {
+	public function testClearForRetry() {
 		$post = $this->factory->post->create_and_get();
 
 		$recipient = $this->factory->user->create_and_get();
@@ -418,7 +419,7 @@ class PostEmailTest extends WP_UnitTestCase {
 		$batch->clear_for_retry();
 	}
 
-	function testRecordFailures() {
+	public function testRecordFailures() {
 		$post = $this->factory->post->create_and_get();
 
 		$failed_recipient = $this->factory->user->create_and_get();
