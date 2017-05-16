@@ -16,6 +16,9 @@
 
 $previous_index = count( $previous_comments );
 ?>
+<div class="hidden">
+	<?php echo $comment_text; ?>
+</div>
 <div class="padded">
 	<p>
 		<?php
