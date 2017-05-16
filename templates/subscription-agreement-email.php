@@ -77,14 +77,20 @@
 
 	<p class="abuse">
 		<?php
-		printf(
-			__(
-				'If you did not initiate this subscription please ignore this email or forward it to %s.',
-				'Postmatic'
-			),
-			Prompt_Core::is_api_transport() ? Prompt_Core::ABUSE_EMAIL : get_option( 'admin_email' )
-		)
-		?>
+			printf(
+				__(
+					'If you did not initiate this subscription please ignore this email or <a href="%s"><strong>click here to report it as spam</strong></a>.',
+					'Postmatic'
+				),
+				add_query_arg(
+					array(
+						'subject' => rawurlencode( __( 'Press send to confirm.', 'Postmatic' ) ),
+						'body' => __( 'I did not initiate this subscription to ***sitename***', 'Postmatic' ),
+					),
+					'mailto:abuse@gopostmatic.com'
+				)
+			);
+			?>
 	</p>
 
 </div>
