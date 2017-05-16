@@ -16,6 +16,9 @@
  */
 ?>
 
+<div class="hidden">
+	<?php the_excerpt(); ?>
+</div>
 
 <div class="padded postmatic-header">
 	<h1 id="the_title">
