@@ -18,7 +18,9 @@
  */
 
 ?>
-
+<div class="hidden">
+	<?php echo $comment_text; ?>
+</div>
 <div class="padded">
 
 	<p class="padding">{{{subscriber_comment_intro_html}}}</p>
