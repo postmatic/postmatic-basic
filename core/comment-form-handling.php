@@ -176,7 +176,7 @@ class Prompt_Comment_Form_Handling {
 			);
 		}
 
-		$tooltip_text = apply_filters( 'prompt/comment_form_handing/tooltip', $tooltip_text, $post_id );
+		$tooltip_text = apply_filters( 'prompt/comment_form_handling/tooltip', $tooltip_text, $post_id );
 
 		echo html( 'label id="prompt-comment-subscribe"',
 			html( 'input',
