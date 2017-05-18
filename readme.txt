@@ -6,7 +6,7 @@ Tested up to: 4.7.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Subscribe to Comments reimagined. Smarter. More contextual. Mobile ready. Replyable.
+The new standard in comment subscriptions for WordPress. Two-way email commenting which is intelligent, responsive, and convenient.
 
 == Description ==
 
@@ -14,9 +14,9 @@ Take *Subscribe to Comments*. Now, make it smart. And beautiful. And a good list
 
 = Comment subscriptions reimagined - for better SEO, better conversations, and easier comment management =
 
-**Replyable is smart**: Not all comments are created equal. Some are thoughtful, relevant, and worth sharing. Others are just a waste of time. Replyable lets your users subscribe to comments without fear - only the best comments will be sent via email.
+**Replyable is smart**: Not all comments are created equal. Some are thoughtful, relevant, and worth sharing. Others are just a waste of time. Replyable lets your users subscribe to comments without fear - machine learning rates comments for relevance and only sends the best to subscribers.
 
-**Replyable is aware**: Nobody will get too much email. As conversations get busy comments will be combined into a daily digest. *Subscribe to comments* is finally safe again.
+**Replyable is aware**: Nobody will get too much email. As conversations get busy comments will be combined into a daily digest. *Subscribe to comments* is finally safe again. Or, let your users subscribe to only direct replies to their comments.
 
 **Replyable listens**: Reply to any email sent from Replyable to post your response as a followup comment. No forms, no websites. It works online or offline, from anywhere. And to make comment moderation easier, authors can moderate comments with simple email commands.
 
@@ -29,11 +29,12 @@ The days of one-way notifications are over. It’s time to let them hit reply.
 = Core Features =
 
 * Subscribe to Comments modernized - rock-solid comment subscriptions which comply with *all international spam laws*.
-* Onc-click migration from legacy *Subscribe to Comments* plugins.
+* Single-click migration from legacy *Subscribe to Comments* plugins.
 * Comment subscriptions reimagined - Our notifications bring along profile images, gravatars, post recaps, and display the comment in context of the larger conversation.
 * Responsive templates - rich html-based comment templates that look great on both desktop and mobile displays.
 * Fully branded, auto-adapting templates which magically mimic your active theme - it's true. Our email templates self-adjust to match the colors, images, and typography of your theme. It's kind of nuts.
 * Replyable strictly adheres to WordPress best practices. It uses the native commenting and user systems. We’re just a magical email gateway.
+* Users can subscribe to all comments on a post, or choose to just receive direct replies to their own comments.
 * Automatic pausing of subscriptions on chatty posts - if too many comments are happening at once subscriptions will automatically be placed on pause the users notified. They can resume their subscription with a simple command. 
 
 = Premium Features (starting at $2.99/month, 30 day free trial) =
@@ -85,6 +86,12 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.2 =
+
+- NEW: Replies-only mode. Comment subscriptions can be configured to send direct replies only to subscribers. Use caution, this will break your conversations up into silos (lots of side conversations and less cohesive overall), but is a good fit for very large sites. This can be activated from the settings > replyable > configure comments screen.
+- NEW: Replies-only + Daily Digest mode. This has the effect of sending direct comment replies only in addition to daily comment summaries to subscribed users. You can be activated by setting Flood Control to 1. [See our blog](https://gopostmatic.com/2017/05/2-1/) for more info.
+- NEW: Inbox previews in Gmail and most desktop email clients. Subscribers can now see your sitename, post title, and excerpt all from their inbox, before opening an emailed post. Comment subscribers can see the first few lines of the new comment. [See our blog](https://gopostmatic.com/2017/05/2-1/) for more info.
+
 = 2.1.5 =
 
 - Fixed an error in which notices when subscriptions are being paused (Flood Control) were not sending correctly.
