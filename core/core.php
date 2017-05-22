@@ -52,6 +52,7 @@ class Prompt_Core {
 
 		scb_init();
 
+        add_filter( 'prompt/default_options', array( 'Postmatic\Commentium\Filters\Options', 'default_options' ) );
 		self::$options = new Prompt_Options();
 
 		add_action( 'plugins_loaded', array( __CLASS__, 'action_plugins_loaded' ) );
@@ -134,8 +135,10 @@ class Prompt_Core {
 		add_action( 'comment_approved_to_unapproved', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'approved_to_unapproved' ) );
 		add_filter( 'comment_moderation_recipients', array( 'Postmatic\Commentium\Filters\Comment_Moderation', 'recipients' ), 10, 2 );
 
-		add_filter( 'prompt/make_comment_flood_controller', array( 'Postmatic\Commentium\Filters\Factory', 'make_comment_flood_controller' ), 10, 2 );
+        add_filter( 'prompt/make_comment_flood_controller', array( 'Postmatic\Commentium\Filters\Factory', 'make_comment_flood_controller' ), 10, 2 );
 		add_filter( 'prompt/comment_notifications/allow', array( 'Postmatic\Commentium\Filters\Comment_Notifications', 'allow' ), 10, 2 );
+        add_filter( 'replyable/comment_form/opt_in_tooltip_text', array( 'Postmatic\Commentium\Filters\Comment_Form_Handling', 'tooltip' ) );
+        add_filter( 'prompt/options_page/tabs', array( 'Postmatic\Commentium\Filters\Options_Page', 'tabs' ) );
 
 		add_action( 'prompt/mailing/send', array( 'Prompt_Mailing', 'send' ) );
 		add_action( 'prompt/comment_mailing/send_notifications', array( 'Prompt_Comment_Mailing', 'send_notifications' ) );
