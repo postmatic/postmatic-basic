@@ -88,6 +88,7 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 == Changelog ==
 = 2.2 =
 
+- NEW: Choose to automatically subscribe authors to comments on their own posts (Daily Discourse and above)
 - NEW: Replies-only mode. Comment subscriptions can be configured to send direct replies only to subscribers. Use caution, this will break your conversations up into silos (lots of side conversations and less cohesive overall), but is a good fit for very large sites. This can be activated from the settings > replyable > configure comments screen.
 - NEW: Replies-only + Daily Digest mode. This has the effect of sending direct comment replies only in addition to daily comment summaries to subscribed users. You can be activated by setting Flood Control to 1. [See our blog](https://gopostmatic.com/2017/05/2-1/) for more info.
 - NEW: Inbox previews in Gmail and most desktop email clients. Subscribers can now see your sitename, post title, and excerpt all from their inbox, before opening an emailed post. Comment subscribers can see the first few lines of the new comment. [See our blog](https://gopostmatic.com/2017/05/2-1/) for more info.
