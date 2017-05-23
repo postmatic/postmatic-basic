@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b77832dbcb310092d20cf717d94e2300",
+    "content-hash": "22f6c6743d9d928094bd9434d96ce361",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -124,16 +124,16 @@
         },
         {
             "name": "postmatic/commentium",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "ba3f0fe18a44a5c6c83965b83287e32af06fdeee"
+                "reference": "53294a078fefacdb4c7f0983a39805f16ac9f97a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/ba3f0fe18a44a5c6c83965b83287e32af06fdeee",
-                "reference": "ba3f0fe18a44a5c6c83965b83287e32af06fdeee",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/53294a078fefacdb4c7f0983a39805f16ac9f97a",
+                "reference": "53294a078fefacdb4c7f0983a39805f16ac9f97a",
                 "shasum": ""
             },
             "require": {
@@ -166,10 +166,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/postmatic/commentium/tree/1.0.2",
+                "source": "https://github.com/postmatic/commentium/tree/1.0.3",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2017-05-22T13:11:50+00:00"
+            "time": "2017-05-23T02:31:25+00:00"
         },
         {
             "name": "scribu/scb-framework",

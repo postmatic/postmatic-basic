@@ -31,7 +31,7 @@
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
 		"freemius/wordpress-sdk": "dev-develop",
-		"postmatic/commentium": "^1.0.2"
+		"postmatic/commentium": "^1.0.3"
 	},
 	"require-dev": {
 		"phing/phing": "2.8.*",
