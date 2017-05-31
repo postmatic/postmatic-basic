@@ -128,6 +128,8 @@
 		    width: 600px;
 		    line-height: normal
 		}
+		
+		.hidden {display: none !important; height: 0 !important;}
 
 		<?php echo $site_css; ?>
 	</style>
