@@ -86,6 +86,10 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+= 2.2.1 =
+
+- Tested for WordPress 4.8 compatability
+
 = 2.2 =
 
 - NEW: Choose to automatically subscribe authors to comments on their own posts (Daily Discourse and above)
