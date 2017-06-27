@@ -353,7 +353,21 @@ class PostTest extends Prompt_UnitTestCase {
 			'Expected custom HTML to be the set value.'
 		);
 	}
-	
+
+	public function testSubscriberIdsNumericString() {
+
+		update_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, '3' );
+
+		$this->assertCount( 1, $this->_prompt_post->subscriber_ids(), 'Expected one subscriber ID.' );
+		$this->assertContains( 3, $this->_prompt_post->subscriber_ids(), 'Expected subscriber ID 3.' );
+
+	}
+
+	public function testSubscriberIdsNonNumericString() {
+		update_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, 'foo' );
+		$this->assertEmpty( $this->_prompt_post->subscriber_ids(), 'Expected no subscriber IDs.' );
+	}
+
 	// Mulling over the necessity of this method
 	function donttestUniqueSubscribers() {
 		$author_ids = $this->factory->user->create_many( 2 );
