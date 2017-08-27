@@ -45,6 +45,8 @@
         <include name="vendor/xamin/**"/>
         <include name="vendor/freemius/**"/>
         <include name="vendor/postmatic/**"/>
+        <exclude name="**/tests/**"/>
+        <exclude name="**/wp-org-assets/**"/>
     </fileset>
 
     <target name="build" depends="prepare">
