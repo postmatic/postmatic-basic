@@ -112,7 +112,7 @@ abstract class Prompt_Meta_Subscribable_Object implements Prompt_Interface_Subsc
 		$ids = array();
 		foreach ( $results as $result ) {
 			$user_ids = unserialize( $result->meta_value );
-			if ( in_array( $user_id, $user_ids ) ) {
+			if ( is_array( $user_ids ) && in_array( $user_id, $user_ids, false ) ) {
 				$ids[] = $result->$id_field;
 			}
 		}
