@@ -8,6 +8,10 @@
 		  "url": "https://github.com/postmatic/commentium"
 		},
 		{
+		  "type": "vcs",
+		  "url": "https://github.com/postmatic/wp-scb-framework"
+		},
+		{
 			"type": "vcs",
 			"url": "https://github.com/vernal-creative/html-to-markdown"
 		},
@@ -26,7 +30,7 @@
 		}
 	},
 	"require": {
-		"scribu/scb-framework": "dev-master",
+		"scribu/scb-framework": "dev-composer-voodoo",
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",

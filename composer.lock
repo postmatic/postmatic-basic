@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "22f6c6743d9d928094bd9434d96ce361",
+    "content-hash": "abab0102c52ddfdf1ff35a80299bcf42",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -45,12 +45,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "2ba148a2bf1ee1961f170c676446ed840831ae94"
+                "reference": "eddbe38b377a592e23426c7e4ec6b5d26dcf5bae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/2ba148a2bf1ee1961f170c676446ed840831ae94",
-                "reference": "2ba148a2bf1ee1961f170c676446ed840831ae94",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/eddbe38b377a592e23426c7e4ec6b5d26dcf5bae",
+                "reference": "eddbe38b377a592e23426c7e4ec6b5d26dcf5bae",
                 "shasum": ""
             },
             "require": {
@@ -72,7 +72,7 @@
                 "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
                 "issues": "https://github.com/Freemius/wordpress-sdk/issues"
             },
-            "time": "2017-05-15 18:08:58"
+            "time": "2017-08-24 12:33:48"
         },
         {
             "name": "postmatic/comment-iq-api-client",
@@ -173,16 +173,16 @@
         },
         {
             "name": "scribu/scb-framework",
-            "version": "dev-master",
+            "version": "dev-composer-voodoo",
             "source": {
                 "type": "git",
-                "url": "https://github.com/scribu/wp-scb-framework.git",
-                "reference": "95b23ac342fce16bf5eb8d939ac5a361b94b104b"
+                "url": "https://github.com/postmatic/wp-scb-framework.git",
+                "reference": "3ea5231c06516134c32c03d3e941ded1f046fb5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scribu/wp-scb-framework/zipball/95b23ac342fce16bf5eb8d939ac5a361b94b104b",
-                "reference": "95b23ac342fce16bf5eb8d939ac5a361b94b104b",
+                "url": "https://api.github.com/repos/postmatic/wp-scb-framework/zipball/3ea5231c06516134c32c03d3e941ded1f046fb5d",
+                "reference": "3ea5231c06516134c32c03d3e941ded1f046fb5d",
                 "shasum": ""
             },
             "type": "library",
@@ -191,11 +191,9 @@
                     "."
                 ],
                 "files": [
-                    "load-composer.php",
-                    "Util.php"
+                    "load.php"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -210,7 +208,12 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2015-10-25 20:19:41"
+            "support": {
+                "issues": "https://github.com/scribu/wp-scb-framework/issues",
+                "source": "https://github.com/scribu/wp-scb-framework",
+                "wiki": "https://github.com/scribu/wp-scb-framework/wiki"
+            },
+            "time": "2017-01-30 21:40:10"
         },
         {
             "name": "vernal-creative/html-to-markdown",
@@ -352,21 +355,21 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.7.5",
+            "version": "4.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "381ef55a27e1dcc1c4bbe8b0c6a7ba2d45623819"
+                "reference": "75bbc8dade6d66b66c7184656df7b3d545d31baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/381ef55a27e1dcc1c4bbe8b0c6a7ba2d45623819",
-                "reference": "381ef55a27e1dcc1c4bbe8b0c6a7ba2d45623819",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/75bbc8dade6d66b66c7184656df7b3d545d31baa",
+                "reference": "75bbc8dade6d66b66c7184656df7b3d545d31baa",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "4.7.5",
-                "johnpbloch/wordpress-core-installer": "~0.2",
+                "johnpbloch/wordpress-core": "4.8.1",
+                "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.3.2"
             },
             "type": "package",
@@ -387,20 +390,20 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2017-05-16T22:48:14+00:00"
+            "time": "2017-08-02T21:47:41+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "4.7.5",
+            "version": "4.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "9a88a4b4c65f689d78789ef6ff77a7ca0239ec02"
+                "reference": "eee7b6128469d31803da3a07aaac9c442f81758e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/9a88a4b4c65f689d78789ef6ff77a7ca0239ec02",
-                "reference": "9a88a4b4c65f689d78789ef6ff77a7ca0239ec02",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/eee7b6128469d31803da3a07aaac9c442f81758e",
+                "reference": "eee7b6128469d31803da3a07aaac9c442f81758e",
                 "shasum": ""
             },
             "require": {
@@ -424,20 +427,20 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2017-05-16T22:48:08+00:00"
+            "time": "2017-08-02T21:47:36+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "0.2.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "a04c2c383ef13aae077f36799ed2eafdebd618d2"
+                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/a04c2c383ef13aae077f36799ed2eafdebd618d2",
-                "reference": "a04c2c383ef13aae077f36799ed2eafdebd618d2",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/e9e767f2d9f994f358c34b41def2c410ad8717f2",
+                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2",
                 "shasum": ""
             },
             "require": {
@@ -447,7 +450,8 @@
                 "composer/installers": "<1.0.6"
             },
             "require-dev": {
-                "composer/composer": "1.0.*@dev"
+                "composer/composer": "^1.0",
+                "phpunit/phpunit": ">=4.8.35"
             },
             "type": "composer-plugin",
             "extra": {
@@ -472,7 +476,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2015-06-11T15:15:30+00:00"
+            "time": "2017-05-31T18:42:33+00:00"
         },
         {
             "name": "phing/phing",
@@ -1286,16 +1290,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v2.8.20",
+            "version": "v2.8.26",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "93ccdde79f4b079c7558da4656a3cb1c50c68e02"
+                "reference": "4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/93ccdde79f4b079c7558da4656a3cb1c50c68e02",
-                "reference": "93ccdde79f4b079c7558da4656a3cb1c50c68e02",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5",
+                "reference": "4c29dec8d489c4e37cf87ccd7166cd0b0e6a45c5",
                 "shasum": ""
             },
             "require": {
@@ -1331,7 +1335,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-05-01T14:31:55+00:00"
+            "time": "2017-06-01T20:52:29+00:00"
         },
         {
             "name": "tedivm/jshrink",
