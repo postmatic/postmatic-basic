@@ -1,16 +1,20 @@
+dist: trusty
 language: php
-php:
-- 5.3
-- 5.6
 env:
-  matrix:
-  - WP_VERSION=latest WP_MULTISITE=0 DEPLOY=wp
-  - WP_VERSION=latest WP_MULTISITE=1
-  - WP_VERSION=4.4 WP_MULTISITE=0
-  - WP_VERSION=4.4 WP_MULTISITE=1
   global:
   - secure: tehdAceABEYaGZOJBQoH9+fSauQhQPv0JaTQelHJ1WbVavvNz5ot52QnF4j4x81SRKrxcP0WBUn6Siri+r5Gj7O8CBmZJphIo47iY4YWg+J5bbJEPl0A/2Hlp7V0PG/w3fXLTYUq/qiz/RO1Cnca7j0zw3hh/wPFSH+Lb9AWgGIX/3uhEL9pSoMF0ksMeqQVCUiZZS+vzM/LnqnrrWrc+DV8uWpKoApQE+3gyoiR6dhDw7Tj8+lCNV4mbE9uNfGvdMKVaSQ3UjmhDf8opuzL/aOlOlDpvLmdyiHBtgvAKa1HHPRkqQkRoTZSEaWr0/dBVhjdq7nrZnbq7FL0wIPcal7R9F1aSGsAvWDMUtHyYAARqFb1TcKCvUxdtl4DJEH+p2ecfDNTF19IhZMjGLEEY3N/6UY8xGn3YvQozOodjxq3WDxrhGkI3hQMZ00ZC4yUFM0yCTrau2039juYrgnNx4Uu4mKuu9qdSwkNSPY/WvLgiOKQS6xJZnoD0+ILlC+g6qPUnG+oNzk7pQcUlXparnmsOVUUuAkJc1J3/qeHzUgs0jaHgjpixrnYSLnS56qxQ944AyTmCKctaVeNLKmAxR1VS86pS3B0hzdd2cgfWAsLnkx6OVt/dkBpwvRZG1p+ILSo17xOsaASlB6I4twS9Oc/N1Kf2q1aainFNfSFnlo=
   - secure: e+gnmaQNY+OS9wbEA4QHB/T2XzQVrbpi2yMA5V85dSdrKw47m/Z6XcLraqeutpb86GyPvB/PG8r3y1aGA62cT+38AqYGfmbSi04zyM7an99d7yGrwBrKAObk5TpLRx9PM1Uz4dIDC9KsjCHKghNJgujfW5bIfqA5Y1w9IOoiAK77JOMBV8WU/m4RLawMhRTtOqeg9+ib1ZuwHTAtZFR6LvPfHInIbTgE8aBPIeU3VJBhVzUpqQz9Gj3s9BQnHw7kOr3tetGxLacAith/u/FABT7DmzKB7soDEFc1Do8MB0wQkHNrLLCiVhf4Tvga3AtMqZvKdcX6xDJmrBL2XpqgYiDMQ0W3tZI9n+BOJy9324VyWXQqBcIH6VCoJtOD9xyYLoFuYhYmyCAfUFYjTmFJUrwj16vf2D7SxiKkPlWvawZduCg5CZioZYlT8yptLmx+jLkTJnTaC1Kcz6mBV73X4wMEYTIOT39VT0SzOKAKq3JLsFtwgfFdSs0zv3PZT0uf5JJ++/Vn2Kl6CMFQ4g9oNfOa4x4TtPThBwKtgsFgJf0Izaf9AjM30cR16uU1mrn0Cs/P0+73epUuyFTrJZk5/ej3rwP4u7ZFD0P0qx8QsL3joC9fC2Sw9lvdi7Ng8d/CNN/YzMVlr8EyrAj9bR9lG0vCxP0W3EM4XtJF6ipNiGg=
+matrix:
+  include:
+    - php: 5.6
+      env: WP_VERSION=latest DEPLOY=wp
+    - php: 5.6
+      env: WP_VERSION=latest WP_MULTISITE=1
+    - php: 5.6
+      env: WP_VERSION=4.4
+    - php: 5.3
+      dist: precise
+      env: WP_VERSION=latest
 before_install:
 - git submodule update --init --recursive
 - composer install
