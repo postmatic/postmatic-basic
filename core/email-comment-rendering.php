@@ -60,6 +60,10 @@ class Prompt_Email_Comment_Rendering {
 			);
 		}
 
+		$comment_text = apply_filters( 'comment_text', get_comment_text( $comment->comment_ID ), $comment );
+
+		$comment_text = Prompt_Formatting::escape_handlebars_expressions( $comment_text );
+
 		echo html( 'div class="comment-header"',
 			get_avatar( $comment ),
 			html( 'div class="author-name"',
@@ -74,7 +78,7 @@ class Prompt_Email_Comment_Rendering {
 				)
 			),
 			html( 'div class="comment-body"',
-				apply_filters( 'comment_text', get_comment_text( $comment->comment_ID ), $comment ),
+				$comment_text,
 				$comment_actions
 			)
 		);

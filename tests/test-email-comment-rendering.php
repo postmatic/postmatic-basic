@@ -32,5 +32,28 @@ class EmailCommentRenderingTest extends \WP_UnitTestCase {
 			'Expected no contextual class in child content.'
 		);
 	}
-	
+
+	public function test_handlebars_escaping() {
+		$post_id = $this->factory->post->create();
+		$comment = $this->factory->comment->create_and_get( array(
+			'comment_post_ID' => $post_id,
+            'comment_content' => 'Foo {{Bar}}',
+		) );
+
+		ob_start();
+		Prompt_Email_Comment_Rendering::render( $comment, array(), 0 );
+		$content = ob_get_clean();
+
+		$this->assertContains(
+		    'Foo',
+            $content,
+            'Expected plain text words from original content.'
+        );
+
+		$this->assertContains(
+		    '\\{{Bar}}',
+            $content,
+            'Expected handlebars to be escaped.'
+        );
+	}
 }
