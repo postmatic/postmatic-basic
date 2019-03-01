@@ -530,8 +530,9 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	protected function flood_controlled_recipient_ids() {
 
 		// We currently only mail standard WP comments
-		if ( ! empty( $this->prompt_comment->get_wp_comment()->comment_type ) )
-			return array();
+		if ( 'comment' != get_comment_type($this->prompt_comment->get_wp_comment() ) ) {
+            return array();
+        }
 
 		$recipient_ids = $this->prompt_comment->get_recipient_ids();
 

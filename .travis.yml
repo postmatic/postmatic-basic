@@ -20,7 +20,7 @@ before_install:
 - composer install
 before_script:
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
-script: phpunit
+script: vendor/bin/phpunit
 notifications:
   slack:
     secure: uDChQPGbtHfiXgMa9q+m8G2KbVCiaEvwvchpzR/Y0/2J9Is77zPm0BsHw708Iyn6+/VABaRXiSnhFjykjl8qtDzXxKS9dC4B9pK14XzkgAtkciA5Ekwe3p+IpJEhHO1N79zov+IlsRKrq3/HchHexfVkgq5KViNPvzJG2/+0kv7kYMb7wcdyLJxE4V9fV898HygkqzCQdXY9KprqdKeYYYjKUky+bohutjVa8r4NaDq4HSJR620KhkTVJM/7nurG9MYgckmVAb4Nxh6krcx25dtfWmL9Q30tLwnK3/T4daVvEpzXH9aLYPYoT5rMJqmtwDdfJvHsR3jNifUztOFYbaNNERrnz1M1+ictADGwqjfW/VmX9mlbFHdj8NeoHddkaauNJi/nAFbZL+ZNqOnw1Rh/rH2w5mym/SZGVH+JBwYdvPkLjpeaDNHq83+r6X8MZ/axWc3rq11INFZHzyFp+KLeJ+Khn4yXhVlZWI365Msf059ICeD/kNVqyndEB5MnSwBK6sfYxplRdHfCu3lyChwRABqWAa9SV77OyODxzj+f0LnuJ+9hLntlOsdSf46uXn05pfkSUQ5+vmwxTTRFSjI8uVbqf0sVcuMatGPwOUaEHvjHzuOVpuahytk+/fn70urzXwTwQ3t6DhMBi9/fjxUzCZlsQa/HBpoaoRIq3ck=
