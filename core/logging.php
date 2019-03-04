@@ -74,9 +74,13 @@ class Prompt_Logging {
 		// Puke a little in dev environments
 		trigger_error( $message, E_USER_NOTICE );
 
-		if ( Prompt_Core::$options->get( 'enable_collection' ) ) {
-			self::submit();
-		}
+        if (
+            Prompt_Core::$options->get('enable_collection') &&
+            ! Prompt_Core::$options->get('suppress_error_submissions')
+        ) {
+            self::submit($message);
+            Prompt_Core::$options->set('suppress_error_submissions', true);
+        }
 
 		return $wp_error;
 	}
@@ -146,10 +150,6 @@ class Prompt_Logging {
      * @return bool
      */
 	public static function submit($message = 'See attached log') {
-
-		if ( Prompt_Core::$options->get( 'suppress_error_submissions' ) ) {
-			return false;
-		}
 
 		$user = wp_get_current_user();
 
