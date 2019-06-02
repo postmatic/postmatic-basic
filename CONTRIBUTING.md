@@ -68,3 +68,14 @@ To create a distribution in a `build` subdirectory:
 
 [Phing](https://www.phing.info/) is a PHP build tool, and takes the 
 `build.xml` file as input. Look at that file for details.
+
+## Deploy
+
+Pushes to the github repository will trigger a build and test on
+[TravisCI](https://travis-ci.org/postmatic/postmatic-basic).
+
+Pushes to the master branch will also trigger deployment to the 
+[WordPress plugin repository](https://wordpress.org/plugins/postmatic/).
+
+TravisCI configuration is in `.travis.yml`.
+

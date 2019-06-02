@@ -14,7 +14,7 @@ matrix:
       env: WP_VERSION=4.4
     - php: 5.3
       dist: precise
-      env: WP_VERSION=latest
+      env: WP_VERSION=4.4
 before_install:
 - git submodule update --init --recursive
 - composer install
