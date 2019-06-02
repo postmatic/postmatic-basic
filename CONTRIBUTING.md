@@ -29,6 +29,13 @@ Use composer to install dependencies and build autoloaders.
 
 	$ composer install
 
+### Commentium
+
+Composer will install [Commentium](https://github.com/postmatic/commentium),
+our own WordPress comment library. Just something to keep in mind.
+
+## Run tests
+
 If you have a [WordPress core SVN checkout](https://develop.svn.wordpress.org/trunk) somewhere, set an environment variable to point to it.
 
 	$ export WP_DEVELOP_DIR=/home/me/wp-dev
@@ -52,4 +59,23 @@ The `Prompt_Api` class should always be [fully documented](http://docs.gopostmat
 ## Submit pull requests
 
 The [github collaboration docs](https://help.github.com/categories/collaborating-on-projects-using-issues-and-pull-requests/) on forking and submitting pull requests should be sufficient.
+
+## Build
+
+To create a distribution in a `build` subdirectory:
+
+    $ ./vendor/bin/phing
+
+[Phing](https://www.phing.info/) is a PHP build tool, and takes the 
+`build.xml` file as input. Look at that file for details.
+
+## Deploy
+
+Pushes to the github repository will trigger a build and test on
+[TravisCI](https://travis-ci.org/postmatic/postmatic-basic).
+
+Pushes to the master branch will also trigger deployment to the 
+[WordPress plugin repository](https://wordpress.org/plugins/postmatic/).
+
+TravisCI configuration is in `.travis.yml`.
 
