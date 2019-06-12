@@ -106,7 +106,13 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 		);
 
 		ob_start();
-		wp_editor( $this->options->get( 'subscribed_introduction' ), 'subscribed_introduction' );
+		wp_editor(
+			$this->options->get( 'subscribed_introduction' ),
+			'subscribed_introduction',
+			array(
+				'editor_height' => 400,
+			)
+		);
 		$subscriber_welcome_editor = ob_get_clean();
 
 		$subscriber_welcome_content = html( 'div id="subscriber-welcome-message"',
@@ -179,9 +185,9 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @return array
 	 */
 	protected function get_rows() {
-		
+
 		$rows = array();
-	
+
 		$style_reset_html = '';
 		if ( $this->stylify->get_styles() ) {
 			$style_reset_html = html(
@@ -285,7 +291,7 @@ class Prompt_Admin_Email_Options_Tab extends Prompt_Admin_Options_Tab {
 		if ( $this->options->is_api_transport() ) {
 		    $rows[] = $this->footer_credit_row();
         }
-	
+
 		return $rows;
 	}
 
