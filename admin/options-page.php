@@ -381,7 +381,6 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 * @return array Tabs HTML element 0, Panels HTML element 1
 	 */
 	protected function tabs_content() {
-		global $pagenow;
 		$tabs   = '';
 		$panels = '';
 
