@@ -400,6 +400,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 					),
 					'id'    => 'prompt-tab-' . $slug,
 					'class' => 'nav-tab ' . ( $slug === $submitted_slug || ( '' === $submitted_slug && 'core' === $tab->slug() ) ? 'nav-tab-active' : '' ),
+					'data-tab-name' => 'prompt-tab-content-' . $slug,
 					'style' => $enabled ? '' : 'display: none;',
 				),
 				$tab->name()
@@ -408,7 +409,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 				'div',
 				array(
 					'id'    => 'prompt-tab-content-' . $slug,
-					'class' => 'prompt-tab-content',
+					'class' => 'prompt-tab-content hide',
 				),
 				$tab->render()
 			);

@@ -20,9 +20,29 @@ var prompt_options_page_env;
 			}
 
 			// Show Tab content
-			$( '.prompt-tab-content' ).css( 'display', 'none' );
-			$( '#' + url_params.tab ).css( 'display', 'block' );
+			$( '.prompt-tab-content' ).addClass( 'hide' );
+			$( '#' + url_params.tab ).removeClass( 'hide' ).addClass( 'show' );
 		} );
+
+		window.onpopstate = e => {
+			__register_advanced_on_pop_state(e);
+		};
+		__register_advanced_on_pop_state( {} );
+
+		function __register_advanced_on_pop_state( e ) {
+			// Parse URL into an object with query params
+			var url = wpAjax.unserialize(window.location.href);
+
+			// If option in query var, click it
+			if ('tab' in url) {
+				$('*[data-tab-name="' + url.tab + '"]').trigger('click');
+			} else {
+				// We are on the main tab with no options - click it if not active
+				var $first_item = $($('*[data-tab-name]')[0]);
+				$first_item.removeClass( 'hide' ).addClass('show').trigger('click');
+			}
+		}
+
 
 		$( '.wrap' ).show();
 

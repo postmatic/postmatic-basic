@@ -1293,13 +1293,35 @@ div#prompt-settings-core p.submit {
 
 #wpfooter {display: none;}
 
+@-webkit-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @-moz-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @-o-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
 body .wrap h2.nav-tab-wrapper {
 	margin-bottom: 20px;
 }
-#prompt-tab-content-configure-your-template,
-#prompt-tab-content-comment-delivery,
-#prompt-tab-content-import-subscribe-reloaded,
-#prompt-tab-content-recommended-plugins,
-#prompt-tab-content-upgrade {
+.prompt-tab-content.hide {
 	display: none;
+	visibility: hidden;
+	opacity: 0;
+}
+.prompt-tab-content.show {
+	-webkit-animation: repliable-tab-show 2s; /* Safari 4+ */
+	-moz-animation:    repliable-tab-show 2s; /* Fx 5+ */
+	-o-animation:      repliable-tab-show 2s; /* Opera 12+ */
+	animation:         repliable-tab-show 2s; /* IE 10+, Fx 29+ */
+	visibility: visible;
+	opacity: 1;
 }
