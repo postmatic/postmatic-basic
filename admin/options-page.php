@@ -186,7 +186,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-options-page',
 			'path' => 'js/options-page.js',
-			'dependencies' => array( 'thickbox' ),
+			'dependencies' => array( 'thickbox', 'wp-ajax-response' ),
 		) );
 		$script->enqueue();
 

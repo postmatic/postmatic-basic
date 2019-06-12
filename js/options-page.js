@@ -8,11 +8,17 @@ var prompt_options_page_env;
 			return;
 		}
 
-		$( '#prompt-tabs' ).tabs()
-				.addClass( "ui-tabs-vertical ui-helper-clearfix" )
-				.find( 'li' )
-				.removeClass( "ui-corner-top" )
-				.addClass( "ui-corner-left" );
+		$('.nav-tab-wrapper .nav-tab').on('click', function( e ) {
+			e.preventDefault();
+			$( '.nav-tab-wrapper .nav-tab' ).removeClass( 'nav-tab-active' );
+			$(e.currentTarget).addClass('nav-tab-active');
+			var url_params = wpAjax.unserialize(e.target.href);
+			var url = location.protocol + '//' + location.host + location.pathname;
+			url += '?page=' + url_params.page + '&tab=' + url_params.tab;
+			if (window.location.href != url) {
+				history.pushState('', document.title, url);
+			}
+		} );
 
 		$( '.wrap' ).show();
 
