@@ -381,8 +381,8 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 * @return array Tabs HTML element 0, Panels HTML element 1
 	 */
 	protected function tabs_content() {
-
-		$tabs = '';
+		global $pagenow;
+		$tabs   = '';
 		$panels = '';
 
 		$submitted_slug = $this->submitted_tab ? $this->submitted_tab->slug() : '';
@@ -392,9 +392,15 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			$tabs   .= html(
 				'a',
 				array(
-					'href'  => '#prompt-tab-' . $slug,
+					'href'  => add_query_arg(
+						array(
+							'page' => 'postmatic',
+							'tab'  => 'prompt-tab-' . $slug,
+						),
+						admin_url( 'options-general.php' )
+					),
 					'id'    => 'prompt-tab-' . $slug,
-					'class' => 'nav-tab ' . ( $slug === $submitted_slug ? 'nav-tab-active' : '' ),
+					'class' => 'nav-tab ' . ( $slug === $submitted_slug || ( '' === $submitted_slug && 'core' === $tab->slug() ) ? 'nav-tab-active' : '' ),
 					'style' => $enabled ? '' : 'display: none;',
 				),
 				$tab->name()
