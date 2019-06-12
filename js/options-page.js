@@ -18,6 +18,10 @@ var prompt_options_page_env;
 			if (window.location.href != url) {
 				history.pushState('', document.title, url);
 			}
+
+			// Show Tab content
+			$( '.prompt-tab-content' ).css( 'display', 'none' );
+			$( '#' + url_params.tab ).css( 'display', 'block' );
 		} );
 
 		$( '.wrap' ).show();

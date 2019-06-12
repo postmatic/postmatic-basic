@@ -394,7 +394,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 					'href'  => add_query_arg(
 						array(
 							'page' => 'postmatic',
-							'tab'  => 'prompt-tab-' . $slug,
+							'tab'  => 'prompt-tab-content-' . $slug,
 						),
 						admin_url( 'options-general.php' )
 					),
@@ -406,7 +406,10 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			);
 			$panels .= html(
 				'div',
-				array( 'id' => 'prompt-settings-' . $slug ),
+				array(
+					'id'    => 'prompt-tab-content-' . $slug,
+					'class' => 'prompt-tab-content',
+				),
 				$tab->render()
 			);
 		}
