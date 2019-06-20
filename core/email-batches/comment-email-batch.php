@@ -532,6 +532,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		$approved_types = array(
 			'comment',
 		);
+
 		/**
 		 * Filter: replyable_comment_types
 		 *
