@@ -2,7 +2,7 @@
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
 Requires at least: 4.4
-Tested up to: 4.9
+Tested up to: 5.2.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -86,18 +86,29 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+
+= 2.2.5 =
+
+- WordPress 5.2 compatibility
+- Improved error submissions
+
+= 2.2.4 =
+
+- WordPress 5.1 compatibility
+- Security and bug fixes
+
 = 2.2.3 =
 
-- Tested for WordPress 4.9 compatability
+- Tested for WordPress 4.9 compatibility
 
 = 2.2.2 =
 
 - Fixed an error rendering double curly braces in some comment emails
-- Tested for WordPress 4.8.2 compatability
+- Tested for WordPress 4.8.2 compatibility
 
 = 2.2.1 =
 
-- Tested for WordPress 4.8 compatability
+- Tested for WordPress 4.8 compatibility
 
 = 2.2 =
 

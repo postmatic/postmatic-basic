@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
     "content-hash": "abab0102c52ddfdf1ff35a80299bcf42",
@@ -45,20 +45,21 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "eddbe38b377a592e23426c7e4ec6b5d26dcf5bae"
+                "reference": "c524d1f1e852fd37ea27e4e2806d1f162cc8c609"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/eddbe38b377a592e23426c7e4ec6b5d26dcf5bae",
-                "reference": "eddbe38b377a592e23426c7e4ec6b5d26dcf5bae",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/c524d1f1e852fd37ea27e4e2806d1f162cc8c609",
+                "reference": "c524d1f1e852fd37ea27e4e2806d1f162cc8c609",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-3.0-only"
             ],
             "description": "Freemius WordPress SDK",
             "homepage": "https://freemius.com",
@@ -66,13 +67,12 @@
                 "freemius",
                 "plugin",
                 "sdk",
-                "wordpress"
+                "theme",
+                "wordpress",
+                "wordpress-plugin",
+                "wordpress-theme"
             ],
-            "support": {
-                "source": "https://github.com/Freemius/wordpress-sdk/tree/develop",
-                "issues": "https://github.com/Freemius/wordpress-sdk/issues"
-            },
-            "time": "2017-08-24 12:33:48"
+            "time": "2019-01-30T09:08:21+00:00"
         },
         {
             "name": "postmatic/comment-iq-api-client",
@@ -124,16 +124,16 @@
         },
         {
             "name": "postmatic/commentium",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "53294a078fefacdb4c7f0983a39805f16ac9f97a"
+                "reference": "0929ccc280f3f2f4ef58b372b3fb8ec0875e6154"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/53294a078fefacdb4c7f0983a39805f16ac9f97a",
-                "reference": "53294a078fefacdb4c7f0983a39805f16ac9f97a",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/0929ccc280f3f2f4ef58b372b3fb8ec0875e6154",
+                "reference": "0929ccc280f3f2f4ef58b372b3fb8ec0875e6154",
                 "shasum": ""
             },
             "require": {
@@ -166,10 +166,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/postmatic/commentium/tree/1.0.3",
+                "source": "https://github.com/postmatic/commentium/tree/1.0.4",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2017-05-23T02:31:25+00:00"
+            "time": "2019-02-28T04:01:03+00:00"
         },
         {
             "name": "scribu/scb-framework",
@@ -213,7 +213,7 @@
                 "source": "https://github.com/scribu/wp-scb-framework",
                 "wiki": "https://github.com/scribu/wp-scb-framework/wiki"
             },
-            "time": "2017-01-30 21:40:10"
+            "time": "2017-01-30T21:40:10+00:00"
         },
         {
             "name": "vernal-creative/html-to-markdown",
@@ -261,7 +261,7 @@
             "support": {
                 "source": "https://github.com/vernal-creative/html-to-markdown/tree/postmatic"
             },
-            "time": "2015-04-02 20:01:21"
+            "time": "2015-04-02T20:01:21+00:00"
         },
         {
             "name": "xamin/handlebars.php",
@@ -295,7 +295,7 @@
             ],
             "description": "Handlebars processor for php",
             "homepage": "https://github.com/XaminProject/handlebars.php",
-            "time": "2015-02-17 17:50:03"
+            "time": "2015-02-17T17:50:03+00:00"
         }
     ],
     "packages-dev": [
@@ -923,6 +923,7 @@
                 "mock",
                 "xunit"
             ],
+            "abandoned": true,
             "time": "2015-10-02T06:51:40+00:00"
         },
         {
@@ -965,7 +966,7 @@
                 }
             ],
             "description": "A rewrite of WordPress's I18N tools into a composer friendly format.",
-            "time": "2014-10-20 19:51:28"
+            "time": "2014-10-20T19:51:28+00:00"
         },
         {
             "name": "sebastian/comparator",
