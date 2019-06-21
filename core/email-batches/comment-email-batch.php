@@ -534,7 +534,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		);
 
 		/**
-		 * Filter: replyable_comment_types
+		 * Filter: replyable/comment_email_batch/approved_types
 		 *
 		 * Allow extra comment types to have moderation emails sent.
 		 *
@@ -542,7 +542,7 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		 *
 		 * @param array  Approved Comment Types.
 		 */
-		$approved_types = apply_filters( 'replyable_comment_types', $approved_types );
+		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
 
 		// We currently only mail standard WP comments
 		if ( ! in_array( get_comment_type( $this->prompt_comment->get_wp_comment() ), $approved_types, true ) ) {
