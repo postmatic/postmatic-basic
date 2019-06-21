@@ -106,7 +106,7 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 			10,
 			6
 		);
-		
+
 		$this->freemius->add_action(
 			'after_account_connection',
 			array( $this, 'after_account_connection' ),
@@ -210,6 +210,32 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 	 */
 	public function is_paying() {
 		return $this->freemius->is_paying();
+	}
+
+	/**
+	 * Determines if a plan is active or not.
+	 *
+	 * @since 2.2.5
+	 *
+	 * @param string $plan Plan to check.
+	 *
+	 * @return bool If plan is active or not.
+	 */
+	public function is_plan( $plan ) {
+		return $this->freemius->is_plan( $plan );
+	}
+
+	/**
+	 * Determines if a plan is on trial or not.
+	 *
+	 * @since 2.2.5
+	 *
+	 * @param string $plan Plan to check.
+	 *
+	 * @return bool If plan is active or not for trial.
+	 */
+	public function is_trial_plan( $plan ) {
+		return $this->freemius->is_trial_plan( $plan );
 	}
 
 	/**
