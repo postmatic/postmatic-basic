@@ -2,7 +2,11 @@
 var prompt_comment_form_env;
 
 jQuery( function( $ ) {
-
+        if ( prompt_comment_form_env === undefined )
+	{
+		prompt_comment_form_env = {};
+	}
+	
 	var $subscribe_area = $( '#prompt-comment-subscribe' );
 
 	if ( $subscribe_area.length > 0 ) {
