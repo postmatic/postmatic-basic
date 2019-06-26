@@ -173,7 +173,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	public function page_head() {
 
 		add_thickbox();
-		
+
 		wp_enqueue_media();
 
 		wp_enqueue_style(
@@ -186,7 +186,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-options-page',
 			'path' => 'js/options-page.js',
-			'dependencies' => array( 'jquery-ui-tabs', 'thickbox' ),
+			'dependencies' => array( 'thickbox', 'wp-ajax-response' ),
 		) );
 		$script->enqueue();
 
@@ -196,11 +196,11 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 			'download_title' => $download_title,
 			'skip_download_intro' => $this->options->get( 'skip_download_intro' ),
 		) );
-		
+
 		foreach ( $this->tabs as $tab ) {
 			$tab->page_head();
 		}
-		
+
 		if ( !$this->options->get( 'skip_download_intro' ) ) {
 			$this->options->set( 'skip_download_intro', true );
 		}
@@ -249,7 +249,7 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 		echo html(
 			'div id="prompt-tabs"',
 			array( 'class' => $this->options->get( 'email_transport' ) . '-transport' ),
-			html( 'ul',
+			html( 'h2 class="nav-tab-wrapper"',
 				$tabs
 			),
 			$panels
@@ -381,26 +381,36 @@ class Prompt_Admin_Options_Page extends scbAdminPage {
 	 * @return array Tabs HTML element 0, Panels HTML element 1
 	 */
 	protected function tabs_content() {
-
-		$tabs = '';
+		$tabs   = '';
 		$panels = '';
 
 		$submitted_slug = $this->submitted_tab ? $this->submitted_tab->slug() : '';
 		foreach ( $this->tabs as $slug => $tab ) {
 			$enabled = Prompt_Core::$options->get( 'enable_' . str_replace( '-', '_', $tab->slug() ) );
 			$enabled = is_null( $enabled ) ? true : $enabled;
-			$tabs .= html(
-				'li',
+			$tabs   .= html(
+				'a',
 				array(
-					'id' => 'prompt-tab-' . $slug,
-					'class' => $slug == $submitted_slug ? 'ui-tabs-active' : '',
+					'href'  => add_query_arg(
+						array(
+							'page' => 'postmatic',
+							'tab'  => 'prompt-tab-content-' . $slug,
+						),
+						admin_url( 'options-general.php' )
+					),
+					'id'    => 'prompt-tab-' . $slug,
+					'class' => 'nav-tab ' . ( $slug === $submitted_slug || ( '' === $submitted_slug && 'core' === $tab->slug() ) ? 'nav-tab-active' : '' ),
+					'data-tab-name' => 'prompt-tab-content-' . $slug,
 					'style' => $enabled ? '' : 'display: none;',
 				),
-				html( 'a', array( 'href' => '#prompt-settings-' . $slug ), $tab->name() )
+				$tab->name()
 			);
 			$panels .= html(
 				'div',
-				array( 'id' => 'prompt-settings-' . $slug ),
+				array(
+					'id'    => 'prompt-tab-content-' . $slug,
+					'class' => 'prompt-tab-content hide',
+				),
 				$tab->render()
 			);
 		}

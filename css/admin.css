@@ -57,7 +57,7 @@ h2#prompt-settings-header {
   background-size: 250px;
   height: 65px;
   margin-bottom: 10px;
-  margin-top: 30px; 
+  margin-top: 30px;
   text-align: center;
 }
 
@@ -190,7 +190,7 @@ textarea.prompt-custom-text {
     text-decoration: none;
     padding: 3px 7px;
     border-radius: 5px;
-    font-size: 10px; 
+    font-size: 10px;
 }
 
 #prompt-settings-comment-delivery span.labs {
@@ -263,10 +263,10 @@ h2#trial a {
 
 .welcome p {
   font-size: 100%;
-  font-style: italic; 
+  font-style: italic;
   text-align: center;
 }
-  
+
 .welcome h2 {
   text-align: center;
 }
@@ -369,7 +369,7 @@ div#manage-account a {
 .col1 {
   width: 45%;
   float: left;
-  margin-right: 4px; 
+  margin-right: 4px;
   clear: left;
 }
 
@@ -543,28 +543,28 @@ input#digest_name {
   background: transparent;
 }
 
-#digest-theme label[for="digest-theme-none"] { 
-  background: #fff url(../media/digests/simple.jpg) center 5px no-repeat; 
+#digest-theme label[for="digest-theme-none"] {
+  background: #fff url(../media/digests/simple.jpg) center 5px no-repeat;
   background-size: 175px;
 }
 
-#digest-theme label[for="digest-theme-traditional"] { 
-  background: #fff url(../media/digests/traditional.jpg) center 5px  no-repeat; 
+#digest-theme label[for="digest-theme-traditional"] {
+  background: #fff url(../media/digests/traditional.jpg) center 5px  no-repeat;
   background-size: 175px;
 }
 
-#digest-theme label[for="digest-theme-newsy"] { 
-  background: #fff url(../media/digests/newsy.jpg) center 5px  no-repeat; 
+#digest-theme label[for="digest-theme-newsy"] {
+  background: #fff url(../media/digests/newsy.jpg) center 5px  no-repeat;
   background-size: 175px;
 }
 
-#digest-theme label[for="digest-theme-photo"] { 
-  background: #fff url(../media/digests/photo.jpg) center 5px  no-repeat; 
+#digest-theme label[for="digest-theme-photo"] {
+  background: #fff url(../media/digests/photo.jpg) center 5px  no-repeat;
   background-size: 175px;
 }
 
-#digest-theme label[for="digest-theme-grid"] { 
-  background: #fff url(../media/digests/grid.jpg) center 5px no-repeat; 
+#digest-theme label[for="digest-theme-grid"] {
+  background: #fff url(../media/digests/grid.jpg) center 5px no-repeat;
   background-size: 175px;
 }
 
@@ -841,7 +841,7 @@ div#fs_connect {
   height: 40px;
   margin: 30px auto;
   background-color: #15A6AB;
-  border-radius: 100%;  
+  border-radius: 100%;
   -webkit-animation: sk-scaleout 1.0s infinite ease-in-out;
   animation: sk-scaleout 1.0s infinite ease-in-out;
   display: block;
@@ -856,7 +856,7 @@ div#fs_connect {
 }
 
 @keyframes sk-scaleout {
-  0% { 
+  0% {
     -webkit-transform: scale(0);
     transform: scale(0);
   } 100% {
@@ -962,7 +962,7 @@ a.button.download:hover, a.button.install:hover {
 #upgrade-prompt, #download-premium-prompt, #install-premium-prompt {
     background: url(../media/upgrade_logo.png) center 25px no-repeat;
     background-size: 490px;
-    padding-top: 200px !important;  
+    padding-top: 200px !important;
 }
 
 #dismiss-download-modal  {
@@ -1145,7 +1145,7 @@ div#core-options-promo h2 span, #core-options-promo-paid h3 span {
 }
 #intercom-launcher div.intercom-launcher-button {
   width: 56px !important;
-  height: 56px !important; 
+  height: 56px !important;
   border: none !important;
 }
 
@@ -1224,14 +1224,14 @@ div.intro-text a.thickbox.video span {
     float: left;
     width: 35%;
     clear: both;
-    margin-right: 5%; 
+    margin-right: 5%;
 }
 
 .right h2 {
     float: right;
     width: 35%;
     clear: both;
-    margin-left: 5%; 
+    margin-left: 5%;
 }
 
 .right ul {
@@ -1277,7 +1277,7 @@ div.intro-text a.thickbox.video span {
     border: 3px dashed #27ae60;
     background: white;
     padding:2%;
-    margin-bottom: 25px;  
+    margin-bottom: 25px;
 }
 
 div#prompt-settings-core p.submit {
@@ -1292,3 +1292,36 @@ div#prompt-settings-core p.submit {
 }
 
 #wpfooter {display: none;}
+
+@-webkit-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @-moz-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @-o-keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+  @keyframes repliable-tab-show {
+	0%   { opacity: 0; visibility: visible }
+	100% { opacity: 1; }
+  }
+body .wrap h2.nav-tab-wrapper {
+	margin-bottom: 20px;
+}
+.prompt-tab-content.hide {
+	display: none;
+	visibility: hidden;
+	opacity: 0;
+}
+.prompt-tab-content.show {
+	-webkit-animation: repliable-tab-show 2s; /* Safari 4+ */
+	-moz-animation:    repliable-tab-show 2s; /* Fx 5+ */
+	-o-animation:      repliable-tab-show 2s; /* Opera 12+ */
+	animation:         repliable-tab-show 2s; /* IE 10+, Fx 29+ */
+	visibility: visible;
+	opacity: 1;
+}
