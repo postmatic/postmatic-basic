@@ -91,7 +91,7 @@ class Prompt_Core {
 		// Stinky, but need to prevent loading freemius while unit testing
 		return function_exists( '_manually_load_plugin' );
 	}
-	
+
 	/**
 	 * Register the WordPress hooks we will respond to.
 	 */
@@ -266,6 +266,13 @@ class Prompt_Core {
 			);
 
 		return self::$settings_page;
+	}
+
+	/**
+	 * @return Prompt_Freemius
+	 */
+	public static function get_freemius() {
+		return self::$freemius;
 	}
 
 	/**
