@@ -53,6 +53,6 @@ if ( !class_exists( 'Prompt_Root' ) ) {
 		}
 	}
 }
+define( 'REPLYABLE_INSTALLED', true );
 
 Prompt_Core::load();
-
