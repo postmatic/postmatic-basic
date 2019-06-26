@@ -65,34 +65,34 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 
 		$buttons = array();
 
-		if ( $this->license_status->is_paying() or $this->license_status->is_trial_underway() ) {
-		    $buttons[] = html(
-                'li id="util-account"',
-                html(
-                    'a class="btn-postmatic"',
-                    array( 'href' => admin_url( 'options-general.php?page=postmatic-account' ) ),
-                    __( 'Manage your account', 'Postmatic' )
-                )
-            );
-        }
+		if ( $this->license_status->is_paying() || $this->license_status->is_trial_underway() ) {
+			$buttons[] = html(
+				'li id="util-account"',
+				html(
+					'a class="btn-postmatic"',
+					array( 'href' => admin_url( 'options-general.php?page=postmatic-account' ) ),
+					__( 'Manage your account', 'Postmatic' )
+				)
+			);
+		}
 
-        $buttons[] = html(
-            'li id="util-contact"',
-            html(
-                'a class="btn-postmatic"',
-                array('href' => admin_url('options-general.php?page=postmatic-contact')),
-                __('Contact us', 'Postmatic')
-            )
-        );
+		$buttons[] = html(
+			'li id="util-contact"',
+			html(
+				'a class="btn-postmatic"',
+				array( 'href' => admin_url( 'options-general.php?page=postmatic-contact' ) ),
+				__( 'Contact us', 'Postmatic' )
+			)
+		);
 
-        $buttons[] = html(
-            'li id="util-docs"',
-            html(
-                'a class="btn-postmatic" target="_blank"',
-                array('href' => 'http://docs.replyable.com'),
-                __('Read the docs', 'Postmatic')
-            )
-        );
+		$buttons[] = html(
+			'li id="util-docs"',
+			html(
+				'a class="btn-postmatic" target="_blank"',
+				array( 'href' => 'http://docs.replyable.com' ),
+				__( 'Read the docs', 'Postmatic' )
+			)
+		);
 
 		$parts[] = html( 'ul id="replyable-utils"', implode( '', $buttons ) );
 
@@ -124,9 +124,9 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 */
 	protected function override_entries( &$table_entries ) {
 		foreach ( $table_entries as $index => $entry ) {
-			if ( isset( $this->overridden_options[$entry['name']] ) ) {
-				$table_entries[$index]['extra'] = array(
-					'class' => 'overridden',
+			if ( isset( $this->overridden_options[ $entry['name'] ] ) ) {
+				$table_entries[ $index ]['extra'] = array(
+					'class'    => 'overridden',
 					'disabled' => 'disabled',
 				);
 			}
@@ -141,11 +141,11 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	 * @param array $old_data
 	 * @return array
 	 */
-	function validate( $new_data, $old_data ) {
+	public function validate( $new_data, $old_data ) {
 
 		$valid_data = $old_data;
 
-		if ( isset( $new_data['prompt_key'] ) and $new_data['prompt_key'] != $old_data['prompt_key'] ) {
+		if ( isset( $new_data['prompt_key'] ) && $new_data['prompt_key'] !== $old_data['prompt_key'] ) {
 			$valid_data = array_merge( $valid_data, $this->get_new_key_settings( $new_data['prompt_key'] ) );
 		}
 
@@ -168,7 +168,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			return array();
 		}
 
-		$new_settings = $this->options->get();
+		$new_settings               = $this->options->get();
 		$new_settings['prompt_key'] = $key;
 
 		return $new_settings;
@@ -182,12 +182,12 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 	protected function promo_html() {
 		$data = array(
 			'is_pending_activation' => $this->license_status->is_pending_activation(),
-			'is_trial_available' => $this->license_status->is_trial_available(),
-			'is_trial_underway' => $this->license_status->is_trial_underway(),
-			'is_paying' => $this->license_status->is_paying(),
-			'is_key_present' => (bool) $this->options->get( 'prompt_key' ),
-			'is_api_transport' => (bool) $this->options->is_api_transport(),
-            'has_changed_licenses' => (bool) $this->options->get( 'freemius_license_changes' ),
+			'is_trial_available'    => $this->license_status->is_trial_available(),
+			'is_trial_underway'     => $this->license_status->is_trial_underway(),
+			'is_paying'             => $this->license_status->is_paying(),
+			'is_key_present'        => (bool) $this->options->get( 'prompt_key' ),
+			'is_api_transport'      => (bool) $this->options->is_api_transport(),
+			'has_changed_licenses'  => (bool) $this->options->get( 'freemius_license_changes' ),
 		);
 
 		$template = new Prompt_Template( 'core-options-promo.php' );
@@ -205,7 +205,7 @@ class Prompt_Admin_Core_Options_Tab extends Prompt_Admin_Options_Tab {
 			'a',
 			array(
 				'class' => 'thickbox video',
-				'href' => "https://www.youtube.com/embed/$video_id?autoplay=1&TB_iframe=true",
+				'href'  => "https://www.youtube.com/embed/$video_id?autoplay=1&TB_iframe=true",
 			),
 			html(
 				'span',
