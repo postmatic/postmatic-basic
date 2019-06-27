@@ -47,7 +47,7 @@ class Prompt_User_Handling {
 
 		$password = wp_generate_password();
 
-		$suffix = '';
+		$suffix = 0;
 		$basename = substr( $email, 0, strpos( $email, '@' ) );
 		do {
 			$username = $basename . $suffix;
