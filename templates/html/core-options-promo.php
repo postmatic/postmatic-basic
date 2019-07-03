@@ -115,9 +115,9 @@
 	</div>
 <?php elseif ( ! $is_key_present ) : ?>
 	<div id="core-options-promo-pending" class="passive">
-		<h3><?php _e( 'We\'re cooking up your service', 'Postmatic' ); ?></h3>
+		<h3><?php _e( 'Hang tight', 'Postmatic' ); ?></h3>
 		<p><?php _e(
-				'Thanks for upgrading Replyable. We notice you have started premium service but service hasn\'t been started just yet. <strong>Please reload this page to try to move things along.</strong>',
+				'Thanks for upgrading Replyable. We notice you have started premium service, but our server is having trouble connecting to your web host. <strong>Please reload this page to try to move things along.</strong> If reploading doesn\'t clear this message within 5 minutes please use the chat bubble below to contact support.',
 				'Postmatic'
 			); ?>
 		</p>
