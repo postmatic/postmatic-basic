@@ -144,9 +144,9 @@ class Prompt_Freemius implements Prompt_Interface_License_Status {
 		$freemius_link
 	) {
 		return sprintf(
-			__fs( 'hey-x' ) . ' commenting is about to get awesome around here!<br>' .
+			__fs( 'hey-x' ) . ' Notifications are about to get awesome around here!<br>' .
 			__(
-				'Replyable lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters hit reply to send a followup comment and keep the conversation going.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $2.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
+				'Replyable lets you send beautiful, smart email notifications to your commenters. But email shouldn\'t be just one-way. Replyable let\'s you, your authors, and commenters use email to send a followup replies to WordPress comments, as well as WooCommerce user reviews and product questions.<br />Enabling two-way email requires that our server connects to yours. Two-way plans start at $2.99 and come with a no-risk 30 day trial.<br /><strong>How would you like to use Replyable?</strong>'
 				,
 				'Postmatic'
 			),

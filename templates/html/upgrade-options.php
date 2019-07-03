@@ -5,7 +5,7 @@
 ?>
 <div id="upgrade-options-promo">
 	<div class="intro-text">
-	    <h2>Get the full version of Replyable for perfect comment subscriptions.</h2>
+	    <h2>Take control of WordPress and WooCommerce notifications with Replyable</h2>
 	    <h3>Comment notifications that are intelligent, scale to thousands of comments per post, and are simply <em>replyable</em> start at just $2.99/month.</h3>
 	</div>
 	

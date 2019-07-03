@@ -30,12 +30,12 @@
     	<div id="core-options-promo" class="goupgrade">
 		<h2><span><?php _e( 'Email was never meant to be a one-way street.', 'Postmatic' ); ?></span></h2>
 		<p><?php _e(
-				'Have you ever received a comment notification and just wanted to hit reply? No forms, no browser, just email?',
+				'Have you ever received a WordPress notification and just wanted to hit reply? No forms, no browser, just email?',
 				'Postmatic'
 			); ?>
 		</p>
 		<p><?php _e(
-				'Have better conversations, improve SEO, and support a fantastic WordPress startup at the same time.',
+				'Have better conversations, keep in touch with customers, improve SEO, and support a fantastic WordPress startup at the same time.',
 				'Postmatic'
 			); ?>
 			<br/><?php _e(
@@ -83,7 +83,7 @@
 	<div id="core-options-promo" class="goupgrade">
 		<h2><span><?php _e( 'Email was never meant to be a one-way street.', 'Postmatic' ); ?></span></h2>
 		<p><?php _e(
-				'Have you ever received a comment notification and just wanted to hit reply? No forms, no browser, just email?',
+				'Have you ever received a WordPress notification and just wanted to hit reply? No forms, no browser, just email?',
 				'Postmatic'
 			); ?>
 		</p>
