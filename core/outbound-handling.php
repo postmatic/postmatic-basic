@@ -78,7 +78,7 @@ class Prompt_Outbound_Handling {
 			return;
 		}
 
-		if ( 'approved' != $new_status or $old_status == $new_status or ! in_array( $comment->comment_type, $approved_types, true ) ) {
+		if ( 'approved' != $new_status or $old_status == $new_status or ! in_array( get_comment_type( $comment ), $approved_types, true ) ) {
 			return;
 		}
 

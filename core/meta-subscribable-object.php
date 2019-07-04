@@ -101,7 +101,7 @@ abstract class Prompt_Meta_Subscribable_Object implements Prompt_Interface_Subsc
 		$table = $wpdb->$table_property;
 
 		$query = $wpdb->prepare(
-			"SELECT {$id_field}, meta_value FROM {$table} WHERE meta_key=%s AND meta_value LIKE %s",
+		"SELECT {$id_field}, meta_value FROM {$table} WHERE meta_key=%s AND meta_value LIKE %s ORDER BY {$id_field} ASC",
 			self::SUBSCRIBED_META_KEY,
 			'%i:%;%i:' . $user_id . ';%'
 		);
