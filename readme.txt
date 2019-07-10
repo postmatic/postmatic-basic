@@ -1,7 +1,7 @@
 === Replyable - Subscribe to Comments and Reply by Email ===
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
-Requires at least: 4.4
+Requires at least: 5.0
 Tested up to: 5.2.1
 Stable tag: trunk
 License: GPLv2 or later
@@ -35,7 +35,7 @@ The days of one-way notifications are over. It’s time to let them hit reply.
 * Fully branded, auto-adapting templates which magically mimic your active theme - it's true. Our email templates self-adjust to match the colors, images, and typography of your theme. It's kind of nuts.
 * Replyable strictly adheres to WordPress best practices. It uses the native commenting and user systems. We’re just a magical email gateway.
 * Users can subscribe to all comments on a post, or choose to just receive direct replies to their own comments.
-* Automatic pausing of subscriptions on chatty posts - if too many comments are happening at once subscriptions will automatically be placed on pause the users notified. They can resume their subscription with a simple command. 
+* Automatic pausing of subscriptions on chatty posts - if too many comments are happening at once subscriptions will automatically be placed on pause the users notified. They can resume their subscription with a simple command.
 
 = Premium Features (starting at $2.99/month, 30 day free trial) =
 
@@ -145,6 +145,6 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 
 = 2.1 =
 
-Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable). 
+Postmatic Basic is now Replyable. Same people, same technology, but a more focused feature set. To learn about what you gain and what you lose please [visit our support site](http://docs.replyable.com/article/284-switching-from-postmatic-basic-to-replyable).
 
 == Upgrade Notice ==
