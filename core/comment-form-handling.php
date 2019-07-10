@@ -109,7 +109,7 @@ class Prompt_Comment_Form_Handling {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-comment-form',
 			'path' => 'js/comment-form.js',
-			'dependencies' => array( 'jquery' ),
+			'dependencies' => array( 'jquery', 'wp-hooks' ),
 		) );
 
 		$script->enqueue();
