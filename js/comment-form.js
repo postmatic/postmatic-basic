@@ -1,13 +1,21 @@
 
 var prompt_comment_form_env;
-
+var prompt_comment_form_hooks = wp.hooks.createHooks();
 jQuery( function( $ ) {
         if ( prompt_comment_form_env === undefined )
 	{
 		prompt_comment_form_env = {};
 	}
-	
-	var $subscribe_area = $( '#prompt-comment-subscribe' );
+	/**
+	 * JSFilter: replyable.comment.subscribe
+	 *
+	 * Filter for conditionally retieving the comment subscribe form.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string default subscription form.
+	 */
+	var $subscribe_area = $( prompt_comment_form_hooks.applyFilters( 'replyable.comment.subscribe', '#prompt-comment-subscribe' ) );
 
 	if ( $subscribe_area.length > 0 ) {
 		move_subscribe_area_above_submit();
