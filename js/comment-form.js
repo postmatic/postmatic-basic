@@ -1,21 +1,11 @@
 
 var prompt_comment_form_env;
-var prompt_comment_form_hooks = wp.hooks.createHooks();
 jQuery( function( $ ) {
         if ( prompt_comment_form_env === undefined )
 	{
 		prompt_comment_form_env = {};
 	}
-	/**
-	 * JSFilter: replyable.comment.subscribe
-	 *
-	 * Filter for conditionally retieving the comment subscribe form.
-	 *
-	 * @since 3.0.0
-	 *
-	 * @param string default subscription form.
-	 */
-	var $subscribe_area = $( prompt_comment_form_hooks.applyFilters( 'replyable.comment.subscribe', '#prompt-comment-subscribe' ) );
+	var $subscribe_area = $( '.prompt-comment-subscribe' );
 
 	if ( $subscribe_area.length > 0 ) {
 		move_subscribe_area_above_submit();
@@ -49,25 +39,27 @@ jQuery( function( $ ) {
 
 	function move_subscribe_area_above_submit() {
 
-		var $form = $subscribe_area.parents( 'form' );
+		$subscribe_area.each( function () {
+			var $form = $(this).parents( 'form' );
 
-		if ( $form.length === 0 ) {
-			return;
-		}
+			if ( $form.length === 0 ) {
+				return;
+			}
 
-		var $submit = $form.find( 'input[type="submit"]' );
+			var $submit = $form.find( 'input[type="submit"]' );
 
-		if ( $submit.length === 0 ) {
-			return;
-		}
+			if ( $submit.length === 0 ) {
+				return;
+			}
 
-		var $submit_area = $submit.parent( 'p,div' );
+			var $submit_area = $submit.parent( 'p,div' );
 
-		if ( $submit_area.length === 0 ) {
-			$submit_area = $submit;
-		}
+			if ( $submit_area.length === 0 ) {
+				$submit_area = $submit;
+			}
 
-		$submit_area.before( $subscribe_area );
+			$submit_area.before( $(this) );
+		} );
 	}
 
 	function notify_parent_of_submit() {
