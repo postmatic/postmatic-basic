@@ -1,7 +1,7 @@
 === Replyable - Subscribe to Comments and Reply by Email ===
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
-Requires at least: 5.0
+Requires at least: 4.4
 Tested up to: 5.2.1
 Stable tag: trunk
 License: GPLv2 or later
