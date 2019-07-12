@@ -71,6 +71,14 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			$template_file = 'comment-reply-email.php';
 		}
 
+		/**
+		 * Filter the template file.
+		 *
+		 * @param string $template_file The template file to modify.
+		 * @param object $comment       The Comment
+		 */
+		$template_file = apply_filters( 'prompt/comment_email_batch/template_file', $template_file, $this->prompt_comment );
+
 		$this->parent_author = $parent_author;
 		$this->parent_author_name = $parent_author_name;
 
