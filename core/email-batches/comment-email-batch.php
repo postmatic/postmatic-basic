@@ -166,6 +166,14 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 		if ( ! apply_filters( 'prompt/send_comment_notifications', true, $this->prompt_comment, $recipient_ids ) )
 			return null;
 
+		/**
+		 * Filter recipient IDs to be sent comment notifications.
+		 *
+		 * @param array $recipient_ids Array of recipient IDs.
+		 * @param object $comment
+		 */
+		$recipient_ids = apply_filters( 'prompt/send_comment_notifications/recipient_ids', $recipient_ids, $this->prompt_comment );
+
 		$this->add_recipients( $recipient_ids );
 
 	}
