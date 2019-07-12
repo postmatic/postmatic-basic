@@ -30,11 +30,11 @@ class Prompt_Admin_Recommended_Plugins_Options_Tab extends Prompt_Admin_Options_
 		if ( ! defined( 'EPOCH_VER' ) ) {
 			$asides[] = html(
 				'aside',
-				html( 'h3', __( 'Make comments fun & fast with Epoch', 'Postmatic' ) ),
+				html( 'h3', __( 'Make comments fun & fast with AnyComment', 'Postmatic' ) ),
 				html(
 					'p',
 					__(
-						'<a href="http://gopostmatic.com/epoch" target="_blank">Epoch</a> is a free, private, and native alternative to Disqus. Your users will love it and your site speed score will as well.',
+						'<a href="https://wordpress.org/extend/plugins/anycomment" target="_blank">Epoch</a> is a free, private, and native alternative to Disqus. Your users will love it and your site speed score will as well.',
 						'Postmatic'
 					)
 				),

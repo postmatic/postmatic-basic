@@ -17,7 +17,22 @@ class Prompt_Outbound_Handling {
 			return;
 		}
 
-		if ( $comment->comment_approved != '1'  or !empty( $comment->comment_type ) ) {
+		$approved_types = array(
+			'comment',
+		);
+
+		/**
+		 * Filter: replyable/comment_email_batch/approved_types
+		 *
+		 * Allow extra comment types to have moderation emails sent.
+		 *
+		 * @since 2.2.5
+		 *
+		 * @param array  Approved Comment Types.
+		 */
+		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
+
+		if ( $comment->comment_approved != '1' || ! in_array( $comment->comment_type, $approved_types, true ) ) {
 			return;
 		}
 
@@ -40,6 +55,21 @@ class Prompt_Outbound_Handling {
 	 */
 	public static function action_transition_comment_status( $new_status, $old_status, $comment ) {
 
+		$approved_types = array(
+			'comment',
+		);
+
+		/**
+		 * Filter: replyable/comment_email_batch/approved_types
+		 *
+		 * Allow extra comment types to have moderation emails sent.
+		 *
+		 * @since 2.2.5
+		 *
+		 * @param array  Approved Comment Types.
+		 */
+		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
+
 		if ( ! Prompt_Core::$options->get( 'enable_comment_delivery' ) ) {
 			return;
 		}
@@ -48,7 +78,7 @@ class Prompt_Outbound_Handling {
 			return;
 		}
 
-		if ( 'approved' != $new_status or $old_status == $new_status or !empty( $comment->comment_type ) ) {
+		if ( 'approved' != $new_status or $old_status == $new_status or ! in_array( get_comment_type( $comment ), $approved_types, true ) ) {
 			return;
 		}
 
