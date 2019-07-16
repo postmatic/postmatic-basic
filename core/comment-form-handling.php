@@ -109,7 +109,7 @@ class Prompt_Comment_Form_Handling {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-comment-form',
 			'path' => 'js/comment-form.js',
-			'dependencies' => array( 'jquery' ),
+			'dependencies' => array( 'jquery', 'wp-hooks' ),
 		) );
 
 		$script->enqueue();
@@ -176,9 +176,10 @@ class Prompt_Comment_Form_Handling {
 			);
 		}
 
-		$tooltip_text = apply_filters( 'replyable/comment_form/opt_in_tooltip_text', $tooltip_text );
+		$tooltip_text  = apply_filters( 'replyable/comment_form/opt_in_tooltip_text', $tooltip_text );
+		$tooltip_class = apply_filters( 'replyable/comment_form/prompt/subscribe', 'prompt-comment-subscribe' );
 
-		echo html( 'label id="prompt-comment-subscribe"',
+		echo html( 'label class="' . esc_attr( $tooltip_class ) . '"',
 			html( 'input',
 				array(
 					'type' => 'checkbox',
