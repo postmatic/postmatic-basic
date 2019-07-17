@@ -32,6 +32,10 @@ class Prompt_Template {
 	 */
 	public function locate() {
 
+		if ( file_exists( $this->name ) ) {
+			return $this->name;
+		}
+
 		// First choice is a template in the theme root or prompt subdirectory
 		$template_names = array(
 			'postmatic/' . $this->name,
