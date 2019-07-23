@@ -61,7 +61,8 @@
     text-decoration: underline;
 }
 
-.prompt-comment-subscribe .postmatic-tooltip em:before {
+.prompt-comment-subscribe .postmatic-tooltip em:before,
+.prompt-comment-subscribe-without-commenting .postmatic-tooltip em:before {
   bottom: -20px;
   content: " ";
   display: block;
@@ -71,7 +72,8 @@
   width: 100%;
 }
 
-.prompt-comment-subscribe .postmatic-tooltip em:after {
+.prompt-comment-subscribe .postmatic-tooltip em:after,
+.prompt-comment-subscribe-without-commenting .postmatic-tooltip em:after {
   border-left: solid transparent 10px;
   border-right: solid transparent 10px;
   border-top: solid #34495e 10px;
@@ -84,7 +86,8 @@
 }
 
 @media screen and (min-width: 500px) {
-.prompt-comment-subscribe:hover .postmatic-tooltip em {
+.prompt-comment-subscribe:hover .postmatic-tooltip em,
+.prompt-comment-subscribe-without-commenting:hover .postmatic-tooltip em {
   opacity: 1;
   pointer-events: none;
   -webkit-transform: translateY(0px);
