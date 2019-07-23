@@ -1,7 +1,10 @@
-.prompt-comment-subscribe {
+.prompt-comment-subscribe,
+.prompt-comment-subscribe-without-commenting {
   margin: 15px 0;
+  display: inline-block;
 }
-.prompt-comment-subscribe .postmatic-tooltip {
+.prompt-comment-subscribe .postmatic-tooltip,
+.prompt-comment-subscribe-without-commenting .postmatic-tooltip {
   cursor: pointer;
   position: relative;
   text-align: left;
@@ -13,7 +16,8 @@
   padding-right: 15px;
 }
 
-.prompt-comment-subscribe .postmatic-tooltip em {
+.prompt-comment-subscribe .postmatic-tooltip em,
+.prompt-comment-subscribe-without-commenting .postmatic-tooltip em {
   pointer-events: none;
   background: #34495e;
   bottom: 100%;

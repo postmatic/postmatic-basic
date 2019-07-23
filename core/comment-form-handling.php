@@ -2,8 +2,9 @@
 
 class Prompt_Comment_Form_Handling {
 
-	const SUBSCRIBE_CHECKBOX_NAME = 'prompt_comment_subscribe';
-	const UNSUBSCRIBE_ACTION = 'prompt_comment_unsubscribe';
+	const SUBSCRIBE_CHECKBOX_NAME      = 'prompt_comment_subscribe';
+	const SUBSCRIBE_WITHOUT_COMMENTING = 'prompt_comment_subscribe_without_commenting';
+	const UNSUBSCRIBE_ACTION           = 'prompt_comment_unsubscribe';
 
 	/** @var Prompt_Post */
 	protected static $prompt_post;
@@ -194,7 +195,20 @@ class Prompt_Comment_Form_Handling {
 				html( 'em', $tooltip_text )
 			)
 		);
-
+		echo html( 'label class="prompt-comment-subscribe-without-commenting"',
+			html( 'input',
+				array(
+					'type' => 'checkbox',
+					'name' => self::SUBSCRIBE_WITHOUT_COMMENTING,
+					'value' => '1',
+				)
+			),
+			'&nbsp;',
+			html( 'span class="postmatic-tooltip"',
+				apply_filters( 'replyable/comment_form/opt_in_text_without_commenting', __( 'Subscribe without commenting', 'Postmatic' ) ),
+				html( 'em', __( 'Subscribe to the comments without commenting', 'Postmatic' ) )
+			)
+		);
 	}
 
 	public static function after_form() {
