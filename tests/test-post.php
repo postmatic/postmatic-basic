@@ -39,9 +39,9 @@ class PostTest extends Prompt_UnitTestCase {
 		$user1_id = $this->factory->user->create();
 		$user2_id = $this->factory->user->create();
 
-		$ids = get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );
+		get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );
 
-		$ids[] = $user1_id;
+		$ids = [ $user1_id ];
 		$this->_prompt_post->subscribe( $user1_id );
 
 		$check_ids = get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );

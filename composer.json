@@ -38,9 +38,15 @@
 		"postmatic/commentium": "^1.0.3"
 	},
 	"require-dev": {
+		"roave/security-advisories": "dev-master",
 		"phing/phing": "2.8.*",
 		"phpunit/phpunit": "4.2.*",
 		"tedivm/jshrink": "1.0.*",
 		"rosio/wordpress-i18n-tools": "dev-master"
+	},
+	"scripts": {
+		"install-test-support": "./bin/install-wp-tests.sh wp_test root root mysql",
+		"upgrade-test-support": "./bin/install-wp-tests.sh wp_test root root mysql nightly true",
+		"test": "phpunit"
 	}
 }
