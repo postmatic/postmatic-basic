@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress:php7.3
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_PASSWORD: root
+      WORDPRESS_DEBUG: 1
+    volumes:
+      - ..:/var/www/html/wp-content/plugins/replyable
+      - uploads:/var/www/html/wp-content/uploads
+  
+  mysql:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
+
+  php:
+    image: juliquiron/wordpress-phpunit-test-runner-gitlab-ci
+    volumes:
+      - ..:/app
+      - replyable-test-support:/tmp
+    working_dir: /app
+    command: composer install
+
+volumes:
+  uploads:
+  mysql:
+  replyable-test-support:
