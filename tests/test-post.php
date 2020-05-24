@@ -41,7 +41,7 @@ class PostTest extends Prompt_UnitTestCase {
 
 		get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );
 
-		$ids = [ $user1_id ];
+		$ids = array( $user1_id );
 		$this->_prompt_post->subscribe( $user1_id );
 
 		$check_ids = get_post_meta( $this->_wp_post->ID, Prompt_Post::SUBSCRIBED_META_KEY, true );
