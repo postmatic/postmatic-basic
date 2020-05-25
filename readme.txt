@@ -2,7 +2,7 @@
 Contributors: vernal, cyberhobo
 Tags: email, notification, comments, subscribe, subscription, email, subscribe to comments, commenting, reply, email, email commenting, reply to email, email replies, engagement
 Requires at least: 4.4
-Tested up to: 5.2.1
+Tested up to: 5.4.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -86,6 +86,14 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 5. Replyable makes sure nobody gets too much email. Subscribers to busy posts will recieve a daily recap of only the best comments and can jump into the conversation from any place.
 
 == Changelog ==
+
+= 2.2.6 =
+
+- Upgraded SCB framework to fix contextual help deprecation notices
+- Upgraded Freemius SDK to 2.3.2
+- Fixed an error notice for an existing username
+- Fixed a warning on the settings page from a protected hook method
+- WordPress 5.4.1 compatibility
 
 = 2.2.5 =
 
