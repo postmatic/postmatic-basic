@@ -91,7 +91,7 @@ class Prompt_Core {
 		// Stinky, but need to prevent loading freemius while unit testing
 		return function_exists( '_manually_load_plugin' );
 	}
-	
+
 	/**
 	 * Register the WordPress hooks we will respond to.
 	 */
@@ -173,6 +173,8 @@ class Prompt_Core {
 		add_action( 'admin_init', array( 'Prompt_Admin_Notice_Handling', 'dismiss' ) );
 		add_action( 'admin_notices', array( 'Prompt_Admin_Notice_Handling', 'display' ) );
 
+		add_filter( 'get_avatar', 'Prompt_Core::get_avatar_url', 10, 5 );
+
 		/**
 		 * Fires after Postmatic has added its main hooks.
 		 *
@@ -181,6 +183,31 @@ class Prompt_Core {
 		 * @since 1.4.11
 		 */
 		do_action( 'prompt/hooks_added' );
+	}
+
+	/**
+	 * Gets the absolute path to an avatar if the URL is invalid
+	 *
+	 * @param string $avatar      Avatar URL.
+	 * @param mixed  $id_or_email The ID or email address of the user.
+	 * @param mixed  $size        The size of the avatar.
+	 * @param string $default     The default image URL.
+	 * @param string $alt         The alt attribute for the avatar.
+	 */
+	public static function get_avatar_url( $avatar, $id_or_email, $size, $default, $alt ) {
+
+		// Extract URL from src attribute.
+		preg_match( '/src\=(?:\"|\')(.+?)(?:\"|\')(?:.+?)/', $avatar, $matches );
+		if ( ! isset( $matches[1] ) ) {
+			return $avatar;
+		}
+
+		// Check for a valid url.
+		if ( filter_var( $matches[1], FILTER_VALIDATE_URL ) ) {
+			return $avatar;
+		} else {
+			return preg_replace( '|( src=[\'"])(/[^/]+)|', '${1}' . get_site_url() . '${2}', $avatar );
+		}
 	}
 
 	/**
@@ -266,6 +293,13 @@ class Prompt_Core {
 			);
 
 		return self::$settings_page;
+	}
+
+	/**
+	 * @return Prompt_Freemius
+	 */
+	public static function get_freemius() {
+		return self::$freemius;
 	}
 
 	/**

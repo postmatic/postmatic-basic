@@ -109,7 +109,7 @@ class Prompt_Comment_Form_Handling {
 		$script = new Prompt_Script( array(
 			'handle' => 'prompt-comment-form',
 			'path' => 'js/comment-form.js',
-			'dependencies' => array( 'jquery' ),
+			'dependencies' => array( 'jquery', 'wp-hooks' ),
 		) );
 
 		$script->enqueue();
@@ -163,12 +163,12 @@ class Prompt_Comment_Form_Handling {
 		if ( $current_user and self::$prompt_post->is_subscribed( $current_user->ID ) ) {
 			return;
 		}
-		
-		$tooltip_text = __( 
-			'Get only replies to your comment, the best of the rest, as well as a daily recap of all comments on this post. No more than a few emails daily, which you can reply to/unsubscribe from directly from your inbox.', 
-			'Postmatic' 
+
+		$tooltip_text = __(
+			'Get only replies to your comment, the best of the rest, as well as a daily recap of all comments on this post. No more than a few emails daily, which you can reply to/unsubscribe from directly from your inbox.',
+			'Postmatic'
 		);
-		
+
 		if ( ! Prompt_Core::$options->is_api_transport() ) {
 			$tooltip_text = __(
 				"Get notified of new comments on this post. If discussion generates more than a few emails daily your subscription will be paused automatically.",
@@ -176,9 +176,10 @@ class Prompt_Comment_Form_Handling {
 			);
 		}
 
-		$tooltip_text = apply_filters( 'replyable/comment_form/opt_in_tooltip_text', $tooltip_text );
+		$tooltip_text  = apply_filters( 'replyable/comment_form/opt_in_tooltip_text', $tooltip_text );
+		$tooltip_class = apply_filters( 'replyable/comment_form/prompt/subscribe', 'prompt-comment-subscribe' );
 
-		echo html( 'label id="prompt-comment-subscribe"',
+		echo html( 'label class="' . esc_attr( $tooltip_class ) . '"',
 			html( 'input',
 				array(
 					'type' => 'checkbox',
@@ -189,7 +190,7 @@ class Prompt_Comment_Form_Handling {
 			),
 			'&nbsp;',
 			html( 'span class="postmatic-tooltip"',
-				Prompt_Core::$options->get( 'comment_opt_in_text' ),
+				apply_filters( 'replyable/comment_form/opt_in_text', Prompt_Core::$options->get( 'comment_opt_in_text' ) ),
 				html( 'em', $tooltip_text )
 			)
 		);

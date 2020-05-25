@@ -8,16 +8,47 @@ var prompt_options_page_env;
 			return;
 		}
 
-		$( '#prompt-tabs' ).tabs()
-				.addClass( "ui-tabs-vertical ui-helper-clearfix" )
-				.find( 'li' )
-				.removeClass( "ui-corner-top" )
-				.addClass( "ui-corner-left" );
+		$('.nav-tab-wrapper .nav-tab').on('click', function( e ) {
+			e.preventDefault();
+			$( '.nav-tab-wrapper .nav-tab' ).removeClass( 'nav-tab-active' );
+			$(e.currentTarget).addClass('nav-tab-active');
+			var url_params = wpAjax.unserialize(e.target.href);
+			var url = location.protocol + '//' + location.host + location.pathname;
+			url += '?page=' + url_params.page + '&tab=' + url_params.tab;
+			if (window.location.href != url) {
+				history.pushState('', document.title, url);
+			}
+
+			// Show Tab content
+			$( '.prompt-tab-content' ).addClass( 'hide' );
+			$( '#' + url_params.tab ).removeClass( 'hide' ).addClass( 'show' );
+		} );
+
+		window.onpopstate = e => {
+			__register_advanced_on_pop_state(e);
+		};
+		__register_advanced_on_pop_state( {} );
+
+		function __register_advanced_on_pop_state( e ) {
+			// Parse URL into an object with query params
+			var url = wpAjax.unserialize(window.location.href);
+
+			// If option in query var, click it
+			if ('tab' in url) {
+				$('*[data-tab-name="' + url.tab + '"]').trigger('click');
+			} else {
+				// We are on the main tab with no options - click it if not active
+				var $first_item = $($('*[data-tab-name]')[0]);
+				$first_item.removeClass( 'hide' ).addClass('show').trigger('click');
+			}
+		}
+
 
 		$( '.wrap' ).show();
 
 		// Add helpscout beacon
-		!function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};var t=n.beacon;t.userConfig={},t.readyQueue=[],t.config=function(e){this.userConfig=e},t.ready=function(e){this.readyQueue.push(e)},o.config={docs:{enabled:!0,baseUrl:"https://replyable.helpscoutdocs.com/"},contact:{enabled:!0,formId:"19014f8e-d8d5-11e6-8789-0a5fecc78a4d"}};var r=e.getElementsByTagName("script")[0],c=e.createElement("script");c.type="text/javascript",c.async=!0,c.src="https://djtflbt20bdde.cloudfront.net/",r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});
+		!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});
+		window.Beacon('init', 'e4247595-68e9-4d11-b901-c438a539e627')
 
 		$( 'input.last-submit' ).keypress( function( e ) {
 			var $form = $( this ).parents( 'form' );

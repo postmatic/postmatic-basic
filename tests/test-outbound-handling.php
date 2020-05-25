@@ -19,8 +19,9 @@ class OutboundHandlingTest extends Prompt_MockMailerTestCase {
 		$prompt_post->subscribe( $this->factory->user->create() );
 
 		$comment = $this->factory->comment->create_and_get( array(
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'  => $post_id,
 			'comment_approved' => 0,
+			'comment_type'     => 'comment',
 		) );
 
 		$comment->comment_approved = 1;
@@ -58,4 +59,3 @@ class OutboundHandlingTest extends Prompt_MockMailerTestCase {
 		return array();
 	}
 }
-

@@ -71,6 +71,14 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 			$template_file = 'comment-reply-email.php';
 		}
 
+		/**
+		 * Filter the template file.
+		 *
+		 * @param string $template_file The template file to modify.
+		 * @param object $comment       The Comment
+		 */
+		$template_file = apply_filters( 'prompt/comment_email_batch/template_file', $template_file, $this->prompt_comment );
+
 		$this->parent_author = $parent_author;
 		$this->parent_author_name = $parent_author_name;
 
@@ -529,10 +537,25 @@ class Prompt_Comment_Email_Batch extends Prompt_Email_Batch {
 	 */
 	protected function flood_controlled_recipient_ids() {
 
+		$approved_types = array(
+			'comment',
+		);
+
+		/**
+		 * Filter: replyable/comment_email_batch/approved_types
+		 *
+		 * Allow extra comment types to have moderation emails sent.
+		 *
+		 * @since 2.2.5
+		 *
+		 * @param array  Approved Comment Types.
+		 */
+		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
+
 		// We currently only mail standard WP comments
-		if ( 'comment' != get_comment_type($this->prompt_comment->get_wp_comment() ) ) {
-            return array();
-        }
+		if ( ! in_array( get_comment_type( $this->prompt_comment->get_wp_comment() ), $approved_types, true ) ) {
+			return array();
+		}
 
 		$recipient_ids = $this->prompt_comment->get_recipient_ids();
 
