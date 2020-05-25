@@ -30,11 +30,11 @@
 		}
 	},
 	"require": {
-		"scribu/scb-framework": "dev-composer-voodoo",
+		"scribu/scb-framework": "dev-replyable",
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "dev-develop",
+		"freemius/wordpress-sdk": "^2.3.2",
 		"postmatic/commentium": "^1.0.3"
 	},
 	"require-dev": {
