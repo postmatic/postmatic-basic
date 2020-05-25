@@ -53,7 +53,7 @@ class Prompt_Admin_Local_Mail_Notice extends Prompt_Admin_Conditional_Notice {
 	 * @since 2.0.11
 	 * @param WP_Error $error
 	 */
-	protected function detect_failure( $error ) {
+	public function detect_failure( $error ) {
 		$this->detected_failure = true;
 	}
 }
