@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "648f19c1d0c3228056eef990d8ed0839",
+    "content-hash": "4e4c580878631018a4d6bf3c1c2f12fb",
     "packages": [
         {
             "name": "calderawp/caldera-modals",
@@ -41,23 +41,22 @@
         },
         {
             "name": "freemius/wordpress-sdk",
-            "version": "dev-develop",
+            "version": "2.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Freemius/wordpress-sdk.git",
-                "reference": "c524d1f1e852fd37ea27e4e2806d1f162cc8c609"
+                "reference": "180042ee5653e073dd4a98aa0aae1b9adc9c351c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/c524d1f1e852fd37ea27e4e2806d1f162cc8c609",
-                "reference": "c524d1f1e852fd37ea27e4e2806d1f162cc8c609",
+                "url": "https://api.github.com/repos/Freemius/wordpress-sdk/zipball/180042ee5653e073dd4a98aa0aae1b9adc9c351c",
+                "reference": "180042ee5653e073dd4a98aa0aae1b9adc9c351c",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
             },
             "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0-only"
             ],
@@ -72,7 +71,11 @@
                 "wordpress-plugin",
                 "wordpress-theme"
             ],
-            "time": "2019-01-30T09:08:21+00:00"
+            "support": {
+                "source": "https://github.com/Freemius/wordpress-sdk/tree/2.3.2",
+                "issues": "https://github.com/Freemius/wordpress-sdk/issues"
+            },
+            "time": "2019-12-30T10:10:22+00:00"
         },
         {
             "name": "postmatic/comment-iq-api-client",
@@ -173,16 +176,16 @@
         },
         {
             "name": "scribu/scb-framework",
-            "version": "dev-composer-voodoo",
+            "version": "dev-replyable",
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/wp-scb-framework.git",
-                "reference": "3ea5231c06516134c32c03d3e941ded1f046fb5d"
+                "reference": "ae6099a8a1f31e9415895dd4893d31b98da6aa32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/wp-scb-framework/zipball/3ea5231c06516134c32c03d3e941ded1f046fb5d",
-                "reference": "3ea5231c06516134c32c03d3e941ded1f046fb5d",
+                "url": "https://api.github.com/repos/postmatic/wp-scb-framework/zipball/ae6099a8a1f31e9415895dd4893d31b98da6aa32",
+                "reference": "ae6099a8a1f31e9415895dd4893d31b98da6aa32",
                 "shasum": ""
             },
             "type": "library",
@@ -213,7 +216,7 @@
                 "source": "https://github.com/scribu/wp-scb-framework",
                 "wiki": "https://github.com/scribu/wp-scb-framework/wiki"
             },
-            "time": "2017-01-30T21:40:10+00:00"
+            "time": "2020-05-20T01:50:51+00:00"
         },
         {
             "name": "vernal-creative/html-to-markdown",
@@ -1662,7 +1665,6 @@
         "scribu/scb-framework": 20,
         "vernal-creative/html-to-markdown": 20,
         "xamin/handlebars.php": 20,
-        "freemius/wordpress-sdk": 20,
         "roave/security-advisories": 20,
         "rosio/wordpress-i18n-tools": 20
     },
