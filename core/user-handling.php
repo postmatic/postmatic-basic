@@ -47,12 +47,13 @@ class Prompt_User_Handling {
 
 		$password = wp_generate_password();
 
-		$suffix = '';
 		$basename = substr( $email, 0, strpos( $email, '@' ) );
-		do {
+		$username = $basename;
+		$suffix = 1;
+		while ( username_exists( $username ) ) {
 			$username = $basename . $suffix;
-			$suffix += 1;
-		} while ( username_exists( $username ) );
+			++$suffix;
+		}
 
 		$user_id = wp_create_user( $username, $password, $email );
 
