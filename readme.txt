@@ -87,6 +87,10 @@ It takes Replyable **six to ten seconds** after you hit send to turn your email 
 
 == Changelog ==
 
+= 2.2.7 =
+
+- Fixed a bug that caused new comment delivery failure
+
 = 2.2.6 =
 
 - Upgraded SCB framework to fix contextual help deprecation notices

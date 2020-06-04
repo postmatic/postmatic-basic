@@ -32,7 +32,8 @@ class Prompt_Outbound_Handling {
 		 */
 		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
 
-		if ( $comment->comment_approved != '1' || ! in_array( $comment->comment_type, $approved_types, true ) ) {
+		$comment_type = get_comment_type( $comment );
+		if ( $comment->comment_approved !== '1' || ! in_array( $comment_type, $approved_types, true ) ) {
 			return;
 		}
 
