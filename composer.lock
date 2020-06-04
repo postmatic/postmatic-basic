@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
-    "content-hash": "92a95396c140f11a24f31eff00456114",
-=======
     "content-hash": "4e4c580878631018a4d6bf3c1c2f12fb",
->>>>>>> 1e80863... Update to SCB framework with contextual help fix
     "packages": [
         {
             "name": "calderawp/caldera-modals",
