@@ -56,7 +56,23 @@ class Prompt_Outbound_Handling {
 			return;
 		}
 
-		if ( $comment->comment_approved != '1'  or !empty( $comment->comment_type ) ) {
+		$approved_types = array(
+			'comment',
+		);
+
+		/**
+		 * Filter: replyable/comment_email_batch/approved_types
+		 *
+		 * Allow extra comment types to have moderation emails sent.
+		 *
+		 * @since 2.2.5
+		 *
+		 * @param array  Approved Comment Types.
+		 */
+		$approved_types = apply_filters( 'replyable/comment_email_batch/approved_types', $approved_types ); //phpcs:ignore
+
+		$comment_type = get_comment_type( $comment );
+		if ( $comment->comment_approved !== '1' || ! in_array( $comment_type, $approved_types, true ) ) {
 			return;
 		}
 
