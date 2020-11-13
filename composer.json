@@ -34,7 +34,7 @@
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"xamin/handlebars.php": "dev-php-52",
-		"freemius/wordpress-sdk": "^2.3.2",
+		"freemius/wordpress-sdk": "^2.4.1",
 		"postmatic/commentium": "^1.0.3"
 	},
 	"require-dev": {
