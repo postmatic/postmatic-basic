@@ -7,7 +7,7 @@ Develop using Docker Compose, no need to install PHP or MySQL.
 A PHP service attempts to install Composer dependencies when the
 development server is first brought up.
 
-Alternatively, `./composer.sh install-test-support` will do the job.
+Alternatively, `./composer.sh install` will do the job.
 
 ## Development Server
 
@@ -15,7 +15,7 @@ To run MariaDB and WordPress with a live copy of Geo Mashup:
 
 `docker-compose up`
 
-This also runs a temporary php service to install PHP development
+This also runs a temporary composer service to install PHP development
 dependencies.
 
 Control-C stops running services, or docker-compose stop if that goes awry.
@@ -30,7 +30,7 @@ The test support framework must be installed once before running tests:
 
 Tests can then be run as needed:
 
-`./composer.sh test`
+`./phpunit.sh`
 
 ## Other tools
 
