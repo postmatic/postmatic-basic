@@ -2,7 +2,7 @@ version: '3'
 
 services:
   wordpress:
-    image: wordpress:php7.3
+    image: wordpress:php7.4
     ports:
       - 8080:80
     environment:
@@ -19,13 +19,23 @@ services:
     volumes:
       - mysql:/var/lib/mysql
 
-  php:
-    image: juliquiron/wordpress-phpunit-test-runner-gitlab-ci
+  composer:
+    image: composer
+    command: install
     volumes:
       - ..:/app
       - replyable-test-support:/tmp
-    working_dir: /app
-    command: composer install
+
+  phpunit:
+    image: wordpress:php7.4
+    entrypoint: vendor/bin/phpunit
+    command: --version
+    environment:
+      WP_TESTS_SKIP_INSTALL: 1
+    volumes:
+      - ..:/var/www
+      - replyable-test-support:/tmp
+    working_dir: /var/www
 
 volumes:
   uploads:
