@@ -4,7 +4,7 @@ class RoutingTest extends WP_UnitTestCase {
 
 	function test_template_redirect_with_no_query_var() {
 
-		$filter_mock = $this->getMock( 'Filter_Mock', array( 'wp_die_handler' ) );
+		$filter_mock = $this->getMockBuilder( 'Filter_Mock' )->setMethods( array( 'wp_die_handler' ) )->getMock();
 		$filter_mock->expects( $this->never() )->method( 'wp_die_handler' );
 
 		add_filter( 'wp_die_handler', array( $filter_mock, 'wp_die_handler' ), 5 );
@@ -16,7 +16,7 @@ class RoutingTest extends WP_UnitTestCase {
 
 	function test_template_redirect_with_bad_params() {
 
-		$filter_mock = $this->getMock( 'Filter_Mock', array( 'wp_die_handler' ) );
+		$filter_mock = $this->getMockBuilder( 'Filter_Mock' )->setMethods( array( 'wp_die_handler' ) )->getMock();
 		$filter_mock->expects( $this->never() )->method( 'wp_die_handler' );
 
 		add_filter( 'wp_die_handler', array( $filter_mock, 'wp_die_handler' ), 5 );

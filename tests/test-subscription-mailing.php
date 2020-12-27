@@ -179,7 +179,7 @@ class SubscriptionMailingTest extends Prompt_MockMailerTestCase {
 
 		$this->mailer_expects = $this->never();
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
 		Prompt_Subscription_Mailing::send_subscription_notification( $subscriber->ID, $object );
 	}

@@ -6,7 +6,8 @@ class MailerTest extends WP_UnitTestCase {
 
 	function test_email_api() {
 
-		$batch_mock = $this->getMock( 'Prompt_Email_Batch' );
+		// Getting a deprecation error on this mock
+		$batch_mock = $this->createMock( 'Prompt_Email_Batch' );
 		$batch_mock->expects( $this->once() )
 			->method( 'get_individual_message_values' )
 			->willReturn( true );
@@ -16,7 +17,7 @@ class MailerTest extends WP_UnitTestCase {
 			->method( 'to_array' )
 			->willReturn( $batch_array );
 
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->once() )
 			->method( 'post_outbound_message_batches' )
 			->with( $batch_array );
@@ -37,7 +38,7 @@ class MailerTest extends WP_UnitTestCase {
 			array( 'to_address' => 'test@example.com' )
 		);
 
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->never() )->method( 'post_outbound_message_batches' );
 
 		$mailer = new Prompt_Mailer( $batch, $api_mock );

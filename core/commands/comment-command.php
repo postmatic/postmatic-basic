@@ -25,8 +25,10 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Set the array of key metadata
-	 * @since 1.0.0
+	 *
 	 * @param array $keys [ $post_id, $user_id, $parent_comment_id ]
+	 *
+	 * @since 1.0.0
 	 */
 	public function set_keys( $keys ) {
 		$this->keys = $keys;
@@ -34,8 +36,8 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Get key metadata
-	 * @since 1.0.0
 	 * @return array [ $post_id, $user_id, $parent_comment_id ]
+	 * @since 1.0.0
 	 */
 	public function get_keys() {
 		return $this->keys;
@@ -43,10 +45,12 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Set the command message data
-	 * @since 1.0.0
+	 *
 	 * @param object $message {
+	 *
 	 * @type string $message
 	 * }
+	 * @since 1.0.0
 	 */
 	public function set_message( $message ) {
 		$this->message = $message;
@@ -54,10 +58,10 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Get the command message data
-	 * @since 1.0.0
 	 * @return object {
 	 * @type string $message
 	 * }
+	 * @since 1.0.0
 	 */
 	public function get_message() {
 		return $this->message;
@@ -69,12 +73,14 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 	 */
 	public function execute() {
 
-		if ( !$this->validate() )
+		if ( ! $this->validate() ) {
 			return;
+		}
 
 		$text_command = $this->get_text_command();
 		if ( $text_command ) {
 			$this->$text_command( $notify = true );
+
 			return;
 		}
 
@@ -83,8 +89,10 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Set the post ID key
-	 * @since 1.0.0
+	 *
 	 * @param int $id
+	 *
+	 * @since 1.0.0
 	 */
 	public function set_post_id( $id ) {
 		$this->post_id = intval( $id );
@@ -93,8 +101,10 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Set user ID key
-	 * @since 1.0.0
+	 *
 	 * @param int $id
+	 *
+	 * @since 1.0.0
 	 */
 	public function set_user_id( $id ) {
 		$this->user_id = intval( $id );
@@ -103,37 +113,42 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Set the parent comment ID key
-	 * @since 1.0.0
+	 *
 	 * @param int $id
+	 *
+	 * @since 1.0.0
 	 */
 	public function set_parent_comment_id( $id ) {
 		$this->parent_comment_id = intval( $id );
-		$this->keys[2] = $this->parent_comment_id;
+		$this->keys[2]           = $this->parent_comment_id;
 	}
 
 	/**
 	 * Parse and validate the array of keys
-	 * @since 1.0.0
 	 * @return bool
+	 * @since 1.0.0
 	 */
 	protected function validate() {
 
-		if ( !is_array( $this->keys ) or count( $this->keys ) < 2 ) {
+		if ( ! is_array( $this->keys ) or count( $this->keys ) < 2 ) {
 			trigger_error( __( 'Invalid comment keys', 'Postmatic' ), E_USER_WARNING );
+
 			return false;
 		}
 
 		// Ensure back compatibility with beta versions that did not include parent comment ID
-		if ( count( $this->keys ) == 2 )
+		if ( count( $this->keys ) == 2 ) {
 			$this->keys[2] = 0;
+		}
 
 		if ( empty( $this->message ) ) {
 			trigger_error( __( 'Invalid message', 'Postmatic' ), E_USER_WARNING );
+
 			return false;
 		}
 
-		$this->post_id = $this->keys[0];
-		$this->user_id = $this->keys[1];
+		$this->post_id           = $this->keys[0];
+		$this->user_id           = $this->keys[1];
 		$this->parent_comment_id = $this->keys[2];
 
 		return true;
@@ -141,11 +156,11 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Get the message text
-	 * @since 1.0.0
 	 * @return string
+	 * @since 1.0.0
 	 */
 	protected function get_message_text() {
-		if ( !$this->message_text ) {
+		if ( ! $this->message_text ) {
 			$this->message_text = $this->message->message;
 		}
 
@@ -157,8 +172,8 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 	 *
 	 * A blank message is treated as a subscribe command.
 	 *
-	 * @since 1.0.0
 	 * @return string Text command if found, otherwise empty.
+	 * @since 1.0.0
 	 */
 	protected function get_text_command() {
 
@@ -183,8 +198,10 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 	/**
 	 * Subscribe the user to comments on the post.
-	 * @since 1.0.0
+	 *
 	 * @param bool $notify Whether to send a subscription notification to the user
+	 *
+	 * @since 1.0.0
 	 */
 	protected function subscribe( $notify = false ) {
 
@@ -216,7 +233,7 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 		$prompt_post = new Prompt_Post( $this->post_id );
 
-		if ( !$prompt_post->is_subscribed( $this->user_id ) ) {
+		if ( ! $prompt_post->is_subscribed( $this->user_id ) ) {
 			return;
 		}
 
@@ -237,12 +254,13 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 		$post = get_post( $this->post_id );
 
-		if ( !$post or 'publish' != $post->post_status or !comments_open( $this->post_id ) ) {
+		if ( ! $post or 'publish' != $post->post_status or ! comments_open( $this->post_id ) ) {
 			trigger_error(
 				sprintf( __( 'rejected comment on unqualified post %s', 'Postmatic' ), $this->post_id ),
 				E_USER_NOTICE
 			);
 			Prompt_Comment_Mailing::send_rejected_notification( $this->user_id, $this->post_id );
+
 			return;
 		}
 
@@ -251,24 +269,25 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 				sprintf( __( 'rejected duplicate comment on %s', 'Postmatic' ), $this->post_id ),
 				E_USER_NOTICE
 			);
+
 			return;
 		}
 
 		$this->subscribe( $notify = false );
 
-		$user = get_userdata( $this->user_id );
+		$user         = get_userdata( $this->user_id );
 		$comment_data = array(
-			'user_id' => $this->user_id,
-			'comment_post_ID' => $this->post_id,
-			'comment_content' => $text,
-			'comment_agent' => __CLASS__,
-			'comment_author' => $user->display_name,
-			'comment_author_IP' => '',
-			'comment_author_url' => $user->user_url,
+			'user_id'              => $this->user_id,
+			'comment_post_ID'      => $this->post_id,
+			'comment_content'      => $text,
+			'comment_agent'        => __CLASS__,
+			'comment_author'       => $user->display_name,
+			'comment_author_IP'    => '',
+			'comment_author_url'   => $user->user_url,
 			'comment_author_email' => $user->user_email,
-			'comment_parent' => $this->parent_comment_id,
-			'comment_type' => '',
-			'comment_date_gmt' => current_time( 'mysql', 1 ),
+			'comment_parent'       => $this->parent_comment_id,
+			'comment_type'         => '',
+			'comment_date_gmt'     => current_time( 'mysql', 1 ),
 		);
 
 		remove_all_actions( 'check_comment_flood' );
@@ -279,8 +298,9 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 
 		$comment_id = wp_insert_comment( $comment_data );
 
-		if ( 0 == $comment_data['comment_approved'] )
+		if ( 0 == $comment_data['comment_approved'] ) {
 			wp_notify_moderator( $comment_id );
+		}
 
 	}
 
@@ -288,6 +308,7 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 	 * Our own duplicate check that does not die on failure.
 	 *
 	 * @param $text
+	 *
 	 * @return bool
 	 */
 	protected function comment_exists( $text ) {
@@ -307,10 +328,11 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 	/**
 	 * Similar to wp_approve_comment(), but does not check for duplicates or die on failure.
 	 *
+	 * @param $commentdata
+	 *
+	 * @return int 1 for approved, 0 for not approved, 'spam' for spam
 	 * @since 1.4.7
 	 *
-	 * @param $commentdata
-	 * @return int 1 for approved, 0 for not approved, 'spam' for spam
 	 */
 	protected function approve_comment( $commentdata ) {
 
@@ -336,7 +358,18 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 				$approved = 0;
 			}
 
-			if ( wp_blacklist_check(
+			if ( function_exists( 'wp_check_comment_disallowed_list' ) ) {
+				if ( wp_check_comment_disallowed_list(
+					$commentdata['comment_author'],
+					$commentdata['comment_author_email'],
+					$commentdata['comment_author_url'],
+					$commentdata['comment_content'],
+					$commentdata['comment_author_IP'],
+					$commentdata['comment_agent']
+				) ) {
+					$approved = 'spam';
+				}
+			} else if ( wp_blacklist_check(
 				$commentdata['comment_author'],
 				$commentdata['comment_author_email'],
 				$commentdata['comment_author_url'],
@@ -351,12 +384,14 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 		/**
 		 * Filter a comment's approval status before it is set.
 		 *
-		 * @since 2.1.0
-		 *
 		 * @param bool|string $approved The approval status. Accepts 1, 0, or 'spam'.
 		 * @param array $commentdata Comment data.
+		 *
+		 * @since 2.1.0
+		 *
 		 */
 		$approved = apply_filters( 'pre_comment_approved', $approved, $commentdata );
+
 		return $approved;
 	}
 

@@ -12,46 +12,50 @@ class InboundMessengerTest extends Prompt_MockMailerTestCase {
 		parent::setUp();
 		$_SERVER['REMOTE_ADDR'] = '127.0.0.1';
 		$_SERVER['SERVER_NAME'] = 'localhost';
-		$this->commenter = $this->factory->user->create_and_get();
-		$this->post = $this->factory->post->create_and_get( array(
+		$this->commenter        = $this->factory->user->create_and_get();
+		$this->post             = $this->factory->post->create_and_get( array(
 			'post_author' => $this->factory->user->create(),
 		) );
-		$this->messenger = Prompt_Factory::make_inbound_messenger();
+		$this->messenger        = Prompt_Factory::make_inbound_messenger();
 	}
 
 	function testInboundComment() {
 
-		$restore_whitelist = get_option( 'comment_whitelist' );
-		update_option( 'comment_whitelist', false );
+		$restore_option    = version_compare( get_bloginfo( 'version' ), '5.5', '>=' ) ?
+			'comment_previously_approved' :
+			'comment_whitelist';
+		$restore_value = get_option( $restore_option );
+		update_option( $restore_option, false );
 
 		$command = new Prompt_Comment_Command();
 		$command->set_post_id( $this->post->ID );
 		$command->set_user_id( $this->commenter->ID );
 
-		$update = new stdClass();
-		$update->id = 'testid';
-		$update->type = 'inbound-email';
-		$update->status = 'accepted';
-		$update->data = new stdClass();
-		$update->data->from = 'from@test.dom';
-		$update->data->message = <<<EOD
+		$update                      = new stdClass();
+		$update->id                  = 'testid';
+		$update->type                = 'inbound-email';
+		$update->status              = 'accepted';
+		$update->data                = new stdClass();
+		$update->data->from          = 'from@test.dom';
+		$update->data->message       = <<<EOD
 I'm an email comment. This is my text.
 
 It has a couple of lines. The next text is quoted from the original email.
 EOD;
-		$update->data->metadata = new stdClass();
+		$update->data->metadata      = new stdClass();
 		$update->data->metadata->ids = array_merge( array( 1 ), $command->get_keys() );
 
 		$this->mailer_expects = $this->never();
 
-		$this->messenger->process_update( $update );
+		$status = $this->messenger->process_update( $update );
 
+		$this->assertEquals( 'delivered', $status );
 		$comments = get_approved_comments( $this->post->ID );
 		$this->assertCount( 1, $comments, 'Comment wasn\'t added.' );
 		$this->assertEquals( $this->commenter->ID, $comments[0]->user_id, 'Comment posted from the wrong user.' );
 		$this->assertNotContains( 'INTRO TEXT', $comments[0]->comment_content, 'Quoted email not stripped from comment.' );
 
-		update_option( 'comment_whitelist', $restore_whitelist );
+		update_option( $restore_option, $restore_value );
 	}
 
 	function verifySubscribedEmail() {
@@ -67,14 +71,14 @@ EOD;
 		$command->set_post_id( $this->post->ID );
 		$command->set_user_id( $this->commenter->ID );
 
-		$update = new stdClass();
-		$update->id = 'testid';
-		$update->type = 'inbound-email';
-		$update->status = 'accepted';
-		$update->data = new stdClass();
-		$update->data->from = 'from@test.dom';
-		$update->data->message = 'subscribe';
-		$update->data->metadata = new stdClass();
+		$update                      = new stdClass();
+		$update->id                  = 'testid';
+		$update->type                = 'inbound-email';
+		$update->status              = 'accepted';
+		$update->data                = new stdClass();
+		$update->data->from          = 'from@test.dom';
+		$update->data->message       = 'subscribe';
+		$update->data->metadata      = new stdClass();
 		$update->data->metadata->ids = array_merge( array( 1 ), $command->get_keys() );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifySubscribedEmail' ) );
@@ -96,14 +100,14 @@ EOD;
 		$command->set_post_id( $this->post->ID );
 		$command->set_user_id( $this->commenter->ID );
 
-		$update = new stdClass();
-		$update->id = 'testid';
-		$update->type = 'inbound-email';
-		$update->status = 'accepted';
-		$update->data = new stdClass();
-		$update->data->from = 'from@test.dom';
-		$update->data->message = "\nunsubscribe\n\nthanks a lot\n";
-		$update->data->metadata = new stdClass();
+		$update                      = new stdClass();
+		$update->id                  = 'testid';
+		$update->type                = 'inbound-email';
+		$update->status              = 'accepted';
+		$update->data                = new stdClass();
+		$update->data->from          = 'from@test.dom';
+		$update->data->message       = "\nunsubscribe\n\nthanks a lot\n";
+		$update->data->metadata      = new stdClass();
 		$update->data->metadata->ids = array_merge( array( 1 ), $command->get_keys() );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyUnsubscribedEmail' ) );
@@ -122,26 +126,26 @@ EOD;
 
 	function testFunkyRegisterFormat() {
 
-		$prompt_site_comments = new Prompt_Site_Comments();
+		$prompt_site_comments     = new Prompt_Site_Comments();
 		$this->mail_data->address = 'test@example.com';
-		
+
 		$command = new Prompt_Register_Subscribe_Command();
-		$command->save_subscription_data( 
-			array( $prompt_site_comments ), 
-			$this->mail_data->address, 
-			array( 'display_name' => 'Test Subscriber' ) 
+		$command->save_subscription_data(
+			array( $prompt_site_comments ),
+			$this->mail_data->address,
+			array( 'display_name' => 'Test Subscriber' )
 		);
 
 		// This test data came from a message (99107) that seemed to cause an error, but works here
-		$update = new stdClass();
-		$update->id = 'testid';
-		$update->type = 'inbound-email';
-		$update->status = 'accepted';
-		$update->data = new stdClass();
-		$update->data->from = 'prvs=38229u8321=Tester.TEST@example.com';
-		$update->data->subject = 'Re: Test - Important: Confirm your subscription [SEC=UNCLASSIFIED]';
-		$update->data->message = "agree";
-		$update->data->metadata = new stdClass();
+		$update                      = new stdClass();
+		$update->id                  = 'testid';
+		$update->type                = 'inbound-email';
+		$update->status              = 'accepted';
+		$update->data                = new stdClass();
+		$update->data->from          = 'prvs=38229u8321=Tester.TEST@example.com';
+		$update->data->subject       = 'Re: Test - Important: Confirm your subscription [SEC=UNCLASSIFIED]';
+		$update->data->message       = "agree";
+		$update->data->metadata      = new stdClass();
 		$update->data->metadata->ids = array_merge( array( 2 ), $command->get_keys() );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyRegisterSubscribedEmail' ) );
@@ -164,21 +168,21 @@ EOD;
 		$prompt_post = new Prompt_Post( $this->post );
 		$prompt_post->subscribe( $this->commenter->ID );
 
-		$update = new stdClass();
-		$update->id = 'testid';
-		$update->type = 'inbound-email';
-		$update->status = 'accepted';
-		$update->data = new stdClass();
-		$update->data->from = 'from@example.com';
-		$update->data->message = "\nunsubscribe\n\nthanks a lot\n";
-		$update->data->metadata = new stdClass();
-		$bad_keys = array( 6, 0, $this->commenter->ID, 0, "Foo", 0 );
+		$update                      = new stdClass();
+		$update->id                  = 'testid';
+		$update->type                = 'inbound-email';
+		$update->status              = 'accepted';
+		$update->data                = new stdClass();
+		$update->data->from          = 'from@example.com';
+		$update->data->message       = "\nunsubscribe\n\nthanks a lot\n";
+		$update->data->metadata      = new stdClass();
+		$bad_keys                    = array( 6, 0, $this->commenter->ID, 0, "Foo", 0 );
 		$update->data->metadata->ids = $bad_keys;
 
 		$this->mailer_expects = $this->never();
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
-		
+		$this->expectException( 'PHPUnit_Framework_Error' );
+
 		$result = $this->messenger->process_update( $update );
 
 		$this->assertEquals( 'failed', $result );
@@ -197,12 +201,12 @@ EOD;
 		$response_body = array(
 			'updates' => array(
 				array(
-					'id' => 'testid',
-					'type' => 'inbound-email',
+					'id'     => 'testid',
+					'type'   => 'inbound-email',
 					'status' => 'accepted',
-					'data' => array(
-						'from' => 'from@test.dom',
-						'message' => 'hello world',
+					'data'   => array(
+						'from'     => 'from@test.dom',
+						'message'  => 'hello world',
 						'metadata' => array( 'ids' => array_merge( array( 1 ), $command->get_keys() ) ),
 					)
 				)
@@ -211,13 +215,13 @@ EOD;
 
 		$response = array(
 			'response' => array( 'code' => 200 ),
-			'body' => json_encode( $response_body ),
+			'body'     => json_encode( $response_body ),
 		);
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->once() )
-			->method( 'get_undelivered_updates' )
-			->will( $this->returnValue( $response ) );
+		            ->method( 'get_undelivered_updates' )
+		            ->will( $this->returnValue( $response ) );
 
 		$messenger = new Prompt_Inbound_Messenger( $mock_client );
 		$messenger->pull_updates();
@@ -228,7 +232,7 @@ EOD;
 		$updated_results_body = array(
 			'updates' => array(
 				array(
-					'id' => 'testid',
+					'id'     => 'testid',
 					'status' => 'delivered'
 				)
 			)
@@ -236,22 +240,22 @@ EOD;
 
 		$put_request = array(
 			'headers' => array( 'Content-Type' => 'application/json' ),
-			'body' => json_encode( $updated_results_body )
+			'body'    => json_encode( $updated_results_body )
 		);
 
 		$put_response = array(
 			'response' => array( 'code' => 200 ),
-			'body' => json_encode( $updated_results_body )
+			'body'     => json_encode( $updated_results_body )
 		);
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->once() )
-			->method( 'put' )
-			->with( '/updates', $put_request )
-			->will( $this->returnValue( $put_response ) );
+		            ->method( 'put' )
+		            ->with( '/updates', $put_request )
+		            ->will( $this->returnValue( $put_response ) );
 
 		$messenger = new Prompt_Inbound_Messenger( $mock_client );
-		$result = $messenger->acknowledge_updates( $updated_results_body );
+		$result    = $messenger->acknowledge_updates( $updated_results_body );
 
 		$this->assertTrue( $result, 'Expected successful acknowledgement.' );
 	}
@@ -259,11 +263,11 @@ EOD;
 	function testAcknowledgeEmpty() {
 		$empty_updates = array( 'updates' => array() );
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->never() )->method( 'put' );
 
 		$messenger = new Prompt_Inbound_Messenger( $mock_client );
-		$result = $messenger->acknowledge_updates( $empty_updates );
+		$result    = $messenger->acknowledge_updates( $empty_updates );
 
 		$this->assertTrue( $result, 'Expected success with no request necessary.' );
 	}

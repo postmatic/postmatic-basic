@@ -21,7 +21,7 @@ class SubscriptionAgreementMailerTest extends WP_UnitTestCase {
 		$batch = new Prompt_Subscription_Agreement_Email_Batch( $object, $template_data );
 		$batch->add_agreement_recipients( $users );
 
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->once() )
 			->method( 'post_outbound_message_batches' )
 			->will( $this->returnValue( new WP_Error( 'test', 'Failed to connect' ) ) );

@@ -42,7 +42,7 @@
         <include name="vendor/vernal-creative/**"/>
         <include name="vendor/scribu/**"/>
         <include name="vendor/calderawp/**"/>
-        <include name="vendor/xamin/**"/>
+        <include name="vendor/salesforce/**"/>
         <include name="vendor/freemius/**"/>
         <include name="vendor/postmatic/**"/>
         <exclude name="**/tests/**"/>

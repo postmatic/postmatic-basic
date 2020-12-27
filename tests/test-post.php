@@ -277,12 +277,12 @@ class PostTest extends Prompt_UnitTestCase {
 	}
 
 	function testNullSubscribeFailure() {
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 		$this->_prompt_post->subscribe( null );
 	}
 
 	function testZeroSubscribeFailure() {
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 		$this->_prompt_post->subscribe( 0 );
 	}
 

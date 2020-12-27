@@ -8,7 +8,7 @@ class CoreTest extends WP_UnitTestCase {
 
 	function testVersion() {
 		$short_version = Prompt_Core::version();
-		$long_version = Prompt_Core::version( $full = true );
+		$long_version  = Prompt_Core::version( $full = true );
 
 		$this->assertNotEmpty( $short_version, 'Expected a non-empty version.' );
 		$this->assertGreaterThanOrEqual( $short_version, $long_version, 'Expected a longer full version.' );
@@ -16,7 +16,9 @@ class CoreTest extends WP_UnitTestCase {
 	}
 
 	function testDefaultOptionsFilter() {
-		add_filter( 'prompt/default_options', create_function( '$o', 'return array_merge( $o, array( "foo" => "bar" ) );' ) );
+		add_filter( 'prompt/default_options', function ( $o ) {
+			return array_merge( $o, array( "foo" => "bar" ) );
+		} );
 
 		Prompt_Core::load();
 

@@ -4,8 +4,9 @@ class SubscriptionAgreementWpMailerTest extends WP_UnitTestCase {
 
 	function testSchedule() {
 
-		$client_mock = $this->getMock( 'Prompt_Api_Client' );
+		$client_mock = $this->createMock( 'Prompt_Api_Client' );
 
+		// Reflection errors making this mock
 		$batch_mock = $this->getMockBuilder( 'Prompt_Subscription_Agreement_Email_Batch' )
 			->setConstructorArgs( array( new Prompt_Site_Comments() ) )
 			->getMock();

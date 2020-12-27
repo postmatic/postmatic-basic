@@ -6,15 +6,10 @@ env:
   - secure: e+gnmaQNY+OS9wbEA4QHB/T2XzQVrbpi2yMA5V85dSdrKw47m/Z6XcLraqeutpb86GyPvB/PG8r3y1aGA62cT+38AqYGfmbSi04zyM7an99d7yGrwBrKAObk5TpLRx9PM1Uz4dIDC9KsjCHKghNJgujfW5bIfqA5Y1w9IOoiAK77JOMBV8WU/m4RLawMhRTtOqeg9+ib1ZuwHTAtZFR6LvPfHInIbTgE8aBPIeU3VJBhVzUpqQz9Gj3s9BQnHw7kOr3tetGxLacAith/u/FABT7DmzKB7soDEFc1Do8MB0wQkHNrLLCiVhf4Tvga3AtMqZvKdcX6xDJmrBL2XpqgYiDMQ0W3tZI9n+BOJy9324VyWXQqBcIH6VCoJtOD9xyYLoFuYhYmyCAfUFYjTmFJUrwj16vf2D7SxiKkPlWvawZduCg5CZioZYlT8yptLmx+jLkTJnTaC1Kcz6mBV73X4wMEYTIOT39VT0SzOKAKq3JLsFtwgfFdSs0zv3PZT0uf5JJ++/Vn2Kl6CMFQ4g9oNfOa4x4TtPThBwKtgsFgJf0Izaf9AjM30cR16uU1mrn0Cs/P0+73epUuyFTrJZk5/ej3rwP4u7ZFD0P0qx8QsL3joC9fC2Sw9lvdi7Ng8d/CNN/YzMVlr8EyrAj9bR9lG0vCxP0W3EM4XtJF6ipNiGg=
 matrix:
   include:
-    - php: 5.6
+    - php: 7.3
       env: WP_VERSION=latest DEPLOY=wp
-    - php: 5.6
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 5.6
-      env: WP_VERSION=4.4
-    - php: 5.3
-      dist: precise
-      env: WP_VERSION=4.4
+    - php: 7.3
+      env: WP_VERSION=5.0
 before_install:
 - git submodule update --init --recursive
 - composer install
@@ -26,6 +21,6 @@ notifications:
     secure: uDChQPGbtHfiXgMa9q+m8G2KbVCiaEvwvchpzR/Y0/2J9Is77zPm0BsHw708Iyn6+/VABaRXiSnhFjykjl8qtDzXxKS9dC4B9pK14XzkgAtkciA5Ekwe3p+IpJEhHO1N79zov+IlsRKrq3/HchHexfVkgq5KViNPvzJG2/+0kv7kYMb7wcdyLJxE4V9fV898HygkqzCQdXY9KprqdKeYYYjKUky+bohutjVa8r4NaDq4HSJR620KhkTVJM/7nurG9MYgckmVAb4Nxh6krcx25dtfWmL9Q30tLwnK3/T4daVvEpzXH9aLYPYoT5rMJqmtwDdfJvHsR3jNifUztOFYbaNNERrnz1M1+ictADGwqjfW/VmX9mlbFHdj8NeoHddkaauNJi/nAFbZL+ZNqOnw1Rh/rH2w5mym/SZGVH+JBwYdvPkLjpeaDNHq83+r6X8MZ/axWc3rq11INFZHzyFp+KLeJ+Khn4yXhVlZWI365Msf059ICeD/kNVqyndEB5MnSwBK6sfYxplRdHfCu3lyChwRABqWAa9SV77OyODxzj+f0LnuJ+9hLntlOsdSf46uXn05pfkSUQ5+vmwxTTRFSjI8uVbqf0sVcuMatGPwOUaEHvjHzuOVpuahytk+/fn70urzXwTwQ3t6DhMBi9/fjxUzCZlsQa/HBpoaoRIq3ck=
 after_success:
 - test $TRAVIS_BRANCH = "master" &&
-  test $TRAVIS_PHP_VERSION = "5.6" && 
+  test $TRAVIS_PHP_VERSION = "7.3" &&
   test $DEPLOY = "wp" &&
   vendor/bin/phing deploy-wp

@@ -51,7 +51,7 @@ class WpMailerTest extends WP_UnitTestCase {
 			'message_type' => Prompt_Enum_Message_Types::ADMIN,
 		) );
 
-		$mailer_mock = $this->getMock( 'AdHoc', array( 'send' ) );
+		$mailer_mock = $this->getMockBuilder( 'AdHoc' )->setMethods( array( 'send' ) )->getMock();
 		$mailer_mock->expects( $this->never() )->method( 'send' );
 
 		$wp_mailer = new Prompt_Wp_Mailer( $batch, $this->get_unused_api_mock(), array( $mailer_mock, 'send' ) );
@@ -84,7 +84,7 @@ class WpMailerTest extends WP_UnitTestCase {
 
 		$wp_mailer = new Prompt_Wp_Mailer( $batch, $this->get_prepare_api_mock() );
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
 		$result = $wp_mailer->send();
 
@@ -95,7 +95,7 @@ class WpMailerTest extends WP_UnitTestCase {
 	 * @return Prompt_Api_Client
 	 */
 	private function get_unused_api_mock() {
-		$prepare_mock = $this->getMock( 'Prompt_Api_Client' );
+		$prepare_mock = $this->getMockBuilder( 'Prompt_Api_Client' )->getMock();
 		$prepare_mock->expects( $this->never() )->method( 'send' );
 		return $prepare_mock;
 	}
@@ -104,7 +104,7 @@ class WpMailerTest extends WP_UnitTestCase {
 	 * @return Prompt_Api_Client
 	 */
 	private function get_prepare_api_mock() {
-		$prepare_mock = $this->getMock( 'Prompt_Api_Client' );
+		$prepare_mock = $this->getMockBuilder( 'Prompt_Api_Client' )->getMock();
 		$prepare_mock->expects( $this->never() )->method( 'post_outbound_messages' );
 		return $prepare_mock;
 	}
@@ -112,7 +112,7 @@ class WpMailerTest extends WP_UnitTestCase {
 	private function get_wp_mail_mock_callable( $verify_callback = null ) {
 		
 		$verify_callback = $verify_callback ? $verify_callback : array( $this, 'verify_wp_mail' );
-		$mock = $this->getMock( 'AdHoc', array( 'send' ) );
+		$mock = $this->getMockBuilder( 'AdHoc' )->setMethods(array( 'send' ) )->getMock();
 
 		$mock->expects( $this->once() )
 			->method( 'send' )

@@ -7,16 +7,16 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 	function testPageLoaded() {
 
-		$license_mock = $this->getMock( 'Prompt_Interface_License_Status' );
+		$license_mock = $this->createMock( 'Prompt_Interface_License_Status' );
 		$license_mock->expects( $this->once() )->method( 'is_trial_underway' )->willReturn( false );
 		$license_mock->expects( $this->once() )->method( 'is_paying' )->willReturn( false );
 
 		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, $license_mock );
 
-		$mock_filter = $this->getMock( 'Foo', array( 'tabs' ) );
+		$mock_filter = $this->getMockBuilder( 'Foo' )->setMethods( array( 'tabs' ) )->getMock();
 		$mock_filter->expects( $this->once() )
-			->method( 'tabs' )
-			->will( $this->returnCallback( array( $this, 'verifyTabs' ) ) );
+		            ->method( 'tabs' )
+		            ->will( $this->returnCallback( array( $this, 'verifyTabs' ) ) );
 
 		add_filter( 'prompt/options_page/tabs', array( $mock_filter, 'tabs' ) );
 
@@ -28,12 +28,13 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	function verifyTabs( $tabs ) {
 		$this->assertNotEmpty( $tabs, 'Expected some tabs' );
 		$this->assertContainsOnlyInstancesOf( 'Prompt_Admin_Options_Tab', $tabs );
+
 		return $tabs;
 	}
 
 	function testPageHead() {
 
-		$mock_tab = $this->getMock( 'Tab_Mock', array( 'page_head' ) );
+		$mock_tab = $this->getMockBuilder( 'Tab_Mock' )->setMethods( array( 'page_head' ) )->getMock();
 		$mock_tab->expects( $this->once() )->method( 'page_head' );
 
 		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array( $mock_tab ) );
@@ -49,9 +50,9 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options );
 
 		$mock_tab = $this->getMockBuilder( 'Prompt_Admin_Options_Tab' )
-			->disableOriginalConstructor()
-			->setMethods( array( 'slug', 'form_handler' ) )
-			->getMock();
+		                 ->disableOriginalConstructor()
+		                 ->setMethods( array( 'slug', 'form_handler' ) )
+		                 ->getMock();
 
 		$slug = 'test';
 		$mock_tab->expects( $this->once() )->method( 'slug' )->will( $this->returnValue( $slug ) );
@@ -99,16 +100,15 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		$user_id = $this->factory->user->create();
 		wp_set_current_user( $user_id );
 
-		$_POST['error_alert'] = true;
+		$_POST['error_alert']   = true;
 		$_POST['submit_errors'] = true;
 
-		$mock_page = $this->getMock(
-			'Prompt_Admin_Options_Page',
-			array( 'check_args' ),
-			array( false, Prompt_Core::$options, null, null, array() )
-		);
+		$mock_page = $this->getMockBuilder( 'Prompt_Admin_Options_Page' )
+		                  ->setMethods( array( 'check_args', 'form_handler' ) )
+		                  ->setConstructorArgs( array( false, Prompt_Core::$options, null, null, array() ) )
+		                  ->getMock();
 		$mock_page->expects( $this->never() )
-			->method( 'form_handler' );
+		          ->method( 'form_handler' );
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifyBugReportEmail' ) );
 
@@ -116,7 +116,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 		$dismissed_time = get_user_meta( $user_id, Prompt_Admin_Options_Page::DISMISS_ERRORS_META_KEY, true );
 
-		$this->assertGreaterThan( time() - 60*60, $dismissed_time, 'Expected a recent bug report time.' );
+		$this->assertGreaterThan( time() - 60 * 60, $dismissed_time, 'Expected a recent bug report time.' );
 
 		wp_set_current_user( 0 );
 	}
@@ -125,7 +125,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		$template = $this->mailer_payload->get_batch_message_template();
 
 		$user = wp_get_current_user();
-		$this->assertEquals(  $user->user_email, $template['from_address'], 'Expected report from the current user.' );
+		$this->assertEquals( $user->user_email, $template['from_address'], 'Expected report from the current user.' );
 		$this->assertEquals(
 			Prompt_Enum_Message_Types::ADMIN,
 			$template['message_type'],
@@ -149,7 +149,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 		wp_set_current_user( $admin->ID );
 
 		$this->mail_data->redirect_url = '';
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array() );
+		$page                          = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array() );
 		$this->assertEquals( $page->url(), $this->mail_data->redirect_url, 'Expected to detect an auto load redirect.' );
 
 		wp_set_current_user( 0 );
@@ -164,7 +164,7 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	function testValidateKey() {
 
 		$api_mock = $this->getValidKeyApiMock();
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
+		$page     = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 		$page->validate_key( 'foo' );
 
 		$this->assertEquals(
@@ -177,15 +177,15 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testValidateKeyError() {
-		$error = new WP_Error( 'http_request_failed', 'Couldn\'t connect to host' );
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$error    = new WP_Error( 'http_request_failed', 'Couldn\'t connect to host' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->once() )
-			->method( 'get_site' )
-			->will( $this->returnValue( $error ) );
+		         ->method( 'get_site' )
+		         ->will( $this->returnValue( $error ) );
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
-		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
+		$page   = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 		$result = $page->validate_key( 'foo' );
 
 		$this->assertEquals( $error, $result );
@@ -198,8 +198,8 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 
 		$api_mock = $this->getValidKeyApiMock();
 		$api_mock->expects( $this->once() )
-			->method( 'post_instant_callback' )
-			->will( $this->returnValue( array( 'response' => array( 'code' => 200 ) ) ) );
+		         ->method( 'post_instant_callback' )
+		         ->will( $this->returnValue( array( 'response' => array( 'code' => 200 ) ) ) );
 
 		$page = new Prompt_Admin_Options_Page( __FILE__, Prompt_Core::$options, null, null, array(), array(), $api_mock );
 
@@ -233,33 +233,33 @@ class OptionsPageTest extends Prompt_MockMailerTestCase {
 	function getValidKeyApiMock() {
 		$site_response = array(
 			'response' => array( 'code' => 200 ),
-			'body' => json_encode( array(
-				'messages' => 'foo',
-				'site' => array( 'url' => admin_url( 'admin-ajax.php' ) ),
+			'body'     => json_encode( array(
+				'messages'      => 'foo',
+				'site'          => array( 'url' => admin_url( 'admin-ajax.php' ) ),
 				'configuration' => array( 'email_transport' => Prompt_Enum_Email_Transports::API ),
 			) ),
 		);
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock      = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->once() )
-			->method( 'get_site' )
-			->will( $this->returnValue( $site_response ) );
+		         ->method( 'get_site' )
+		         ->will( $this->returnValue( $site_response ) );
 
 		return $api_mock;
 	}
 
 	function getNoAlertPageMock( $key ) {
-		$mock_page = $this->getMock(
-			'Prompt_Admin_Options_Page',
-			array( 'validate_key', 'display_key_prompt', 'connection_alert' ),
-			array( __FILE__, Prompt_Core::$options, null, null, array(), array() )
-		);
+		$mock_page = $this->getMockBuilder( 'Prompt_Admin_Options_Page' )
+		                  ->setMethods( array( 'validate_key', 'display_key_prompt', 'connection_alert' ) )
+		                  ->setConstructorArgs( array( __FILE__, Prompt_Core::$options, null, null, array(), array() ) )
+		                  ->getMock();
+
 		$mock_page->expects( $this->once() )
-			->method( 'validate_key' )
-			->will( $this->returnValue( $key ) );
+		          ->method( 'validate_key' )
+		          ->will( $this->returnValue( $key ) );
 		$mock_page->expects( $this->never() )->method( 'display_key_prompt' );
 		$mock_page->expects( $this->any() )
-			->method( 'connection_alert' )
-			->will( $this->returnValue( '' ) );
+		          ->method( 'connection_alert' )
+		          ->will( $this->returnValue( '' ) );
 
 		return $mock_page;
 	}

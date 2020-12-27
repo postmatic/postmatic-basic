@@ -315,12 +315,12 @@ Class PromptCommentCommandTest extends Prompt_MockMailerTestCase {
 		$command->set_message( array( 'recipient' => 'unittest@vern.al', 'stripped-text' => $comment_text ) );
 
 		// An email will also be generated - would need dependency injection to prevent that
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 		$command->execute();
 	}
 
 	function testWrongNumberOfKeysException() {
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
 		$command = $this->makeCommandWithMessage();
 		$command->set_keys( array( 3 ) );

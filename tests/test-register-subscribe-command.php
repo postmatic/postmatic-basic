@@ -227,7 +227,7 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testNonNumericKeyException() {
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
 		$command = new Prompt_Register_Subscribe_Command();
 		$command->set_keys( array( 3, 'a' ) );
@@ -235,7 +235,7 @@ class PromptRegisterSubscribeCommandTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testWrongNumberOfKeysException() {
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 
 		$command = new Prompt_Register_Subscribe_Command();
 		$command->set_keys( array( 3, 5 ) );

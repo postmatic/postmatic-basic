@@ -13,12 +13,13 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 	/**
 	 *
-	 * @since 2.0.0
-	 *
 	 * @param Prompt_Email_Batch $batch
 	 * @param Prompt_Interface_Http_Client|null $client
 	 * @param callable|null $local_mailer
 	 * @param int $chunk
+	 *
+	 * @since 2.0.0
+	 *
 	 */
 	public function __construct(
 		Prompt_Email_Batch $batch,
@@ -28,16 +29,16 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	) {
 		parent::__construct( $batch, $client );
 
-		$this->chunk = $chunk;
-		$this->handlebars = new Prompt_Handlebars();
+		$this->chunk        = $chunk;
+		$this->handlebars   = new Prompt_Handlebars();
 		$this->local_mailer = $local_mailer ? $local_mailer : 'wp_mail';
-		$this->error_data = array();
+		$this->error_data   = array();
 	}
 
 	/**
+	 * @return array|WP_Error
 	 * @since 2.0.0
 	 *
-	 * @return array|WP_Error
 	 */
 	public function send() {
 
@@ -58,13 +59,13 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 		add_action( 'wp_mail_failed', array( $this, 'add_mail_error' ) );
 
-		for( $i = 0; $i < count( $source_values ); $i += 1 ) {
+		for ( $i = 0; $i < count( $source_values ); $i += 1 ) {
 
-			$local_email = $this->render_individual_email( $source_values[$i] );
+			$local_email = $this->render_individual_email( $source_values[ $i ] );
 
-			$return_values[$local_email['to_address']] = $this->send_prepared( $local_email );
+			$return_values[ $local_email['to_address'] ] = $this->send_prepared( $local_email );
 		}
-		
+
 		remove_action( 'wp_mail_failed', array( $this, 'add_mail_error' ) );
 
 		$this->log_errors();
@@ -74,16 +75,18 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 	/**
 	 * Record a mail error.
-	 * @since 2.0.0
+	 *
 	 * @param WP_Error $error
+	 *
+	 * @since 2.0.0
 	 */
 	public function add_mail_error( WP_Error $error ) {
-		$this->error_data[] = array( 
-			'message' => $error->get_error_message(), 
-			'error_info' => $error->get_error_data() 
+		$this->error_data[] = array(
+			'message'    => $error->get_error_message(),
+			'error_info' => $error->get_error_data()
 		);
 	}
-	
+
 	/**
 	 * Log local mail errors.
 	 * @since 2.0.0
@@ -102,23 +105,24 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 			array( 'error_data' => $this->error_data )
 		);
 	}
-	
-	
+
+
 	/**
 	 * Whether the current batch contains trackable reply requests.
 	 *
+	 * @return bool
 	 * @since 2.0.0
 	 *
-	 * @return bool
 	 */
 	protected function track_replies() {
 		$track_replies = false;
-		foreach( $this->batch->get_individual_message_values() as $values ) {
+		foreach ( $this->batch->get_individual_message_values() as $values ) {
 			if ( isset( $values['reply_to'] ) ) {
 				$track_replies = true;
 				break;
 			}
 		}
+
 		return $track_replies;
 	}
 
@@ -137,12 +141,12 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		}
 
 		if ( isset( $template['html_content'] ) ) {
-			$html_template = new Prompt_Template( 'html-local-email-wrapper.php' );
+			$html_template            = new Prompt_Template( 'html-local-email-wrapper.php' );
 			$template['html_content'] = $html_template->render( $template );
 		}
 
 		if ( isset( $template['text_content'] ) ) {
-			$text_template = new Prompt_Text_Template( 'text-email-wrapper.php' );
+			$text_template            = new Prompt_Text_Template( 'text-email-wrapper.php' );
 			$template['text_content'] = $text_template->render( $template );
 		}
 
@@ -152,10 +156,11 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	/**
 	 * Render handlebars fields in the batch template using a set of individual message values.
 	 *
+	 * @param array $values
+	 *
+	 * @return array
 	 * @since 2.0.0
 	 *
-	 * @param array $values
-	 * @return array
 	 */
 	protected function render_individual_email( $values ) {
 
@@ -173,14 +178,14 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 
 		$values['ref_id'] = 'noreply';
 
-		foreach( $template as $field_name => $field_template ) {
-			$email_fields[$field_name] = $this->handlebars->render_string( $field_template, $values );
+		foreach ( $template as $field_name => $field_template ) {
+			$email_fields[ $field_name ] = $this->handlebars->render_string( (string) $field_template, $values );
 		}
 
 		if ( isset( $template['reply_to'] ) and is_email( $template['reply_to'] ) ) {
 
 			$email_fields['reply_address'] = Prompt_Email_Batch::address( $template['reply_to'] );
-			$email_fields['reply_name'] = Prompt_Email_Batch::name( $template['reply_to'] );
+			$email_fields['reply_name']    = Prompt_Email_Batch::name( $template['reply_to'] );
 
 		}
 
@@ -191,20 +196,22 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	 * Send a prepared and rendered email locally.
 	 *
 	 * @param array $email
+	 *
 	 * @return bool
 	 */
 	protected function send_prepared( array $email ) {
 
-		if ( !is_email( $email['to_address'] ) ) {
+		if ( ! is_email( $email['to_address'] ) ) {
 			Prompt_Logging::add_error(
 				Prompt_Enum_Error_Codes::OUTBOUND,
 				__( 'Attempted to send to an invalid email address.', 'Postmatic' ),
 				compact( 'email' )
 			);
+
 			return false;
 		}
 
-		$to = Prompt_Email_Batch::name_address( $email['to_address'], $email['to_name'] );
+		$to      = Prompt_Email_Batch::name_address( $email['to_address'], $email['to_name'] );
 		$headers = array(
 			'From: ' . Prompt_Email_Batch::name_address( $email['from_address'], $email['from_name'] ),
 			'X-Postmatic-Site-URL: ' . home_url(),
@@ -221,12 +228,12 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		}
 
 		$message = $email['text_content'];
-		
-		if ( !empty( $email['html_content'] ) ) {
+
+		if ( ! empty( $email['html_content'] ) ) {
 			$headers[] = 'Content-Type: ' . Prompt_Enum_Content_Types::HTML . '; charset=UTF-8';
-			$message = $email['html_content'];
-		} 
-		
+			$message   = $email['html_content'];
+		}
+
 		return call_user_func( $this->local_mailer, $to, $email['subject'], $message, $headers );
 	}
 
@@ -237,8 +244,8 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	 */
 	protected function request_tracking_addresses() {
 
-		$email_data = new stdClass();
-		$email_data->actions = array( 'track-replies' );
+		$email_data                   = new stdClass();
+		$email_data->actions          = array( 'track-replies' );
 		$email_data->outboundMessages = array();
 
 		$message_values = $this->batch->get_individual_message_values();
@@ -283,6 +290,7 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 	 * Format an email for the prompt outbound service.
 	 *
 	 * @param array $values
+	 *
 	 * @return array
 	 */
 	protected function make_prompt_message( array $values ) {
@@ -294,16 +302,16 @@ class Prompt_Wp_Mailer extends Prompt_Mailer {
 		$template = $this->batch->get_batch_message_template();
 
 		$message = array(
-			'to' => array(
+			'to'      => array(
 				'address' => $this->handlebars->render_string( $template['to_address'], $values ),
-				'name' => $this->handlebars->render_string( $template['to_name'], $values ),
+				'name'    => $this->handlebars->render_string( $template['to_name'], $values ),
 			),
-			'from' => array(
+			'from'    => array(
 				'address' => $this->handlebars->render_string( $template['from_address'], $values ),
-				'name' => $this->handlebars->render_string( $template['from_name'], $values ),
+				'name'    => $this->handlebars->render_string( $template['from_name'], $values ),
 			),
 			'subject' => $this->handlebars->render_string( $template['subject'], $values ),
-			'type' => $template['message_type'],
+			'type'    => $template['message_type'],
 		);
 
 		if ( isset( $values['reply_to'] ) ) {
