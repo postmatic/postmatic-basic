@@ -48,20 +48,19 @@ class CommentMailerTest extends WP_UnitTestCase {
 
 	function getMockFloodController( $comment, $subscriber_ids ) {
 
-		$mock = $this->getMock(
-			'Prompt_Comment_Flood_Controller',
-			array( 'control_recipient_ids' ),
-			array( $comment )
-		);
+		$mock = $this->getMockBuilder( 'Prompt_Comment_Flood_Controller' )
+		             ->setMethods( array( 'control_recipient_ids' ) )
+		             ->setConstructorArgs( array( $comment ) )
+		             ->getMock();
 		$mock->expects( $this->once() )
-			->method( 'control_recipient_ids' )
-			->will( $this->returnValue( $subscriber_ids ) );
+		     ->method( 'control_recipient_ids' )
+		     ->will( $this->returnValue( $subscriber_ids ) );
 
 		return $mock;
 	}
 
 	function testCommentNotification() {
-		$this->data->post_subscriber = $this->factory->user->create_and_get();
+		$this->data->post_subscriber          = $this->factory->user->create_and_get();
 		$this->data->site_comments_subscriber = $this->factory->user->create_and_get();
 
 		$subscriber_ids = array(
@@ -69,10 +68,10 @@ class CommentMailerTest extends WP_UnitTestCase {
 			$this->data->site_comments_subscriber->ID,
 		);
 
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 		$api_mock->expects( $this->once() )
-			->method( 'post_outbound_message_batches' )
-			->will( $this->returnCallback( array( $this, 'verifyCommentBatch' ) ) );
+		         ->method( 'post_outbound_message_batches' )
+		         ->will( $this->returnCallback( array( $this, 'verifyCommentBatch' ) ) );
 
 		$this->data->comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $this->post->ID,
@@ -81,7 +80,7 @@ class CommentMailerTest extends WP_UnitTestCase {
 
 		$mock_flood_controller = $this->getMockFloodController( $this->data->comment, $subscriber_ids );
 
-		$batch = new Prompt_Comment_Email_Batch( $this->data->comment, $mock_flood_controller );
+		$batch  = new Prompt_Comment_Email_Batch( $this->data->comment, $mock_flood_controller );
 		$mailer = new Prompt_Comment_Mailer( $batch, $api_mock );
 
 		$mailer->send();

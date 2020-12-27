@@ -13,7 +13,7 @@ class KeyImporterTest extends PHPUnit_Framework_TestCase {
 			->method( 'set' )
 			->with( 'prompt_key', 'foo' );
 
-		$client_mock = $this->getMock( 'Prompt_Api_Client' );
+		$client_mock = $this->createMock( 'Prompt_Api_Client' );
 		$client_mock->expects( $this->never() )->method( 'get_site' );
 
 		$importer = new Prompt_Key_Importer( 'foo', $options_mock, $client_mock );
@@ -30,7 +30,7 @@ class KeyImporterTest extends PHPUnit_Framework_TestCase {
 			->willReturn( 'test' );
 		$options_mock->expects( $this->never() )->method( 'set' );
 
-		$client_mock = $this->getMock( 'Prompt_Api_Client' );
+		$client_mock = $this->createMock( 'Prompt_Api_Client' );
 		$client_mock->expects( $this->never() )->method( 'get_site' );
 
 		$importer = new Prompt_Key_Importer( 'foo', $options_mock, $client_mock );

@@ -53,7 +53,7 @@ class WebApiTest extends WP_Ajax_UnitTestCase {
 	}
 
 	function testReceivePullUpdates() {
-		$this->_mock_messenger = $this->getMock( 'Prompt_Inbound_Messenger' );
+		$this->_mock_messenger = $this->createMock( 'Prompt_Inbound_Messenger' );
 		$this->_mock_messenger->expects( $this->once() )
 			->method( 'pull_updates' )
 			->will( $this->returnValue( true ) );
@@ -70,7 +70,7 @@ class WebApiTest extends WP_Ajax_UnitTestCase {
 	}
 
 	function testReceivePullConfiguration() {
-		$this->_mock_configurator = $this->getMock( 'Prompt_Configurator' );
+		$this->_mock_configurator = $this->createMock( 'Prompt_Configurator' );
 		$this->_mock_configurator->expects( $this->once() )
 			->method( 'pull_configuration' )
 			->will( $this->returnValue( true ) );

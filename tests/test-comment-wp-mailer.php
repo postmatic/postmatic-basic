@@ -46,27 +46,27 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	}
 
 	function getMockApiClient() {
-		$this->api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$this->api_mock = $this->getMockBuilder( 'Prompt_Api_Client' )->getMock();
 		$this->api_mock->expects( $this->never() )->method( 'post_outbound_messages' );
+
 		return $this->api_mock;
 	}
 
 	function getMockFloodController( $comment, $subscriber_ids ) {
 
-		$mock = $this->getMock(
-			'Prompt_Comment_Flood_Controller',
-			array( 'control_recipient_ids' ),
-			array( $comment )
-		);
+		$mock = $this->getMockBuilder( 'Prompt_Comment_Flood_Controller' )
+		             ->setMethods( array( 'control_recipient_ids' ) )
+		             ->setConstructorArgs( array( $comment ) )
+		             ->getMock();
 		$mock->expects( $this->once() )
-			->method( 'control_recipient_ids' )
-			->will( $this->returnValue( $subscriber_ids ) );
+		     ->method( 'control_recipient_ids' )
+		     ->will( $this->returnValue( $subscriber_ids ) );
 
 		return $mock;
 	}
 
 	function testCommentNotification() {
-		$this->data->post_subscriber = $this->factory->user->create_and_get();
+		$this->data->post_subscriber          = $this->factory->user->create_and_get();
 		$this->data->site_comments_subscriber = $this->factory->user->create_and_get();
 
 		$subscriber_ids = array(
@@ -74,10 +74,10 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			$this->data->site_comments_subscriber->ID,
 		);
 
-		$mailer_mock = $this->getMock( 'AdHoc', array( 'send' ) );
+		$mailer_mock = $this->getMockBuilder( 'AdHoc' )->setMethods( array( 'send' ) )->getMock();
 		$mailer_mock->expects( $this->exactly( 2 ) )
-			->method( 'send' )
-			->will( $this->returnCallback( array( $this, 'verifyLocalMailing' ) ) );
+		            ->method( 'send' )
+		            ->will( $this->returnCallback( array( $this, 'verifyLocalMailing' ) ) );
 
 		$this->data->comment = $this->factory->comment->create_and_get( array(
 			'comment_post_ID' => $this->post->ID,
@@ -96,7 +96,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 	function verifyLocalMailing( $to, $subject, $message, $headers ) {
 
 		$expected_to_addresses = array(
-			Prompt_Email_Batch::name_address( 
+			Prompt_Email_Batch::name_address(
 				$this->data->post_subscriber->user_email,
 				$this->data->post_subscriber->display_name
 			),
@@ -108,9 +108,11 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 		$this->assertContains( $to, $expected_to_addresses );
 		$this->assertContains( $this->data->comment->comment_author, $message );
 
-		$reply_to_filter = create_function( '$a', 'return (strpos( $a, "Reply-To:" ) === 0);' );
+		$reply_to_filter = static function ( $a ) {
+			return ( strpos( $a, "Reply-To:" ) === 0 );
+		};
 		$this->assertNotEmpty( array_filter( $headers, $reply_to_filter ), 'Expected a reply-to header.' );
-		
+
 		$this->assertNotContains( 'Notice:', $message, 'Expected no notices.' );
 		$this->assertNotContains( 'Error:', $message, 'Expected no errors.' );
 
@@ -130,11 +132,11 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 	function testAnonymousCommentNotification() {
 		$this->data->subscriber = $this->factory->user->create_and_get();
-		$post_id = $this->factory->post->create();
+		$post_id                = $this->factory->post->create();
 
 		$this->data->comment = $this->factory->comment->create_and_get( array(
-			'comment_post_ID' => $post_id,
-			'comment_author' => '',
+			'comment_post_ID'      => $post_id,
+			'comment_author'       => '',
 			'comment_author_email' => '',
 		) );
 
@@ -143,10 +145,10 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			$this->getMockFloodController( $this->data->comment, array( $this->data->subscriber->ID ) )
 		);
 
-		$mailer_mock = $this->getMock( 'PHPMailer', array( 'send' ) );
+		$mailer_mock = $this->getMockBuilder( 'PHPMailer' )->setMethods( array( 'send' ) )->getMock();
 		$mailer_mock->expects( $this->once() )
-			->method( 'send' )
-			->will( $this->returnCallback( array( $this, 'verifyAnonymousLocalMailing' ) ) );
+		            ->method( 'send' )
+		            ->will( $this->returnCallback( array( $this, 'verifyAnonymousLocalMailing' ) ) );
 
 		$mailer = new Prompt_Comment_Wp_Mailer( $batch, $this->getMockApiClient(), array( $mailer_mock, 'send' ) );
 
@@ -160,31 +162,31 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 	function testCommentReplyNotification() {
 		$this->data->parent_author = $this->factory->user->create_and_get();
-		$child_author = $this->factory->user->create_and_get();
-		$post_id = $this->factory->post->create();
+		$child_author              = $this->factory->user->create_and_get();
+		$post_id                   = $this->factory->post->create();
 
 		$parent_comment = array(
-			'user_id' => $this->data->parent_author->ID,
-			'comment_post_ID' => $post_id,
-			'comment_content' => 'test comment',
-			'comment_agent' => 'Prompt',
-			'comment_author' => $this->data->parent_author->display_name,
-			'comment_author_IP' => '',
-			'comment_author_url' => $this->data->parent_author->user_url,
+			'user_id'              => $this->data->parent_author->ID,
+			'comment_post_ID'      => $post_id,
+			'comment_content'      => 'test comment',
+			'comment_agent'        => 'Prompt',
+			'comment_author'       => $this->data->parent_author->display_name,
+			'comment_author_IP'    => '',
+			'comment_author_url'   => $this->data->parent_author->user_url,
 			'comment_author_email' => $this->data->parent_author->user_email,
 		);
 
 		$parent_comment_id = wp_insert_comment( $parent_comment );
 
 		$child_comment = array(
-			'user_id' => $child_author->ID,
-			'comment_post_ID' => $post_id,
-			'comment_parent' => $parent_comment_id,
-			'comment_content' => 'test reply',
-			'comment_agent' => 'Prompt',
-			'comment_author' => $child_author->display_name,
-			'comment_author_IP' => '',
-			'comment_author_url' => $child_author->user_url,
+			'user_id'              => $child_author->ID,
+			'comment_post_ID'      => $post_id,
+			'comment_parent'       => $parent_comment_id,
+			'comment_content'      => 'test reply',
+			'comment_agent'        => 'Prompt',
+			'comment_author'       => $child_author->display_name,
+			'comment_author_IP'    => '',
+			'comment_author_url'   => $child_author->user_url,
 			'comment_author_email' => $child_author->user_email,
 		);
 
@@ -197,13 +199,13 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			$this->getMockFloodController( $child_comment, array( $this->data->parent_author->ID ) )
 		);
 
-		$mailer_mock = $this->getMock( 'AdHoc', array( 'send' ) );
+		$mailer_mock = $this->getMockBuilder( 'AdHoc' )->setMethods( array( 'send' ) )->getMock();
 		$mailer_mock->expects( $this->once() )
-			->method( 'send' )
-			->will( $this->returnCallback( array( $this, 'verifyCommentReplyLocalMailing' ) ) );
+		            ->method( 'send' )
+		            ->will( $this->returnCallback( array( $this, 'verifyCommentReplyLocalMailing' ) ) );
 
-		$mailer = new Prompt_Comment_Wp_Mailer( $batch, $this->getMockApiClient(), array( $mailer_mock, 'send' ) ); 
-		
+		$mailer = new Prompt_Comment_Wp_Mailer( $batch, $this->getMockApiClient(), array( $mailer_mock, 'send' ) );
+
 		$mailer->send();
 	}
 
@@ -214,7 +216,7 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 			$to,
 			'Expected an email to be sent to the parent comment author.'
 		);
-		
+
 		$this->assertContains(
 			'Reply-To: donotreply@gopostmatic.com',
 			$headers,
@@ -230,23 +232,22 @@ class CommentWpMailerTest extends WP_UnitTestCase {
 
 		$mock_flood_controller = $this->getMockFloodController( $comment, array( $recipient->ID ) );
 
-		$batch_mock = $this->getMock(
-			'Prompt_Comment_Email_Batch',
-			array( 'get_individual_message_values', 'record_failures' ),
-			array( $comment, $mock_flood_controller )
-		);
+		$batch_mock = $this->getMockBuilder( 'Prompt_Comment_Email_Batch' )
+		                   ->setMethods( array( 'get_individual_message_values', 'record_failures' ) )
+		                   ->setConstructorArgs( array( $comment, $mock_flood_controller ) )
+		                   ->getMock();
 
 		$individual_values = array( array( 'id' => $recipient->ID, 'to_address' => $recipient->user_email ) );
 
 		$batch_mock->expects( $this->any() )
-			->method( 'get_individual_message_values' )
-			->willReturn( $individual_values );
+		           ->method( 'get_individual_message_values' )
+		           ->willReturn( $individual_values );
 
 		$batch_mock->expects( $this->once() )
-			->method( 'record_failures' )
-			->with( array( $recipient->user_email ) );
+		           ->method( 'record_failures' )
+		           ->with( array( $recipient->user_email ) );
 
-		$api_mock = $this->getMock( 'Prompt_Api_Client' );
+		$api_mock = $this->createMock( 'Prompt_Api_Client' );
 
 		$mailer = new Prompt_Comment_Wp_Mailer( $batch_mock, $api_mock, '__return_false' );
 		$mailer->send();

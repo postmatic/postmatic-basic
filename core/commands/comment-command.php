@@ -336,7 +336,7 @@ class Prompt_Comment_Command implements Prompt_Interface_Command {
 				$approved = 0;
 			}
 
-			if ( wp_blacklist_check(
+			if ( wp_check_comment_disallowed_list(
 				$commentdata['comment_author'],
 				$commentdata['comment_author_email'],
 				$commentdata['comment_author_url'],

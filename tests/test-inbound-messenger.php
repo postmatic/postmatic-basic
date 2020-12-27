@@ -21,8 +21,8 @@ class InboundMessengerTest extends Prompt_MockMailerTestCase {
 
 	function testInboundComment() {
 
-		$restore_whitelist = get_option( 'comment_whitelist' );
-		update_option( 'comment_whitelist', false );
+		$restore_whitelist = get_option( 'comment_previously_approved' );
+		update_option( 'comment_previously_approved', false );
 
 		$command = new Prompt_Comment_Command();
 		$command->set_post_id( $this->post->ID );
@@ -51,7 +51,7 @@ EOD;
 		$this->assertEquals( $this->commenter->ID, $comments[0]->user_id, 'Comment posted from the wrong user.' );
 		$this->assertNotContains( 'INTRO TEXT', $comments[0]->comment_content, 'Quoted email not stripped from comment.' );
 
-		update_option( 'comment_whitelist', $restore_whitelist );
+		update_option( 'comment_previously_approved', $restore_whitelist );
 	}
 
 	function verifySubscribedEmail() {
@@ -177,7 +177,7 @@ EOD;
 
 		$this->mailer_expects = $this->never();
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 		
 		$result = $this->messenger->process_update( $update );
 
@@ -214,7 +214,7 @@ EOD;
 			'body' => json_encode( $response_body ),
 		);
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->once() )
 			->method( 'get_undelivered_updates' )
 			->will( $this->returnValue( $response ) );
@@ -244,7 +244,7 @@ EOD;
 			'body' => json_encode( $updated_results_body )
 		);
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->once() )
 			->method( 'put' )
 			->with( '/updates', $put_request )
@@ -259,7 +259,7 @@ EOD;
 	function testAcknowledgeEmpty() {
 		$empty_updates = array( 'updates' => array() );
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->never() )->method( 'put' );
 
 		$messenger = new Prompt_Inbound_Messenger( $mock_client );

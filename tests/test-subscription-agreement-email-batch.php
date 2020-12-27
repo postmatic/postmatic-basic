@@ -56,7 +56,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testAddRecipient() {
 
-		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock = $this->createMock( 'Prompt_Site_Comments' );
 		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
 		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
@@ -66,7 +66,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 			'user_email' => 'test@example.com',
 		);
 
-		$mock_command = $this->getMock( 'Prompt_Register_Subscribe_Command' );
+		$mock_command = $this->createMock( 'Prompt_Register_Subscribe_Command' );
 		$mock_command->expects( $this->once() )
 			->method( 'get_keys' )
 			->willReturn( array( 1 ) );
@@ -91,7 +91,7 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 
 	function testAddInvalidRecipient() {
 
-		$site_comments_mock = $this->getMock( 'Prompt_Site_Comments' );
+		$site_comments_mock = $this->createMock( 'Prompt_Site_Comments' );
 		$site_comments_mock->expects( $this->any() )->method( 'subscription_object_label' )->willReturn( 'LIST' );
 
 		$batch = new Prompt_Subscription_Agreement_Email_Batch( array( $site_comments_mock ) );
@@ -101,10 +101,10 @@ class SubscriptionAgreementEmailBatchTest extends WP_UnitTestCase {
 			'user_email' => 'test@example.com.',
 		);
 
-		$mock_command = $this->getMock( 'Prompt_Register_Subscribe_Command' );
+		$mock_command = $this->createMock( 'Prompt_Register_Subscribe_Command' );
 		$mock_command->expects( $this->never() )->method( 'get_keys' );
 
-		$this->setExpectedException( 'PHPUnit_Framework_Error' );
+		$this->expectException( 'PHPUnit_Framework_Error' );
 		
 		$result = $batch->add_agreement_recipient( $user_data, $mock_command );
 		

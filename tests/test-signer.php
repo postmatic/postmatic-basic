@@ -8,12 +8,15 @@ class SignerTest extends PHPUnit_Framework_TestCase {
 			'email' => 'test.this+address@example.tld'
 		);
 
-		$key = 'foo';
-		$value = 'bar';
-		$hasher_mock = $this->getMock( 'Prompt_Hasher', array( 'hash' ), array( $key ) );
+		$key         = 'foo';
+		$value       = 'bar';
+		$hasher_mock = $this->getMockBuilder( 'Prompt_Hasher' )
+		                    ->setMethods( array( 'hash' ) )
+		                    ->setConstructorArgs( array( $key ) )
+		                    ->getMock();
 		$hasher_mock->expects( $this->exactly( 2 ) )
-			->method( 'hash' )
-			->willReturn( $value );
+		            ->method( 'hash' )
+		            ->willReturn( $value );
 
 		$signer = new Prompt_Signer( $hasher_mock );
 
@@ -32,16 +35,19 @@ class SignerTest extends PHPUnit_Framework_TestCase {
 
 		$data = array(
 			'email' => 'test@example.com',
-			't' => 'token',
-			's' => 'signature',
+			't'     => 'token',
+			's'     => 'signature',
 		);
 
-		$key = 'foo';
-		$hasher_mock = $this->getMock( 'Prompt_Hasher', array( 'hash' ), array( $key ) );
+		$key         = 'foo';
+		$hasher_mock = $this->getMockBuilder( 'Prompt_Hasher' )
+		                    ->setMethods( array( 'hash' ) )
+		                    ->setConstructorArgs( array( $key ) )
+		                    ->getMock();
 		$hasher_mock->expects( $this->once() )
-			->method( 'hash' )
-			->with( $data['t'] . $data['email'] )
-			->willReturn( $data['s'] );
+		            ->method( 'hash' )
+		            ->with( $data['t'] . $data['email'] )
+		            ->willReturn( $data['s'] );
 
 		$signer = new Prompt_Signer( $hasher_mock );
 
@@ -52,16 +58,19 @@ class SignerTest extends PHPUnit_Framework_TestCase {
 
 		$data = array(
 			'email' => 'test@example.com',
-			't' => 'fake',
-			's' => 'args',
+			't'     => 'fake',
+			's'     => 'args',
 		);
 
-		$key = 'foo';
-		$value = 'bar';
-		$hasher_mock = $this->getMock( 'Prompt_Hasher', array( 'hash' ), array( $key ) );
+		$key         = 'foo';
+		$value       = 'bar';
+		$hasher_mock = $this->getMockBuilder( 'Prompt_Hasher' )
+		                    ->setMethods( array( 'hash' ) )
+		                    ->setConstructorArgs( array( $key ) )
+		                    ->getMock();
 		$hasher_mock->expects( $this->once() )
-			->method( 'hash' )
-			->willReturn( $value );
+		            ->method( 'hash' )
+		            ->willReturn( $value );
 
 		$signer = new Prompt_Signer( $hasher_mock );
 

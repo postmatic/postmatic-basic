@@ -42,9 +42,9 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 		$this->assertTrue( wp_script_is( 'prompt-comment-form' ), 'Expected comment form script to be enqueued.' );
 		$this->assertTrue( wp_style_is( 'prompt-comment-form' ), 'Expected comment form style to be enqueued.' );
-		
+
 	}
-	
+
 	function testFormContentLoggedOut() {
 		$post_id = $this->factory->post->create();
 
@@ -126,35 +126,37 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testFormContentTooltipFilter() {
-        $post_id = $this->factory->post->create();
+		$post_id = $this->factory->post->create();
 
-	    $filter_mock = $this->getMock( 'filterMock', array( 'filter_tooltip' ) );
-	    $filter_mock->expects( $this->once() )->method( 'filter_tooltip' )->willReturn( 'TOOLTIP' );
+		$filter_mock = $this->getMockBuilder( 'filterMock' )
+		                    ->setMethods( array( 'filter_tooltip' ) )
+		                    ->getMock();
+		$filter_mock->expects( $this->once() )->method( 'filter_tooltip' )->willReturn( 'TOOLTIP' );
 
-	    add_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
-        $content = $this->getCommentFormContent( $post_id );
-        remove_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
+		add_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
+		$content = $this->getCommentFormContent( $post_id );
+		remove_filter( 'replyable/comment_form/opt_in_tooltip_text', array( $filter_mock, 'filter_tooltip' ) );
 
-        $this->assertContains( 'TOOLTIP', $content );
-    }
+		$this->assertContains( 'TOOLTIP', $content );
+	}
 
 	function testSubscribeNewUser() {
-		$author_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
+		$author_id                = $this->factory->user->create();
+		$post_id                  = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
-			'comment_author' => 'testy',
+			'comment_author'       => 'testy',
 			'comment_author_email' => 'tester@prompt.vern.al',
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$this->mailer_expects = $this->never();
 
 		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		$this->mailer_expects = $this->once();
-		$this->mailer_will = $this->returnCallback( array( $this, 'verifyNewUserEmail' ) );
+		$this->mailer_will    = $this->returnCallback( array( $this, 'verifyNewUserEmail' ) );
 
 		Prompt_Comment_Form_Handling::handle_form( $comment_id, 1 );
 
@@ -164,23 +166,23 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeExistingUserLoggedOut() {
-		$author_id = $this->factory->user->create();
-		$subscriber = $this->factory->user->create_and_get();
-		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
+		$author_id                = $this->factory->user->create();
+		$subscriber               = $this->factory->user->create_and_get();
+		$post_id                  = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
-			'comment_author' => $subscriber->display_name,
+			'comment_author'       => $subscriber->display_name,
 			'comment_author_email' => $subscriber->user_email,
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$this->mailer_expects = $this->never();
 
 		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		$this->mailer_expects = $this->once();
-		$this->mailer_will = $this->returnCallback( array( $this, 'verifySubscribedEmail' ) );
+		$this->mailer_will    = $this->returnCallback( array( $this, 'verifySubscribedEmail' ) );
 
 		Prompt_Comment_Form_Handling::handle_form( $comment_id, 1 );
 
@@ -205,20 +207,20 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testSubscribeNewModeratedUser() {
-		$author_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
+		$author_id                = $this->factory->user->create();
+		$post_id                  = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
-			'comment_author' => 'testy',
+			'comment_author'       => 'testy',
 			'comment_author_email' => 'tester@prompt.vern.al',
-			'comment_post_ID' => $post_id,
-			'comment_approved' => 0,
+			'comment_post_ID'      => $post_id,
+			'comment_approved'     => 0,
 		);
 
 		$this->mailer_expects = $this->never();
 
 		$comment = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		Prompt_Comment_Form_Handling::handle_form( $comment->comment_ID, $this->mail_data->comment['comment_approved'] );
 
@@ -232,19 +234,19 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotSubscribeSpamCommenter() {
-		$author_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
+		$author_id                = $this->factory->user->create();
+		$post_id                  = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
-			'comment_author' => 'spammy',
+			'comment_author'       => 'spammy',
 			'comment_author_email' => 'spammer@example.com',
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$this->mailer_expects = $this->never();
 
 		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		Prompt_Comment_Form_Handling::handle_form( $comment_id, 'spam' );
 
@@ -254,19 +256,19 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotSubscribeInvalidAuthorEmail() {
-		$author_id = $this->factory->user->create();
-		$post_id = $this->factory->post->create( array( 'post_author' => $author_id ) );
+		$author_id                = $this->factory->user->create();
+		$post_id                  = $this->factory->post->create( array( 'post_author' => $author_id ) );
 		$this->mail_data->comment = array(
-			'comment_author' => 'Faker',
+			'comment_author'       => 'Faker',
 			'comment_author_email' => 'foo',
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$this->mailer_expects = $this->never();
 
 		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		Prompt_Comment_Form_Handling::handle_form( $comment_id, '1' );
 
@@ -282,13 +284,13 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		wp_set_current_user( $user_id );
 
 		$this->mail_data->comment = array(
-			'user_id' => $user_id,
+			'user_id'         => $user_id,
 			'comment_post_ID' => $post_id,
 		);
 
 		$comment_id = $this->factory->comment->create_and_get( $this->mail_data->comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		$this->mailer_will = $this->returnCallback( array( $this, 'verifySubscribedEmail' ) );
 
@@ -300,10 +302,11 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 
 	function verifySubscribedEmail() {
 
-		if ( isset( $this->mail_data->comment['user_id'] ))
+		if ( isset( $this->mail_data->comment['user_id'] ) ) {
 			$user = get_user_by( 'id', $this->mail_data->comment['user_id'] );
-		else
+		} else {
 			$user = get_user_by( 'email', $this->mail_data->comment['comment_author_email'] );
+		}
 
 		$values = $this->mailer_payload->get_individual_message_values();
 		$this->assertEquals(
@@ -319,7 +322,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	}
 
 	function testDoNotUnsubscribeCurrentUser() {
-		$post_id = $this->factory->post->create();
+		$post_id     = $this->factory->post->create();
 		$prompt_post = new Prompt_Post( $post_id );
 
 		$user = $this->factory->user->create_and_get();
@@ -327,9 +330,9 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		$prompt_post->subscribe( $user->ID );
 
 		$comment = array(
-			'user_id' => $user->ID,
+			'user_id'              => $user->ID,
 			'comment_author_email' => $user->user_email,
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$comment_id = $this->factory->comment->create_and_get( $comment );
@@ -347,14 +350,14 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 		wp_set_current_user( 0 );
 
 		$comment = array(
-			'comment_author' => 'whatever',
+			'comment_author'       => 'whatever',
 			'comment_author_email' => $user->user_email,
-			'comment_post_ID' => $post_id,
+			'comment_post_ID'      => $post_id,
 		);
 
 		$comment_id = $this->factory->comment->create_and_get( $comment );
 
-		$_POST[Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME] = 1;
+		$_POST[ Prompt_Comment_Form_Handling::SUBSCRIBE_CHECKBOX_NAME ] = 1;
 
 		$prompt_post = new Prompt_Post( $post_id );
 		$prompt_post->subscribe( $user->ID );
@@ -367,6 +370,7 @@ class CommentFormHandlingTest extends Prompt_MockMailerTestCase {
 	protected function getCommentFormContent( $post_id ) {
 		ob_start();
 		Prompt_Comment_Form_Handling::form_content( $post_id );
+
 		return ob_get_clean();
 	}
 

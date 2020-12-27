@@ -24,7 +24,7 @@ class ConfiguratorTest extends WP_UnitTestCase {
 			'body' => json_encode( $response_body ),
 		);
 
-		$mock_client = $this->getMock( 'Prompt_Api_Client' );
+		$mock_client = $this->createMock( 'Prompt_Api_Client' );
 		$mock_client->expects( $this->once() )
 			->method( 'get_site' )
 			->will( $this->returnValue( $response ) );

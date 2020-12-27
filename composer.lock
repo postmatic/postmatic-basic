@@ -127,16 +127,16 @@
         },
         {
             "name": "postmatic/commentium",
-            "version": "1.0.4",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/postmatic/commentium.git",
-                "reference": "0929ccc280f3f2f4ef58b372b3fb8ec0875e6154"
+                "reference": "82648c2940590046c84acc42c9c0f08a2f0f3efa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/postmatic/commentium/zipball/0929ccc280f3f2f4ef58b372b3fb8ec0875e6154",
-                "reference": "0929ccc280f3f2f4ef58b372b3fb8ec0875e6154",
+                "url": "https://api.github.com/repos/postmatic/commentium/zipball/82648c2940590046c84acc42c9c0f08a2f0f3efa",
+                "reference": "82648c2940590046c84acc42c9c0f08a2f0f3efa",
                 "shasum": ""
             },
             "require": {
@@ -169,10 +169,10 @@
                 }
             ],
             "support": {
-                "source": "https://github.com/postmatic/commentium/tree/1.0.4",
+                "source": "https://github.com/postmatic/commentium/tree/1.0.5",
                 "issues": "https://github.com/postmatic/commentium/issues"
             },
-            "time": "2019-02-28T04:01:03+00:00"
+            "time": "2020-12-27T03:10:54+00:00"
         },
         {
             "name": "salesforce/handlebars-php",

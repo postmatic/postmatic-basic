@@ -6,10 +6,9 @@ class ApiClientTest extends WP_UnitTestCase {
 
 	function setUp() {
 		parent::setUp();
-		$this->mock = create_function(
-			'$url, $args = array()',
-			'return array( "url" => $url, "args" => $args );'
-		);
+		$this->mock = function($url, $args = []) {
+			return array( "url" => $url, "args" => $args );
+		};
 	}
 
 	function testDefaultConstruction() {

@@ -4,17 +4,18 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 
 	/** @var  Prompt_Comment_Email_Batch */
 	protected $batch;
-	/** @var bool  */
+	/** @var bool */
 	protected $rescheduled = false;
 
 	/**
-	 *
-	 * @since 2.0.0
 	 *
 	 * @param Prompt_Comment_Email_Batch $batch
 	 * @param Prompt_Interface_Http_Client|null $client
 	 * @param callable|null $local_mailer
 	 * @param int $chunk
+	 *
+	 * @since 2.0.0
+	 *
 	 */
 	public function __construct(
 		Prompt_Comment_Email_Batch $batch,
@@ -38,13 +39,16 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 		 * @param boolean $send Default true.
 		 * @param Prompt_Comment_Email_Batch $batch
 		 */
-		if ( !apply_filters( 'prompt/send_comment_notifications', true, $this->batch ) )
+		if ( ! apply_filters( 'prompt/send_comment_notifications', true, $this->batch ) ) {
 			return null;
+		}
 
 		$this->batch->lock_for_sending();
 
 		// Turn off native comment notifications
-		add_filter( 'pre_option_comments_notify', create_function( '$a', 'return null;' ) );
+		add_filter( 'pre_option_comments_notify', function ( $a ) {
+			return null;
+		} );
 
 		$result = parent::send();
 
@@ -56,12 +60,15 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 	}
 
 	/**
-	 * @since 2.0.11
 	 * @param array $result send() result array
+	 *
+	 * @since 2.0.11
 	 */
 	protected function record_failures( $result ) {
 
-		$not_function = create_function( '$a', 'return !$a;' );
+		$not_function = static function ( $a ) {
+			return ! $a;
+		};
 
 		$failed_addresses = array_keys( array_filter( $result, $not_function ) );
 
@@ -75,10 +82,11 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 	/**
 	 * Schedule a retry if a temporary failure has occurred.
 	 *
+	 * @param array $response
+	 *
+	 * @return bool Whether a retry has been rescheduled.
 	 * @since 2.0.0
 	 *
-	 * @param array $response
-	 * @return bool Whether a retry has been rescheduled.
 	 */
 	protected function reschedule( $response ) {
 
@@ -92,6 +100,7 @@ class Prompt_Comment_Wp_Mailer extends Prompt_Wp_Mailer {
 				'prompt/comment_mailing/send_notifications',
 				array( $this->batch->get_comment()->id(), 'reschedule' )
 			);
+
 			return $this->rescheduled = true;
 		}
 

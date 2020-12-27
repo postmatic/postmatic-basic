@@ -3,11 +3,13 @@
  * Manage handlebars usage.
  */
 
+use Handlebars\Handlebars;
+
 /**
  * Decorate the handlebars library.
  * @since 1.4.3
  */
-class Prompt_Handlebars extends Handlebars_Engine {
+class Prompt_Handlebars extends Handlebars {
 
 	/**
 	 * @since 1.4.3

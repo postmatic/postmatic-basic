@@ -47,10 +47,16 @@ class Prompt_Logging {
 	 */
 	public static function add_error( $code = '', $message = '', $data = array() ) {
 
+		try {
+			$backtrace = unserialize( serialize( debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT, 10) ) );
+		} catch (Exception $exception) {
+			$backtrace = 'Unavailable';
+		}
+
 		if ( is_array( $data ) ) {
-			$data['backtrace'] = unserialize( serialize( debug_backtrace() ) );
+			$data['backtrace'] = $backtrace;
 		} else if ( $data instanceof WP_Error ) {
-			$data->add_data( unserialize( serialize( debug_backtrace() ) ), 'backtrace' );
+			$data->add_data( $backtrace, 'backtrace' );
 		}
 
 		$wp_error = new WP_Error( $code, $message, $data );

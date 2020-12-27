@@ -62,7 +62,7 @@ class SubscriptionHandlingTest extends WP_UnitTestCase {
 	function testGetSubscribableClassesFilter() {
 		$result = array( 'test' );
 
-		$mock_filter = $this->getMock( 'Foo', array( 'filter' ) );
+		$mock_filter = $this->getMockBuilder( 'Foo' )->setMethods( array( 'filter' ) )->getMock();
 		$mock_filter->expects( $this->once() )
 			->method( 'filter' )
 			->willReturn( $result );

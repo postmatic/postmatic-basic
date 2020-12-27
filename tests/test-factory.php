@@ -4,7 +4,7 @@ class FactoryTest extends WP_UnitTestCase {
 	
 	function test_default_subscription_agreement_wp_mailer() {
 		
-		$verifier = $this->getMock( 'Mock', array( 'verify' ) );
+		$verifier = $this->getMockBuilder( 'Mock' )->setMethods( array( 'verify' ) )->getMock();
 		$verifier->expects( $this->once() )
 			->method( 'verify' )
 			->willReturnCallback( array( $this, 'verify_default_subscription_agreement_wp_mailer' ) );

@@ -17,8 +17,8 @@ class Prompt_MockMailerTestCase extends Prompt_UnitTestCase {
 		parent::setUp();
 
 		$this->mailer_expects = $this->once();
-		$this->mailer_method = 'send';
-		$this->mailer_will = $this->returnValue( true );
+		$this->mailer_method  = 'send';
+		$this->mailer_will    = $this->returnValue( true );
 
 		$this->mail_data = new stdClass();
 
@@ -36,15 +36,14 @@ class Prompt_MockMailerTestCase extends Prompt_UnitTestCase {
 
 		$this->mailer_payload = $payload;
 
-		$mock = $this->getMock(
-			get_class( $mailer ),
-			array( $this->mailer_method ),
-			array( $payload )
-		);
+		$mock = $this->getMockBuilder( get_class( $mailer ) )
+		             ->setMethods( array( $this->mailer_method ) )
+		             ->setConstructorArgs( array( $payload ) )
+		             ->getMock();
 
 		$mock->expects( $this->mailer_expects )
-			->method( $this->mailer_method )
-			->will( $this->mailer_will );
+		     ->method( $this->mailer_method )
+		     ->will( $this->mailer_will );
 
 		return $mock;
 	}

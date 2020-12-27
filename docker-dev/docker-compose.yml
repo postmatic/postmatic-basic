@@ -2,7 +2,7 @@ version: '3'
 
 services:
   wordpress:
-    image: wordpress:php7.4
+    image: wordpress:php7.3
     ports:
       - 8080:80
     environment:
@@ -27,7 +27,7 @@ services:
       - replyable-test-support:/tmp
 
   phpunit:
-    image: wordpress:php7.4
+    image: wordpress:php7.3
     entrypoint: vendor/bin/phpunit
     command: --version
     environment:

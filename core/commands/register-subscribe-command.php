@@ -267,7 +267,7 @@ class Prompt_Register_Subscribe_Command implements Prompt_Interface_Command {
 	 */
 	protected function stop_resending( $comment ) {
 
-		$resend_count = get_comment_meta( $comment->comment_ID, self::$resend_count_meta_key, true );
+		$resend_count = (int) get_comment_meta( $comment->comment_ID, self::$resend_count_meta_key, true );
 
 		$resend_count += 1;
 
