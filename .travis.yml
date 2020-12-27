@@ -11,11 +11,12 @@ matrix:
     - php: 7.1
       env: WP_VERSION=latest WP_MULTISITE=1
     - php: 7.1
-      env: WP_VERSION=4.8
+      env: WP_VERSION=5.0
     - php: 7.3
-      env: WP_VERSION=4.8
+      env: WP_VERSION=5.0
 before_install:
 - git submodule update --init --recursive
+- rm composer.lock
 - composer install
 before_script:
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
