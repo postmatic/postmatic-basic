@@ -8,15 +8,11 @@ matrix:
   include:
     - php: 7.3
       env: WP_VERSION=latest DEPLOY=wp
-    - php: 7.1
-      env: WP_VERSION=latest WP_MULTISITE=1
-    - php: 7.1
-      env: WP_VERSION=5.0
     - php: 7.3
       env: WP_VERSION=5.0
 before_install:
 - git submodule update --init --recursive
-- composer update
+- composer install
 before_script:
 - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 script: vendor/bin/phpunit
