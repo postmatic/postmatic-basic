@@ -42,6 +42,6 @@
 	"scripts": {
 		"install-test-support": "./bin/install-wp-tests.sh wp_test root root mysql",
 		"upgrade-test-support": "./bin/install-wp-tests.sh wp_test root root mysql nightly true",
-		"test": "phpunit"
+		"phing": "phing"
 	}
 }
