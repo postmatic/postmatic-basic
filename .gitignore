@@ -7,3 +7,5 @@ js/post-editor-ck.js
 composer.phar
 
 wp-cli.phar
+
+docker-dev/auth.json

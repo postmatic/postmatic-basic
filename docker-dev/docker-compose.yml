@@ -25,6 +25,7 @@ services:
     volumes:
       - ..:/app
       - replyable-test-support:/tmp
+      - ./auth.json:/tmp/auth.json
 
   phpunit:
     image: wordpress:php7.3

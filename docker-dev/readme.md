@@ -2,6 +2,22 @@
 
 Develop using Docker Compose, no need to install PHP or MySQL.
 
+## Authorize
+
+Create an `auth.json` file in this directory with an []access token](https://github.com/settings/tokens) that has
+permission to read public repos.
+
+```
+{
+  "http-basic": {
+    "github.com": {
+        "username": "<YOUR-USERNAME>",
+        "password": "<TOKEN>"
+    }
+  }
+}
+```
+
 ## Install
 
 A PHP service attempts to install Composer dependencies when the

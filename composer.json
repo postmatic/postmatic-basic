@@ -29,7 +29,7 @@
 		"vernal-creative/html-to-markdown": "dev-postmatic",
 		"calderawp/caldera-modals" : "1.0.1",
 		"salesforce/handlebars-php": "^2.3.0",
-		"freemius/wordpress-sdk": "^2.4.1",
+		"freemius/wordpress-sdk": "^2.4.3",
 		"postmatic/commentium": "^1.0.3"
 	},
 	"require-dev": {
@@ -37,7 +37,8 @@
 		"phing/phing": "2.16.*",
 		"phpunit/phpunit": "5.7.27",
 		"tedivm/jshrink": "1.3.*",
-		"rosio/wordpress-i18n-tools": "dev-master"
+		"rosio/wordpress-i18n-tools": "dev-master",
+		"yoast/phpunit-polyfills": "^1.0.3"
 	},
 	"scripts": {
 		"install-test-support": "./bin/install-wp-tests.sh wp_test root root mysql",
