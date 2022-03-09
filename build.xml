@@ -131,7 +131,7 @@
         <exec command="svn stat ${svn_dir}/trunk | grep '^\?' | awk '{print $2}' | xargs svn add" />
         <exec command="svn stat ${svn_dir}/trunk | grep '^\!' | awk '{print $2}' | xargs svn rm" />
 
-        <exec command="svn commit ${svn_dir}/trunk -m 'deploy from build ${env.TRAVIS_BUILD_NUMBER} of ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
+        <exec command="svn commit ${svn_dir}/trunk -m 'deploy ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
 
         <exec command="svn copy http://plugins.svn.wordpress.org/postmatic/trunk http://plugins.svn.wordpress.org/postmatic/tags/${version} -m 'Tagging ${version}' --no-auth-cache --username '${env.SVN_USER}' --password '${env.SVN_PASSWORD}'" passthru="true" />
     </target>
