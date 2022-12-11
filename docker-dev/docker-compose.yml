@@ -30,7 +30,7 @@ services:
       - ./auth.json:/tmp/auth.json
 
   phpunit:
-    image: wordpress:php7.4
+    image: wordpress:php7.3
     entrypoint: vendor/bin/phpunit
     command: --version
     environment:

@@ -67,7 +67,6 @@ var prompt_options_page_env;
 
 		$( 'form' ).submit( disable_next_submit );
 
-		init_download_prompt();
 		init_helpscout_beacon();
 
 	} );
@@ -116,47 +115,6 @@ var prompt_options_page_env;
 		function fail() {
 			$checking_connection.hide();
 			$( '#bad-connection' ).show();
-		}
-	}
-
-	function init_download_prompt() {
-
-		if ( $( '#download-modal' ).length === 0 ) {
-			return;
-		}
-
-		$( '#prompt-tabs' ).find( 'a.download-modal' ).click( function( e ) {
-			e.preventDefault();
-			show();
-		} );
-
-		if ( !prompt_options_page_env.skip_download_intro ) {
-			show();
-		}
-
-		function show() {
-
-			tb_show( prompt_options_page_env.download_title, '#TB_inline?inlineId=download-modal' );
-			setTimeout( function() { $(window).trigger( 'resize' ); }, 1 );
-
-			var $download_prompt = $( '#download-premium-prompt, #download-labs-prompt' );
-
-			$download_prompt.find( 'a.download' ).click( function() {
-				$download_prompt.hide();
-				$( '#install-labs-prompt, #install-premium-prompt' ).show();
-			} );
-
-			$( '#dismiss-download-modal' ).click( function( e ) {
-
-				e.preventDefault();
-
-				$.ajax( {
-					url: ajaxurl,
-					data: { action: 'prompt_dismiss_notice', 'class': 'Prompt_Admin_Download_Modal_Notice' },
-					success: tb_remove
-				} );
-			} );
-
 		}
 	}
 

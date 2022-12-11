@@ -152,7 +152,6 @@ class Prompt_Core {
 		add_action( 'wp_ajax_prompt_comment_unsubscribe',             array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_comment_unsubscribe' ) );
 		add_action( 'wp_ajax_nopriv_prompt_comment_unsubscribe',      array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_comment_unsubscribe' ) );
 		add_action( 'wp_ajax_prompt_is_connected',                    array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_is_connected' ) );
-		add_action( 'wp_ajax_prompt_dismiss_notice',                  array( 'Prompt_Ajax_Handling', 'action_wp_ajax_prompt_dismiss_notice' ) );
 
 		add_action( 'delete_user',              array( 'Prompt_User_Handling', 'delete_subscriptions' ) );
 		add_action( 'edit_user_profile',        array( 'Prompt_User_Handling', 'render_profile_options' ) );

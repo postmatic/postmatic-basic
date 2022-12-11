@@ -181,47 +181,6 @@ class Prompt_Admin_Options_Tab extends scbAdminPage {
 
 	/**
 	 * @since 2.0.0
-	 * @return string
-	 */
-	protected function download_labs_link() {
-		return sprintf(
-			'<a href="%s" class="download-modal labs">%s</a>',
-			Prompt_Enum_Urls::DOWNLOAD_PREMIUM,
-			__( 'Labs', 'Postmatic' )
-		);
-	}
-
-	/**
-	 * @since 2.0.0
-	 * @return string
-	 */
-	protected function download_premium_link() {
-		return sprintf(
-			'<a href="%s" class="install_link download-modal premium">%s</a>',
-			Prompt_Enum_Urls::DOWNLOAD_PREMIUM,
-			__( 'Install', 'Postmatic' )
-		);
-	}
-
-	/**
-	 * @since 2.0.0
-	 * @return string
-	 */
-	protected function contextual_download_link() {
-
-		if ( $this->is_premium_active() ) {
-			return '';
-		}
-
-		if ( $this->options->is_api_transport() ) {
-			return $this->download_premium_link();
-		}
-
-		return $this->download_labs_link();
-	}
-
-	/**
-	 * @since 2.0.0
 	 * @return bool
 	 */
 	protected function is_premium_active() {

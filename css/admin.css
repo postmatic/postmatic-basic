@@ -965,21 +965,6 @@ a.button.download:hover, a.button.install:hover {
     padding-top: 200px !important;
 }
 
-#dismiss-download-modal  {
-    top: 7px;
-    position: relative;
-    color: gray;
-    margin: 0 auto;
-    width: 200px;
-    text-align: center;
-    font-size: 10px;
-    display: block;
-}
-
-#dismiss-download-modal:hover {
-  cursor: pointer;
-}
-
 div#core-options-promo, #core-options-promo-paid {
   text-align: center;
   background: white;

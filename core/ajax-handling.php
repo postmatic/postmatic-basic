@@ -43,23 +43,6 @@ class Prompt_Ajax_Handling {
 	}
 
 	/**
-	 * Dismiss a notice.
-	 * @since 2.0.0
-	 */
-	public static function action_wp_ajax_prompt_dismiss_notice() {
-
-		if ( empty( $_GET['class'] ) or ! class_exists( $_GET['class'] ) ) {
-			wp_send_json_error();
-		}
-
-		$notice = new $_GET['class'];
-
-		$notice->dismiss();
-
-		wp_send_json_success();
-	}
-
-	/**
 	 * @param $post_id
 	 * @return array|bool
 	 */
