@@ -45,6 +45,7 @@
         <include name="vendor/salesforce/**"/>
         <include name="vendor/freemius/**"/>
         <include name="vendor/postmatic/**"/>
+        <include name="vendor/symfony/**"/>
         <exclude name="**/tests/**"/>
         <exclude name="**/wp-org-assets/**"/>
     </fileset>
