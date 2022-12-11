@@ -2,7 +2,7 @@ version: '3'
 
 services:
   wordpress:
-    image: wordpress:php7.3
+    image: wordpress:php7.4
     ports:
       - 8080:80
     environment:
@@ -13,22 +13,24 @@ services:
       - uploads:/var/www/html/wp-content/uploads
   
   mysql:
-    image: mariadb
+    image: mariadb:10.4.12
     environment:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql:/var/lib/mysql
 
   composer:
-    image: composer
+    image: composer:php7.3
     command: install
+    env_file:
+      - ./auth.env
     volumes:
       - ..:/app
       - replyable-test-support:/tmp
       - ./auth.json:/tmp/auth.json
 
   phpunit:
-    image: wordpress:php7.3
+    image: wordpress:php7.4
     entrypoint: vendor/bin/phpunit
     command: --version
     environment:

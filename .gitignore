@@ -9,3 +9,4 @@ composer.phar
 wp-cli.phar
 
 docker-dev/auth.json
+docker-dev/auth.env
